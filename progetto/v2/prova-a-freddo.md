@@ -2,8 +2,8 @@
 
 > 2026-10-31. Proposta di Claude, da validare. Una sessione Claude Code ha fatto finta di essere la prima chat sull'account
 > nuovo, in un repo privato appena creato (`/tmp/memo`), **senza contesto**: ha letto solo il
-> [pacchetto](/_progetto/pacchetto/LEGGIMI.md) e le note dell'Atlante che il pacchetto fa importare. Ha eseguito il
-> [prompt di avvio](/_progetto/pacchetto/prompt-avvio.md) alla lettera, da coordinatore con subagent dal compito piccolo,
+> [pacchetto](/progetto/pacchetto/LEGGIMI.md) e le note dell'Atlante che il pacchetto fa importare. Ha eseguito il
+> [prompt di avvio](/progetto/pacchetto/prompt-avvio.md) alla lettera, da coordinatore con subagent dal compito piccolo,
 > fino alla porta del blocco 6 esclusa. Il codice scritto è in `_progetto/prova-a-freddo/codice/` (39 file: script,
 > schemi, test, tabella d'importazione in JSON; senza le note markdown dei dati né le fixture `.md`).
 
@@ -221,6 +221,6 @@ Righe aggiunte a `prompt/smista.md` (passo 3), ognuna con il paragrafo del model
 
 ## Collegamenti
 
-- [Pacchetto](/_progetto/pacchetto/LEGGIMI.md) · [Prompt di avvio](/_progetto/pacchetto/prompt-avvio.md) ·
-  [Piano](/_progetto/pacchetto/01-piano.md) · [Modello v3](/_progetto/pacchetto/02-modello-v3.md) ·
-  [Banco di prova](/_progetto/pacchetto/04-banco-di-prova.md)
+- [Pacchetto](/progetto/pacchetto/LEGGIMI.md) · [Prompt di avvio](/progetto/pacchetto/prompt-avvio.md) ·
+  [Piano](/progetto/pacchetto/01-piano.md) · [Modello v3](/progetto/pacchetto/02-modello-v3.md) ·
+  [Banco di prova](/progetto/pacchetto/04-banco-di-prova.md)

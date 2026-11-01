@@ -1,8 +1,8 @@
 # Attriti della simulazione d'ingresso
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Raccoglie gli attriti emersi simulando
-> [il modello](/_progetto/v2/modello.md) sui 25 messaggi di [il banco](/_progetto/v2/banco-di-prova.md):
-> i file, le risposte e i costi sono in [la simulazione](/_progetto/v2/simulazione/ingresso.md).
+> [il modello](/progetto/v2/modello.md) sui 25 messaggi di [il banco](/progetto/v2/banco-di-prova.md):
+> i file, le risposte e i costi sono in [la simulazione](/progetto/v2/simulazione/ingresso.md).
 
 ## In breve
 

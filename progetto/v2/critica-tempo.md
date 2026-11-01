@@ -1,8 +1,8 @@
 # Critica del modello v2: il tempo e l'uso reale
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> Critica avversaria del [modello v2](/_progetto/v2/modello.md), letto con [essenza](/_progetto/v2/essenza.md),
-> [archivio reale](/_progetto/v2/archivio-reale.md) e [telefono](/_progetto/v2/telefono.md). Non cerca conferme:
+> Critica avversaria del [modello v2](/progetto/v2/modello.md), letto con [essenza](/progetto/v2/essenza.md),
+> [archivio reale](/progetto/v2/archivio-reale.md) e [telefono](/progetto/v2/telefono.md). Non cerca conferme:
 > cerca dove il modello crolla col passare del tempo e con un utente vero.
 > I numeri marcati *stima* sono calcoli nostri. I tempi e i costi delle Routine vanno misurati sul campo.
 
@@ -17,7 +17,7 @@ mesi la voce del sistema è quella di Claude, e il segno ● fa passare le parol
 
 ## 0. Le ipotesi di simulazione
 
-**Il ritmo osservato.** In un mese di Atlante ci sono 5 giorni attivi (4–8 ottobre), poi ~23 giorni di silenzio ([archivio reale](/_progetto/v2/archivio-reale.md)), poi una
+**Il ritmo osservato.** In un mese di Atlante ci sono 5 giorni attivi (4–8 ottobre), poi ~23 giorni di silenzio ([archivio reale](/progetto/v2/archivio-reale.md)), poi una
 giornata intensa il 31 ottobre (26 commit). Il corpus degli ingressi ha 72 messaggi in cinque mesi simulati, lunghi in media
 **17 parole**. Ne seguono due profili per l'anno:
 
@@ -31,7 +31,7 @@ segnale: in quel volume, la parte più grossa non è pensiero suo, è conversazi
 
 **Le misure di un file** (*stima*). Il frammento in `contesto/parole.md`, con la riga della data, vale ~50 token. La lettura
 di §5.2 occupa ~700 caratteri, cioè ~250 token. Una riga di `contesto/indice.md` vale ~30 token (lo dice
-[telefono §3](/_progetto/v2/telefono.md)). Una restituzione di risposta vale 50–150 token, una lettera ~400.
+[telefono §3](/progetto/v2/telefono.md)). Una restituzione di risposta vale 50–150 token, una lettera ~400.
 
 ---
 
@@ -41,7 +41,7 @@ di §5.2 occupa ~700 caratteri, cioè ~250 token. Una riga di `contesto/indice.m
 
 | settimana | che cosa fa lui | che cosa riceve | effetto |
 |---|---|---|---|
-| **0** (1 nov) | i 10 passi a mano di [telefono](/_progetto/v2/telefono.md): repo, PAT, ambiente, due Routine, Comando rapido, Progetto | niente | **rischio zero-giorno**: è il genere di compito che nell'Atlante restava senza risposta (0 decisioni su ~130) |
+| **0** (1 nov) | i 10 passi a mano di [telefono](/progetto/v2/telefono.md): repo, PAT, ambiente, due Routine, Comando rapido, Progetto | niente | **rischio zero-giorno**: è il genere di compito che nell'Atlante restava senza risposta (0 decisioni su ~130) |
 | **1** (2–8) | 7 memo in 3 giorni: Galimberti mar 23:40, "ah e…" mer 08:12, un link Spotify, Sisifo felice gio, un reel. Sabato chiede nel Progetto "cosa ho salvato questa settimana?" | 7 volte "Salvato". Le 7 risposte di 1–2 righe finiscono in `contesto/recenti.md`, che non apre mai. La domanda di sabato riceve una risposta vecchia, perché il **Sync è manuale** | domenica 8: **la lettera della tensione** (Galimberti, il nucleo, Rust). **Primo stupore.** |
 | **2** (9–15) | 3 memo, due in raffica. Una sera, 6 turni nel Progetto ("canzoni sulla solitudine", "altre", "la seconda sì") | 3 "Salvato". La chat è di sola lettura e non salva niente: "la seconda sì" **si perde** | domenica 15: lettera magra. L'unico materiale "vecchio" è l'importato, quindi tornano Rust e il nucleo. Il "ti ricordi?" a una settimana cade su Galimberti, **di 12 giorni prima**: se lo ricorda benissimo. **Prima noia: la ripetizione.** |
 | **3** (16–22) | silenzio dal 14 al 24 | niente; il consolidamento non gira (corretto) | intanto l'orologio dei 60 giorni corre sulle proposte della settimana 1 |
@@ -57,7 +57,7 @@ uno banale, 0 risposte salvate dalla chat.
 - **Che cosa annoia:** la lettera 2, che ricicla il seme, e il "ti ricordi?" di cose recenti.
 - **Quando smette:** il punto di rottura cade nella settimana 3. Se l'ultima cosa ricevuta prima del silenzio è stata una
   lettera ripetitiva, il ritorno non è garantito. È lo stesso profilo dei 23 giorni.
-- **La causa di fondo:** la **scena 1 dell'[essenza](/_progetto/v2/essenza.md)** (Galimberti che trova Rust nell'attimo
+- **La causa di fondo:** la **scena 1 dell'[essenza](/progetto/v2/essenza.md)** (Galimberti che trova Rust nell'attimo
   della cattura) alla tappa 1 non accade mai. Il modello lo ammette (§8.7), ma lascia il primo mese senza la meraviglia
   della cattura, che è proprio il mese in cui si decide l'abitudine.
 
@@ -73,7 +73,7 @@ la ricompensa arriva con l'aspetto di un file di configurazione.
 - (b) Il testo della lettera è il **messaggio finale della sessione Routine**. Se la notifica della Routine apre la
   sessione nell'app Claude, che è privata dietro il login, la lettera si legge lì, in prosa e senza YAML. È da provare
   per primo (punto 2 di telefono, "che cosa resta da provare").
-- (c) Il connettore MCP di sola lettura (`cerca`, `leggi`) va **anticipato** al secondo mese, non rimandato "dopo 1-3 mesi" come in [telefono](/_progetto/v2/telefono.md).
+- (c) Il connettore MCP di sola lettura (`cerca`, `leggi`) va **anticipato** al secondo mese, non rimandato "dopo 1-3 mesi" come in [telefono](/progetto/v2/telefono.md).
 
 **C2. La domanda su cose recenti fallisce in silenzio.** *Gravità alta.* "Cosa ho salvato ieri?" nel Progetto non
 sincronizzato risponde con dati vecchi, senza dirlo. È il primo tradimento di fiducia, e arriva nella settimana 1.
@@ -88,7 +88,7 @@ non "boh", non "sì"). Altrimenti la settimana slitta e la lettera successiva co
 con lo stesso nodo d'appoggio importato.
 
 **C4. Il "ti ricordi?" come quiz.** *Gravità media.* L'indizio con la fine nascosta ("…quale?") è una domanda, e il dato
-dice 0 risposte su ~18. "Torna una volta, più facile" è un sollecito, e il principio 12 dell'[essenza](/_progetto/v2/essenza.md) lo vieta. Inoltre gli intervalli
+dice 0 risposte su ~18. "Torna una volta, più facile" è un sollecito, e il principio 12 dell'[essenza](/progetto/v2/essenza.md) lo vieta. Inoltre gli intervalli
 (una settimana, un mese…) contati dal salvataggio producono ricordi di cose di 12 giorni prima.
 **Correzione:**
 - il "ti ricordi?" è un'**affermazione**: la frase intera, la data, una riga d'oggi, e nessuna attesa di risposta;
@@ -99,7 +99,7 @@ dice 0 risposte su ~18. "Torna una volta, più facile" è un sollecito, e il pri
 seme. **Correzione:** il sogno resta spento fino a **50 frammenti parlanti**.
 
 **C6. Le raffiche spezzano l'ingresso.** *Gravità alta: settimana 1, prima sera.* Galimberti alle 23:40 e poi "ah e…"
-qualche minuto dopo (succede, E01–E02) fanno partire **due sessioni in parallelo** ([telefono §2](/_progetto/v2/telefono.md)).
+qualche minuto dopo (succede, E01–E02) fanno partire **due sessioni in parallelo** ([telefono §2](/progetto/v2/telefono.md)).
 I guasti sono tre:
 - la seconda sessione legge gli "ultimi 3 giorni" da un `main` che non contiene ancora il primo frammento, e "la frase
   dell'ospite" non si risolve;
@@ -153,7 +153,7 @@ Inoltre `contesto/` **non lo rigenera la Routine "smista"**: lo rigenera un pass
 ### Che cosa entra nel contesto di una domanda
 
 - **Profilo A:** tutto `contesto/` sta comodo nel Progetto per **3–4 anni** (parole.md cresce di ~20k token l'anno).
-- **Profilo B:** a ~180k token il Progetto passa da solo al recupero (RAG) ✔ ([telefono §3](/_progetto/v2/telefono.md)).
+- **Profilo B:** a ~180k token il Progetto passa da solo al recupero (RAG) ✔ ([telefono §3](/progetto/v2/telefono.md)).
   Allora "tutte le volte che ho parlato di mio padre" restituisce **una parte**, senza dirlo. I conteggi del ritratto
   fatto in chat diventano falsi. Il modello lo rimanda a "quando diventerà troppo grande": col profilo B succede tra il
   sesto e il nono mese.

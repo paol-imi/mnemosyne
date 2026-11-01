@@ -1,10 +1,10 @@
 # Memo-coscienza: la proposta unica
 
 > Progettazione, 2026-10-31. Proposta di Claude, da validare. Unifica i quattro documenti di
-> [schema](/_progetto/schema.md), [domande](/_progetto/domande.md), [acquisizione](/_progetto/acquisizione.md)
-> e [migrazione](/_progetto/migrazione.md), applicando le decisioni del coordinatore. Dove i quattro divergono vale questo.
+> [schema](/progetto/schema.md), [domande](/progetto/domande.md), [acquisizione](/progetto/acquisizione.md)
+> e [migrazione](/progetto/migrazione.md), applicando le decisioni del coordinatore. Dove i quattro divergono vale questo.
 > Nessuna nota, cartella o script esistente è stato toccato.
-> Il racconto della sessione è nel [diario del 2026-10-31](/diario/2026-10-31-memo-coscienza.md).
+> Il racconto della sessione è nel [diario del 2026-10-31](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/diario/2026-10-31-memo-coscienza.md).
 
 ## 1. Visione
 

@@ -1,11 +1,11 @@
 # Prove di tempo e uso (T01–T10) sul modello v3
 
 > Simulazione v4, 2026-10-31. Proposta di Claude, da validare. Esegue le dieci prove T del
-> [banco definitivo](/_progetto/v2/banco-di-prova-v2.md) (§4) sul [modello v3](/_progetto/v2/modello-v3.md),
+> [banco definitivo](/progetto/v2/banco-di-prova-v2.md) (§4) sul [modello v3](/progetto/v2/modello-v3.md),
 > con misure vere dove si può: un generatore di dati sintetici, un prototipo di `contesto.mjs`, un simulatore
 > a eventi del lucchetto e gli indicatori Q calcolati in due scenari. Tutto il codice è girato in `/tmp`, fuori dal
 > repository; qui ne resta l'essenziale. Gli attriti, con gravità e correzione, sono in
-> [attriti del tempo](/_progetto/v2/simulazione/attriti-tempo.md).
+> [attriti del tempo](/progetto/v2/simulazione/attriti-tempo.md).
 
 ## 0. In breve
 
@@ -35,7 +35,7 @@ distribuzione di Zipf, 150 persone, opere, citazioni), 1230 restituzioni (rispos
 lettere settimanali, 6 ritratti). Due silenzi di 15 e 18 giorni, 276 giorni attivi, picchi la sera, il 30% dei memo
 in raffica (1–5 minuti dopo il precedente). Le frasi: lunghezza lognormale (media misurata **18,6 parole**, 3–60),
 mescolando parole funzionali e il **lessico ✦ estratto dalle 31 frasi sue** della
-[simulazione dell'importazione](/_progetto/v2/simulazione/importazione.md) (dolore, solitudine, battaglie, cammino,
+[simulazione dell'importazione](/progetto/v2/simulazione/importazione.md) (dolore, solitudine, battaglie, cammino,
 incisione, tratteggio…), refusi del suo tipo ("nn", "xke", "cmq"). Nessun altro frammento contiene "cicatrice" o
 "nebbia" (verificato con `grep`).
 
@@ -341,7 +341,7 @@ niente; ciò che resta sono **ritardi** (fire falliti, uscite al passo 2, attese
 
 ## Collegamenti
 
-- [Modello v3](/_progetto/v2/modello-v3.md) · [Banco definitivo](/_progetto/v2/banco-di-prova-v2.md) ·
-  [Critica del tempo](/_progetto/v2/critica-tempo.md) · [Telefono](/_progetto/v2/telefono.md) ·
-  [Attriti del tempo](/_progetto/v2/simulazione/attriti-tempo.md) ·
-  [Importazione simulata](/_progetto/v2/simulazione/importazione.md)
+- [Modello v3](/progetto/v2/modello-v3.md) · [Banco definitivo](/progetto/v2/banco-di-prova-v2.md) ·
+  [Critica del tempo](/progetto/v2/critica-tempo.md) · [Telefono](/progetto/v2/telefono.md) ·
+  [Attriti del tempo](/progetto/v2/simulazione/attriti-tempo.md) ·
+  [Importazione simulata](/progetto/v2/simulazione/importazione.md)

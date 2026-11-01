@@ -1,8 +1,8 @@
 # La restituzione, fatta davvero
 
 > Raffinamento v2, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> [Essenza](/_progetto/v2/essenza.md) e [archivio reale](/_progetto/v2/archivio-reale.md) dicono che la meraviglia sta
-> nella **restituzione**, non nella cattura. Qui provo a farla, sui tuoi dati veri di oggi: [nucleo](/nucleo.md),
+> [Essenza](/progetto/v2/essenza.md) e [archivio reale](/progetto/v2/archivio-reale.md) dicono che la meraviglia sta
+> nella **restituzione**, non nella cattura. Qui provo a farla, sui tuoi dati veri di oggi: [nucleo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/nucleo.md),
 > la tua lista, le sei note che hai portato tu, le convergenze già scritte. Ogni pezzo sta su uno schermo di telefono.
 > Giudicali a pancia: quale ti fa qualcosa, quale no.
 >
@@ -139,7 +139,7 @@ Il 4 ottobre hai scritto un'etica in una riga. Cominciava così:
 <details>
 <summary>Vedi com'era</summary>
 
-> *"…negativo esplorato."* (la tua lista, nel [bene relativo](/concetti/bene-relativo.md))
+> *"…negativo esplorato."* (la tua lista, nel [bene relativo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/bene-relativo.md))
 
 Te la richiamo oggi perché è la stessa idea del coro di Eschilo (2.1), detta da te prima di conoscerlo; ed è il contrario
 del "tutto è permesso" che si attribuisce a Ivan Karamazov (6.1): per te il bene non manca, si guadagna. Nell'archivio non
@@ -170,7 +170,7 @@ per vicinanza al tuo percorso, e dico da dove viene ognuna.
    anonimo e i 36 giusti.
 6. ◌ "La bellezza salverà il mondo." *L'idiota*, parte III, cap. 5. Attenzione: Myškin non la dice mai; gliela attribuisce Ippolit, con ironia.
 7. ○ Ivan "restituisce il biglietto" al creatore, per il dolore dei bambini. *Karamazov*, libro V, cap. 4, "La rivolta". → La tua
-   [rivolta](/concetti/rivolta.md), e Camus, che a Ivan dedica pagine nell'*Uomo in rivolta*.
+   [rivolta](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/rivolta.md), e Camus, che a Ivan dedica pagine nell'*Uomo in rivolta*.
 
 **Da non usare così:** "Se Dio non esiste, tutto è permesso" non c'è alla lettera; nel romanzo l'idea di Ivan è riferita da
 altri (Miusov, Dmitrij, Smerdjakov). E una fuori classifica, per il confronto (4): la lettera del 1854 su Cristo e la verità.
@@ -225,12 +225,12 @@ Lo sfondo greco è vero, il legame con Galimberti da verificare: Platone, *Fedro
 la follia, quando è data per dono divino".
 
 **Con che cosa risuona in te**
-- La tua [dissoluzione dell'io](/concetti/dissoluzione-dell-io.md) ●: *"distacco dall'io… parte di una forza più grande"*. Per
+- La tua [dissoluzione dell'io](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/dissoluzione-dell-io.md) ●: *"distacco dall'io… parte di una forza più grande"*. Per
   Galimberti l'amore è il posto dove questo succede a tutti, senza Advaita: l'io si perde.
 - Ma anche la tensione ●: la terza tesi è il tuo condottiero. L'amore come "realizzazione di sé" è l'io napoleonico che usa
   l'altro; l'amore come follia è l'io che si scioglie. Le tue due anime, dentro una sola parola.
-- [Amore e Psiche](/idee/amore-e-psiche/index.md) ◌: *l'anima perde l'amore cercando la verità*. Il Fedro c'è già, nelle
-  [mute della cicala](/idee/mute-della-cicala/index.md) ◌: è lo stesso dialogo delle follie divine.
+- [Amore e Psiche](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/idee/amore-e-psiche/index.md) ◌: *l'anima perde l'amore cercando la verità*. Il Fedro c'è già, nelle
+  [mute della cicala](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/idee/mute-della-cicala/index.md) ◌: è lo stesso dialogo delle follie divine.
 - E un altro suo libro, *L'ospite inquietante* (2007), prende il titolo da Nietzsche, il nichilismo come "il più inquietante
   fra tutti gli ospiti". Il tuo nucleo dice *"Non nichilismo"*: Galimberti è una voce che sta proprio su quella porta.
 

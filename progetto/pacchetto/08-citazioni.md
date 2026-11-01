@@ -3,7 +3,7 @@
 > 2026-10-31. Proposta di Claude, da validare. Nove subagent in parallelo, uno per gruppo di tre citazioni, con ricerca web.
 > Nessuna nota o script è stato toccato. Le citazioni sono brevi e nessuna è un testo di canzone.
 > Perché conta: l'unica irritazione documentata dell'utente verso Claude è l'invenzione
-> ("te le sia inventate tu di sana pianta", vedi [l'archivio reale](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/archivio-reale.md)). La provenienza non si negozia.
+> ("te le sia inventate tu di sana pianta", vedi [l'archivio reale](../v2/archivio-reale.md)). La provenienza non si negozia.
 
 ## 0. In cinque righe
 
@@ -24,7 +24,7 @@ Legenda. **Esito**: verificata · simile (la forma corretta è accanto) · attri
 affidabili (Quote Investigator, PolitiFact, studi, fondazioni). **It.** = la forma italiana è stata confrontata con una
 traduzione pubblicata (sì/no). R/min = ricerche e minuti stimati.
 
-### Dal corpus (come le scrive l'utente, [esempi in ingresso](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/esempi-ingresso.md))
+### Dal corpus (come le scrive l'utente, [esempi in ingresso](../v2/esempi-ingresso.md))
 
 | # | Citazione come arriva | Esito | Fonte vera e forma corretta | Prova | It. | R/min |
 |---|---|---|---|---|---|---|

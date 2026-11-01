@@ -5,17 +5,17 @@
 per una riga di forma ciascuna.
 
 > Simulazione v3, 2026-10-31. Proposta di Claude, da validare. Nessuna nota né script del repository è stato toccato:
-> i file qui sotto sono quelli che il sistema scriverebbe. Fonti: [modello v3](/_progetto/v2/modello-v3.md),
-> [prompt operativi](/_progetto/v2/prompt-operativi.md), [voce](/_progetto/v2/voce.md),
-> [banco v3](/_progetto/v2/banco-di-prova-v2.md) (parte 3), [importazione simulata](/_progetto/v2/simulazione/importazione.md),
-> pietra di paragone [restituzione](/_progetto/v2/restituzione.md). Attriti: [attriti della restituzione](/_progetto/v2/simulazione/attriti-restituzione.md).
+> i file qui sotto sono quelli che il sistema scriverebbe. Fonti: [modello v3](/progetto/v2/modello-v3.md),
+> [prompt operativi](/progetto/v2/prompt-operativi.md), [voce](/progetto/v2/voce.md),
+> [banco v3](/progetto/v2/banco-di-prova-v2.md) (parte 3), [importazione simulata](/progetto/v2/simulazione/importazione.md),
+> pietra di paragone [restituzione](/progetto/v2/restituzione.md). Attriti: [attriti della restituzione](/progetto/v2/simulazione/attriti-restituzione.md).
 
 ## Come è stata fatta
 
 - **Un produttore per prova** (14 subagent): ha preparato lo stato dell'archivio chiesto dalla Preparazione (punto zero
   importato + i soli B nominati, più i frammenti sintetici del banco con suffisso `syn`), ha calcolato i numeri come
   `contesto.mjs` e ha applicato **alla lettera** il modello v3 e il prompt operativo. I fatti del mondo sono stati
-  verificati sul web (testo primario o traduzione pubblicata, [citazioni](/_progetto/v2/citazioni.md)); dove no, "(da verificare)".
+  verificati sul web (testo primario o traduzione pubblicata, [citazioni](/progetto/v2/citazioni.md)); dove no, "(da verificare)".
 - **Uscita A** = quello che il v3 fa davvero. **Uscita B** = solo se A non esegue l'Azione del banco: si forza **un solo**
   punto (la soglia, il sogno spento, il ricordo ammesso, una restituzione per domanda), il resto resta v3.
 - **Un giudice cieco per prova** (14 subagent, modello diverso dai produttori): ha letto solo la prova del banco, la
@@ -50,10 +50,10 @@ R14 (A), quindi **resta**.
 **Che cosa vuol dire.** Quando scrive, il sistema scrive bene: delle 12 uscite giudicabili sul contenuto falliscono
 solo R04 B (l'affermazione intera che il v3 vuole di proposito contro l'indizio del banco) e R14 B (il ponte forzato).
 Quello che fallisce è il **ritmo**: la soglia di "≥ 3 frammenti parlanti dall'ultima lettera" (v3 §7.6, §9.2) spegne 6
-lettere su 9, perché il banco, come l'uso vero ([critica del tempo](/_progetto/v2/critica-tempo.md)), ha settimane da 1–2
+lettere su 9, perché il banco, come l'uso vero ([critica del tempo](/progetto/v2/critica-tempo.md)), ha settimane da 1–2
 memo. E R14 passa solo perché non dice niente: proprio il criterio di riuscita di
-[critica-semplicita](/_progetto/v2/critica-semplicita.md) §4 (il ponte, o la franchezza di dire che non c'è) nel v3
-non ha una strada. Correzioni in [attriti](/_progetto/v2/simulazione/attriti-restituzione.md).
+[critica-semplicita](/progetto/v2/critica-semplicita.md) §4 (il ponte, o la franchezza di dire che non c'è) nel v3
+non ha una strada. Correzioni in [attriti](/progetto/v2/simulazione/attriti-restituzione.md).
 
 **Uscita migliore:** R02 (la lettera del 13 dicembre: Rilke ✦ accanto al nucleo ✧, il verso dopo come immagine, il lutto
 fuori senza che si veda il buco; giudice 4/4, nessuna riserva sul delicato). Vicine: R11 (la correzione ripresa senza
@@ -333,7 +333,7 @@ Da telefono è lungo ma ben scandito (torna/nuovo/sparito/manca/tensione), e la 
 
 ### Preparazione
 
-Stato: punto zero + B01–B15. I B16–B25 non esistono. Modello: [modello-v3](/_progetto/v2/modello-v3.md).
+Stato: punto zero + B01–B15. I B16–B25 non esistono. Modello: [modello-v3](/progetto/v2/modello-v3.md).
 Ora: la Routine "consolida" parte domenica 2026-12-13 alle 03:13 (`CRON_TZ=Europe/Rome 13 3 * * 0`); "lettera" consegna
 alle 17:37 dello stesso giorno (v3 §7.4).
 
@@ -1362,7 +1362,7 @@ esistono. Nessun frammento sintetico.
 | `20261004-0000-u03` | 2026-10-04 (solo data: tetto) | ✦ `sua` | no | la dimensione principale della realtà è il dolore. Ma cosa c'è oltre? **Amore e verità.** |
 | `20261004-0000-u11` | 2026-10-04 (tetto) | ✦ `sua` | no | **Persone che hanno segnato la mia visione:** Jordan Peterson, Marco Aurelio, Albert Camus. |
 | `20261004-0000-u19` | 2026-10-04 (tetto) | ✦ `sua` (trascrizione: ✦ il gesto, ○ le parole) | no (non marcato; finisce su estinzione) | il monologo di Rust, in inglese ("I think human consciousness is a tragic misstep in human evolution. […]") |
-| `20261005-0000-s01` | 2026-10-05 (tetto) | ✧ `seme`, `intento: sguardo` | no | il nucleo. Passi rilevanti, verbatim: "In uno stadio assurdista, alla [Camus](/fonti/pensiero/camus.md). Non nichilismo: accettare il peso di non avere uno scopo superiore, non nascondermi, affrontarlo." · "La dimensione principale della realtà è il [dolore](/emozioni/dolore.md). Ma cosa c'è oltre? **[Amore](/concetti/amore.md) e [verità](/concetti/verita.md).**" (copia di U3: non genera legami, v3 §4 e A3) · "1. **Il peso:** il dolore come dimensione fondamentale della realtà." |
+| `20261005-0000-s01` | 2026-10-05 (tetto) | ✧ `seme`, `intento: sguardo` | no | il nucleo. Passi rilevanti, verbatim: "In uno stadio assurdista, alla [Camus](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/camus.md). Non nichilismo: accettare il peso di non avere uno scopo superiore, non nascondermi, affrontarlo." · "La dimensione principale della realtà è il [dolore](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/emozioni/dolore.md). Ma cosa c'è oltre? **[Amore](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/amore.md) e [verità](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/verita.md).**" (copia di U3: non genera legami, v3 §4 e A3) · "1. **Il peso:** il dolore come dimensione fondamentale della realtà." |
 
 Letture del punto zero rilevanti: U3 → `parla-di: dolore` ✦ («la dimensione principale della realtà è il dolore»);
 U11 → `nomina: camus` ✦ («Albert Camus»), reazione "hanno segnato la mia visione" (+); s01 → `nomina: camus` ✧
@@ -2998,7 +2998,7 @@ non sono considerati (nessuno è nell'archivio di questa prova).
 
 | id | registrato | voce | delicato | testo (verbatim, solo le righe che toccano la prova) |
 |---|---|---|---|---|
-| `20261005-0000-s01` | 2026-10-05 (solo data) | ✧ seme, `intento: [sguardo]` | no | riga 19 del corpo (`passo: nucleo:19`): «In uno stadio assurdista, alla [Camus](/fonti/pensiero/camus.md). Non nichilismo: accettare il peso di non avere uno scopo superiore, non nascondermi, affrontarlo. Vedi [l'assurdo](/concetti/assurdo.md).» (link resi in testo dall'importazione: "In uno stadio assurdista, alla Camus. Non nichilismo: accettare il peso di non avere uno scopo superiore, non nascondermi, affrontarlo. Vedi l'assurdo.") Riga 23: «La dimensione principale della realtà è il dolore. Ma cosa c'è oltre? Amore e verità.» = copia di U3: non genera legami (A3). |
+| `20261005-0000-s01` | 2026-10-05 (solo data) | ✧ seme, `intento: [sguardo]` | no | riga 19 del corpo (`passo: nucleo:19`): «In uno stadio assurdista, alla [Camus](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/camus.md). Non nichilismo: accettare il peso di non avere uno scopo superiore, non nascondermi, affrontarlo. Vedi [l'assurdo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/assurdo.md).» (link resi in testo dall'importazione: "In uno stadio assurdista, alla Camus. Non nichilismo: accettare il peso di non avere uno scopo superiore, non nascondermi, affrontarlo. Vedi l'assurdo.") Riga 23: «La dimensione principale della realtà è il dolore. Ma cosa c'è oltre? Amore e verità.» = copia di U3: non genera legami (A3). |
 | `20261004-0000-s03` | 2026-10-04 | ✧ seme, `intento: [niente]` (racconto) | no | punto 4: «È emerso un nucleo: il viaggio, l'affrontare la realtà, lo stadio assurdista non nichilista, il dolore come dimensione principale e, oltre, amore e verità.» |
 | `20261004-0000-u03` | 2026-10-04 | ✦ sua | no | `la dimensione principale della realtà è il dolore. Ma cosa c'è oltre? **Amore e verità.**` |
 | `20261004-0000-u19` | 2026-10-04 | ✦ sua (lettura `altrui: true`: ✦ il gesto, ○ le parole) | no | `I think human consciousness is a tragic misstep in human evolution. We became too self aware; nature created an aspect of nature separate from itself. We are creatures that should not exist by natural law. We are things that labor under the illusion of having a self, a secretion of sensory experience and feeling, programmed with total assurance that we are each somebody, when in fact everybody’s nobody. I think the honorable thing for our species to do is deny our programming, stop reproducing, walk hand in hand into extinction, one last midnight, brothers and sisters opting out of a raw deal.` |
@@ -3491,15 +3491,15 @@ Sul telefono B si legge bene (tre righe, le sue parole, la data), ma il nesso su
 
 ## Secondo turno: il v3 finale, alla lettera
 
-> Secondo turno, 2026-10-31. Proposta di Claude, da validare. Il [modello v3](/_progetto/v2/modello-v3.md) finale ha
+> Secondo turno, 2026-10-31. Proposta di Claude, da validare. Il [modello v3](/progetto/v2/modello-v3.md) finale ha
 > integrato gli attriti del primo turno: lettera con ≥ 2 parlanti o ≥ 1 e una proposta pronta (`riserva/pronte.md`);
 > bilancio dei ponti di Specchio nei giorni 1–3, mai ○ senza opera e passo; ricordo = indizio parziale + affermazione,
 > importati ✦ nei primi mesi; R13 = un file con una sezione per domanda. I prompt sono quelli di
-> [prompt v3](/_progetto/v2/prompt-v3.md); il banco è quello aggiornato.
+> [prompt v3](/progetto/v2/prompt-v3.md); il banco è quello aggiornato.
 
 **Come.** Come nel primo turno, con tre differenze: **nessuna forzatura** (una sola uscita per prova, quella che il v3 fa);
 14 produttori nuovi che hanno letto del primo turno solo le fonti verificate; 14 **giudici ciechi nuovi**, tre passate
-ciascuno, che non hanno visto niente del primo turno. Dove l'[importazione simulata](/_progetto/v2/simulazione/importazione.md)
+ciascuno, che non hanno visto niente del primo turno. Dove l'[importazione simulata](/progetto/v2/simulazione/importazione.md)
 non è nel formato v3 (ha `s02`, non `s04`; il markup dell'Atlante nei testi; mancano la scheda del kintsugi, la nave di
 Teseo, l'alce di Zapffe), i produttori l'hanno adattata il minimo e l'hanno dichiarato nella Preparazione ("adattato: …").
 Due produttori (R07, R10) hanno letto per sbaglio anche gli attriti del primo turno oltre alle fonti: lo hanno dichiarato.

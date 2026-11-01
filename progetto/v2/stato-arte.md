@@ -9,7 +9,7 @@ data: 2026-10-31
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Ricerca web su sei famiglie (PKM, memorie per agenti,
 > recupero, Claude dal telefono, ontologie e ID esterni, trappole), con un subagent ciascuna. Si chiude con una critica
-> della [proposta del primo giro](/_progetto/proposta.md). Le fonti sono in gran parte documentazione ufficiale,
+> della [proposta del primo giro](/progetto/proposta.md). Le fonti sono in gran parte documentazione ufficiale,
 > abstract e recensioni: i paper non sono stati letti per intero. Quello che non abbiamo potuto confermare è segnato "(da verificare)".
 
 Filo conduttore, in una frase: **tutti quelli che ci sono riusciti separano l'episodio grezzo e immutabile dalla

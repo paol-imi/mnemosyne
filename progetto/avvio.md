@@ -1,6 +1,6 @@
 # Avvio dell'MVP
 
-Prompt per avviare l'implementazione del primo traguardo (MVP) descritto nella [proposta](/_progetto/proposta.md).
+Prompt per avviare l'implementazione del primo traguardo (MVP) descritto nella [proposta](/progetto/proposta.md).
 Uso: apri una nuova chat di Claude Code sul repo `paol-imi/tattoo-shit` e incolla il blocco qui sotto.
 
 ```text

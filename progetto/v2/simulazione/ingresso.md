@@ -1,8 +1,8 @@
 # Simulazione d'ingresso: i 25 messaggi del banco
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Simulazione: i file qui sotto sono finti e stanno in
-> blocchi di codice, non sono note. Applica [il modello](/_progetto/v2/modello.md) al
-> [banco di prova](/_progetto/v2/banco-di-prova.md); ciò che stride è raccolto in [gli attriti](/_progetto/v2/simulazione/attriti-ingresso.md).
+> blocchi di codice, non sono note. Applica [il modello](/progetto/v2/modello.md) al
+> [banco di prova](/progetto/v2/banco-di-prova.md); ciò che stride è raccolto in [gli attriti](/progetto/v2/simulazione/attriti-ingresso.md).
 
 **Come leggere.** Ogni file è un blocco di codice preceduto dal suo percorso in grassetto, come `inline-code`
 (per esempio **`frammenti/2026/11/20261103-2340.md`**). Per ogni messaggio: il **frammento**, la **lettura**, i **nodi**

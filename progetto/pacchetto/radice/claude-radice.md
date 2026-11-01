@@ -24,8 +24,10 @@ la sua bozza in `ingresso/` mentre conversa (`prompt/specchio.md`).
 
 Un file, un solo scrittore:
 - `letture/` versione 1: "smista" (o Specchio che ne fa il lavoro); versione ≥ 2: solo "consolida" e le migrazioni.
-- nodi: creazione (compresi `esito` e `riferimento` della verifica rapida, e i temi per i concetti che nomino io) e
-  nuovi alias: "smista"; ogni altro campo, i temi dedotti e le lapidi `fuso-in`: "consolida".
+- nodi: creazione (una citazione nasce con solo `nome`, `attribuita-a`, `nato-da`, senza `esito`: ⚠; i temi solo per
+  i concetti che nomino io, ✦, e nascono subito) e nuovi alias: "smista"; ogni altro campo (`esito`, `riferimento`,
+  `autore`, `originale` compresi), i temi dedotti ◌ (alla 2ª–3ª ricorrenza, cioè a una vicenda) e le lapidi `fuso-in`:
+  "consolida". Unica eccezione: le citazioni dell'Atlante accolte all'importazione nascono già con `esito` e `riferimento`.
 - `riserva/`: solo "consolida", sempre attraverso `applica.mjs`.
 - restituzioni `risposta`: "smista" e Specchio; `lettera`: "consolida" ("lettera" la consegna e basta); `ritratto`:
   "ritratto"; `eredita`: solo l'importazione.
@@ -43,7 +45,8 @@ Un file, un solo scrittore:
 ## I quattro tipi (campi essenziali; lo schema intero è in `_schema.md`)
 - **frammento**: `registrato`, `canale` (`telefono` · `chat` · `importato`); `voce` (`sua` · `seme`) solo per
   l'importato; `forma: riportata` per l'importato e per la chat ricopiata dal memo del Progetto; `allegati`;
-  `continua` (la chat che prosegue un frammento già sigillato). Il corpo è il testo esatto, refusi compresi. In una chat:
+  `continua` (la chat che prosegue un frammento già sigillato); `intento`, facoltativo, una lista: lo scrive solo il
+  Comando rapido "Chiedi", con il predefinito `[chiedi]`, e la lettura contiene sempre i suoi valori. Il corpo è il testo esatto, refusi compresi. In una chat:
   solo i miei turni, ciascuno preceduto da `[HH:MM]`.
 - **lettura**: `schema: 3`, `versione`, `letto-da`, `prompt`, `intento` (`salva` · `chiedi` · `sguardo` · `niente`),
   `reazione` (`{parole, verso: "+" · "-" · "±"}`, `parole` copiate esatte dal frammento), `legami`, `parole`, `link`,
@@ -60,7 +63,8 @@ Un file, un solo scrittore:
 Ogni legame: `{p, a | tra, voce, perche, …}`; `perche` = le mie parole tra «» o una riga tua.
 - `nomina` → persona, opera, citazione o `~Nome`; `momento`, `fruizione` (`da-fare` · `in-corso` · `fatta`).
 - `parla-di` → tema o nodo usato come immagine; `come: metafora · stato`.
-- `serve-a` → raccolta.
+- `serve-a` → raccolta. Un frammento precedente messo in una raccolta («quella di ieri la voglio tra i tatuaggi»): il memo
+  nuovo porta `serve-a` verso la raccolta e `ritorna-su` (`come: aggiunge`) verso il vecchio, che non si tocca.
 - `ritorna-su` → frammento o restituzione (`n`, `passo`, `turno`); `come`: aggiunge · corregge · ripensa · effetto ·
   accoglie · rifiuta · chiede. Una correzione porta `nodo`, `campo` (autore, attribuita-a, in, nome), `vecchio`,
   `valore` (`@Nome` ammesso per autore, attribuita-a, in). Tutti gli atti passano da qui.
@@ -121,7 +125,9 @@ calcolati, mai scritti.
   senso", "spero ti sia utile", "fammi sapere", "non esitare"), saluti, emoji, solleciti ("è da un po' che non scrivi",
   "torna", "bentornato"), arretrati, la coda di ciò che non ho letto.
 - Domande: nessuna, tranne all'ingresso i 7 casi (sotto), il confronto (una, in fondo), il ritratto (una, in chiusura,
-  che non ripete una domanda "in sospeso"). Niente "quanto ti ha colpito", niente voti, niente "vuoi che…".
+  che non ripete una domanda "in sospeso"). Nelle risposte alle domande (Progetto, Specchio) nessuna: solo "Vuoi il
+  resto?", che è una riga di servizio. Niente "quanto ti ha colpito", niente voti, niente "vuoi che…", "ne salvo
+  qualcuna?", "ti torna?".
 - Contraddire: due mie frasi datate affiancate, il nome della tensione in una riga, nessun verdetto, al più una voce
   verificata, mai sulla persona, mai su temi delicati, mai un'etichetta come destino.
 - Esempi. Sì: "**Salvato.** Il 4 ottobre avevi scritto quasi la stessa cosa: *le versioni di me morte lungo il
@@ -188,10 +194,11 @@ nominano.
 | `node scripts/migra/fondi.mjs DA IN` | la fusione di due temi (la chiama `applica.mjs` per un'operazione `lapide`) |
 | `node scripts/contesto.mjs` | rigenera `contesto/` |
 | `node scripts/verifica.mjs` | prima di ogni push: schema, hash, immutabilità, link, Q-nomi, ritornelli, tetto |
-Regole: si lavora su `main`. Il clone è pulito: se `node_modules/` manca, prima di tutto `npm ci`. Il piano si scrive
-in un file con lo strumento di scrittura dei file, **mai con un heredoc della shell** (perde gli apostrofi). Se
-`verifica.mjs` fallisce dopo `applica.mjs`, i file restano scritti: annulla con `git reset --hard` e `git clean -fd`
-(il lucchetto è già nel commit precedente), correggi il piano e rifai da `smista.mjs prepara`. **Fencing**: se `rinnova` o `lascia` dicono che il lucchetto non è più tuo, abbandona
+Regole: si lavora su `main`. Il clone è pulito: se `node_modules/` manca, prima di ogni script `bash ambiente/setup.sh`
+(installa le dipendenze con `npm ci`). Il piano si scrive
+in un file con lo strumento di scrittura dei file, **mai con un heredoc della shell** (perde gli apostrofi).
+`applica.mjs` è transazionale: scrive in una cartella di lavoro, lancia `verifica.mjs` e mette i file al loro posto solo
+se passa; se rifiuta, non resta niente da annullare: correggi il piano (`prompt/formato-piano.md`, "Rifiuto"). **Fencing**: se `rinnova` o `lascia` dicono che il lucchetto non è più tuo, abbandona
 senza spingere niente. Un push solo se `verifica.mjs` passa; se fallisce, correggi una volta, poi non spingere e scrivi
 il motivo nel messaggio finale. Un frammento senza lettura è la coda: non si perde niente. Mai `git push --force`.
 
@@ -244,7 +251,9 @@ Ordine: testo primario (Gutenberg, Liber Liber, Perseus, archive.org), poi tradu
 (Wikiquote, Quote Investigator). `esito` giudica l'attribuzione all'`autore`: autore giusto e opera sbagliata =
 `verificata` con il `riferimento` dell'opera vera; vero autore ignoto = `errata` con `autore` vuoto; noto = `errata` con
 `autore` pieno. La mia attribuzione va sempre in `attribuita-a`; `autore` solo se verificato. Se non trovi: niente
-`esito` (⚠) e la traccia della ricerca nel corpo del nodo.
+`esito` (⚠) e la traccia della ricerca nel corpo del nodo. Sui nodi l'esito lo scrive solo "consolida"; all'ingresso ("smista",
+Specchio) c'è solo la verifica rapida, che non scrive mai `esito`, `riferimento`, `autore` né `originale`: ciò che trova
+va come traccia nel corpo del nodo e, se conta, in una riga della risposta con ⚠.
 
 ## Lavorare con i subagent
 Ogni subagent ha un compito piccolo e chiuso (un frammento, tre citazioni, una sezione) e riporta in breve.

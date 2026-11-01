@@ -2,7 +2,7 @@
 
 > 2026-10-31. Proposta di Claude, da validare. Il [protocollo](./08-citazioni.md) (§3) applicato alle 17 citazioni vive
 > ([eredità §3.3](./06-eredita.md)) e alle 9 segnalate ([citazioni §4](./08-citazioni.md),
-> [attriti A8](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-importazione.md)). Sono 26 voci, ma Marco Aurelio e Jung (§ 335) compaiono in
+> [attriti A8](../v2/simulazione/attriti-importazione.md)). Sono 26 voci, ma Marco Aurelio e Jung (§ 335) compaiono in
 > entrambi gli elenchi: le citazioni distinte sono **24**. Ognuna è stata verificata da un subagent, con ricerca web e testo scaricato.
 > Le note sono state corrette nella `## Citazione`. Sulle note validate la correzione resta dentro il blocco proposta già presente.
 

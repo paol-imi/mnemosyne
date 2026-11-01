@@ -9,7 +9,7 @@ data: 2026-10-31
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Ricerca web su fonti ufficiali (docs Anthropic,
 > GitHub, Apple, Cloudflare, app Android), quattro subagent in parallelo. Completa il §4 dello
-> [stato dell'arte](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/stato-arte.md) e serve i principi 1, 2 e 12 dell'[essenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md).
+> [stato dell'arte](../v2/stato-arte.md) e serve i principi 1, 2 e 12 dell'[essenza](../v2/essenza.md).
 > Legenda: **✔** = letto in una pagina ufficiale il 2026-10-31; **?** = da verificare o da provare sul campo;
 > *stima* = calcolo o giudizio nostro.
 

@@ -1,9 +1,9 @@
 # Critica del modello v2: semplicità e implementabilità
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. È la voce del critico avversario: non tocca note né
-> script. Mette alla prova il [modello](/_progetto/v2/modello.md) con il suo [banco di prova](/_progetto/v2/banco-di-prova.md)
-> e con le avvertenze di [essenza](/_progetto/v2/essenza.md) §5 ("progetta un archivista; tu hai chiesto uno specchio") e
-> di [stato dell'arte](/_progetto/v2/stato-arte.md) §7 ("11 tipi, ~25 campi, 17 predicati prima del primo frammento vero.
+> script. Mette alla prova il [modello](/progetto/v2/modello.md) con il suo [banco di prova](/progetto/v2/banco-di-prova.md)
+> e con le avvertenze di [essenza](/progetto/v2/essenza.md) §5 ("progetta un archivista; tu hai chiesto uno specchio") e
+> di [stato dell'arte](/progetto/v2/stato-arte.md) §7 ("11 tipi, ~25 campi, 17 predicati prima del primo frammento vero.
 > È la strada di Tana").
 
 **In una riga.** Il modello v2 ha ripetuto l'errore che denuncia. Ha tolto 9 predicati, ma ha aggiunto 5 file JSON, 5 formule,
@@ -57,9 +57,9 @@ Gli elementi passano da circa 130 a circa 65.
 
 | tolto | perché non serviva (banco) | rischio, e quando rimetterlo |
 |---|---|---|
-| **`.indice/` intero** (grafo, tempo, vicende, scarti, conti) | Chi legge l'indice? La chat del Progetto legge **solo** `contesto/` (banco, intro parte 2; [telefono](/_progetto/v2/telefono.md) §3). Quindi ogni numero che D01, D11, D18, D23 e D24 usano deve comunque stare in `contesto/`. Ci sono due strati derivati, e chi fa le domande ne vede uno solo. Un unico `contesto.mjs` calcola in memoria e scrive `mappa.md` (conti per mese e per tema, importati esclusi; parole candidate con date; rifiuti con contesto; `contraddice` con date; da fare / in corso / fatte; alias → slug). | nessuno: è lo stesso calcolo, scritto in un file solo |
+| **`.indice/` intero** (grafo, tempo, vicende, scarti, conti) | Chi legge l'indice? La chat del Progetto legge **solo** `contesto/` (banco, intro parte 2; [telefono](/progetto/v2/telefono.md) §3). Quindi ogni numero che D01, D11, D18, D23 e D24 usano deve comunque stare in `contesto/`. Ci sono due strati derivati, e chi fa le domande ne vede uno solo. Un unico `contesto.mjs` calcola in memoria e scrive `mappa.md` (conti per mese e per tema, importati esclusi; parole candidate con date; rifiuti con contesto; `contraddice` con date; da fare / in corso / fatte; alias → slug). | nessuno: è lo stesso calcolo, scritto in un file solo |
 | `recenti.md`, `indice.md`, `ritratto.md` | `recenti` è contenuto in `parole.md` (tutti i frammenti, alla lettera, in ordine). `indice.md` serve quando `parole.md` non entra più nel contesto: a 25–50 frammenti succede tra anni (stima del modello: 30 token a riga). Il ritratto è una restituzione e vive in `restituzioni/`. **In più:** in `parole.md` le restituzioni stanno in mezzo ai frammenti, in ordine di tempo e con le voci numerate. Così "la terza" (D17) e "ok grazie" (D05) hanno il referente subito sopra. | `indice.md` torna quando `parole.md` supera ~150k token |
-| **formule**: forza, vitalità, `sbiadito`, validità, sorpresa | Nessuna risposta del banco dipende da un peso. "Pesa 2" (B03) e "vitalità 1/bassa" (B01, B13) sono righe **Indice** che nessuna **Risposta** usa. D14 ordina "per reazione": l'AI legge le reazioni citate. Nessun caso supera i 60 giorni di una proposta intatta, quindi `sbiadito` non è mai messo alla prova. | `sbiadito` torna quando le proposte ◌ intatte superano 100 (il mausoleo: [archivio reale](/_progetto/v2/archivio-reale.md) lezione 2) |
+| **formule**: forza, vitalità, `sbiadito`, validità, sorpresa | Nessuna risposta del banco dipende da un peso. "Pesa 2" (B03) e "vitalità 1/bassa" (B01, B13) sono righe **Indice** che nessuna **Risposta** usa. D14 ordina "per reazione": l'AI legge le reazioni citate. Nessun caso supera i 60 giorni di una proposta intatta, quindi `sbiadito` non è mai messo alla prova. | `sbiadito` torna quando le proposte ◌ intatte superano 100 (il mausoleo: [archivio reale](/progetto/v2/archivio-reale.md) lezione 2) |
 | stato `superato` | Il banco stesso lo dice lacuna (B20). D10 e D12 si risolvono con `contraddice` più le date: "ottobre ✧ → 8 marzo ✦". La finestra bi-temporale non cambia nessuna risposta. | quando servirà "che cosa pensavo *ancora* a gennaio" |
 | `atti` e `in-risposta-a` | Fanno lo stesso lavoro di `ritorna-su {di, n}`. Il caso D05 lo dimostra: `in-risposta-a` punta a D04, l'effetto è su D03, e `ritorna-su` non ha `n`. Unificando, `ritorna-su` prende `{di: r-…, n: 3}` e `come: aggiunge · corregge · effetto · accoglie · rifiuta`. D17, D18, D05, B02 e B22 passano tutti, e la lacuna di D05 si chiude. | nessuno: c'è un meccanismo in meno da spiegare |
 | `intento`: `accogli`, `rifiuta`, `correggi` | Sono già nel `come` di `ritorna-su`: si scriverebbero due volte. | — |
@@ -73,9 +73,9 @@ Gli elementi passano da circa 130 a circa 65.
 | `apocrifa` / `attribuzione-errata` | Diventano `errata`. Che il vero autore sia noto (B09: Nietzsche) o ignoto (B06) lo dice `autore`, pieno o vuoto. | — |
 | `detta-da`, `traduttore`, `versione-di`, `anno` | Ivan (D15) va nel `riferimento`. "Resa di Claude" va nella `traduzione`. E23 ed E24 (le cover) non sono nel banco. L'anno sta nel nome o nella risposta. | si aggiungono rileggendo |
 | fase 1 del consolidamento: tagging all'indietro, fusione dei doppioni, divisione dei temi | Nessun caso. | quando i temi superano 30 |
-| fase 2 a rotazione; sogno; "ti ricordi?" a intervalli crescenti; ritratto trimestrale; "mentre eri via" | **Il banco non ne collauda nessuna** (nessun caso B o D). Tengo **una** lettera settimanale (vedi §1.3), la cui forma sceglie l'AI. Il "ti ricordi?" può starci dentro, una volta. | il ritmo si decide dopo il primo mese, dalle reazioni vere ([restituzione](/_progetto/v2/restituzione.md): nessuna ancora registrata) |
+| fase 2 a rotazione; sogno; "ti ricordi?" a intervalli crescenti; ritratto trimestrale; "mentre eri via" | **Il banco non ne collauda nessuna** (nessun caso B o D). Tengo **una** lettera settimanale (vedi §1.3), la cui forma sceglie l'AI. Il "ti ricordi?" può starci dentro, una volta. | il ritmo si decide dopo il primo mese, dalle reazioni vere ([restituzione](/progetto/v2/restituzione.md): nessuna ancora registrata) |
 | Routine "sogno" separata | È lo stesso prompt di "smista" con `--settimana`. | — |
-| Action che pulisce i `claude/*` | Il prompt dice già "lavora su `main`". | se i branch appaiono davvero (va misurato, [telefono](/_progetto/v2/telefono.md) prova 1) |
+| Action che pulisce i `claude/*` | Il prompt dice già "lavora su `main`". | se i branch appaiono davvero (va misurato, [telefono](/progetto/v2/telefono.md) prova 1) |
 
 ### 1.3 Che cosa ho provato a togliere e ho dovuto rimettere
 
@@ -104,7 +104,7 @@ l'informazione.
 
 ### 2.1 La chat non può scrivere, e tutte le domande del banco scrivono
 
-Il Progetto claude.ai è **in sola lettura** e il Sync è manuale ([telefono](/_progetto/v2/telefono.md) §1d, §3). Il modello
+Il Progetto claude.ai è **in sola lettura** e il Sync è manuale ([telefono](/progetto/v2/telefono.md) §1d, §3). Il modello
 (§4.1, passo 3) dice che "alla tappa 1 lo fa la chat stessa con un memo", ma una chat di Progetto non ha strumenti per
 scrivere nel repo. L'utente dovrebbe copiare la domanda e la risposta nel Comando rapido, a mano, ogni volta: è il
 contrario del principio 2. Il risultato:
@@ -117,7 +117,7 @@ incollare, oppure far passare ogni domanda dalla Routine, con minuti d'attesa.
 
 **Che cosa aggiungere.** Una regola esplicita: **finché non c'è il connettore MCP, le domande si fanno in una sessione
 Code sul repo**, che può scrivere. Il Progetto resta facoltativo, per chiacchierare senza memoria. La sessione Code costa
-1-2 minuti d'avvio ([stato dell'arte](/_progetto/v2/stato-arte.md) §4). Per una domanda è accettabile, per una cattura no:
+1-2 minuti d'avvio ([stato dell'arte](/progetto/v2/stato-arte.md) §4). Per una domanda è accettabile, per una cattura no:
 la lezione 1 ("l'attesa si toglie di mezzo") riguarda la cattura. Così sparisce anche il Sync manuale.
 
 ### 2.2 L'identità dei nodi: slug, alias, concorrenza
@@ -127,7 +127,7 @@ Il modello vuole lo slug "mai cambiato" (§2.1), ma non dice né come nasce né 
   E per una citazione senza nome (B21, "questa")?
 - **Dove l'AI cerca gli alias.** La Routine apre una sessione nuova a ogni passata. Con 500 nodi deve leggere 500 file per
   trovare "chioran" (B25)?
-- **Due fire ravvicinati** sono due sessioni in parallelo ([telefono](/_progetto/v2/telefono.md) §2). Se due memo nominano
+- **Due fire ravvicinati** sono due sessioni in parallelo ([telefono](/progetto/v2/telefono.md) §2). Se due memo nominano
   Galimberti, possono nascere sia `galimberti` sia `umberto-galimberti`, e il `pull --rebase` non li fonde: sono due file
   diversi.
 
@@ -177,7 +177,7 @@ una nella verifica.
 | `risolvi.mjs` + integrazione | ~95 + ~50 | — |
 | `rileggi` | ~150 + prompt | — |
 | `verifica.mjs` (4 tipi, slug, link, immutabilità di frammenti e restituzioni, schema) | ~300 | ~150 |
-| importazione dall'Atlante (regole R1–R13 di [eredità](/_progetto/v2/eredita.md)) | ~400 | ~200 (nucleo, 31 frasi U, 25 convergenze, raccolta tatuaggi) |
+| importazione dall'Atlante (regole R1–R13 di [eredità](/progetto/v2/eredita.md)) | ~400 | ~200 (nucleo, 31 frasi U, 25 convergenze, raccolta tatuaggi) |
 | Action di pulizia dei branch | ~25 YAML | — |
 | collaudo automatico sul banco | ~200 | ~100 |
 | **codice** | **~2.000–2.300 righe, 8 script + 1 Action** | **~750–850 righe, 3 script + l'importazione** |
@@ -214,8 +214,8 @@ Le regole del confine sono quattro:
 
 **Il criterio di riuscita.** Entro il **terzo giorno d'uso**, l'utente riceve almeno un **ponte inatteso**: un suo memo
 nuovo agganciato a una sua frase vecchia dell'Atlante, citata alla lettera e con la data, che non aveva messo insieme lui.
-È la scena 1 di [essenza](/_progetto/v2/essenza.md) §3 (Galimberti ↔ Rust, "entrambi sul prezzo della lucidità"), il
-"ponte inatteso" di essenza §1, e la lezione 6 dell'[archivio reale](/_progetto/v2/archivio-reale.md) ("la convergenza
+È la scena 1 di [essenza](/progetto/v2/essenza.md) §3 (Galimberti ↔ Rust, "entrambi sul prezzo della lucidità"), il
+"ponte inatteso" di essenza §1, e la lezione 6 dell'[archivio reale](/progetto/v2/archivio-reale.md) ("la convergenza
 è il prodotto").
 
 **Il problema del modello v2.** Alla tappa 1 la risposta di ogni memo finisce in `contesto/recenti.md`, e l'utente la vede
@@ -228,8 +228,8 @@ soluzione alla tappa 2, cioè a 1-3 mesi. La meraviglia è rimandata proprio dov
 | giorno | che cosa | quanto codice |
 |---|---|---|
 | 0 (Claude Code, prima dell'utente) | Repo privato. Importazione minima: il nucleo come frammento ✧, le 31 frasi U ✦, le 25 convergenze e le idee di tatuaggio come restituzioni importate, `raccolte/tatuaggi.md`. Poi `smista.mjs`, `verifica.mjs` con lo schema (§2.3), CLAUDE.md. | ~400 righe |
-| 0 (l'utente, ~20 min) | Tre passi soli di [telefono](/_progetto/v2/telefono.md): repo e App GitHub, PAT, Comando rapido **solo `PUT`**, senza fire. "Salvato" in un secondo; nessuna AI nella cattura. | — |
-| 1 | **La prima restituzione, prima ancora del primo memo** (è il "primo traguardo" del modello, §9): un ritratto breve sul nucleo e sulle 31 frasi, con **una** convergenza nuova ancorata a una sua frase. Le forme sono già provate in [restituzione](/_progetto/v2/restituzione.md) §1–§2. | prompt |
+| 0 (l'utente, ~20 min) | Tre passi soli di [telefono](/progetto/v2/telefono.md): repo e App GitHub, PAT, Comando rapido **solo `PUT`**, senza fire. "Salvato" in un secondo; nessuna AI nella cattura. | — |
+| 1 | **La prima restituzione, prima ancora del primo memo** (è il "primo traguardo" del modello, §9): un ritratto breve sul nucleo e sulle 31 frasi, con **una** convergenza nuova ancorata a una sua frase. Le forme sono già provate in [restituzione](/progetto/v2/restituzione.md) §1–§2. | prompt |
 | 1–3 | Cattura cieca dal Comando rapido. **Una volta al giorno, la sera**, l'utente apre la sessione Code "Specchio" (1-2 minuti d'avvio, a un'ora sola e per scelta: è aprire una lettera, non salvare un pensiero). La sessione lancia `smista.mjs`, scrive le letture e risponde con i ponti della giornata: al massimo uno per memo, **solo se è forte**, sempre da una frase sua e datata. Le domande e i "salvami la terza" si fanno lì, e si salvano come frammento più restituzione (§2.1 risolto). | prompt "Specchio" ~120 righe |
 | 3 | **Prova della meraviglia**: c'è stato almeno un ponte? L'utente ha risposto, ripreso o detto "sì"? Se nessun memo ha trovato un ponte, la sessione lo dice ("niente si aggancia ancora"), e non lo inventa. | — |
 | 5–7 | Solo se l'apertura serale pesa: la Routine "smista" con il fire e `contesto.mjs` per il Progetto. La domenica, la prima lettera. | ~250 righe |
@@ -246,7 +246,7 @@ serve alla scena 1.
 Le altre 47 prove possono aspettare la seconda settimana.
 
 **Il rischio di questa proposta.** La sessione serale va aperta dall'utente, e il silenzio di 23 giorni dice che se il
-sistema non chiama, lui non torna ([archivio reale](/_progetto/v2/archivio-reale.md) §0). Lo accetto per sette giorni, per
+sistema non chiama, lui non torna ([archivio reale](/progetto/v2/archivio-reale.md) §0). Lo accetto per sette giorni, per
 due ragioni:
 - il ponte arriva lo stesso giorno, non la domenica;
 - la Routine con la notifica serve a *richiamare*, non a *meravigliare*, e si aggiunge al giorno 5–7 se la prova del
@@ -256,6 +256,6 @@ due ragioni:
 
 ## Collegamenti
 
-- [Il modello v2](/_progetto/v2/modello.md) · [Banco di prova](/_progetto/v2/banco-di-prova.md) · [Essenza](/_progetto/v2/essenza.md) ·
-  [Stato dell'arte](/_progetto/v2/stato-arte.md) · [Telefono](/_progetto/v2/telefono.md) · [Archivio reale](/_progetto/v2/archivio-reale.md) ·
-  [Restituzione](/_progetto/v2/restituzione.md)
+- [Il modello v2](/progetto/v2/modello.md) · [Banco di prova](/progetto/v2/banco-di-prova.md) · [Essenza](/progetto/v2/essenza.md) ·
+  [Stato dell'arte](/progetto/v2/stato-arte.md) · [Telefono](/progetto/v2/telefono.md) · [Archivio reale](/progetto/v2/archivio-reale.md) ·
+  [Restituzione](/progetto/v2/restituzione.md)

@@ -2,8 +2,8 @@
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Prima serve a simulare il modello a mano, poi a
 > collaudarne l'implementazione: ogni criterio si verifica guardando i file scritti, l'indice o la risposta.
-> Usa il vocabolario di [il modello](/_progetto/v2/modello.md); messaggi e attese vengono da
-> [esempi in ingresso](/_progetto/v2/esempi-ingresso.md) e [esempi di domande](/_progetto/v2/esempi-domande.md).
+> Usa il vocabolario di [il modello](/progetto/v2/modello.md); messaggi e attese vengono da
+> [esempi in ingresso](/progetto/v2/esempi-ingresso.md) e [esempi di domande](/progetto/v2/esempi-domande.md).
 
 ## Come si usa
 
@@ -571,4 +571,4 @@ richiedono il tab Code. Il modello non dice chi lo decide.
 
 ## Collegamenti
 
-- [Il modello v2](/_progetto/v2/modello.md) · [Esempi in ingresso](/_progetto/v2/esempi-ingresso.md) · [Esempi di domande](/_progetto/v2/esempi-domande.md)
+- [Il modello v2](/progetto/v2/modello.md) · [Esempi in ingresso](/progetto/v2/esempi-ingresso.md) · [Esempi di domande](/progetto/v2/esempi-domande.md)

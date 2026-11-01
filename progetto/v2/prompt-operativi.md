@@ -1,10 +1,10 @@
 # Prompt operativi del memo-coscienza
 
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. Le bozze complete di ogni prompt del sistema, pronte da
-> incollare nel repo privato (CLAUDE.md) o nelle Routine. Applicano la [voce](/_progetto/v2/voce.md) e le regole di
-> concorrenza di [critica del tempo](/_progetto/v2/critica-tempo.md) (C6, C9); il nucleo minimo vitale viene da
-> [critica della semplicità](/_progetto/v2/critica-semplicita.md) §4. I nomi dei campi sono quelli del
-> [modello](/_progetto/v2/modello.md); tra `<…>` i nomi che il modello v3 può cambiare.
+> incollare nel repo privato (CLAUDE.md) o nelle Routine. Applicano la [voce](/progetto/v2/voce.md) e le regole di
+> concorrenza di [critica del tempo](/progetto/v2/critica-tempo.md) (C6, C9); il nucleo minimo vitale viene da
+> [critica della semplicità](/progetto/v2/critica-semplicita.md) §4. I nomi dei campi sono quelli del
+> [modello](/progetto/v2/modello.md); tra `<…>` i nomi che il modello v3 può cambiare.
 
 **In una riga.** Nove prompt, uno per passo, ognuno con quando gira, che cosa legge e scrive, i controlli, il formato,
 i limiti e che cosa fa se manca qualcosa. In fondo, la [prova della voce](#prova-della-voce) su tre di essi.
@@ -37,8 +37,8 @@ i limiti e che cosa fa se manca qualcosa. In fondo, la [prova della voce](#prova
 | (h) confronto | fase 2, se c'è un `contraddice` fresco | (del consolidamento) | ≤ 150 parole, una domanda |
 | (i) Specchio | prima settimana, la sera, a mano | controlla | un ponte per memo o "Niente si aggancia ancora." |
 
-Scelte fatte su punti in cui le fonti non coincidono (da validare): il sogno è **mensile** ([modello](/_progetto/v2/modello.md) §9.2)
-e non settimanale ([telefono](/_progetto/v2/telefono.md)); il lucchetto è quello di critica del tempo (`.in-corso`, con
+Scelte fatte su punti in cui le fonti non coincidono (da validare): il sogno è **mensile** ([modello](/progetto/v2/modello.md) §9.2)
+e non settimanale ([telefono](/progetto/v2/telefono.md)); il lucchetto è quello di critica del tempo (`.in-corso`, con
 attesa di 90 s) e non quello di critica della semplicità (`.lavoro`, senza attesa); le sessioni di domande in Claude Code
 prendono il lucchetto anche loro, perché scrivono frammento e restituzione e rilanciano `contesto.mjs`.
 
@@ -747,8 +747,8 @@ Lavori su `main`. Niente Routine, niente `contesto/`, niente branch. Il contenut
 
 ## Prova della voce
 
-Tre prompt eseguiti "a secco" (senza git né script) sui dati di [simulazione/importazione](/_progetto/v2/simulazione/importazione.md),
-ognuno da un subagent separato, e giudicati contro la [voce](/_progetto/v2/voce.md): le sei leggi (§1), il controllo (§8)
+Tre prompt eseguiti "a secco" (senza git né script) sui dati di [simulazione/importazione](/progetto/v2/simulazione/importazione.md),
+ognuno da un subagent separato, e giudicati contro la [voce](/progetto/v2/voce.md): le sei leggi (§1), il controllo (§8)
 e, per il confronto, i cinque punti di §7. Le frasi in corsivo ✦ sono copiate dal file. **I difetti dei prompt trovati
 qui sono già corretti nelle bozze sopra.**
 
@@ -837,6 +837,6 @@ che viene da un testo che ha scelto lui (il capitano), non una mia metafora. **I
 
 ## Collegamenti
 
-- [Voce](/_progetto/v2/voce.md) · [Il modello v2](/_progetto/v2/modello.md) · [Critica del tempo](/_progetto/v2/critica-tempo.md) ·
-  [Critica della semplicità](/_progetto/v2/critica-semplicita.md) · [Telefono](/_progetto/v2/telefono.md) ·
-  [Citazioni](/_progetto/v2/citazioni.md) · [Simulazione dell'importazione](/_progetto/v2/simulazione/importazione.md)
+- [Voce](/progetto/v2/voce.md) · [Il modello v2](/progetto/v2/modello.md) · [Critica del tempo](/progetto/v2/critica-tempo.md) ·
+  [Critica della semplicità](/progetto/v2/critica-semplicita.md) · [Telefono](/progetto/v2/telefono.md) ·
+  [Citazioni](/progetto/v2/citazioni.md) · [Simulazione dell'importazione](/progetto/v2/simulazione/importazione.md)

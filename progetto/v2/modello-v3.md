@@ -1,18 +1,18 @@
 # Il modello v3
 
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> È il modello **definitivo e autosufficiente**: chi lo legge non ha bisogno del [modello v2](/_progetto/v2/modello.md).
-> Integra le prove sul v2: [critica del tempo](/_progetto/v2/critica-tempo.md) (crolli **C1–C15**),
-> [critica della semplicità](/_progetto/v2/critica-semplicita.md) (**CS §n**), gli
-> [attriti dell'importazione](/_progetto/v2/simulazione/attriti-importazione.md) (**A1–A31**) e le
-> [regole d'importazione](/_progetto/v2/simulazione/regole-importazione.md). È allineato al
-> [banco di prova definitivo](/_progetto/v2/banco-di-prova-v2.md), a [voce](/_progetto/v2/voce.md) e ai
-> [prompt operativi](/_progetto/v2/prompt-operativi.md) (§16). Integra anche le
-> simulazioni delle [domande](/_progetto/v2/simulazione/attriti-domande.md) (**Q1–Q33**) e
-> dell'[ingresso](/_progetto/v2/simulazione/attriti-ingresso.md) (**I1–I25**, gli A1–A25 di quel file, rinominati per non
-> confonderli con gli attriti dell'importazione) e la [prova del tempo](/_progetto/v2/simulazione/attriti-tempo.md) sul v3
+> È il modello **definitivo e autosufficiente**: chi lo legge non ha bisogno del [modello v2](/progetto/v2/modello.md).
+> Integra le prove sul v2: [critica del tempo](/progetto/v2/critica-tempo.md) (crolli **C1–C15**),
+> [critica della semplicità](/progetto/v2/critica-semplicita.md) (**CS §n**), gli
+> [attriti dell'importazione](/progetto/v2/simulazione/attriti-importazione.md) (**A1–A31**) e le
+> [regole d'importazione](/progetto/v2/simulazione/regole-importazione.md). È allineato al
+> [banco di prova definitivo](/progetto/v2/banco-di-prova-v2.md), a [voce](/progetto/v2/voce.md) e ai
+> [prompt operativi](/progetto/v2/prompt-operativi.md) (§16). Integra anche le
+> simulazioni delle [domande](/progetto/v2/simulazione/attriti-domande.md) (**Q1–Q33**) e
+> dell'[ingresso](/progetto/v2/simulazione/attriti-ingresso.md) (**I1–I25**, gli A1–A25 di quel file, rinominati per non
+> confonderli con gli attriti dell'importazione) e la [prova del tempo](/progetto/v2/simulazione/attriti-tempo.md) sul v3
 > (**V1–V16**).
-> Il collaudo è il [banco di prova definitivo](/_progetto/v2/banco-di-prova-v2.md) (casi **B01–B25**, **D01–D25**,
+> Il collaudo è il [banco di prova definitivo](/progetto/v2/banco-di-prova-v2.md) (casi **B01–B25**, **D01–D25**,
 > prove di restituzione **R01–R14**, prove di tempo **T01–T10**).
 
 **In una riga.** Tu scrivi e basta. Ogni messaggio diventa un **frammento** immutabile. L'AI lo **legge** e scrive un
@@ -31,27 +31,27 @@ Sono dodici. Ognuno ha la prova che lo fonda.
 
 1. **Le tue parole sono sacre.** Si conservano byte per byte, separate da ogni lettura; l'AI non parla mai con la tua
    voce. *Prova:* "te le sia inventate tu di sana pianta", l'unico scatto d'irritazione documentato
-   ([archivio reale §1](/_progetto/v2/archivio-reale.md)); D02 "le mie frasi, solo le mie".
+   ([archivio reale §1](/progetto/v2/archivio-reale.md)); D02 "le mie frasi, solo le mie".
 2. **Catturare costa zero.** Un tocco, "Salvato", nessuna domanda obbligatoria. *Prova:* 0 risposte su ~18 domande
-   "a pancia" ([essenza §0](/_progetto/v2/essenza.md)).
+   "a pancia" ([essenza §0](/progetto/v2/essenza.md)).
 3. **La struttura è dell'AI: marcata, motivata, usabile subito.** Ogni legame dice da dove viene, perché e con quale voce.
    Nessun cancello di validazione. *Prova:* 0 decisioni su ~130 proposte, poi 23 giorni di silenzio.
 4. **La validazione è l'uso.** Una proposta diventa tua quando la riprendi, la porti da te o dici sì; un no non torna più;
    ciò che resta intatto sbiadisce nella vista, mai nei dati. *Prova:* il caso Karamazov; D17–D18.
 5. **Il significato nasce dopo.** All'ingresso solo entità certe (compresi i concetti che
    nomini tu); i temi **dedotti** nascono alla ricorrenza, rileggendo il vecchio
-   con il nuovo. *Prova:* la sequenza "padre" (D24, [cervello §1](/_progetto/v2/cervello.md)).
+   con il nuovo. *Prova:* la sequenza "padre" (D24, [cervello §1](/progetto/v2/cervello.md)).
 6. **La restituzione è il prodotto.** Prosa ancorata a tue frasi datate. Sogno, "ti ricordi?" e ritratto restano, con
-   soglie e ritmi (§9). *Prova:* [essenza](/_progetto/v2/essenza.md) §1 e scene 1–6, [restituzione](/_progetto/v2/restituzione.md).
+   soglie e ritmi (§9). *Prova:* [essenza](/progetto/v2/essenza.md) §1 e scene 1–6, [restituzione](/progetto/v2/restituzione.md).
 7. **Il tempo è sincero.** Doppio tempo (registrato e vissuto); le posizioni non si cancellano; l'importato non fa serie;
    nessuna curva che i dati non mostrano; un cambio di lettore non si spaccia per un cambio tuo (C13).
 8. **L'archivio è una lente sul mondo.** Le risposte uniscono il tuo e il mondo, con il confine visibile; le citazioni
-   sono verificate o dichiarate ⚠. *Prova:* 0 su 12 citazioni giuste alla lettera ([citazioni](/_progetto/v2/citazioni.md)).
+   sono verificate o dichiarate ⚠. *Prova:* 0 su 12 citazioni giuste alla lettera ([citazioni](/progetto/v2/citazioni.md)).
 9. **I nomi li dai tu.** I temi prendono le tue parole; il sé non si precompila; la voce dell'AI non diventa la tua (C14).
 10. **Uno specchio che contraddice, con misura.** Poche cose forti; il silenzio è legittimo; mai un sollecito.
 11. **Ciò che deve essere identico lo fa uno script; ciò che è giudizio lo fa l'AI e lo scrive.** Slug, nomi di file,
     numerazioni, conteggi, pulizia dei link, spostamenti: script. Intento, entità, reazioni, legami, prosa: AI, dentro un
-    *piano* che lo script applica e verifica. *Prova:* [CS §3.2](/_progetto/v2/critica-semplicita.md); il primo Atlante,
+    *piano* che lo script applica e verifica. *Prova:* [CS §3.2](/progetto/v2/critica-semplicita.md); il primo Atlante,
     dove l'AI ricopiava e normalizzava.
 12. **Un file, un solo scrittore alla volta.** Un lucchetto per il repository, un proprietario per ogni file. *Prova:* C6, C9.
 
@@ -136,7 +136,7 @@ del §3.7, `@Nome` ammesso dove il §3.7 vuole uno slug), e poi i file prodotti 
 | `migra/NNN-*.mjs`, `migra/fondi.mjs`, `migra/tara.mjs` | le migrazioni meccaniche, la fusione dei temi, la taratura del lettore (§11) | quando servono |
 
 Circa **1.100 righe**, contro le ~2.000–2.300 del v2 pieno. I prompt sono file in `prompt/`: `formato-piano.md` più uno per ciclo (`smista`, `consolida`, `lettera`, `ritratto`,
-`specchio`), oltre a `CLAUDE.md` e all'istruzione del Progetto. Le loro bozze sono in [prompt v3](/_progetto/v2/prompt-v3.md).
+`specchio`), oltre a `CLAUDE.md` e all'istruzione del Progetto. Le loro bozze sono in [prompt v3](/progetto/v2/prompt-v3.md).
 
 ---
 
@@ -220,7 +220,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 | `parole` | no | parole candidate a tema, **sempre una lista** (anche di una sola parola: `[greci]`): singolare, minuscolo, la tua forma ("padre", non "padri") | D24; CS §2.3 |
 | `link` | no | [S] `[{url, titolo, autore}]`: puliti (`?si=` via, `t=` tenuto), titolo da oEmbed | B13, B14 |
 | `trascrizione` | no | il testo letto da una foto o da un vocale; **non** è voce tua | B21 |
-| `altrui` | no | `true`: il corpo è in gran parte parole d'altri che hai trascritto (un monologo, una citazione lunga); ✦ il gesto, ○ le parole | [voce §5](/_progetto/v2/voce.md); U19 |
+| `altrui` | no | `true`: il corpo è in gran parte parole d'altri che hai trascritto (un monologo, una citazione lunga); ✦ il gesto, ○ le parole | [voce §5](/progetto/v2/voce.md); U19 |
 | `vissuto` | no | quando è accaduto, se diverso (`stanotte`, `~2009`, `≤2026-10-04`) | B17; A4 |
 | `delicato` | no | `true`: fuori da lettera, ricordo, sogno, ritratto finché non ci torni tu | B12, B25; CS §2.3 |
 | `nota` | no | una riga (≤ 200 caratteri): il dove e il come ("in macchina"), o la cornice breve di Claude per un importato. Le cornici e le descrizioni lunghe (§14.1) vanno nel **corpo della lettura**, che per il resto è vuoto (R41) | B04; A2, A19 |
@@ -229,7 +229,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 
 Un frammento è **parlante** [S] se non è importato, l'intento non è solo `niente` e, tolti i link, restano almeno 3
 parole sue. Tutte le soglie (lettera, sogno, ritratto, giorni attivi) contano solo i parlanti così definiti: i ~32
-importati ✦ non ci entrano ([prompt v3](/_progetto/v2/prompt-v3.md), appendice A n. 8). I non
+importati ✦ non ci entrano ([prompt v3](/progetto/v2/prompt-v3.md), appendice A n. 8). I non
 parlanti (link nudi, "boh", "sì", "ok") restano nei dati ma non contano (§6.2).
 
 ```yaml
@@ -837,7 +837,7 @@ arriva a ~224.000 token in un anno, per l'85% `parole.md`. Quindi:
 Si calcolano al momento della domanda e non si salvano: la pagina di un nodo (3–5 "porte", cioè i tuoi frammenti più forti
 con la data, poi le convergenze, poi il resto per modalità), la linea del tempo (posizioni e stati per mese, con le tue
 parole), il ritratto su richiesta, le assenze (D23: al massimo tre, con numeri ✦). Ogni elenco contiene **una voce della
-coda lunga**, qualcosa che non rivedi da tempo ([cervello §6](/_progetto/v2/cervello.md)).
+coda lunga**, qualcosa che non rivedi da tempo ([cervello §6](/progetto/v2/cervello.md)).
 
 ---
 
@@ -857,7 +857,7 @@ conversazione del Progetto no.
 ### 7.2 "Smista" (minuti, asincrono)
 
 Routine con due inneschi: il `fire` e una passata ogni 3 ore (`7 */3 * * *`) che raccoglie i rimasti. Passi (gli attriti
-citati **I1–I25** sono quelli della [simulazione dell'ingresso](/_progetto/v2/simulazione/attriti-ingresso.md)):
+citati **I1–I25** sono quelli della [simulazione dell'ingresso](/progetto/v2/simulazione/attriti-ingresso.md)):
 
 1. [S] **attesa e lucchetto** (§8.1);
 2. [S] `smista.mjs`: sposta in `frammenti/` **tutto** `ingresso/` (tranne le chat aperte), in ordine di tempo;
@@ -884,7 +884,7 @@ citati **I1–I25** sono quelli della [simulazione dell'ingresso](/_progetto/v2/
    (§7.4 passo 3). L'attribuzione tua va **sempre** in `attribuita-a` (anche un'opera: `~La peste`). Questa è la **regola
    unica** sull'esito all'ingresso (prova a freddo R24/R62): vale per modello, prompt, piano e banco, e `verifica.mjs` la
    accetta. Unica eccezione voluta: una citazione dell'Atlante che accogli nasce già con `esito` e `riferimento`, perché
-   l'importazione fa le veci di "consolida" e quelle citazioni sono già verificate ([correzioni](/_progetto/v2/correzioni-citazioni.md); §14 R7). La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
+   l'importazione fa le veci di "consolida" e quelle citazioni sono già verificate ([correzioni](/progetto/v2/correzioni-citazioni.md); §14 R7). La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
    restano `~Nome` finché non li nomini tu. "Smista" crea temi solo per i concetti che nomini tu (§3.4), mai dedotti (R51);
 5. [S] `applica.mjs`: file, slug, numeri, link puliti. È **transazionale** (R69): scrive in una cartella di lavoro, lancia
    `verifica.mjs` e sposta i file al loro posto solo se passa; se no, non resta niente. Il piano arriva da un file scritto
@@ -930,7 +930,7 @@ delicato o con una reazione −; mai un arretrato, mai "bentornato" (T02).
 
 ### 7.3 Le domande: il Progetto, con il memo da rimandare, e Specchio
 
-La simulazione delle domande ([attriti](/_progetto/v2/simulazione/attriti-domande.md)) dice: dal Progetto 69 criteri
+La simulazione delle domande ([attriti](/progetto/v2/simulazione/attriti-domande.md)) dice: dal Progetto 69 criteri
 passano, 30 male, 1 fallisce; da Code 29/3/0, ma Code costa 4–6 volte il tempo. Quindi **il Progetto è la via di
 default**, e Specchio quella per i casi che lo richiedono.
 
@@ -962,7 +962,7 @@ risposte:
   rapido "Chiedi" (C15e): allora fa testo quella, byte per byte, e il memo aggiunge solo le risposte. Se non rimandi il
   memo, la risposta resta detta in chat e basta: nessun danno, nessun sollecito.
 
-  **Due memo della stessa chat** (stesso id, [prompt v3](/_progetto/v2/prompt-v3.md), appendice B n. 10): il memo successivo
+  **Due memo della stessa chat** (stesso id, [prompt v3](/progetto/v2/prompt-v3.md), appendice B n. 10): il memo successivo
   **sostituisce** il precedente solo se lo contiene come **prefisso**, cioè gli stessi turni e le stesse voci, con turni o
   voci nuovi solo in coda e i numeri `n` continui. Altrimenti [S] `applica.mjs` lo rifiuta e lo mette in coda come
   **conflitto**, che la Specchio successiva ti mostra. Il frammento di chat resta immutabile nel senso del v3: vale l'ultima
@@ -1013,7 +1013,7 @@ lucchetto (se è occupato aspetta, fino a 30 minuti, perché il cron non torna p
 2. [AI] fa nascere i **temi** ricorrenti: una parola candidata che è una vicenda (§6.2) diventa `temi/<tua parola>.md`,
    con `nato-da` uguale ai frammenti-prova; le letture toccate passano a versione nuova;
 3. [AI] completa la **verifica delle citazioni** rimaste ⚠ (testo primario, poi traduzione pubblicata; un subagent ogni
-   3 citazioni, [citazioni](/_progetto/v2/citazioni.md)): `esito`, `riferimento`, `originale`;
+   3 citazioni, [citazioni](/progetto/v2/citazioni.md)): `esito`, `riferimento`, `originale`;
 4. [AI] segna `contraddice` dove una posizione nuova urta una vecchia o lo sguardo; riconosce le accoglienze "con altre
    parole" (Karamazov);
 5. [AI] applica le correzioni ai nodi (§4) e risolve le tracce in sospeso (B04);
@@ -1037,7 +1037,7 @@ tema largo si calcolano al momento della domanda (C8c).
 
 **"Lettera"**, domenica sera (`CRON_TZ=Europe/Rome 37 17 * * 0`). **Non scrive niente**: se "consolida" ha scritto una
 lettera, la consegna; **se non c'è** (soglia mancata o "consolida" fallito), la sessione finisce in silenzio, senza
-notifica: dalla tua parte non succede niente ([prompt v3](/_progetto/v2/prompt-v3.md), appendice A n. 9).
+notifica: dalla tua parte non succede niente ([prompt v3](/progetto/v2/prompt-v3.md), appendice A n. 9).
 Il testo della lettera è il **messaggio finale** della sessione (C1b); la notifica, 5–7 parole senza contenuto, dice
 "La lettera è pronta". Così il lavoro pesante sta di notte e la lettura arriva di sera.
 
@@ -1057,7 +1057,7 @@ Prima della pipeline, una restituzione vera (CS §4):
 | 3 | **il bilancio dei ponti**: Specchio rilegge **tutti** i memo dei giorni 1–3 e chiude con il ponte più forte, oppure con "Niente si aggancia ancora." È la prova della meraviglia: almeno un ponte inatteso, con la tua frase vecchia alla lettera e la data |
 | 4–7 | Specchio ogni sera, come nei giorni 1–3, finché le Routine non sono attive; al giorno 7 (o prima, se l'apertura serale pesa) si attivano il `fire` e le Routine, e la domenica parte la prima lettera |
 
-**Il ponte dei primi giorni** (decisione del coordinatore, [prova di restituzione](/_progetto/v2/simulazione/attriti-restituzione.md) A2):
+**Il ponte dei primi giorni** (decisione del coordinatore, [prova di restituzione](/progetto/v2/simulazione/attriti-restituzione.md) A2):
 - nei primi 3 giorni i **vicini** di un memo (§6.2) comprendono **tutti** gli importati ✦, non solo quelli che condividono
   un nodo: Rust (u19) deve poter rispondere a Galimberti;
 - un ponte si consegna solo se ha un **luogo preciso** da entrambe le parti: la tua frase con la data, e per un ○ l'opera e
@@ -1148,11 +1148,11 @@ anche da notifiche e strumenti esterni.
 
 ## 9. La restituzione e la voce
 
-Le regole di stile intere sono in [voce](/_progetto/v2/voce.md); qui quelle che il modello deve garantire.
+Le regole di stile intere sono in [voce](/progetto/v2/voce.md); qui quelle che il modello deve garantire.
 
 ### 9.1 Le regole di forma (valgono per tutto)
 
-Dalle prove di [restituzione](/_progetto/v2/restituzione.md) e da [voce](/_progetto/v2/voce.md):
+Dalle prove di [restituzione](/progetto/v2/restituzione.md) e da [voce](/progetto/v2/voce.md):
 - ogni pezzo parte da una **tua frase ✦ con la data**; le tue parole sono **in corsivo**, alla lettera; le date degli
   importati si dicono come tetto: "entro il 4 ottobre, nell'archivio d'origine" (la data vera non si sa: A4);
 - le parole **d'altri** che hai trascritto (un monologo, una citazione, una pagina fotografata) vanno tra «», mai in
@@ -1172,7 +1172,7 @@ Dalle prove di [restituzione](/_progetto/v2/restituzione.md) e da [voce](/_proge
 - niente lodi, niente diagnosi, niente frasi fatte, niente testi di canzoni;
 - al più **un ◌ per lettera**: una sola proposta forte.
 
-**Le lunghezze** ([voce §3](/_progetto/v2/voce.md)): risposta a un memo "Salvato." più 0–2 righe (≤ 40 parole; "Salvato."
+**Le lunghezze** ([voce §3](/progetto/v2/voce.md)): risposta a un memo "Salvato." più 0–2 righe (≤ 40 parole; "Salvato."
 da solo è una risposta completa, e non lascia file: C11); risposta a una domanda fino a 150 parole (il minimo di 50 solo con ≥ 3 voci ✦; "vuoi il resto?" solo se il resto c'è);
 lettera ≤ 250; ricordo 2–3 righe; sogno ≤ 120; confronto ≤ 150; ritratto ≤ 400; "mentre eri via" una riga; Specchio ≤ 3 righe per
 memo; notifica 5–7 parole.
@@ -1182,7 +1182,7 @@ memo; notifica 5–7 parole.
 | forma | quando | che cosa contiene | soglie e limiti |
 |---|---|---|---|
 | `risposta` | all'ingresso, a una domanda, a una chat | 1–2 righe; un aggancio, una correzione, o la risposta con voci numerate | solo se ha contenuto (C11); una per raffica (T01) |
-| `lettera` | scritta da "consolida", consegnata domenica sera | **una** cosa tra convergenza, confronto e sogno; i ponti della settimana (≤ 2: "martedì, salvando Galimberti, ho visto Rust"); al massimo **un ricordo** | parte con **≥ 2 frammenti parlanti** dall'ultima lettera consegnata, **oppure ≥ 1 e una proposta pronta** in `riserva/pronte.md`; altrimenti slitta, senza notifica e senza niente da vedere, e la proposta resta in attesa (C3 ammorbidita: con 3 la lettera mancava 6 volte su 9, [prova di restituzione](/_progetto/v2/simulazione/attriti-restituzione.md) A1) |
+| `lettera` | scritta da "consolida", consegnata domenica sera | **una** cosa tra convergenza, confronto e sogno; i ponti della settimana (≤ 2: "martedì, salvando Galimberti, ho visto Rust"); al massimo **un ricordo** | parte con **≥ 2 frammenti parlanti** dall'ultima lettera consegnata, **oppure ≥ 1 e una proposta pronta** in `riserva/pronte.md`; altrimenti slitta, senza notifica e senza niente da vedere, e la proposta resta in attesa (C3 ammorbidita: con 3 la lettera mancava 6 volte su 9, [prova di restituzione](/progetto/v2/simulazione/attriti-restituzione.md) A1) |
 | `ritratto` | il primo del mese nei mesi 1–3, poi ogni tre mesi | che cosa torna, che cosa è nuovo, che cosa è sparito, **che cosa manca**, una tensione, **una** domanda; una riga sulla voce (§9.5) | ≥ 10 frammenti parlanti nel mese (≥ 20 nel trimestre), altrimenti slitta; la riga sulla voce sta **prima** della domanda, che chiude (M2) |
 | `eredita` | importazione | le convergenze e le idee dell'Atlante | fuori dai conti, mai rilanciate |
 
@@ -1449,10 +1449,10 @@ con uno sguardo indietro sui tre mesi:
 
 ## 14. L'importazione dall'Atlante (una volta sola)
 
-Le regole R1–R13 dell'[eredità](/_progetto/v2/eredita.md), riscritte con gli attriti della
-[simulazione](/_progetto/v2/simulazione/attriti-importazione.md). Script `importa.mjs` [S]; i giudizi segnati [AI] si
+Le regole R1–R13 dell'[eredità](/progetto/v2/eredita.md), riscritte con gli attriti della
+[simulazione](/progetto/v2/simulazione/attriti-importazione.md). Script `importa.mjs` [S]; i giudizi segnati [AI] si
 preparano prima, in una tabella che lo script legge. **Questa sezione è la sola norma dell'importazione**: le
-[regole d'importazione](/_progetto/v2/simulazione/regole-importazione.md) (il file 05 del pacchetto) sono **superate** e
+[regole d'importazione](/progetto/v2/simulazione/regole-importazione.md) (il file 05 del pacchetto) sono **superate** e
 usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo come storia (prova a freddo R7).
 
 | regola | che cosa |
@@ -1463,7 +1463,7 @@ usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo
 | **R4 convergenze** | C1–C25 → restituzioni `eredita`, `r-AAAAMMGG-0000-eredita-<slug>`, data del passo (riga di `## Evoluzione` o commit: A5), `aggancio: {a, passo}`, voci numerate con `rif` a un nodo o `~Nome`; `converge-con` con `tra` che ammette voci e `~Nome` (A1); voce ✧ solo se tutto il passo è del seme validato, altrimenti ◌ (A23) |
 | **R5 entità vive** | diventano nodi solo quelle nominate da te o dallo sguardo; slug dell'Atlante conservati; concetti e stili nominati da te → temi (A9); band → persone `mondo` (A10); Dostoevskij da U31 (A18); Napoleone resta alias di `resilienza-napoleonica` (A31) |
 | **R6 proposte** | tutto ciò che è di Claude entra solo dentro restituzioni `eredita`, ◌, che **non sbiadiscono** (A11) |
-| **R7 citazioni** | se l'esito dell'eredità e il protocollo delle [citazioni](/_progetto/v2/citazioni.md) divergono, vince il protocollo (R43); nelle tue frasi → nodi senza `esito` (⚠); quelle scelte da Claude → voci di `r-20261007-0000-eredita-citazioni`, **dopo** il protocollo sulle 17 vive (A8); se ne accogli una, il nodo nasce già con `esito` e `riferimento`: è l'eccezione voluta alla regola dell'esito all'ingresso (§7.2 passo 4), perché l'importazione fa le veci di "consolida" e queste citazioni sono già verificate ([correzioni](/_progetto/v2/correzioni-citazioni.md)); le correzioni sulle entità morte si fanno sull'Atlante, fuori dallo script |
+| **R7 citazioni** | se l'esito dell'eredità e il protocollo delle [citazioni](/progetto/v2/citazioni.md) divergono, vince il protocollo (R43); nelle tue frasi → nodi senza `esito` (⚠); quelle scelte da Claude → voci di `r-20261007-0000-eredita-citazioni`, **dopo** il protocollo sulle 17 vive (A8); se ne accogli una, il nodo nasce già con `esito` e `riferimento`: è l'eccezione voluta alla regola dell'esito all'ingresso (§7.2 passo 4), perché l'importazione fa le veci di "consolida" e queste citazioni sono già verificate ([correzioni](/progetto/v2/correzioni-citazioni.md)); le correzioni sulle entità morte si fanno sull'Atlante, fuori dallo script |
 | **R8 tatuaggi** | `raccolte/tatuaggi.md` con `nato-da: [s03]` e senza `scopo` finché non lo dici tu (`mappa.md` lo segnala; nessuna domanda: §7.2.1) (A30); le tue idee sono frammenti con `serve-a`; le altre restituzioni `eredita` con `serve-a` ◌. Il brief `s02` non esiste: è una vista (A3) |
 | **R9 ricerche** | la tua frase è il frammento; la pista è `nomina` con `fruizione: da-fare`; lo stato della ricerca nell'Atlante va in `nota` (A12) |
 | **R10 pin** | link nel frammento; le descrizioni di Claude in `nota` |
@@ -1593,17 +1593,17 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 38 | primo traguardo: un ritratto | prima settimana senza Routine né Progetto; il ritratto al giorno 1; prova della meraviglia al giorno 3 | CS §4 |
 | 39 | una restituzione per ogni risposta | una per **raffica** (`copre`) e una per **conversazione** (voci con `turno`); `registrato` su ogni restituzione | T01, T04; prompt operativi (a, i) |
 | 40 | "mentre eri via" composto al ritorno | `riserva/ritorno.md`, riscritto da "consolida" ogni settimana, mai al ritorno | C (nota finale); T10 |
-| 41 | voce: segni e basta | ✦ in corsivo, parole altrui tra «» con ○ (`altrui: true`), formule mie in tondo, ◌ al più uno per lettera, lunghezze, data-tetto degli importati | [voce](/_progetto/v2/voce.md) §3, §5 |
+| 41 | voce: segni e basta | ✦ in corsivo, parole altrui tra «» con ○ (`altrui: true`), formule mie in tondo, ◌ al più uno per lettera, lunghezze, data-tetto degli importati | [voce](/progetto/v2/voce.md) §3, §5 |
 | 42 | lucchetto `ingresso/.lavoro` | `ingresso/.in-corso`, 20 minuti, rinnovato ogni 10; "consolida" e "ritratto" aspettano fino a 30 | C6; prompt operativi; coordinatore |
 | 43 | Specchio scrive solo file nuovi | Specchio fa il lavoro di "smista" con il lucchetto (prima settimana, senza Routine) | prompt operativi (i); CS §4 |
 | 44 | — | `anno` sulle opere; Q-contesto; immagini già usate | B04; T07; R03 |
-| 45 | `contraddice` frammento → frammento, rende `superata` la posizione | verso la frase tua più vicina e il `passo`; `come: dubbio`; posizioni per passo in `mappa.md`; il ✦ netto lo scrive già "smista" | [attriti delle domande](/_progetto/v2/simulazione/attriti-domande.md) Q6, Q12, Q23, Q31 |
+| 45 | `contraddice` frammento → frammento, rende `superata` la posizione | verso la frase tua più vicina e il `passo`; `come: dubbio`; posizioni per passo in `mappa.md`; il ✦ netto lo scrive già "smista" | [attriti delle domande](/progetto/v2/simulazione/attriti-domande.md) Q6, Q12, Q23, Q31 |
 | 46 | scarti in `.indice/` | sezione `## Scarti` in `mappa.md` con chiave, contesto, portata | Q4, Q17 |
 | 47 | le restituzioni importate in `contesto/` come titoli | riga per ognuna in `mappa.md`, con voci, esito ed `estratto` ≤ 25 parole; ritorni con effetto; mondo verificato | Q3, Q21 |
 | 48 | `recenti.md` per numero di frammenti, chat comprese | ultimi 30 del telefono con le risposte, le chat a parte | Q5 |
 | 49 | — | `come: chiede`; effetto senza `n` non è accoglienza; legami di restituzione `da` una voce; una domanda fa nascere il nodo | Q16, Q25, Q18 |
 | 50 | cammini su tutto il grafo | lo sguardo e le liste non si attraversano; niente ponti per persone della vita; delicati a richiesta | Q9, Q24, Q10 |
-| 51 | quattro regole in conflitto sulle domande all'ingresso | un elenco unico di 7 casi, al più una domanda; la tracklist di "la 3" cercata all'ingresso | [attriti dell'ingresso](/_progetto/v2/simulazione/attriti-ingresso.md) I1, I15 |
+| 51 | quattro regole in conflitto sulle domande all'ingresso | un elenco unico di 7 casi, al più una domanda; la tracklist di "la 3" cercata all'ingresso | [attriti dell'ingresso](/progetto/v2/simulazione/attriti-ingresso.md) I1, I15 |
 | 52 | citazione all'ingresso con `originale`, `riferimento`, autore | all'ingresso solo `nome` e `attribuita-a`, senza `esito` (⚠; la traccia del passo 1 nel corpo); il resto da "consolida" | I3, I8 |
 | 53 | `forma: ritorno` a ogni silenzio di 14 giorni | una riga nella risposta, soglia sul tuo ritmo (> 2 × intervallo mediano, ≥ 14 giorni), contenuto fissato da `riserva/ritorno.md`, mai su delicati | I4 |
 | 54 | consolidamento saltato senza regola | "consolida" copre tutto dall'ultimo riuscito | I5 |
@@ -1612,7 +1612,7 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 57 | `delicato` per sempre | cade quando ci torni sopra; protegge anche i temi vicini nella lettera | I9 |
 | 58 | foto ridotta al posto dell'originale | l'originale resta (è il detto), [S] ricava la copia ridotta come primo passo | I14 |
 | 59 | — | casi di confine sui nodi (concetto con autore, parentele, omonimi, miti, link muti); `citata-da`; `verso: ±`; ritorni spontanei; ricordabili in ordine; `chiedi` solo per il mondo | I7, I12, I17, I18, I20, I21, I22, I23 |
-| 60 | `parole.md` intero, taglio dopo tre anni | finestra mobile dichiarata sotto il tetto, formato compatto, periodi riassunti da [S] alla lettera, archivio intero da Specchio | [prova del tempo](/_progetto/v2/simulazione/attriti-tempo.md) V2 |
+| 60 | `parole.md` intero, taglio dopo tre anni | finestra mobile dichiarata sotto il tetto, formato compatto, periodi riassunti da [S] alla lettera, archivio intero da Specchio | [prova del tempo](/progetto/v2/simulazione/attriti-tempo.md) V2 |
 | 61 | la ricerca lessicale | espansione della domanda obbligatoria (6–10 parole), parole da 3 lettere | V4 |
 | 62 | sigillo d'ufficio della chat dopo 2 ore | dopo le 04:00 del giorno dopo; `continua: <id>` | V3 |
 | 63 | ritornelli a ≥ 3 parole; Q-eco sulle parole | ritornelli a 2 parole di contenuto entro 4; Q-eco in frammenti con base lessicale; Q-nomi e Q-contesto sui ✦ anteriori | V5, V6, V7 |
@@ -1621,21 +1621,21 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 66 | lucchetto rinnovato | gettone e fencing; "smista" aspetta fino a 45 minuti; uscita solo per un memo di meno di 4 minuti; "consolida" svuota prima la coda e ha un secondo orario | V1, V10, V12 |
 | 67 | `contraddice` ✦ scritto da "smista" (Q31) | solo "consolida", niente doppioni, `sua` solo se nega con parole tue | V14 (rovescia Q31: due scrittori facevano doppioni) |
 | 68 | *toccato* = un capo; elenco intero dei ricordabili; raffica per giro | entrambi i capi o un `ritorna-su`; conteggio + 20 id; raffica per sessione | V11, V15, V13 |
-| 69 | lettera con ≥ 3 parlanti, proposte perse se slitta | ≥ 2 parlanti, o ≥ 1 e una proposta pronta; `riserva/pronte.md` tiene le proposte in attesa; senza lettera, silenzio | [prova di restituzione](/_progetto/v2/simulazione/attriti-restituzione.md) A1; coordinatore |
+| 69 | lettera con ≥ 3 parlanti, proposte perse se slitta | ≥ 2 parlanti, o ≥ 1 e una proposta pronta; `riserva/pronte.md` tiene le proposte in attesa; senza lettera, silenzio | [prova di restituzione](/progetto/v2/simulazione/attriti-restituzione.md) A1; coordinatore |
 | 70 | ponte dei primi giorni senza strada | Specchio ogni sera dei giorni 1–3, bilancio dei ponti al giorno 3, vicini = tutti gli importati ✦, mai un ○ senza luogo | A2; coordinatore |
 | 71 | ricordo come affermazione, nessuno nei primi mesi | indizio parziale + affermazione; nei primi mesi gli importati ✦ | A3; coordinatore |
 | 72 | restituzione di chat senza struttura | un file per conversazione, una sezione per domanda | A4; coordinatore |
-| 73 | piano solo per l'ingresso; prompt in claude.ai | piano per ogni ciclo, `applica.mjs`; prompt come file in `prompt/`, hash da lì; `CRON_TZ=Europe/Rome`; `rinnova`; `contesto.mjs` prima della lettera; parlante senza importati | le 15 incoerenze di [prompt v3](/_progetto/v2/prompt-v3.md), appendice A |
+| 73 | piano solo per l'ingresso; prompt in claude.ai | piano per ogni ciclo, `applica.mjs`; prompt come file in `prompt/`, hash da lì; `CRON_TZ=Europe/Rome`; `rinnova`; `contesto.mjs` prima della lettera; parlante senza importati | le 15 incoerenze di [prompt v3](/progetto/v2/prompt-v3.md), appendice A |
 | 74 | — | sogno con "Gioco ◌." più frase ✦ e al più un ○; confronto con la voce dall'altra parte; citazioni ricordate ✦; Q-citato sul trimestre; immagini per lemma; delicati nella soglia | M1–M9, M12 |
-| 75 | piano piatto per "smista"; hash di un solo file; verifica rapida dopo `applica`; `riserva/` scritta dall'AI | involucro con 7 operazioni anche nell'esempio; hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md`, `prompt/specchio.md`; verifica rapida dentro `crea-nodo`; `riserva/` solo da `applica.mjs`; Specchio nei giorni 1–7; ricordabili con gli importati | [prompt v3](/_progetto/v2/prompt-v3.md), appendice B; coordinatore |
-| 76 | ricordo dopo 60 giorni attivi, importati solo "nei primi mesi" | regola unica: importati ✦ da subito, nuovi dopo 60 giorni di calendario e ≥ 10 attivi; domenica senza parlanti muta; proposte pronte solo da una notte precedente; nessun ○ senza opera e passo | [seconda prova di restituzione](/_progetto/v2/simulazione/attriti-restituzione.md) S2, S7, S8; coordinatore |
-| 77 | due memo della stessa chat senza regola | il successivo sostituisce solo se contiene il precedente come prefisso (crescita in coda, `n` continui); altrimenti conflitto per Specchio | [prompt v3](/_progetto/v2/prompt-v3.md), appendice B n. 10; coordinatore |
-| 78 | schema con `if` su `cerchia: vita` senza `required`; nessun esempio in §3.5; "Chiedi" fuori schema; `nota` stretta; "galimberti" non trova `umberto-galimberti` | `required: [cerchia]` (verificato con ajv: 34 casi validi e non validi); esempio di restituzione; `intento` facoltativo nel frammento (predefinito `[chiedi]` da "Chiedi"); corpo della lettura per le cornici; regole cognome e nome; riconciliazione degli slug nell'importazione; 05 dichiarato superato; esito all'ingresso con regola unica (solo `attribuita-a`, senza `esito`); `applica.mjs` transazionale; `parole` sempre lista; §8.3: temi nominati ✦ subito, dedotti ◌ a una vicenda | [prova a freddo](/_progetto/v2/prova-a-freddo.md) R7, R10, R12, R13, R23, R24, R27, R33, R36, R41, R43, R44, R51, R56, R60–R62, R67, R69 |
+| 75 | piano piatto per "smista"; hash di un solo file; verifica rapida dopo `applica`; `riserva/` scritta dall'AI | involucro con 7 operazioni anche nell'esempio; hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md`, `prompt/specchio.md`; verifica rapida dentro `crea-nodo`; `riserva/` solo da `applica.mjs`; Specchio nei giorni 1–7; ricordabili con gli importati | [prompt v3](/progetto/v2/prompt-v3.md), appendice B; coordinatore |
+| 76 | ricordo dopo 60 giorni attivi, importati solo "nei primi mesi" | regola unica: importati ✦ da subito, nuovi dopo 60 giorni di calendario e ≥ 10 attivi; domenica senza parlanti muta; proposte pronte solo da una notte precedente; nessun ○ senza opera e passo | [seconda prova di restituzione](/progetto/v2/simulazione/attriti-restituzione.md) S2, S7, S8; coordinatore |
+| 77 | due memo della stessa chat senza regola | il successivo sostituisce solo se contiene il precedente come prefisso (crescita in coda, `n` continui); altrimenti conflitto per Specchio | [prompt v3](/progetto/v2/prompt-v3.md), appendice B n. 10; coordinatore |
+| 78 | schema con `if` su `cerchia: vita` senza `required`; nessun esempio in §3.5; "Chiedi" fuori schema; `nota` stretta; "galimberti" non trova `umberto-galimberti` | `required: [cerchia]` (verificato con ajv: 34 casi validi e non validi); esempio di restituzione; `intento` facoltativo nel frammento (predefinito `[chiedi]` da "Chiedi"); corpo della lettura per le cornici; regole cognome e nome; riconciliazione degli slug nell'importazione; 05 dichiarato superato; esito all'ingresso con regola unica (solo `attribuita-a`, senza `esito`); `applica.mjs` transazionale; `parole` sempre lista; §8.3: temi nominati ✦ subito, dedotti ◌ a una vicenda | [prova a freddo](/progetto/v2/prova-a-freddo.md) R7, R10, R12, R13, R23, R24, R27, R33, R36, R41, R43, R44, R51, R56, R60–R62, R67, R69 |
 
 **Scartati, con il motivo:**
 - *Togliere sogno, "ti ricordi?" e ritratto* (CS §1.2): restano. Il banco non li collaudava, ma la ricerca dice che la
-  meraviglia sta lì ([essenza](/_progetto/v2/essenza.md), [restituzione](/_progetto/v2/restituzione.md),
-  [cervello §6–7](/_progetto/v2/cervello.md)); li governano le soglie di C3–C5.
+  meraviglia sta lì ([essenza](/progetto/v2/essenza.md), [restituzione](/progetto/v2/restituzione.md),
+  [cervello §6–7](/progetto/v2/cervello.md)); li governano le soglie di C3–C5.
 - *Togliere `versione` della lettura* (CS §1.2): resta, perché serve a controllare l'unico scrittore (C9).
 - *Togliere `vissuto`* (CS §1.2): resta facoltativo, perché l'importazione ne ha bisogno (A4, A21).
 - *Togliere `recenti.md`* (CS §1.2): resta, perché `parole.md` ha solo i ✦ parlanti (C7) e "la terza" vuole le restituzioni intere.
@@ -1650,11 +1650,11 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 
 ## 16. Allineamento con il banco, la voce e i prompt operativi
 
-Il [banco definitivo](/_progetto/v2/banco-di-prova-v2.md), [voce](/_progetto/v2/voce.md) e i
-[prompt operativi](/_progetto/v2/prompt-operativi.md) sono scritti con il vocabolario del v2. La regola: si leggono **per
+Il [banco definitivo](/progetto/v2/banco-di-prova-v2.md), [voce](/progetto/v2/voce.md) e i
+[prompt operativi](/progetto/v2/prompt-operativi.md) sono scritti con il vocabolario del v2. La regola: si leggono **per
 funzione** (CS §0). Un punto *File* o *Indice* passa se l'informazione si trova, anche sotto un altro nome; una *Risposta*
 e un *Non deve* passano solo se restano identici. Dove v3 e banco divergono nel comportamento, segue
-[critica del tempo](/_progetto/v2/critica-tempo.md), salvo una prova contraria scritta qui.
+[critica del tempo](/progetto/v2/critica-tempo.md), salvo una prova contraria scritta qui.
 
 ### 16.1 Il dizionario (nome nel banco e nei prompt → nome nel v3)
 
@@ -1692,7 +1692,7 @@ e un *Non deve* passano solo se restano identici. Dove v3 e banco divergono nel 
 | B22 | la lettura di ieri passa a `versione: 2` subito | la correzione vale subito nelle viste; la v2 la scrive "consolida" | C9 (come T03) |
 
 Le correzioni al banco trovate dalla simulazione delle domande (voci ✧ che sono ✦, D15 e il libro V, cap. 5, i conti di
-D01 e D24, "coda lunga" in D16) sono in [attriti delle domande §3](/_progetto/v2/simulazione/attriti-domande.md): il v3
+D01 e D24, "coda lunga" in D16) sono in [attriti delle domande §3](/progetto/v2/simulazione/attriti-domande.md): il v3
 le dà per buone. "Coda lunga" vuol dire sempre l'archivio (qualcosa che non rivedi da tempo); un brano poco noto del mondo
 è "fuori dai soliti" (Q30).
 
@@ -1709,7 +1709,7 @@ dai conti).
 
 ### 16.3 Voce
 
-Accolto da [voce](/_progetto/v2/voce.md): corsivo per le tue parole, «» e ○ per le parole altrui trascritte, tondo per le
+Accolto da [voce](/progetto/v2/voce.md): corsivo per le tue parole, «» e ○ per le parole altrui trascritte, tondo per le
 formule mie anche accolte, legenda in una riga nelle forme lunghe, ◌ al più uno per lettera, le lunghezze, i divieti, la
 data-tetto degli importati, la notifica di 5–7 parole (§9.1). **Non** accolto:
 - *una domanda in fondo a ogni lettera*: la lettera ne fa una solo quando è un confronto (0 risposte su ~18 domande "a
@@ -1740,8 +1740,8 @@ senza contenuto, la lettera ≤ 250 parole, "Gioco ◌.", "mai ⚠ nel confronto
 3. **Rifare la prova di restituzione** sul v3 aggiornato (con una correzione per prova saliva da 7 a 12 su 14); restano
    aperti M3 (`scarto` sul nodo citazione per contare "5 su 6"), M10 (rigenerare l'importazione simulata con le regole v3)
    e l'intenzione esplicita di farsi del male (lacuna nota del banco).
-4. **Riallineare** [prompt v3](/_progetto/v2/prompt-v3.md) a questo modello (le 15 incoerenze della sua appendice A sono risolte
-   qui: registro, riga 73; le 10 dell'appendice B alle righe 75 e 77) e il resto del [banco](/_progetto/v2/banco-di-prova-v2.md) ai nomi del v3 (§16); scrivere per
+4. **Riallineare** [prompt v3](/progetto/v2/prompt-v3.md) a questo modello (le 15 incoerenze della sua appendice A sono risolte
+   qui: registro, riga 73; le 10 dell'appendice B alle righe 75 e 77) e il resto del [banco](/progetto/v2/banco-di-prova-v2.md) ai nomi del v3 (§16); scrivere per
    esteso lo schema del piano (§2.2).
 5. **Scelte tue**: quanto parla per primo lo specchio (racc.: lettera la domenica, ritratto mensile per tre mesi e poi
    trimestrale); il sogno (racc.: sì, max 1 al mese, dai 50 frammenti); la domanda sul link muto (racc.: una, mai
@@ -1751,9 +1751,9 @@ senza contenuto, la lettera ≤ 250 parole, "Gioco ◌.", "mai ⚠ nel confronto
 
 ## Collegamenti
 
-- [Modello v2](/_progetto/v2/modello.md) · [Banco di prova](/_progetto/v2/banco-di-prova.md) ·
-  [Critica del tempo](/_progetto/v2/critica-tempo.md) · [Critica della semplicità](/_progetto/v2/critica-semplicita.md) ·
-  [Attriti dell'importazione](/_progetto/v2/simulazione/attriti-importazione.md) ·
-  [Regole d'importazione](/_progetto/v2/simulazione/regole-importazione.md) · [Telefono](/_progetto/v2/telefono.md) ·
-  [Essenza](/_progetto/v2/essenza.md) · [Restituzione](/_progetto/v2/restituzione.md) · [Eredità](/_progetto/v2/eredita.md) ·
-  [Banco definitivo](/_progetto/v2/banco-di-prova-v2.md) · [Voce](/_progetto/v2/voce.md) · [Prompt operativi](/_progetto/v2/prompt-operativi.md)
+- [Modello v2](/progetto/v2/modello.md) · [Banco di prova](/progetto/v2/banco-di-prova.md) ·
+  [Critica del tempo](/progetto/v2/critica-tempo.md) · [Critica della semplicità](/progetto/v2/critica-semplicita.md) ·
+  [Attriti dell'importazione](/progetto/v2/simulazione/attriti-importazione.md) ·
+  [Regole d'importazione](/progetto/v2/simulazione/regole-importazione.md) · [Telefono](/progetto/v2/telefono.md) ·
+  [Essenza](/progetto/v2/essenza.md) · [Restituzione](/progetto/v2/restituzione.md) · [Eredità](/progetto/v2/eredita.md) ·
+  [Banco definitivo](/progetto/v2/banco-di-prova-v2.md) · [Voce](/progetto/v2/voce.md) · [Prompt operativi](/progetto/v2/prompt-operativi.md)

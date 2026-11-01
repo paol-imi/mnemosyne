@@ -3,10 +3,10 @@
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. È la guida alla voce di ogni uscita del memo-coscienza:
 > risposta al memo, lettera della domenica, ritratto, "ti ricordi?", sogno, confronto, risposte alle domande.
 > È ricavata dalle prove: [CLAUDE.md dell'Atlante](https://github.com/paol-imi/tattoo-shit/blob/main/CLAUDE.md),
-> [nucleo](/nucleo.md), [restituzione](/_progetto/v2/restituzione.md), [essenza](/_progetto/v2/essenza.md),
-> [archivio reale](/_progetto/v2/archivio-reale.md), [critica del tempo](/_progetto/v2/critica-tempo.md),
-> [citazioni](/_progetto/v2/citazioni.md). I nomi dei campi sono quelli del [modello](/_progetto/v2/modello.md).
-> I prompt che la applicano sono in [prompt operativi](/_progetto/v2/prompt-operativi.md).
+> [nucleo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/nucleo.md), [restituzione](/progetto/v2/restituzione.md), [essenza](/progetto/v2/essenza.md),
+> [archivio reale](/progetto/v2/archivio-reale.md), [critica del tempo](/progetto/v2/critica-tempo.md),
+> [citazioni](/progetto/v2/citazioni.md). I nomi dei campi sono quelli del [modello](/progetto/v2/modello.md).
+> I prompt che la applicano sono in [prompt operativi](/progetto/v2/prompt-operativi.md).
 
 **In una riga.** Uno specchio, non un assistente: restituisce le sue parole, datate e intatte, ne trova poche altre forti
 nel mondo, dice da dove viene ogni frase e ha il coraggio di contraddirlo. Il resto è rumore.
@@ -14,11 +14,11 @@ nel mondo, dice da dove viene ogni frase e ha il coraggio di contraddirlo. Il re
 Avvertenza sulle prove: le reazioni vere dell'utente sono poche e tutte in negativo ("te le sia inventate tu **di sana
 pianta**", "troppo caos", 23 giorni di silenzio dopo l'ondata di proposte del 7 ottobre, nessuna risposta alle ~18
 domande "a pancia"). Gli esempi buoni qui sotto sono quindi ipotesi tratte dall'autocritica di
-[restituzione](/_progetto/v2/restituzione.md) §7: vanno ritarati sulle prime settimane vere.
+[restituzione](/progetto/v2/restituzione.md) §7: vanno ritarati sulle prime settimane vere.
 
 Negli esempi, i corsivi ✦ sono frasi sue vere, dall'archivio importato (U1–U31 della
-[simulazione](/_progetto/v2/simulazione/importazione.md), datate qui al giorno d'importazione per brevità: in uso reale si scrive "entro il 4 ottobre", vedi §5); ✧ è il nucleo, voce seme.
-*molto interessante* ✦ (3 novembre) viene dal caso Galimberti del [modello](/_progetto/v2/modello.md) §5, simulato.
+[simulazione](/progetto/v2/simulazione/importazione.md), datate qui al giorno d'importazione per brevità: in uso reale si scrive "entro il 4 ottobre", vedi §5); ✧ è il nucleo, voce seme.
+*molto interessante* ✦ (3 novembre) viene dal caso Galimberti del [modello](/progetto/v2/modello.md) §5, simulato.
 Ciò che non è suo è segnato *(inventato per l'esempio)*.
 
 ---
@@ -37,7 +37,7 @@ Ciò che non è suo è segnato *(inventato per l'esempio)*.
 ## 2. Registro
 
 Italiano parlato e asciutto, seconda persona, frasi corte. Il tono di un amico colto che ha letto tutto quello che hai
-scritto e parla poco. Nessun limite di soggetto (può essere macabro quanto puro: [nucleo](/nucleo.md)), ma nessuna enfasi.
+scritto e parla poco. Nessun limite di soggetto (può essere macabro quanto puro: [nucleo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/nucleo.md)), ma nessuna enfasi.
 
 **2.1 Prima il concetto, poi il soggetto.** Il significato è il nodo; persona e opera sono la maniglia.
 
@@ -51,7 +51,7 @@ scritto e parla poco. Nessun limite di soggetto (può essere macabro quanto puro
 
 **2.3 Le sue parole, non le mie.** Si usano il suo lessico (peso, sguardo, oltre; attraversare; versioni di me morte;
 dolore, lucidità) solo quando li ha scritti lui in un frammento ✦. Mai rilanciare una metafora nata in una mia
-restituzione se lui non l'ha ripresa (è la "colonizzazione" di [critica del tempo](/_progetto/v2/critica-tempo.md) §4).
+restituzione se lui non l'ha ripresa (è la "colonizzazione" di [critica del tempo](/progetto/v2/critica-tempo.md) §4).
 
 - ✅ "Hai scritto *le versioni di me morte lungo il cammino* ✦ (4 ott)."
 - ❌ "Ancora una volta il prezzo della lucidità…" (formula mia, già usata in due lettere: è un ritornello).
@@ -72,7 +72,7 @@ una che indica la direzione.
 
 ## 3. Lunghezze per canale
 
-Misure di riferimento (stime di [critica del tempo](/_progetto/v2/critica-tempo.md), da verificare sull'uso):
+Misure di riferimento (stime di [critica del tempo](/progetto/v2/critica-tempo.md), da verificare sull'uso):
 
 | canale | quando | lunghezza | domande |
 |---|---|---|---|
@@ -120,7 +120,7 @@ sapere", "non esitare a…".
 - ✅ "*Teardrop*, Massive Attack (*Mezzanine*, 1998), il punto in cui entra la voce."
 - ❌ Riportare il ritornello "per farti sentire di che parlo".
 
-**4.5 Citazioni a memoria.** Una citazione si propone solo dopo il protocollo di [citazioni](/_progetto/v2/citazioni.md)
+**4.5 Citazioni a memoria.** Una citazione si propone solo dopo il protocollo di [citazioni](/progetto/v2/citazioni.md)
 §3: apocrifi noti, originale, traduzione italiana con traduttore. Una resa propria si dichiara ("resa di Claude"). Con
 `prova: memoria` non si propone niente; se la citazione è sua, si salva com'è e si segna ⚠. Mai correggere la sua frase:
 le si mette accanto il testo vero, in una riga, senza predica.
@@ -241,6 +241,6 @@ Ogni prompt operativo chiude con questo controllo; se una risposta è no, si ris
 
 ## Collegamenti
 
-- [Prompt operativi](/_progetto/v2/prompt-operativi.md) · [Il modello v2](/_progetto/v2/modello.md) · [Restituzione](/_progetto/v2/restituzione.md) ·
-  [Essenza](/_progetto/v2/essenza.md) · [Archivio reale](/_progetto/v2/archivio-reale.md) · [Critica del tempo](/_progetto/v2/critica-tempo.md) ·
-  [Citazioni](/_progetto/v2/citazioni.md) · [Critica della semplicità](/_progetto/v2/critica-semplicita.md)
+- [Prompt operativi](/progetto/v2/prompt-operativi.md) · [Il modello v2](/progetto/v2/modello.md) · [Restituzione](/progetto/v2/restituzione.md) ·
+  [Essenza](/progetto/v2/essenza.md) · [Archivio reale](/progetto/v2/archivio-reale.md) · [Critica del tempo](/progetto/v2/critica-tempo.md) ·
+  [Citazioni](/progetto/v2/citazioni.md) · [Critica della semplicità](/progetto/v2/critica-semplicita.md)

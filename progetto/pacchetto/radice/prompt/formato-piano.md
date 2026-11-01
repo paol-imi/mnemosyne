@@ -2,7 +2,8 @@
 
 Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano JSON** e lo passa a
 `node scripts/applica.mjs PIANO.json`. Lo script lo convalida, calcola slug e numeri, pulisce i link, scrive i file, mette
-`prompt` (l'hash di `prompt/CICLO.md`), `registrato`, `versione`, `schema`, o rifiuta con il motivo.
+`prompt` (l'hash di `prompt/CICLO.md`), `registrato`, `versione`, `schema`, o rifiuta con il motivo. È transazionale:
+i file vanno al loro posto solo se `verifica.mjs` passa, altrimenti non resta niente.
 
 ```json
 {
@@ -11,11 +12,11 @@ Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano
   "operazioni": [
     {"op": "crea-nodo", "genere": "persone", "nome": "Umberto Galimberti", "alias": ["galimberti"], "cerchia": "mondo"},
     {"op": "crea-nodo", "genere": "citazioni", "nome": "Il nichilismo è l'ospite inquietante",
-     "attribuita-a": ["@Umberto Galimberti"], "corpo": "Passo 1: … (da verificare)"},
+     "attribuita-a": ["@Umberto Galimberti"], "corpo": "Verifica rapida: nessun apocrifo noto; … (traccia)"},
     {"op": "lettura", "frammento": "20261103-2340-k7q2", "intento": ["salva"],
      "reazione": [{"parole": "molto interessante", "verso": "+"}],
      "legami": [{"p": "nomina", "a": "@Umberto Galimberti", "voce": "sua", "perche": "«uno spezzone di galimberti a teatro»"}],
-     "parole": ["ragazzi", "cultura"]},
+     "parole": ["ragazzo", "cultura"]},
     {"op": "restituzione", "forma": "risposta", "per": "20261103-2340-k7q2",
      "testo": "**Salvato.** 1. …", "voci": [{"rif": "@Il nichilismo è l'ospite inquietante", "voce": "mondo", "cosa": "citazione"}]}
   ]
@@ -44,5 +45,8 @@ tradizione, un luogo come voce: `cosa: opera` (il racconto) o `persona` (il prot
   come `1.`, `2.`…
 - Ogni legame ha `p`, `a` oppure `tra`, `voce`, `perche`.
 - `reazione.parole` è copiata **esatta** dal frammento (lo script controlla che sia una sottostringa).
+- Una citazione creata da "smista" o da Specchio ha solo `nome`, `attribuita-a`, `nato-da` e, nel `corpo`, la traccia della
+  verifica rapida: mai `esito`, `riferimento`, `autore`, `originale` (li scrive "consolida" con `aggiorna-nodo`).
+- `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`).
 - Rifiuto: correggi seguendo il messaggio, **al massimo due volte**; poi togli l'operazione colpita (o lascia il
   frammento senza lettura: resta in coda) e scrivilo nel messaggio finale, con l'id e il motivo, senza contenuto.

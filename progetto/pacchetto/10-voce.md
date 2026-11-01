@@ -3,10 +3,10 @@
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. È la guida alla voce di ogni uscita del memo-coscienza:
 > risposta al memo, lettera della domenica, ritratto, "ti ricordi?", sogno, confronto, risposte alle domande.
 > È ricavata dalle prove: [CLAUDE.md dell'Atlante](https://github.com/paol-imi/tattoo-shit/blob/main/CLAUDE.md),
-> [nucleo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/nucleo.md), [restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/restituzione.md), [essenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md),
-> [archivio reale](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/archivio-reale.md), [critica del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-tempo.md),
-> [citazioni](./08-citazioni.md). I nomi dei campi sono quelli del [modello](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/modello.md).
-> I prompt che la applicano sono in [prompt operativi](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/prompt-operativi.md).
+> [nucleo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/nucleo.md), [restituzione](../v2/restituzione.md), [essenza](../v2/essenza.md),
+> [archivio reale](../v2/archivio-reale.md), [critica del tempo](../v2/critica-tempo.md),
+> [citazioni](./08-citazioni.md). I nomi dei campi sono quelli del [modello](../v2/modello.md).
+> I prompt che la applicano sono in [prompt operativi](../v2/prompt-operativi.md).
 
 **In una riga.** Uno specchio, non un assistente: restituisce le sue parole, datate e intatte, ne trova poche altre forti
 nel mondo, dice da dove viene ogni frase e ha il coraggio di contraddirlo. Il resto è rumore.
@@ -14,11 +14,11 @@ nel mondo, dice da dove viene ogni frase e ha il coraggio di contraddirlo. Il re
 Avvertenza sulle prove: le reazioni vere dell'utente sono poche e tutte in negativo ("te le sia inventate tu **di sana
 pianta**", "troppo caos", 23 giorni di silenzio dopo l'ondata di proposte del 7 ottobre, nessuna risposta alle ~18
 domande "a pancia"). Gli esempi buoni qui sotto sono quindi ipotesi tratte dall'autocritica di
-[restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/restituzione.md) §7: vanno ritarati sulle prime settimane vere.
+[restituzione](../v2/restituzione.md) §7: vanno ritarati sulle prime settimane vere.
 
 Negli esempi, i corsivi ✦ sono frasi sue vere, dall'archivio importato (U1–U31 della
-[simulazione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/importazione.md), datate qui al giorno d'importazione per brevità: in uso reale si scrive "entro il 4 ottobre", vedi §5); ✧ è il nucleo, voce seme.
-*molto interessante* ✦ (3 novembre) viene dal caso Galimberti del [modello](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/modello.md) §5, simulato.
+[simulazione](../v2/simulazione/importazione.md), datate qui al giorno d'importazione per brevità: in uso reale si scrive "entro il 4 ottobre", vedi §5); ✧ è il nucleo, voce seme.
+*molto interessante* ✦ (3 novembre) viene dal caso Galimberti del [modello](../v2/modello.md) §5, simulato.
 Ciò che non è suo è segnato *(inventato per l'esempio)*.
 
 ---
@@ -51,7 +51,7 @@ scritto e parla poco. Nessun limite di soggetto (può essere macabro quanto puro
 
 **2.3 Le sue parole, non le mie.** Si usano il suo lessico (peso, sguardo, oltre; attraversare; versioni di me morte;
 dolore, lucidità) solo quando li ha scritti lui in un frammento ✦. Mai rilanciare una metafora nata in una mia
-restituzione se lui non l'ha ripresa (è la "colonizzazione" di [critica del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-tempo.md) §4).
+restituzione se lui non l'ha ripresa (è la "colonizzazione" di [critica del tempo](../v2/critica-tempo.md) §4).
 
 - ✅ "Hai scritto *le versioni di me morte lungo il cammino* ✦ (4 ott)."
 - ❌ "Ancora una volta il prezzo della lucidità…" (formula mia, già usata in due lettere: è un ritornello).
@@ -72,7 +72,7 @@ una che indica la direzione.
 
 ## 3. Lunghezze per canale
 
-Misure di riferimento (stime di [critica del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-tempo.md), da verificare sull'uso):
+Misure di riferimento (stime di [critica del tempo](../v2/critica-tempo.md), da verificare sull'uso):
 
 | canale | quando | lunghezza | domande |
 |---|---|---|---|
@@ -241,6 +241,6 @@ Ogni prompt operativo chiude con questo controllo; se una risposta è no, si ris
 
 ## Collegamenti
 
-- [Prompt operativi](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/prompt-operativi.md) · [Il modello v2](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/modello.md) · [Restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/restituzione.md) ·
-  [Essenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md) · [Archivio reale](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/archivio-reale.md) · [Critica del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-tempo.md) ·
-  [Citazioni](./08-citazioni.md) · [Critica della semplicità](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-semplicita.md)
+- [Prompt operativi](../v2/prompt-operativi.md) · [Il modello v2](../v2/modello.md) · [Restituzione](../v2/restituzione.md) ·
+  [Essenza](../v2/essenza.md) · [Archivio reale](../v2/archivio-reale.md) · [Critica del tempo](../v2/critica-tempo.md) ·
+  [Citazioni](./08-citazioni.md) · [Critica della semplicità](../v2/critica-semplicita.md)

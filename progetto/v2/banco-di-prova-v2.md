@@ -1,16 +1,16 @@
 # Banco di prova definitivo, nel vocabolario del modello v3
 
-> Progettazione v3, 2026-10-31; riscritto il 2026-11-01 dopo la [prova a freddo](/_progetto/v2/prova-a-freddo.md)
+> Progettazione v3, 2026-10-31; riscritto il 2026-11-01 dopo la [prova a freddo](/progetto/v2/prova-a-freddo.md)
 > (R30, R46, R54, R58, R64, R66, R70, R24/R62). Proposta di Claude, da validare. Serve a collaudare l'implementazione
-> del [modello v3](/_progetto/v2/modello-v3.md) su un altro account: ogni criterio si controlla sui file del repository
+> del [modello v3](/progetto/v2/modello-v3.md) su un altro account: ogni criterio si controlla sui file del repository
 > (percorsi, campi del frontmatter, legami, conteggi, ricerche esatte), senza giudizio; il giudizio sta solo nelle
 > domande del giudice (parti 3 e 4). Parti: 1 messaggi, 2 domande, 3 restituzione, 4 tempo e uso, 5 come si esegue.
 > Nomi, campi, segni e percorsi sono quelli del modello v3 (§3, §4, §5, §6.1): dove il banco e il modello divergono vince
-> il modello, e il banco è già allineato. Messaggi e attese vengono da [esempi in ingresso](/_progetto/v2/esempi-ingresso.md)
-> e [esempi di domande](/_progetto/v2/esempi-domande.md), con gli attriti della
-> [simulazione d'importazione](/_progetto/v2/simulazione/attriti-importazione.md) e della
-> [simulazione dell'ingresso](/_progetto/v2/simulazione/attriti-ingresso.md). Versioni precedenti, scritte col vocabolario
-> del [modello v2](/_progetto/v2/modello.md): [banco di prova v2](/_progetto/v2/banco-di-prova.md) e la storia git di questo file.
+> il modello, e il banco è già allineato. Messaggi e attese vengono da [esempi in ingresso](/progetto/v2/esempi-ingresso.md)
+> e [esempi di domande](/progetto/v2/esempi-domande.md), con gli attriti della
+> [simulazione d'importazione](/progetto/v2/simulazione/attriti-importazione.md) e della
+> [simulazione dell'ingresso](/progetto/v2/simulazione/attriti-ingresso.md). Versioni precedenti, scritte col vocabolario
+> del [modello v2](/progetto/v2/modello.md): [banco di prova v2](/progetto/v2/banco-di-prova.md) e la storia git di questo file.
 
 ## Come si usa
 
@@ -757,9 +757,9 @@ Una conversazione sola, che comincia con D16: le voci di D16 sono le 1–5 della
 ## 3. Prove di restituzione
 
 Le parti 1 e 2 controllano quello che il sistema scrive. Qui si controlla quello che **restituisce**, cioè la parte che
-[critica-semplicita](/_progetto/v2/critica-semplicita.md) proponeva di tagliare: se queste prove non passano, ha ragione.
+[critica-semplicita](/progetto/v2/critica-semplicita.md) proponeva di tagliare: se queste prove non passano, ha ragione.
 Ogni prova parte **solo** dalla sua Preparazione (i B non nominati lì non esistono ancora). Pietra di paragone per il tono:
-[restituzione](/_progetto/v2/restituzione.md).
+[restituzione](/progetto/v2/restituzione.md).
 
 **Le Preparazioni** danno anche la storia delle lettere precedenti (data, cosa, voci) e lo stato di `riserva/pronte.md`,
 perché decidono la soglia della lettera (≥ 2 frammenti parlanti dall'ultima lettera consegnata, oppure ≥ 1 e una proposta
@@ -1134,7 +1134,7 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
 
 Le parti 1 e 2 provano un messaggio o una domanda alla volta; queste dieci provano il sistema **nel tempo**, con un utente
 vero (raffiche, silenzi, chiacchiere, ripensamenti) e con un anno di dati. Vengono dai crolli C1–C15 della
-[critica del tempo](/_progetto/v2/critica-tempo.md), le cui correzioni il modello v3 ha già assunto (§15): le prove ne usano
+[critica del tempo](/progetto/v2/critica-tempo.md), le cui correzioni il modello v3 ha già assunto (§15): le prove ne usano
 i nomi e le soglie.
 - **Il tempo si simula.** Ogni script (`contesto.mjs`, `applica.mjs`, `lucchetto.mjs`, il generatore) legge l'ora da
   `ATLANTE_ORA` (ISO 8601 con fuso, es. `ATLANTE_ORA=2026-11-17T22:14:05+01:00`), anche per i commit del lucchetto (R57);
@@ -1428,8 +1428,8 @@ i nomi e le soglie.
 | T08 | un anno con l'"ago" del 12 novembre 2026 | 3000 frammenti | generatore, seme fisso |
 
 Il generatore (`banco/genera.mjs`, da scrivere) prende `--seme`, `--da`, `--a`, `--quanti`; distribuisce le date come
-l'uso reale (raffiche serali, silenzi; vedi [critica del tempo §0](/_progetto/v2/critica-tempo.md)); prende le parole
-dal corpus di [esempi in ingresso](/_progetto/v2/esempi-ingresso.md). I frammenti sintetici non portano campi in più (lo
+l'uso reale (raffiche serali, silenzi; vedi [critica del tempo §0](/progetto/v2/critica-tempo.md)); prende le parole
+dal corpus di [esempi in ingresso](/progetto/v2/esempi-ingresso.md). I frammenti sintetici non portano campi in più (lo
 schema del §3.7 li rifiuterebbe, R25): il loro elenco di id sta in `banco/sintetici.txt` sul branch di prova. I dati
 sintetici non entrano mai nell'archivio vero.
 
@@ -1457,14 +1457,14 @@ quello giudice, la versione dello schema (`schema: 3`) e il commit di partenza; 
 Esiti possibili: **passa**, **fallisce** (un solo criterio violato, deterministico o del giudice sotto soglia),
 **in attesa del giudice** (i deterministici passano, il giudice non ha ancora risposto: R32), **lacuna** (il modello non
 dice che cosa fare: è un difetto del modello, non dell'implementazione). In fondo, i conti per parte e per gravità e una
-riga di sintesi per il [coordinamento](/_progetto/v2/coordinamento.md).
+riga di sintesi per il [coordinamento](/progetto/v2/coordinamento.md).
 
 > [!NOTE]
 > **Proposta di Claude, da validare.**
 >
 > **Quando il banco passa.** Nessun fallimento di gravità alta, al massimo 3 di gravità media in tutto, nessuna lacuna
 > aperta nelle parti 3 e 4. **La restituzione resta** se passano almeno 10 prove R su 14, comprese R01, R06, R07 e R14;
-> sotto le 7 ha ragione [critica della semplicità](/_progetto/v2/critica-semplicita.md) e si tiene solo la risposta.
+> sotto le 7 ha ragione [critica della semplicità](/progetto/v2/critica-semplicita.md) e si tiene solo la risposta.
 
 ### Gravità e porte
 
@@ -1565,6 +1565,6 @@ Per R e T la gravità è scritta nella prova; per B e D è nella tabella sotto. 
 
 ## Collegamenti
 
-- [Il modello v3](/_progetto/v2/modello-v3.md) · [Prova a freddo](/_progetto/v2/prova-a-freddo.md) · [Esempi in ingresso](/_progetto/v2/esempi-ingresso.md) · [Esempi di domande](/_progetto/v2/esempi-domande.md)
-- Storia: [il modello v2](/_progetto/v2/modello.md) · [Banco v2, la versione precedente](/_progetto/v2/banco-di-prova.md)
-- [Restituzione](/_progetto/v2/restituzione.md) · [Critica del tempo](/_progetto/v2/critica-tempo.md) · [Attriti dell'importazione](/_progetto/v2/simulazione/attriti-importazione.md) · [Attriti dell'ingresso](/_progetto/v2/simulazione/attriti-ingresso.md)
+- [Il modello v3](/progetto/v2/modello-v3.md) · [Prova a freddo](/progetto/v2/prova-a-freddo.md) · [Esempi in ingresso](/progetto/v2/esempi-ingresso.md) · [Esempi di domande](/progetto/v2/esempi-domande.md)
+- Storia: [il modello v2](/progetto/v2/modello.md) · [Banco v2, la versione precedente](/progetto/v2/banco-di-prova.md)
+- [Restituzione](/progetto/v2/restituzione.md) · [Critica del tempo](/progetto/v2/critica-tempo.md) · [Attriti dell'importazione](/progetto/v2/simulazione/attriti-importazione.md) · [Attriti dell'ingresso](/progetto/v2/simulazione/attriti-ingresso.md)

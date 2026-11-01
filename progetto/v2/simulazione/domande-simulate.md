@@ -1,10 +1,10 @@
 # Simulazione: le 25 domande del banco, eseguite
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. **Non sono note vere**: risposte e file sono come li
-> produrrebbe il sistema del [modello v2](/_progetto/v2/modello.md) sull'archivio della
-> [simulazione dell'importazione](/_progetto/v2/simulazione/importazione.md), più i 25 messaggi B01–B25 del
-> [banco di prova](/_progetto/v2/banco-di-prova.md). Attriti e verdetti sono in
-> [attriti delle domande](/_progetto/v2/simulazione/attriti-domande.md).
+> produrrebbe il sistema del [modello v2](/progetto/v2/modello.md) sull'archivio della
+> [simulazione dell'importazione](/progetto/v2/simulazione/importazione.md), più i 25 messaggi B01–B25 del
+> [banco di prova](/progetto/v2/banco-di-prova.md). Attriti e verdetti sono in
+> [attriti delle domande](/progetto/v2/simulazione/attriti-domande.md).
 
 ## Come è stata fatta
 
@@ -817,7 +817,7 @@ e qualche minuto; la risposta in chat ~3 s.
    che è ✦ (U01). *Correzione:* sui delicati vale "solo se lo chiedi tu, una cosa, prima le tue parole". Il banco va corretto su U01.
 
 Fonti verificate: [Return to Tipasa (PDF)](https://www.stephenhicks.org/wp-content/uploads/2022/06/CamusA-Return-to-Tipasa-1952.pdf),
-[Le Temps, «L'été invincible»](https://www.letemps.ch/articles/l-ete-invincible), [citazioni.md C7](/_progetto/v2/citazioni.md).
+[Le Temps, «L'été invincible»](https://www.letemps.ch/articles/l-ete-invincible), [citazioni.md C7](/progetto/v2/citazioni.md).
 
 ## 3. Ricordi, convergenze, contraddizioni (D06–D09)
 

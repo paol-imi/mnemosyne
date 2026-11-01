@@ -1,7 +1,7 @@
 # L'eredità: che cosa passa dall'Atlante al nuovo sistema
 
 > Inventario per lo script di importazione, 2026-10-31. È una proposta di Claude, da validare. Si basa su
-> [l'archivio reale](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/archivio-reale.md) e su [l'essenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md). Lo schema definitivo
+> [l'archivio reale](../v2/archivio-reale.md) e su [l'essenza](../v2/essenza.md). Lo schema definitivo
 > arriverà da `modello.md`, che è ancora in scrittura: per questo i nomi tra `<…>` sono **segnaposto** e non campi.
 > Non ho toccato nessuna nota e nessuno script. Le righe si riferiscono al commit `4c9fdce`.
 
@@ -163,7 +163,7 @@ Eckhart), caduta e redenzione, gli occhi (Odino, il cratere, "a occhi aperti"), 
 discesa di Sisifo, sublime e abisso, il masso, il coro delle domande. Per lo script valgono come `<spunto-per-claude>`: domande
 che il sistema potrà scrivere in prosa **quando un suo frammento le tirerà in ballo**. Non vanno scritte in blocco ora.
 
-Due correzioni ad [archivio-reale](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/archivio-reale.md): Faust **non compare** nel testo del "prezzo della conoscenza"
+Due correzioni ad [archivio-reale](../v2/archivio-reale.md): Faust **non compare** nel testo del "prezzo della conoscenza"
 (C8) e l'accostamento di Eraclito B60 a Sisifo esiste solo nel documento di progetto, non nelle note.
 
 ## 3. Le entità vive
@@ -193,7 +193,7 @@ entra come `<persona>` dalla ricerca.
 - Pensiero e mito: `lamed-vav`, `maimonide`, `vangelo-matteo`, `tao-te-ching`, `kshitigarbha`, `machiavelli`, `nietzsche`,
   `eraclito`, `kant`, `iside`, `psiche`, `prometeo`, `odino`, `albero-della-vita`, `sisifo`, `alchimia`, `ermetismo`, `advaita-buddhismo`.
 - La genealogia di Rust (lo spunto `true-detective-coscienza` e l'alce di Zapffe, §4.14 dell'archivio reale): `zapffe`,
-  `schopenhauer`, `ligotti`; più `jung`, la cui frase sull'oscurità regge la prima prova di [archivio-reale](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/archivio-reale.md) §5.
+  `schopenhauer`, `ligotti`; più `jung`, la cui frase sull'oscurità regge la prima prova di [archivio-reale](../v2/archivio-reale.md) §5.
 - Arte: `bernini-verita`, `friedrich-monaco`, `friedrich-viandante`, `durer-melencolia`, `michelangelo-prigioni`.
 - Di Claude, ma nominate per esteso in una convergenza: `platone` (il Fedro, C13), `giovanni-della-croce` e `notte-oscura` (C15),
   `pascal` (C19). Si importano con `<origine: claude>`; il loro testo non va, va solo l'identità.

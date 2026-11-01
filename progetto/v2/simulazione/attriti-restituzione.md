@@ -1,8 +1,8 @@
 # Attriti della prova di restituzione
 
-> Simulazione v3, 2026-10-31. Proposta di Claude, da validare. Raccoglie i punti in cui il [modello v3](/_progetto/v2/modello-v3.md),
-> i [prompt operativi](/_progetto/v2/prompt-operativi.md) o il [banco](/_progetto/v2/banco-di-prova-v2.md) hanno costretto
-> i produttori delle [14 prove R](/_progetto/v2/simulazione/prova-restituzione.md) a improvvisare. Uniti per tema: tra
+> Simulazione v3, 2026-10-31. Proposta di Claude, da validare. Raccoglie i punti in cui il [modello v3](/progetto/v2/modello-v3.md),
+> i [prompt operativi](/progetto/v2/prompt-operativi.md) o il [banco](/progetto/v2/banco-di-prova-v2.md) hanno costretto
+> i produttori delle [14 prove R](/progetto/v2/simulazione/prova-restituzione.md) a improvvisare. Uniti per tema: tra
 > parentesi le prove che li hanno incontrati. Gravità: alta = cambia un esito o rende una prova impossibile; media = forza
 > una scelta non scritta; bassa = nome o campo mancante.
 
@@ -55,7 +55,7 @@
 ## Secondo turno: attriti residui sul v3 finale
 
 > Secondo turno, 2026-10-31. Proposta di Claude, da validare. Dalle note dei 14 produttori nuovi e dai giudizi del
-> [secondo turno](/_progetto/v2/simulazione/prova-restituzione.md) (10 su 14). A1–A5 e M1–M12 del primo turno sono
+> [secondo turno](/progetto/v2/simulazione/prova-restituzione.md) (10 su 14). A1–A5 e M1–M12 del primo turno sono
 > integrati nel v3; quelli che restano aperti sono qui sotto con un nome nuovo.
 
 ### Alta

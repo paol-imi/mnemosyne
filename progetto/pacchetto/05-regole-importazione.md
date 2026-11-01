@@ -1,11 +1,14 @@
 # Regole di importazione, con i nomi del modello
 
+> **Nota del pacchetto.** Superato: la sola norma dell'importazione è il §14 del [modello v3](./02-modello-v3.md).
+> Questo file usa nomi del v2 e vale solo come storia.
+
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> Riscrive le regole R1–R13 di [eredità §7](./06-eredita.md) con i nomi di [modello](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/modello.md)
+> Riscrive le regole R1–R13 di [eredità §7](./06-eredita.md) con i nomi di [modello](../v2/modello.md)
 > (§2.2 tipi, §2.3 predicati, §2.4 voci, §2.5 tabella dei segnaposto, §8.5 correzione dell'eredità).
 > Dove il modello non basta a decidere, la scelta presa qui è segnata **[A n]**: rinvia all'attrito n di
-> [attriti](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-importazione.md). I file d'esempio sono in
-> [importazione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/importazione.md).
+> [attriti](../v2/simulazione/attriti-importazione.md). I file d'esempio sono in
+> [importazione](../v2/simulazione/importazione.md).
 
 ## 0. Costanti
 
@@ -104,7 +107,7 @@ se lui ne riprende una.
 
 ## 3. Che cosa cambia dopo la simulazione
 
-La prova sul campione ([attriti](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-importazione.md)) chiede di correggere queste regole
+La prova sul campione ([attriti](../v2/simulazione/attriti-importazione.md)) chiede di correggere queste regole
 prima dello script:
 - **R1:** corpo = testo grezzo senza markup né etichette di Claude; `forma: riportata` per le frasi sue scritte da altri
   (A2, A19); `intento: [salva]` di default (A22); una provenienza in `fonte:`, non in `link` (A20).

@@ -1,8 +1,8 @@
 # Attriti delle domande simulate
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Raccoglie ciò che si è inceppato eseguendo le 25 domande
-> del [banco di prova](/_progetto/v2/banco-di-prova.md) sul [modello v2](/_progetto/v2/modello.md), come descritto in
-> [simulazione delle domande](/_progetto/v2/simulazione/domande-simulate.md) (sette gruppi, uno per subagent, più le 12 incongruenze
+> del [banco di prova](/progetto/v2/banco-di-prova.md) sul [modello v2](/progetto/v2/modello.md), come descritto in
+> [simulazione delle domande](/progetto/v2/simulazione/domande-simulate.md) (sette gruppi, uno per subagent, più le 12 incongruenze
 > di `contesto/` del §0.2). Q1–Q33 consolidano i 42 attriti locali e le 12 incongruenze.
 > Gravità: **alta** = si perde significato o il modello si contraddice; **media** = ambiguità che lo script o la chat
 > deve decidere; **bassa** = ritocco. Le misure sono stime (token = caratteri / 3,5).
@@ -51,8 +51,8 @@
 | Q24 | media | **Lo strato ◌ contiene persone della vita.** Il cammino berserk–C22–battaglie-interiori–B08 passa per Marco amico: il filtro è sulla voce, non sulla cerchia. D19 passa "Non deve" solo per disciplina. | D19 | §3.1 (cammini): nei ponti si escludono i frammenti che nominano una persona `cerchia: vita`, salvo che la domanda li nomini. |
 | Q25 | media | **`parla-di` opera → tema da una restituzione.** §2.3 lo dà "frammento → tema"; §7.3 e il banco lo fanno nascere sull'opera da una restituzione. | D17 | §2.3: ammettere `parla-di` in una restituzione con soggetto `{n: k}`; diventa legame del nodo solo all'`accoglie`. |
 | Q26 | media | **La voce del `nomina` nato da un'accoglienza.** Non può essere `sua` né `accolta` (divieto del banco); `proposta` è strano per un "salvami". | D17 | §2.4: il legame nato da un atto porta `voce: proposta` + `da-atto: <id>`; l'indice lo mostra ●. |
-| Q27 | media | **Righe d'indice senza slug certo; 41 o 42 nodi.** Nessun tema nasce a caldo; Sisifo (tema o opera?), kintsugi, fiume e nave restano senza nodo; brano e video di B13–B14 senza titolo. `nichilismo` c'è o no; le 8 domande come temi non esistono (B16 "◌ verso il tema Chi sono?" non ha oggetto). | D16, D21 | Rinvio agli [attriti dell'importazione](/_progetto/v2/simulazione/attriti-importazione.md) A14, A16, A17. |
-| Q28 | media | **Ordine degli importati.** `registrato` ha solo la data; 29 su 34 stanno al 2026-10-04. "Oggi" le 8 frasi di D02 sono una selezione non dichiarata; i "4 più vecchi" esclusi dai recenti sono il percorso interiore. | D02 (oggi) | Rinvio ad A4 degli [attriti dell'importazione](/_progetto/v2/simulazione/attriti-importazione.md) (ora ignota, `vissuto`). |
+| Q27 | media | **Righe d'indice senza slug certo; 41 o 42 nodi.** Nessun tema nasce a caldo; Sisifo (tema o opera?), kintsugi, fiume e nave restano senza nodo; brano e video di B13–B14 senza titolo. `nichilismo` c'è o no; le 8 domande come temi non esistono (B16 "◌ verso il tema Chi sono?" non ha oggetto). | D16, D21 | Rinvio agli [attriti dell'importazione](/progetto/v2/simulazione/attriti-importazione.md) A14, A16, A17. |
+| Q28 | media | **Ordine degli importati.** `registrato` ha solo la data; 29 su 34 stanno al 2026-10-04. "Oggi" le 8 frasi di D02 sono una selezione non dichiarata; i "4 più vecchi" esclusi dai recenti sono il percorso interiore. | D02 (oggi) | Rinvio ad A4 degli [attriti dell'importazione](/progetto/v2/simulazione/attriti-importazione.md) (ora ignota, `vissuto`). |
 | Q29 | bassa | **Domande già fatte.** Il ritratto chiede di amore e verità, la domanda resta "In sospeso" e D23 la ripeterebbe. | D23 | §4.3: prima di chiudere con una domanda si legge "In sospeso" e non la si ripete entro 30 giorni. |
 | Q30 | bassa | **"Coda lunga" con due sensi.** §4.3: qualcosa dell'archivio che non rivedi da tempo; il banco: un brano poco noto del mondo. | D16 | §4.3: distinguere `coda-lunga` (archivio) da "fuori dai soliti" (mondo). |
 | Q31 | bassa | **Due regole non allineate sulla scrittura.** Il banco dice "Scrive: solo la restituzione", §4.1 vuole anche il frammento-domanda e la sua lettura; §3.1 mette `contraddice` al consolidamento, D25 lo vuole all'ingresso. | D06, D25 (e tutte) | §4.1: domanda = frammento + restituzione; un `contraddice` di voce sua si scrive all'ingresso. |
@@ -179,6 +179,6 @@ Come riportate nelle sezioni Misura. Token = letti nel contesto della risposta; 
 
 ## Collegamenti
 
-- [Simulazione delle domande](/_progetto/v2/simulazione/domande-simulate.md)
-- [Modello v2](/_progetto/v2/modello.md)
-- [Banco di prova](/_progetto/v2/banco-di-prova.md)
+- [Simulazione delle domande](/progetto/v2/simulazione/domande-simulate.md)
+- [Modello v2](/progetto/v2/modello.md)
+- [Banco di prova](/progetto/v2/banco-di-prova.md)

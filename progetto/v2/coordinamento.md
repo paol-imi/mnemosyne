@@ -22,7 +22,7 @@ Branch di raccolta: `claude/quirky-newton-qe5g9o`. Ogni sessione lavora su un br
 
 ## Checkpoint del 2026-11-01: il lavoro passa a un altro account
 Le sessioni di questo account hanno raggiunto il limite delle 5 ore e sono ferme. Il lavoro continua in una chat su un
-altro account con il prompt in [handoff](/_progetto/handoff.md), che riprende tutto ciò che segue.
+altro account con il prompt in [handoff](/progetto/handoff.md), che riprende tutto ciò che segue.
 
 Stato del giro 6 (correzioni dopo la prova a freddo):
 - Modello: fatto (commit "Modello v3: correzioni dalla prova a freddo"). Da verificare le ultime decisioni: `parole`

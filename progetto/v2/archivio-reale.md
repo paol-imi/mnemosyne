@@ -1,7 +1,7 @@
 # L'archivio reale: che cosa ci insegna un mese di Atlante
 
 > Raffinamento, 2026-10-31. Proposta di Claude, da validare. Non è un inventario tecnico (quello è in
-> [migrazione](/_progetto/migrazione.md)): è una lettura di **contenuto e comportamento**. L'ho fatta leggendo davvero
+> [migrazione](/progetto/migrazione.md)): è una lettura di **contenuto e comportamento**. L'ho fatta leggendo davvero
 > le note, a lotti (idee, spunti e ricerche, seme, diari, fonti per cartella, concetti ed emozioni, simboli, stile e percorsi, domande e discipline).
 > Nessuna nota o script è stato toccato. Le parole dell'utente sono citate tra virgolette; le interpretazioni sono mie e lo dico.
 
@@ -242,7 +242,7 @@ senza aggiungere nulla. I titoli e le frasi attribuite a Galimberti sono segnapo
 1. **La crescita va tirata dai suoi frammenti, non spinta dall'AI.** L'ondata del 7 ottobre (91 fonti, 154 collegamenti) è
    stata seguita da 23 giorni di silenzio. Ogni nodo nuovo deve nascere da un suo messaggio, o da una domanda sua.
    → Niente arricchimenti in blocco, nemmeno nel consolidamento.
-2. **La validazione esplicita non funziona: 0 decisioni su circa 300 proposte.** Il `proposti:` di [proposta](/_progetto/proposta.md) §2.3
+2. **La validazione esplicita non funziona: 0 decisioni su circa 300 proposte.** Il `proposti:` di [proposta](/progetto/proposta.md) §2.3
    e una "Da validare" da smaltire ripetono lo stesso meccanismo. → La provenienza va **marcata** (resta essenziale), ma
    l'approvazione deve venire dall'uso: una proposta diventa sua quando la richiama, la cita o ci torna. Poche proposte
    per volta, e quelle non toccate in 30 giorni sfumano invece di accumularsi.

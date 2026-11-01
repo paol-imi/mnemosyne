@@ -1,7 +1,7 @@
 # L'essenza: che cosa chiedi davvero
 
 > Raffinamento, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> Si legge prima della [proposta](/_progetto/proposta.md): ne è il metro di giudizio.
+> Si legge prima della [proposta](/progetto/proposta.md): ne è il metro di giudizio.
 
 ## 0. Le prove, in numeri
 
@@ -19,7 +19,7 @@ Prima di interpretare le tue parole, ho guardato che cosa hai *fatto* in un mese
 | Codice costruito | sito ~7.200 righe, script ~1.500 |
 
 E che cosa hai fatto con fatica, di tua iniziativa: **hai trascritto parola per parola il monologo di Rust**
-([La coscienza come passo falso](/spunti/true-detective-coscienza/index.md)), hai portato Invictus intero, hai
+([La coscienza come passo falso](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/spunti/true-detective-coscienza/index.md)), hai portato Invictus intero, hai
 aperto la lettura di Marco Aurelio. Le tue tre frasi più forti sulla macchina sono correzioni:
 *"le altre mi sembra che te le sia inventate tu di sana pianta"*, *"troppo caos"*, e *"vai con la mappa"*
 (l'unico sì entusiasta: a una **vista**, non a un contenuto).
@@ -52,7 +52,7 @@ utente, non per quello ideale che compila campi.
    (Galimberti ↔ Rust ↔ Zapffe). È il tuo principio fondatore: *"le convergenze valgono più delle citazioni"* (seme, §1).
 3. **Il tempo che si vede:** *"le versioni di me morte lungo il percorso"* (nucleo, tue parole). Accorgersi di
    essere cambiato, con le prove.
-4. **La domanda che non sapevi di volere:** è scritta nel [nucleo](/nucleo.md), come desiderio estetico. Il sistema
+4. **La domanda che non sapevi di volere:** è scritta nel [nucleo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/nucleo.md), come desiderio estetico. Il sistema
    deve, di rado, parlare per primo.
 
 La cattura è il prezzo, la restituzione è la ricompensa. Il primo Atlante ha costruito solo il prezzo.
@@ -145,7 +145,7 @@ niente da fare."* Nessun arretrato, nessuna coda. *Provi:* che tornare non costa
 - **La struttura che cresce più del contenuto.** Quattro sessioni su sette del primo Atlante erano infrastruttura.
   Ogni giorno di costruzione deve produrre una restituzione che tu vedi.
 - **La voce dell'AI che copre la tua.** Una citazione oggi porta 9 concetti, 4 simboli, 4 fonti, 4 percorsi
-  ([La coscienza come passo falso](/spunti/true-detective-coscienza/index.md)): la tua frase sparisce sotto la
+  ([La coscienza come passo falso](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/spunti/true-detective-coscienza/index.md)): la tua frase sparisce sotto la
   lettura di Claude. Serve una proporzione: poche connessioni forti, non tutte quelle possibili.
 - **Convergenze banali.** "Anche Nietzsche parlava di dolore" è rumore. Un ponte vale se è sorprendente e preciso
   (un'immagine, una frase), altrimenti non si dice.

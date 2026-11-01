@@ -8,9 +8,9 @@ data: 2026-10-31
 # Identità: prova sul campo degli ID esterni
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Non fa parte dell'archivio.
-> [Lo stato dell'arte](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/stato-arte.md) propone di ancorare persone e opere a Wikidata e MusicBrainz,
+> [Lo stato dell'arte](../v2/stato-arte.md) propone di ancorare persone e opere a Wikidata e MusicBrainz,
 > ma solo nel consolidamento. Qui la proposta è messa alla prova: 30 entità prese dal
-> [corpus degli esempi in ingresso](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/esempi-ingresso.md), scelte apposta tra i casi difficili,
+> [corpus degli esempi in ingresso](../v2/esempi-ingresso.md), scelte apposta tra i casi difficili,
 > cercate davvero con le API pubbliche partendo dal testo come lo scrivo io dal telefono.
 > Circa 150 chiamate in tutto: Wikidata (`wbsearchentities`, ricerca a testo pieno, SPARQL), MusicBrainz WS/2
 > (User-Agent dichiarato, 1 richiesta al secondo), Open Library e una ricerca web. Due subagent: uno per i generi.

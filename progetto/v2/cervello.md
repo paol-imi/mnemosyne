@@ -1,7 +1,7 @@
 # Il cervello, sul serio: come tiene ricordi e pensieri, e che cosa ne segue per il memo-coscienza
 
-> Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Approfondisce il §1 di [schema](/_progetto/schema.md)
-> e mette alla prova il modello di [proposta](/_progetto/proposta.md). Nessuna nota, cartella o script esistente è stato toccato.
+> Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Approfondisce il §1 di [schema](/progetto/schema.md)
+> e mette alla prova il modello di [proposta](/progetto/proposta.md). Nessuna nota, cartella o script esistente è stato toccato.
 > Le fonti sono state controllate con ricerche mirate, ma su abstract e fonti secondarie, non sui testi integrali:
 > volumi e pagine segnati "(da verificare)" vanno ricontrollati prima di citarli altrove.
 > Legenda: **[consenso]** = risultato solido e condiviso · **[dibattuto]** = dati veri, interpretazione contesa · **[ipotesi]** = quadro teorico.
@@ -52,7 +52,7 @@
 - Limiti: modello ampio, costrutti ("obiettivi") difficili da misurare, confini tra i livelli non netti.
 
 **Che cosa ne segue.**
-- **Lo sguardo è il working self, e va strutturato.** Oggi `sguardo` è un testo (l'ex [nucleo](/nucleo.md)). Deve avere parti riconoscibili, perché l'AI le usa per orientare cattura e proposte:
+- **Lo sguardo è il working self, e va strutturato.** Oggi `sguardo` è un testo (l'ex [nucleo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/nucleo.md)). Deve avere parti riconoscibili, perché l'AI le usa per orientare cattura e proposte:
   - `## Temi di vita` (oggi: il peso → lo sguardo → l'oltre; dolore, amore, verità);
   - `## Io sono` (frasi datate dell'utente, mai dell'AI: "sono in uno stadio assurdista");
   - `## Obiettivi e progetti attivi` (il tatuaggio; capire l'assurdo senza nichilismo);
@@ -64,7 +64,7 @@
 - **Due interfacce di recupero**: *diretta* (indizi, §1) e *generativa* (navigazione dall'alto: periodo → vicende → frammenti). La seconda risponde a "cosa pensavo quando…", "com'ero nell'estate…".
 - **Coerenza contro corrispondenza, tradotto**: la corrispondenza la garantisce il `## Testo originale` immutabile; la coerenza la produce lo sguardo. Le due cose devono restare **in file diversi**, così si vede quando la storia che l'utente si racconta si allontana da ciò che ha davvero scritto.
 
-**Esempio.** Le citazioni di [Marco Aurelio](/fonti/pensiero/marco-aurelio.md) raccolte nel 2025 e quelle di [Camus](/fonti/pensiero/camus.md) del 2026 possono stare nello stesso tema (accettare ciò che non dipende da noi), ma in **periodi** diversi. "Com'è cambiato il mio modo di stare nel dolore?" si risponde mettendo a confronto i due periodi, non mescolando tutto in un tema.
+**Esempio.** Le citazioni di [Marco Aurelio](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/marco-aurelio.md) raccolte nel 2025 e quelle di [Camus](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/camus.md) del 2026 possono stare nello stesso tema (accettare ciò che non dipende da noi), ma in **periodi** diversi. "Com'è cambiato il mio modo di stare nel dolore?" si risponde mettendo a confronto i due periodi, non mescolando tutto in un tema.
 
 **Dove la metafora inganna.** Il working self *inibisce* ciò che minaccia gli obiettivi. Un sistema che usa lo sguardo per filtrare farebbe lo stesso, e sarebbe un difetto: l'utente vuole vedere anche ciò che stona. Lo sguardo serve a **orientare** le proposte, mai a nascondere un frammento.
 
@@ -90,7 +90,7 @@
 - **Contro Loftus: le domande dell'AI non suggeriscono.** Non "ti ha commosso?", ma "che effetto ti ha fatto?". La parola dell'AI non deve entrare nel ricordo.
 - **Riconsolidamento, tradotto bene.** Rileggere non cambia nulla. Una nota "si riapre" solo quando c'è **scarto**: l'utente dice qualcosa che contraddice ciò che aveva scritto. Allora nasce un ritorno (frammento nuovo, §1) con `cambia: true`, e il `## Perché mi colpisce` riceve una riga datata in più. Si aggiunge, non si sovrascrive.
 
-**Esempio.** Galimberti dice qualcosa sull'amore dei greci. "Amore" esiste ed è nel cuore dello sguardo → *congruente*. "I greci" non esiste come tema, ma l'archivio ha [Sisifo](/fonti/sacro-e-mito/sisifo.md), [Psiche](/fonti/sacro-e-mito/psiche.md), l'[eterno ritorno](/concetti/eterno-ritorno.md): c'è uno **schema implicito** a cui agganciarsi. Se invece Galimberti dicesse che l'amore *non* nasce dall'attraversare il dolore, sarebbe una **sorpresa** contro lo sguardo: la cosa più interessante della settimana, da non annacquare.
+**Esempio.** Galimberti dice qualcosa sull'amore dei greci. "Amore" esiste ed è nel cuore dello sguardo → *congruente*. "I greci" non esiste come tema, ma l'archivio ha [Sisifo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/sacro-e-mito/sisifo.md), [Psiche](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/sacro-e-mito/psiche.md), l'[eterno ritorno](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/eterno-ritorno.md): c'è uno **schema implicito** a cui agganciarsi. Se invece Galimberti dicesse che l'amore *non* nasce dall'attraversare il dolore, sarebbe una **sorpresa** contro lo sguardo: la cosa più interessante della settimana, da non annacquare.
 
 **Dove la metafora inganna.** Nel cervello lo schema *distorce* il ricordo, ed è il prezzo della velocità. Noi possiamo avere la velocità dello schema senza la distorsione, perché il verbatim resta. Va però ammesso che la distorsione si sposta: **sull'AI che sceglie i temi**. Lì va il controllo.
 
@@ -114,7 +114,7 @@
 - **Due assi distinti: emozione e novità.** `pancia` misura quanto ha colpito; `sorpresa` (§3) misura quanto è nuovo rispetto all'archivio e allo sguardo. Un frammento può essere tiepido e sorprendente: va tenuto d'occhio lo stesso.
 - **Il nome dell'emozione lo sceglie l'utente.** Il vocabolario chiuso delle emozioni vale per l'AI (che propone solo da lì); la parola dell'utente ("mi ha inquietato", "un vuoto bello") resta in `reazione`, intatta. Nominare ha già un valore per lui; non va rubato.
 
-**Esempio.** Martedì l'utente salva, senza commento, un brano dei [Radiohead](/fonti/opere/radiohead.md) ascoltato in macchina. Giovedì lo spezzone di Galimberti: `pancia: 3`. Il tagging retroattivo propone: *"martedì hai salvato quel brano: c'entra con i rapporti di cui parla Galimberti?"*. Una proposta, una riga, mai salvata senza sì.
+**Esempio.** Martedì l'utente salva, senza commento, un brano dei [Radiohead](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/radiohead.md) ascoltato in macchina. Giovedì lo spezzone di Galimberti: `pancia: 3`. Il tagging retroattivo propone: *"martedì hai salvato quel brano: c'entra con i rapporti di cui parla Galimberti?"*. Una proposta, una riga, mai salvata senza sì.
 
 **Dove la metafora inganna.** Nel cervello l'emozione *restringe* e talvolta *falsa*. Il sistema deve prendere dall'emozione la **selezione** (che cosa conta) e lasciarle fuori la **certezza**.
 
@@ -189,7 +189,7 @@
   2. *Associare lontano*: **una sola** convergenza ardita tra tradizioni lontane, dichiarata come tale ("il sogno della settimana"). Per un utente che ama l'esoterico e il mistero è anche un piacere; resta una proposta, con la sua ragione in una riga.
 - **Il futuro è parte della memoria.** I progetti (tatuaggio) e le `intenzioni` (da leggere, da ascoltare) sono memoria prospettica: la ricetta "cosa leggo dopo" e il `serve-a` restano. Confermati.
 
-**Esempio.** Il sogno di una settimana: *"Galimberti sui greci e l'eclissi di [Berserk](/fonti/opere/berserk.md): in entrambi l'amore (eros, ambizione) diventa ciò che divora. Convergenza ardita, da prendere come gioco."* (Il contenuto della frase di Galimberti resta segnaposto: il legame va controllato sul testo vero.)
+**Esempio.** Il sogno di una settimana: *"Galimberti sui greci e l'eclissi di [Berserk](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/berserk.md): in entrambi l'amore (eros, ambizione) diventa ciò che divora. Convergenza ardita, da prendere come gioco."* (Il contenuto della frase di Galimberti resta segnaposto: il legame va controllato sul testo vero.)
 
 **Dove la metafora inganna.** Il sonno è involontario e gratuito; il consolidamento qui costa attenzione all'utente. Deve stare in **10 proposte e una domanda**, e saltarlo non deve rompere niente.
 
@@ -234,7 +234,7 @@ Accanto: `progetto` (gli obiettivi), `domanda` (le grandi domande, con il Coro),
 
 ### 9.2 Legami
 
-- **Dichiarati**: pochi predicati tipizzati nel frontmatter, come in [proposta](/_progetto/proposta.md) §2.3. Nuovi: `ritorna-su` (frammento → frammento), `in-vicenda` (frammento → vicenda), `in-periodo` (vicenda o frammento → periodo; di solito calcolato dalle date), `prototipo` (tema → frammento o citazione).
+- **Dichiarati**: pochi predicati tipizzati nel frontmatter, come in [proposta](/progetto/proposta.md) §2.3. Nuovi: `ritorna-su` (frammento → frammento), `in-vicenda` (frammento → vicenda), `in-periodo` (vicenda o frammento → periodo; di solito calcolato dalle date), `prototipo` (tema → frammento o citazione).
 - **Proposti**: chiave `proposti:`, invariata.
 - **Emergenti, calcolati e mai scritti**: forza dei legami (co-occorrenze nei frammenti, pesate per pancia e ritorni), `vitalita`, `sorpresa` suggerita (nessun tema regge, o contrasto con lo sguardo), vicinanza nel tempo. Li produce `indice.mjs`; nessuno li tocca a mano. Via lo `slug@2`.
 

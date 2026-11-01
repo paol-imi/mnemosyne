@@ -1,7 +1,7 @@
 # Il corpus delle domande e le risposte ideali
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> Mette alla prova la [proposta unica](/_progetto/proposta.md) e il [primo catalogo](/_progetto/domande.md)
+> Mette alla prova la [proposta unica](/progetto/proposta.md) e il [primo catalogo](/progetto/domande.md)
 > con domande scritte come le scriveresti dal telefono, e con risposte costruite sull'archivio **vero** di oggi.
 
 ## 0. Prima di cominciare: che cosa c'è davvero nell'archivio
@@ -848,7 +848,7 @@ se ogni risposta del mondo che ti piace può diventare tua con una parola ("salv
 
 ## 4. Che cosa insegnano le domande al progetto
 
-Le dieci lezioni, dalla più grave. Per ciascuna: che cosa dice [proposta.md](/_progetto/proposta.md), che cosa
+Le dieci lezioni, dalla più grave. Per ciascuna: che cosa dice [proposta.md](/progetto/proposta.md), che cosa
 cambiare.
 
 ### 1. Il collo di bottiglia è la tua voce, non lo schema

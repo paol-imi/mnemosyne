@@ -1,7 +1,7 @@
 # Attriti dell'importazione simulata
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Raccoglie ciò che si è inceppato applicando le
-> [regole](/_progetto/v2/simulazione/regole-importazione.md) al campione di [importazione](/_progetto/v2/simulazione/importazione.md)
+> [regole](/progetto/v2/simulazione/regole-importazione.md) al campione di [importazione](/progetto/v2/simulazione/importazione.md)
 > (sette lotti, uno per subagent). A1–A14 sono i rinvii già scritti nelle regole; A15–A31 sono emersi dai lotti.
 > Gravità: **alta** = si perde significato o il modello si contraddice; **media** = ambiguità che lo script deve decidere;
 > **bassa** = ritocco.
@@ -27,7 +27,7 @@
 | A5 | media | **Data e nome delle restituzioni importate.** `creato` della nota non è la data del passo: il blocco di C25 è del 2026-10-06, la nota del 2026-10-04. Con l'ora `0000` sei ritratti dello stesso giorno collidono; i suffissi `-cNN` e `-tNN` sono arbitrari. | La data è quella della riga di `## Evoluzione` (o del commit) del passo. Il suffisso è lo slug dell'idea o della convergenza (`ritratto-discesa-di-sisifo`). Il modello lo dichiara per le importate. |
 | A6 | bassa | **Frasi sul sistema.** U27–U31 stanno sia nei frammenti sia nel `CLAUDE.md`. U28 ("dimmi tu") e U30 ("vai con la mappa") sono un `accogli` senza referente importato. | `intento: [accogli]` senza `atti`, salvo U30 (vedi A14); il `contesto` dice che cosa accolse. |
 | A7 | **alta** | **L'aggancio non ha un campo, e lo sguardo non si cita per passo.** Le regole usano `per`, che nel modello vuol dire "chi l'ha chiesta": un indice che segue le catene (n.37 → 40) prenderebbe U4 per una domanda. M1–M7 hanno un id solo: C5 e C8 agganciano lo stesso `s01`, e un `contraddice` su M3 renderebbe superato anche M1. | Un campo `aggancio: {di: <id>, passo: "nucleo:19"}` sulle restituzioni, e il qualificatore `passo` ammesso in `ritorna-su`, `contraddice` e `accoglie` verso un frammento-sguardo. In alternativa si spezza `s01` per sezioni, ma si perde l'unità del nucleo. |
-| A8 | **alta** | **Le citazioni di Claude non si possono importare corrette.** Delle 17 voci vive, [citazioni §4](/_progetto/v2/citazioni.md) ne corregge 2 (Marco Aurelio V 20, Jung). Le altre 15 restano `prova: memoria`, che citazioni §3 vieta a Claude di proporre. 7 delle 9 correzioni di §4 (Nietzsche § 146, Cioran, Yalom, l'ombra di Jung, Campbell, Rollo May, Sagan) riguardano entità che **non** si importano. E una restituzione è immutabile, quindi non può ricevere l'`esito`. | Prima dell'import si passa il protocollo sulle 17 vive (6 subagent da tre). Le correzioni sulle entità morte si fanno sull'Atlante pubblico, fuori dallo script. Il nodo citazione nasce con l'`esito` quando lui ne accoglie una. |
+| A8 | **alta** | **Le citazioni di Claude non si possono importare corrette.** Delle 17 voci vive, [citazioni §4](/progetto/v2/citazioni.md) ne corregge 2 (Marco Aurelio V 20, Jung). Le altre 15 restano `prova: memoria`, che citazioni §3 vieta a Claude di proporre. 7 delle 9 correzioni di §4 (Nietzsche § 146, Cioran, Yalom, l'ombra di Jung, Campbell, Rollo May, Sagan) riguardano entità che **non** si importano. E una restituzione è immutabile, quindi non può ricevere l'`esito`. | Prima dell'import si passa il protocollo sulle 17 vive (6 subagent da tre). Le correzioni sulle entità morte si fanno sull'Atlante pubblico, fuori dallo script. Il nodo citazione nasce con l'`esito` quando lui ne accoglie una. |
 | A9 | bassa | **Concetti e stili.** Stoicismo e romanticismo diventano temi; patchwork e incisione, che lui nomina (U16, U17), restano parole perché R5 e R11 hanno elenchi chiusi. | R5b: un concetto o uno stile nominato da lui diventa tema al primo nome (modello §2.6). |
 | A10 | bassa | **Le band come persone** (Radiohead, Deftones). | Si accetta `persone/` per i gruppi, `cerchia: mondo`; lo dice una riga del modello. |
 | A11 | media | **Sbiadimento di massa.** 60 restituzioni importate ◌ sbiadirebbero tutte lo stesso giorno, il 60°. | Le importate non sbiadiscono: sono già fuori dai conti e salgono solo se un frammento le tira. |
@@ -62,4 +62,4 @@
 | D07 (Eraclito) | un nodo che tenga insieme fr. 60 in tre posti | A1 (le voci indicizzate per nome) |
 | D08 (Buddha e la rabbia) | il legame sta in una fonte di Claude non importata | nessuna: è giusto che resti fuori; la risposta lo pesca dal mondo con il suo `perche` |
 
-Il dettaglio domanda per domanda è in [importazione §0](/_progetto/v2/simulazione/importazione.md).
+Il dettaglio domanda per domanda è in [importazione §0](/progetto/v2/simulazione/importazione.md).

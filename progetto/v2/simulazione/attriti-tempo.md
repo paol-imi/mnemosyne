@@ -1,7 +1,7 @@
 # Attriti del tempo
 
 > Simulazione v4, 2026-10-31. Proposta di Claude, da validare. Gli attriti trovati eseguendo le prove T01–T10 sul
-> [modello v3](/_progetto/v2/modello-v3.md), come descritto in [prove di tempo e uso](/_progetto/v2/simulazione/prova-tempo.md).
+> [modello v3](/progetto/v2/modello-v3.md), come descritto in [prove di tempo e uso](/progetto/v2/simulazione/prova-tempo.md).
 > Gravità: **alta** = si perde qualcosa di suo, o il sistema dice il falso senza saperlo; **media** = ritardo,
 > doppione o ambiguità che lo script deve decidere; **bassa** = ritocco.
 
@@ -138,5 +138,5 @@ un enunciato del vecchio; riga `vecchio-id (data) ⟷ nuovo-id (data) · voce ·
 
 ## Collegamenti
 
-- [Prove di tempo e uso](/_progetto/v2/simulazione/prova-tempo.md) · [Modello v3](/_progetto/v2/modello-v3.md) ·
-  [Banco definitivo](/_progetto/v2/banco-di-prova-v2.md) · [Critica del tempo](/_progetto/v2/critica-tempo.md)
+- [Prove di tempo e uso](/progetto/v2/simulazione/prova-tempo.md) · [Modello v3](/progetto/v2/modello-v3.md) ·
+  [Banco definitivo](/progetto/v2/banco-di-prova-v2.md) · [Critica del tempo](/progetto/v2/critica-tempo.md)

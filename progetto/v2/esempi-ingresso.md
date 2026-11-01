@@ -2,7 +2,7 @@
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Non fa parte dell'archivio.
 > 68 messaggi (72 voci, di cui quattro rimandi dentro le sequenze) come li scriverei davvero dal telefono, con che cosa mi aspetto, che cosa il sistema deve
-> ricordare e la trappola. Serve a mettere alla prova [la proposta del primo giro](/_progetto/proposta.md),
+> ricordare e la trappola. Serve a mettere alla prova [la proposta del primo giro](/progetto/proposta.md),
 > che chiude con le 10 lezioni (§5).
 
 ## Come leggerlo
@@ -104,7 +104,7 @@
 
 - **Si aspetta:** "Bella, ed è sua, ma non è nella *Peste*: è *Ritorno a Tipasa*, nell'*Estate* (1954)."
 - **Ricorda e collega:** citazione autentica con opera corretta; mia attribuzione errata conservata;
-  **uso: tatuaggio** (la nicchia che resta); legame con [l'assurdo](/concetti/assurdo.md) e con l'inverno.
+  **uso: tatuaggio** (la nicchia che resta); legame con [l'assurdo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/assurdo.md) e con l'inverno.
 - **Trappola:** l'autore giusto con l'opera sbagliata: un caso di correzione parziale. E "me la tatuerei" non è un tipo
   di nota: è un'etichetta d'uso su una citazione.
 - **Verifica:** autentica (*L'Été*: "Au milieu de l'hiver, j'apprenais enfin qu'il y avait en moi un été invincible").
@@ -130,7 +130,7 @@
 **E12** · 2026-12-05 18:40 · domanda dentro un memo
 > chi è che diceva che il mondo ti spezza e poi alcuni diventano più forti nei punti rotti? tipo kintsugi
 
-- **Si aspetta:** "Hemingway, *Addio alle armi* (1929), cap. 34. E sì, è il [kintsugi](/fonti/arte/kintsugi.md) in parole."
+- **Si aspetta:** "Hemingway, *Addio alle armi* (1929), cap. 34. E sì, è il [kintsugi](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/arte/kintsugi.md) in parole."
 - **Ricorda e collega:** è insieme una **domanda** (vuole una risposta subito) e un **memo** (lo voglio ricordare);
   la convergenza Hemingway ↔ kintsugi la propongo io, ma l'ha vista lui: `origine: mia`.
 - **Trappola:** trattarlo solo come domanda (rispondo e non salvo) o solo come memo (salvo e non rispondo).
@@ -175,8 +175,8 @@
 > eraclito il fiume e la nave di teseo sono la stessa domanda. io sono la stessa persona di 5 anni fa?
 
 - **Si aspetta:** "Sì, convergono: identità nel cambiamento. Sono collegate. E la domanda è tua: chi sono?"
-- **Ricorda e collega:** l'intuizione è **mia**: legame `converge-con` tra Eraclito e [nave di Teseo](/concetti/nave-di-teseo.md)
-  già validato; la domanda personale → [Chi sono?](/domande/chi-sono.md); [versioni di me morte](/percorsi/versioni-morte.md).
+- **Ricorda e collega:** l'intuizione è **mia**: legame `converge-con` tra Eraclito e [nave di Teseo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/nave-di-teseo.md)
+  già validato; la domanda personale → [Chi sono?](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/domande/chi-sono.md); [versioni di me morte](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/percorsi/versioni-morte.md).
 - **Trappola:** un'intuizione che collega due cose è un **legame**, non un frammento su un tema. Se il sistema la
   riduce a "parla-di: identità", perde proprio l'atto che conta.
 - **Verifica:** il fiume "due volte" è di Platone (*Cratilo* 402a); il frammento accettato è DK B12.
@@ -184,9 +184,9 @@
 **E18** · 2027-01-12 22:50 · citazione, convergenza con l'archivio
 > karamazov, lo starec zosima: tutti siamo responsabili di tutto davanti a tutti. mi ha fatto pensare ai 36 giusti
 
-- **Si aspetta:** "È Markel, il fratello di Zosima, poi Zosima la riprende (libro VI). Collego ai [36 giusti](/idee/i-36-giusti/index.md)."
+- **Si aspetta:** "È Markel, il fratello di Zosima, poi Zosima la riprende (libro VI). Collego ai [36 giusti](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/idee/i-36-giusti/index.md)."
 - **Ricorda e collega:** *I fratelli Karamazov* (esiste), Dostoevskij (esiste, in `fonti/opere/`); convergenza mia con
-  [i Lamed Vav](/fonti/sacro-e-mito/lamed-vav.md) e il [sacrificio anonimo](/concetti/sacrificio-anonimo.md).
+  [i Lamed Vav](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/sacro-e-mito/lamed-vav.md) e il [sacrificio anonimo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/sacrificio-anonimo.md).
 - **Trappola:** il personaggio che la dice (Markel) e quello che la rende famosa (Zosima): chi parla, nella finzione,
   è un dato in più rispetto all'autore.
 - **Verifica:** parafrasi della traduzione ("ognuno è colpevole davanti a tutti per tutti").
@@ -205,7 +205,7 @@
 > delitto e castigo, raskolnikov: il dolore e la sofferenza sono sempre inevitabili per un'intelligenza grande e un cuore profondo. questa è la mia
 
 - **Si aspetta:** "Autentica, parte III cap. 5. 'Questa è la mia': la segno come tua."
-- **Ricorda e collega:** [*Delitto e castigo*](/fonti/opere/delitto-e-castigo.md) (esiste); [dolore](/emozioni/dolore.md) e il nucleo;
+- **Ricorda e collega:** [*Delitto e castigo*](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/delitto-e-castigo.md) (esiste); [dolore](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/emozioni/dolore.md) e il nucleo;
   "questa è la mia" è il segnale più forte possibile: **identificazione**, non solo pancia alta.
 - **Trappola:** "questa è la mia" è più di `pancia: 3`: dice che la frase mi rappresenta. Il primo giro non ha un posto
   per questo (candidata a entrare nello *sguardo*).
@@ -217,7 +217,7 @@
 > how to disappear completely. i'm not here this isn't happening. stasera è esattamente così
 
 - **Si aspetta:** "Salvato, senza testi. Lo sai che nasce da un consiglio di Michael Stipe a Yorke?" (solo se ne ho voglia)
-- **Ricorda e collega:** canzone (*Kid A*, 2000) dentro [Radiohead](/fonti/opere/radiohead.md) (esiste come band, non c'è
+- **Ricorda e collega:** canzone (*Kid A*, 2000) dentro [Radiohead](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/radiohead.md) (esiste come band, non c'è
   nessuna canzone); **il verso** come momento, non trascritto nel repo oltre la citazione breve; lo stato d'animo.
 - **Trappola:** la regola "niente testi di canzoni" contro il fatto che io cito un verso. Un verso di 5 parole è una
   citazione breve; una strofa no. E l'aneddoto: proporlo, non imporlo, perché stasera non è serata da curiosità.
@@ -228,7 +228,7 @@
 
 - **Si aspetta:** "La 3 è [titolo], giusto?" (una sola domanda, perché "la 3" va risolta)
 - **Ricorda e collega:** l'album (*Private Music*, 22 agosto 2025) come opera, la traccia come opera `parte-di`;
-  [Deftones](/fonti/opere/deftones.md) (esiste); contesto (macchina, ascolto intero).
+  [Deftones](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/deftones.md) (esiste); contesto (macchina, ascolto intero).
 - **Trappola:** "la 3" si risolve solo con la tracklist, che va **verificata** (non ricordata dal modello): se sbaglia,
   lega la mia emozione alla canzone sbagliata per sempre.
 - **Verifica:** album vero; la traccia 3 non verificata qui: è proprio il punto.
@@ -238,7 +238,7 @@
 
 - **Si aspetta:** "Salvato. L'originale è dei Nine Inch Nails (1994), Cash la incide nel 2002."
 - **Ricorda e collega:** **la versione di Cash**, non la canzone in astratto, con il video; Trent Reznor autore;
-  temi: vecchiaia, rimpianto, [memento mori](/concetti/memento-mori.md).
+  temi: vecchiaia, rimpianto, [memento mori](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/memento-mori.md).
 - **Trappola:** un'opera con autore e interprete diversi, e la mia emozione è legata alla versione (e al video), non
   al brano. Il primo giro ha solo `autore`.
 - **Verifica:** vero (*American IV*, 2002).
@@ -255,9 +255,9 @@
 **E25** · 2026-12-03 13:15 · canzone italiana, fuori dai miei soliti
 > via del campo, de andrè. dai diamanti non nasce niente dal letame nascono i fior. è la cosa più stoica che abbia mai sentito
 
-- **Si aspetta:** "Salvato. Stoico è una lettura tua: la collego a [stoicismo](/fonti/pensiero/stoicismo.md) come convergenza."
+- **Si aspetta:** "Salvato. Stoico è una lettura tua: la collego a [stoicismo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/stoicismo.md) come convergenza."
 - **Ricorda e collega:** De André, *Via del Campo* (*Volume 1*, 1967, musica di Jannacci); convergenza mia con lo stoicismo
-  e con la [rinascita](/concetti/morte-e-rinascita.md); grafia "De Andrè/De André".
+  e con la [rinascita](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/morte-e-rinascita.md); grafia "De Andrè/De André".
 - **Trappola:** l'accento sbagliato (De Andrè) e la lettura personale ("stoica") che non è un fatto: è un legame mio.
 - **Verifica:** brano e album veri; il testo del verso non confermato dalle fonti trovate (celeberrimo, ma da verificare).
 
@@ -309,9 +309,9 @@
 **E31** · 2026-11-08 22:30 · serie, entità esistente, omonimi
 > rivisto true detective, il tempo è un cerchio piatto. cmq la quarta stagione con la neve non è malaccio, ci sono richiami
 
-- **Si aspetta:** "Collegato a [*True Detective* 1](/fonti/opere/true-detective-s1.md). Aggiungo la quarta stagione come opera a parte?"
+- **Si aspetta:** "Collegato a [*True Detective* 1](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/true-detective-s1.md). Aggiungo la quarta stagione come opera a parte?"
 - **Ricorda e collega:** la frase (ep. 5, *The Secret Fate of All Life*, la dice Ledoux e Rust la riprende) con il suo
-  episodio; un **ritorno** sulla serie (rivista), [eterno ritorno](/concetti/eterno-ritorno.md) (esiste);
+  episodio; un **ritorno** sulla serie (rivista), [eterno ritorno](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/eterno-ritorno.md) (esiste);
   la quarta stagione (*Night Country*, 2024) come opera nuova legata.
 - **Trappola:** "true detective" è una serie con quattro stagioni diverse; nell'archivio esiste solo la prima, con slug
   `true-detective-s1`. La serie, le stagioni e l'episodio sono tre livelli di `parte-di`.
@@ -320,8 +320,8 @@
 **E32** · 2026-11-13 21:10 · anime, citazione da fan
 > fma ultima puntata: una lezione senza dolore non ha senso perché non si ottiene niente senza sacrificare qualcosa. lo scambio equivalente è la mia filosofia
 
-- **Si aspetta:** "Episodio 64, la chiusa di Ed. Collegato a [scambio equivalente](/concetti/scambio-equivalente.md)."
-- **Ricorda e collega:** [FMA Brotherhood](/fonti/opere/fma-brotherhood.md) (esiste), episodio 64; "è la mia filosofia" =
+- **Si aspetta:** "Episodio 64, la chiusa di Ed. Collegato a [scambio equivalente](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/scambio-equivalente.md)."
+- **Ricorda e collega:** [FMA Brotherhood](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/fma-brotherhood.md) (esiste), episodio 64; "è la mia filosofia" =
   identificazione (come E20).
 - **Trappola:** la citazione esiste in mille traduzioni di fan, nessuna ufficiale verificata: `verifica` deve poter
   dire "autentica nel contenuto, forma non ufficiale".
@@ -330,7 +330,7 @@
 **E33** · 2026-11-29 20:00 · anime, adattamenti
 > berserk l'eclissi. quella del film, non l'anime del 2016 che fa schifo. ancora non riesco a guardarla senza stare male
 
-- **Si aspetta:** "Salvato, legato a [Berserk](/fonti/opere/berserk.md). Il film è *L'avvento* (2013)?" (se serve)
+- **Si aspetta:** "Salvato, legato a [Berserk](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/berserk.md). Il film è *L'avvento* (2013)?" (se serve)
 - **Ricorda e collega:** l'**adattamento** (trilogia di film 2012-13) distinto dal manga e dalla serie 2016; la scena;
   il mio giudizio negativo sulla serie 2016 (valutazione, non emozione).
 - **Trappola:** "Berserk" è un'opera con almeno quattro versioni. E di nuovo una reazione negativa (fa schifo) accanto
@@ -342,7 +342,7 @@
 
 - **Si aspetta:** "Sì. Griffith e il Padre: un'apoteosi pagata con migliaia di vite. Collegate."
 - **Ricorda e collega:** convergenza **mia** tra due opere (esistono entrambe), tema: diventare dio a prezzo degli altri;
-  [prezzo della conoscenza](/concetti/prezzo-della-conoscenza.md).
+  [prezzo della conoscenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/prezzo-della-conoscenza.md).
 - **Trappola:** arriva 3 minuti dopo E33: è lo stesso pensiero che continua. Una nota sola o due collegate? Due,
   legate con `sviluppa`; ma la domanda di E33, se c'era, non va ripetuta.
 
@@ -350,7 +350,7 @@
 > e evangelion col perfezionamento dell'uomo? è il contrario forse
 
 - **Si aspetta:** "Forse sì: lì il sacrificio è fondersi tutti, non salire uno. Lo segno come domanda aperta."
-- **Ricorda e collega:** [Evangelion](/fonti/opere/evangelion.md) (esiste), il progetto di perfezionamento; una
+- **Ricorda e collega:** [Evangelion](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/evangelion.md) (esiste), il progetto di perfezionamento; una
   **domanda aperta** mia, da riprendere, collegata alle due di prima.
 - **Trappola:** rispondere chiudendo la questione. È una domanda che voglio tenere aperta; il sistema deve avere un
   posto per "domande che mi faccio" diverso dalle 8 grandi domande.
@@ -358,7 +358,7 @@
 **E36** · 2026-12-02 22:15 · titolo mancante
 > il film svedese in bianco e nero dove il cavaliere gioca a scacchi con la morte, l'ho finalmente visto
 
-- **Si aspetta:** "*Il settimo sigillo*, Bergman, 1957. C'è già un'idea che ci somiglia: [il cavaliere e la morte](/idee/cavaliere-e-morte/index.md)."
+- **Si aspetta:** "*Il settimo sigillo*, Bergman, 1957. C'è già un'idea che ci somiglia: [il cavaliere e la morte](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/idee/cavaliere-e-morte/index.md)."
 - **Ricorda e collega:** opera identificata dalla descrizione, `fruizione: fatta`; convergenza con un'idea esistente
   (che nasce da Dürer, non da Bergman: va detto).
 - **Trappola:** identificare senza chiedere quando l'identificazione è certa; chiedere solo se ci sono due candidati.
@@ -374,7 +374,7 @@
 > barbero raccontava di napoleone a sant'elena che dettava le memorie e si inventava metà delle cose. adoro
 
 - **Si aspetta:** "Salvato. Alessandro Barbero, nuovo; Napoleone c'è già."
-- **Ricorda e collega:** Barbero (persona nuova, storico); [Napoleone](/fonti/pensiero/napoleone.md) (esiste); tema:
+- **Ricorda e collega:** Barbero (persona nuova, storico); [Napoleone](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/napoleone.md) (esiste); tema:
   il mito di sé, chi scrive la propria storia (che è anche questo sistema).
 - **Trappola:** il fatto storico raccontato in un reel e ricordato da me è di terza mano: il sistema lo salva come
   "Barbero dice", non come fatto su Napoleone.
@@ -382,7 +382,7 @@
 **E39** · 2027-02-11 22:40 · videogioco, omonimo
 > iniziato persona 5. è pieno di jung, le ombre, le maschere. chi l'avrebbe detto
 
-- **Si aspetta:** "Il nome viene dalla 'persona' di Jung. Collego a [Jung](/fonti/pensiero/jung.md) e all'[ombra](/fonti/psicologia/ombra.md)."
+- **Si aspetta:** "Il nome viene dalla 'persona' di Jung. Collego a [Jung](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/jung.md) e all'[ombra](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/psicologia/ombra.md)."
 - **Ricorda e collega:** opera nuova di un mezzo nuovo (gioco), `fruizione: in-corso`; convergenza pop → Jung.
 - **Trappola:** "persona" come parola comune, concetto junghiano e titolo: l'omonimia più subdola. E il riferimento pop
   nascosto nell'archetipo è proprio il gusto del nucleo.
@@ -403,7 +403,7 @@
 > finito lo straniero. boh. mi aspettavo di più, meursault mi è indifferente come lui è indifferente a tutto
 
 - **Si aspetta:** "Segnato: finito, non ti ha preso. Curioso, visto quanto ti dice Camus." (o nulla)
-- **Ricorda e collega:** *Lo straniero* (dentro [opere di Camus](/fonti/opere/camus-opere.md), che esiste come nota unica),
+- **Ricorda e collega:** *Lo straniero* (dentro [opere di Camus](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/camus-opere.md), che esiste come nota unica),
   `fruizione: fatta`, giudizio negativo; una crepa interessante con il nucleo (S3).
 - **Trappola:** il voto: "mi è indifferente" non è "sfiorato". È una valutazione critica. E l'opera è dentro una nota
   collettiva (`camus-opere`): va separata.
@@ -418,7 +418,7 @@
 **E43** · 2027-03-15 17:00 · immagine, opera d'arte, luogo
 > [foto] santa maria del popolo, caravaggio, la conversione di san paolo. la luce che arriva da niente
 
-- **Si aspetta:** "Salvato con la foto. Va con [luce contro buio](/idee/luce-contro-buio/index.md)?"
+- **Si aspetta:** "Salvato con la foto. Va con [luce contro buio](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/idee/luce-contro-buio/index.md)?"
 - **Ricorda e collega:** la mia foto (ammessa: è mia), l'opera (cappella Cerasi), il **luogo** e la data: un ricordo
   di viaggio *(inventato)*; tema luce (S2).
 - **Trappola:** il primo giro toglie i luoghi dall'MVP; qui il luogo è metà del ricordo.
@@ -427,7 +427,7 @@
 > devo leggere il mondo come volontà e rappresentazione prima o poi. dopo evangelion e il porcospino mi incuriosisce
 
 - **Si aspetta:** "Segnato da leggere. Il porcospino è nei *Parerga* (1851), non nel *Mondo*: forse meglio partire da lì?"
-- **Ricorda e collega:** [*Il mondo*](/fonti/pensiero/mondo-come-volonta.md) (esiste) `da-fare`; il perché (Evangelion ep. 4,
+- **Ricorda e collega:** [*Il mondo*](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/mondo-come-volonta.md) (esiste) `da-fare`; il perché (Evangelion ep. 4,
   *Hedgehog's Dilemma*); `scoperto-tramite: evangelion`.
 - **Trappola:** la curiosità punta all'opera sbagliata: il sistema lo dice, ma non sostituisce la mia scelta.
 - **Verifica:** vero (titolo inglese dell'episodio; *Parerga e paralipomena*, vol. II).
@@ -437,7 +437,7 @@
 **E45** · 2026-11-24 23:50 · conversazione con una persona
 > marco stasera mi ha detto che sono sempre in guerra con me stesso. non l'ho presa bene ma ci ha preso
 
-- **Si aspetta:** "Salvato. [Battaglie interiori](/concetti/battaglie-interiori.md) è una tua parola da sempre."
+- **Si aspetta:** "Salvato. [Battaglie interiori](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/concetti/battaglie-interiori.md) è una tua parola da sempre."
 - **Ricorda e collega:** Marco (lo stesso di E08), ciò che ha detto (sue parole riportate da me), la mia reazione
   ambivalente; il concetto esistente.
 - **Trappola:** le parole di un amico non sono una "citazione" con verifica; e "marco" deve risolversi sull'amico,
@@ -455,7 +455,7 @@
 > il prof ferri del liceo mi fece leggere il fedone a 17 anni, credo sia lì che è iniziato tutto
 
 - **Si aspetta:** "Salvato. Una radice: tutto il resto viene dopo."
-- **Ricorda e collega:** il prof. Ferri *(inventato)*; il *Fedone* (nuova opera, di [Platone](/fonti/pensiero/platone.md));
+- **Ricorda e collega:** il prof. Ferri *(inventato)*; il *Fedone* (nuova opera, di [Platone](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/platone.md));
   `scoperto-tramite` e una data **vissuta** (17 anni) diversa dalla data del messaggio.
 - **Trappola:** `quando` è anni fa e approssimativo ("a 17 anni"): una data incerta deve essere ammessa.
 
@@ -463,7 +463,7 @@
 > sognato una scala che scendeva invece di salire, e in fondo c'era il mare. non avevo paura
 
 - **Si aspetta:** "Salvato il sogno. Ti dice qualcosa?" oppure nulla.
-- **Ricorda e collega:** sogno *(inventato)*; simboli [scala](/simboli/scala.md) (esiste) e mare; "non avevo paura".
+- **Ricorda e collega:** sogno *(inventato)*; simboli [scala](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/simboli/scala.md) (esiste) e mare; "non avevo paura".
 - **Trappola:** l'interpretazione. Un sistema "junghiano" ci prova subito; non deve: propone il simbolo, non il senso.
 
 **E49** · 2027-02-09 13:00 · vaghissimo
@@ -486,7 +486,7 @@
 
 - **Si aspetta:** "Corretto: Peterson. La riga di ieri resta com'era, con la correzione accanto."
 - **Ricorda e collega:** la correzione **sul frammento di ieri** (che va trovato senza chat), cambio di attribuzione;
-  [Peterson](/fonti/pensiero/jordan-peterson.md) (esiste, e ha già quella citazione proposta).
+  [Peterson](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/jordan-peterson.md) (esiste, e ha già quella citazione proposta).
 - **Trappola:** il "testo originale immutabile" del primo giro: giusto, ma allora la correzione dove sta? E se il
   sistema avesse già creato il legame con Jung, va spostato, non solo annotato.
 
@@ -494,7 +494,7 @@
 > ho sentito una frase di chioran sul suicidio come idea che ti tiene in vita, cioè la possibilità di farla finita che ti fa resistere
 
 - **Si aspetta:** "Cioran, sì: l'idea del suicidio come appiglio (*L'inconveniente di essere nati*, da verificare). Tutto bene?"
-- **Ricorda e collega:** "chioran" → [Cioran](/fonti/pensiero/cioran.md) (esiste): il dettato vocale scrive i nomi a orecchio;
+- **Ricorda e collega:** "chioran" → [Cioran](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/cioran.md) (esiste): il dettato vocale scrive i nomi a orecchio;
   il tema è delicato.
 - **Trappola:** due. La grafia fonetica rompe la ricerca per alias; e un tema come il suicidio chiede di **guardare la
   persona**, non solo la frase: una riga umana, senza allarmismo e senza far finta di nulla.
@@ -539,7 +539,7 @@ La parola "padre" la scrivo una volta sola, alla fine; il tema c'è da mesi.
 > solo adesso capisco hohenheim. da ragazzo lo odiavo come ed
 
 - **Si aspetta:** "Segnato: un cambio di sguardo su FMA."
-- **Ricorda e collega:** Hohenheim e Ed (personaggi, non opere); [FMA](/fonti/opere/fma-brotherhood.md); un cambio di
+- **Ricorda e collega:** Hohenheim e Ed (personaggi, non opere); [FMA](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/opere/fma-brotherhood.md); un cambio di
   giudizio nel tempo (allora / ora).
 - **Trappola:** i personaggi. Il primo giro non li ha: qui servono (Hohenheim, Ed, Murph, Telemaco sono il filo).
 
@@ -580,7 +580,7 @@ Il kintsugi è già nell'archivio; qui torna da cinque tradizioni diverse.
 > anthem di leonard cohen. there is a crack in everything. ok
 
 - **Si aspetta:** "Salvato: *Anthem*, *The Future* (1992)."
-- **Ricorda e collega:** Cohen (nuovo), la canzone, il verso breve; [kintsugi](/fonti/arte/kintsugi.md) come proposta.
+- **Ricorda e collega:** Cohen (nuovo), la canzone, il verso breve; [kintsugi](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/arte/kintsugi.md) come proposta.
 - **Trappola:** nessuna grossa: è il primo anello. La trappola è non riconoscerlo come anello dopo.
 
 **E62** · 2026-11-28 18:00 · reel, apocrifo
@@ -601,7 +601,7 @@ Il kintsugi è già nell'archivio; qui torna da cinque tradizioni diverse.
 
 - **Si aspetta:** "Cinque fonti la reggono: Cohen, Rumi (Barks), Hemingway, il kintsugi, Caravaggio. Te le metto in fila?"
 - **Ricorda e collega:** un'**idea di tatuaggio** nella nicchia che resta, che **raccoglie** un tema nato altrove;
-  [Jung, rendere cosciente l'oscurità](/fonti/pensiero/jung.md) come sesto anello possibile, proposta mia.
+  [Jung, rendere cosciente l'oscurità](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/jung.md) come sesto anello possibile, proposta mia.
 - **Trappola:** i tatuaggi non sono più il centro, ma qui sono il punto d'arrivo naturale di un filo: il progetto
   deve poter "pescare" dalla base, non vivere in un mondo a parte.
 
@@ -613,8 +613,8 @@ Il nucleo dice "stadio assurdista, alla Camus". Sei mesi dopo qualcosa si muove.
 > bisogna immaginare sisifo felice. oggi ci credo davvero, ho spinto tutto il giorno e stasera sto bene
 
 - **Si aspetta:** "Salvato. Oggi Sisifo è felice."
-- **Ricorda e collega:** la frase (autentica, *Il mito di Sisifo*); [Sisifo](/fonti/sacro-e-mito/sisifo.md) (esiste come mito,
-  ma ci sono anche il [Tiziano](/fonti/arte/tiziano-sisifo.md) e il [von Stuck](/fonti/arte/von-stuck-sisifo.md)); la mia posizione.
+- **Ricorda e collega:** la frase (autentica, *Il mito di Sisifo*); [Sisifo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/sacro-e-mito/sisifo.md) (esiste come mito,
+  ma ci sono anche il [Tiziano](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/arte/tiziano-sisifo.md) e il [von Stuck](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/arte/von-stuck-sisifo.md)); la mia posizione.
 - **Trappola:** "Sisifo" ha tre note nell'archivio (mito, due quadri) più il saggio di Camus dentro `camus-opere`:
   qui si parla del saggio, non del mito.
 
@@ -632,7 +632,7 @@ Il nucleo dice "stadio assurdista, alla Camus". Sei mesi dopo qualcosa si muove.
 
 - **Si aspetta:** "Segnato. Nel tuo sguardo di ottobre il dolore era la dimensione principale: è un cambio, o un'altra faccia?"
 - **Ricorda e collega:** una **posizione** datata che `contraddice` lo sguardo (nucleo) e si avvicina a
-  [Schopenhauer](/fonti/pensiero/schopenhauer.md) (dolore e noia, il pendolo): convergenza proposta, non mia.
+  [Schopenhauer](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/fonti/pensiero/schopenhauer.md) (dolore e noia, il pendolo): convergenza proposta, non mia.
 - **Trappola:** aggiornare lo sguardo al posto mio. Il sistema segnala la tensione; lo sguardo lo cambio io.
 
 **E70** · 2027-04-18 22:30 · contraddizione esplicita, domanda sul passato
@@ -651,7 +651,7 @@ Stati d'animo senza oggetto, e la primavera che arriva.
 > apatia totale. niente mi tocca. anche la musica è grigia
 
 - **Si aspetta:** "Ci sono." Nessuna proposta, nessuna domanda.
-- **Ricorda e collega:** [apatia](/emozioni/apatia.md) (esiste) come **stato** con data e ora; la musica che non arriva.
+- **Ricorda e collega:** [apatia](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/emozioni/apatia.md) (esiste) come **stato** con data e ora; la musica che non arriva.
 - **Trappola:** due errori opposti: ignorarlo (è solo un frammento) o fare lo psicologo. E il primo giro mette
   le emozioni come `suscita` di un'opera: qui non c'è nessuna opera.
 
@@ -659,7 +659,7 @@ Stati d'animo senza oggetto, e la primavera che arriva.
 > primo giorno di sole vero. camminato due ore senza musica. gioia stupida, senza motivo
 
 - **Si aspetta:** "Segnato. È la prima gioia dopo l'inverno."
-- **Ricorda e collega:** [gioia](/emozioni/gioia.md); "senza musica" (dopo E71); un punto di svolta nella serie degli
+- **Ricorda e collega:** [gioia](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/emozioni/gioia.md); "senza musica" (dopo E71); un punto di svolta nella serie degli
   stati; la sequenza S4 si legge da sola: E29 (gennaio, Sigur Rós, "è l'inverno"), E49, E71, E72.
 - **Trappola:** "dimmi come stavo quest'inverno" sarà una domanda vera: serve la serie degli stati, non la ricerca di
   una parola.
@@ -703,7 +703,7 @@ Stati d'animo senza oggetto, e la primavera che arriva.
 
 ## 5. Che cosa insegna il corpus al progetto: le 10 lezioni
 
-Ognuna confrontata con la [proposta](/_progetto/proposta.md).
+Ognuna confrontata con la [proposta](/progetto/proposta.md).
 
 1. **Niente comando `/memo`: un ingresso solo, che capisce l'intento.** E12, E58, E70 sono insieme memo e domanda;
    E49 non è nessuno dei due. Io non scriverò `/memo`. *Proposta §4: il flusso parte dalla skill.* → Ogni messaggio
@@ -763,4 +763,4 @@ aggiunto con un caso reale quando capita.
 
 ## Collegamenti
 
-- [Proposta unica](/_progetto/proposta.md) · [Acquisizione](/_progetto/acquisizione.md) · [Domande](/_progetto/domande.md) · [Schema](/_progetto/schema.md)
+- [Proposta unica](/progetto/proposta.md) · [Acquisizione](/progetto/acquisizione.md) · [Domande](/progetto/domande.md) · [Schema](/progetto/schema.md)

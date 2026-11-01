@@ -9,7 +9,7 @@ data: 2026-10-31
 
 > Progettazione v2, 2026-10-31. Proposta di Claude, da validare. Ricerca web su fonti ufficiali (docs Anthropic,
 > GitHub, Apple, Cloudflare, app Android), quattro subagent in parallelo. Completa il §4 dello
-> [stato dell'arte](/_progetto/v2/stato-arte.md) e serve i principi 1, 2 e 12 dell'[essenza](/_progetto/v2/essenza.md).
+> [stato dell'arte](/progetto/v2/stato-arte.md) e serve i principi 1, 2 e 12 dell'[essenza](/progetto/v2/essenza.md).
 > Legenda: **✔** = letto in una pagina ufficiale il 2026-10-31; **?** = da verificare o da provare sul campo;
 > *stima* = calcolo o giudizio nostro.
 

@@ -1,11 +1,11 @@
 # Regole di importazione, con i nomi del modello
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> Riscrive le regole R1–R13 di [eredità §7](/_progetto/v2/eredita.md) con i nomi di [modello](/_progetto/v2/modello.md)
+> Riscrive le regole R1–R13 di [eredità §7](/progetto/v2/eredita.md) con i nomi di [modello](/progetto/v2/modello.md)
 > (§2.2 tipi, §2.3 predicati, §2.4 voci, §2.5 tabella dei segnaposto, §8.5 correzione dell'eredità).
 > Dove il modello non basta a decidere, la scelta presa qui è segnata **[A n]**: rinvia all'attrito n di
-> [attriti](/_progetto/v2/simulazione/attriti-importazione.md). I file d'esempio sono in
-> [importazione](/_progetto/v2/simulazione/importazione.md).
+> [attriti](/progetto/v2/simulazione/attriti-importazione.md). I file d'esempio sono in
+> [importazione](/progetto/v2/simulazione/importazione.md).
 
 ## 0. Costanti
 
@@ -67,7 +67,7 @@ proposta, ma **non** si calcola sul punto zero: il conto dei 60 giorni parte dal
 **R7. Citazione → nodo o voce.** (a) Citazione presente in un **frammento suo** (U19 il monologo, U20 la frase di Rust,
 U18 Invictus che però è un'opera intera) → nodo `citazioni/` con `prova: memoria` e niente `esito`, `detta-da` il personaggio,
 `autore` il vero autore, `nato-da` il frammento. (b) Citazione scelta da Claude su un'entità viva (eredità §3.3) → una voce
-della restituzione `r-20261007-0000-ritratto-citazioni`, **già corretta** secondo [citazioni §4](/_progetto/v2/citazioni.md)
+della restituzione `r-20261007-0000-ritratto-citazioni`, **già corretta** secondo [citazioni §4](/progetto/v2/citazioni.md)
 (forma italiana marcata "resa di Claude" o "(traduzione da verificare)"), voce `proposta` ◌; il nodo nasce solo se lui la
 accoglie **[A 8]**.
 
@@ -104,7 +104,7 @@ se lui ne riprende una.
 
 ## 3. Che cosa cambia dopo la simulazione
 
-La prova sul campione ([attriti](/_progetto/v2/simulazione/attriti-importazione.md)) chiede di correggere queste regole
+La prova sul campione ([attriti](/progetto/v2/simulazione/attriti-importazione.md)) chiede di correggere queste regole
 prima dello script:
 - **R1:** corpo = testo grezzo senza markup né etichette di Claude; `forma: riportata` per le frasi sue scritte da altri
   (A2, A19); `intento: [salva]` di default (A22); una provenienza in `fonte:`, non in `link` (A20).

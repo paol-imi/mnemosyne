@@ -18,11 +18,11 @@ Tra un passo e l'altro: `node scripts/lucchetto.mjs rinnova` (se il lucchetto no
 Ogni passo è un piano `ciclo: consolida`, applicato con `node scripts/applica.mjs`.
 A1. **Rileggi** i frammenti nuovi con un campione di **20 vecchi** sugli stessi nodi, partendo da ciò che non aggancia
     niente e da ciò che tocca lo sguardo (`s01`, `s04`): `contesto/parole.md`, `mappa.md`, le letture.
-A2. **Temi.** Per ogni parola candidata che in `mappa.md` è una vicenda (≥ 3 frammenti in ≥ 3 giorni distinti entro 30
-    giorni attivi): `crea-nodo` con `genere: temi`, `nome` = la mia parola, `nato-da` = i frammenti-prova; poi
+A2. **Temi dedotti (◌).** Quelli che nomino io li ha già creati "smista". Per ogni parola candidata che in `mappa.md` è
+    una vicenda (la 2ª–3ª ricorrenza: ≥ 3 frammenti in ≥ 3 giorni distinti entro 30 giorni attivi): `crea-nodo` con `genere: temi`, `nome` = la mia parola, `nato-da` = i frammenti-prova; poi
     un'operazione `lettura` (versione nuova, intera) per ogni lettura toccata, con il `parla-di` verso `@nome`. Mai un
     tema con una parola che non ho scritto prima della prima restituzione che la usa; mai su una persona `vita`.
-A3. **Citazioni ⚠**: per ogni citazione senza `esito`, la verifica (CLAUDE.md), un subagent ogni 3, ≤ 5 ricerche o 10
+A3. **Citazioni ⚠**: per ogni citazione senza `esito` (all'ingresso nascono tutte così: l'esito lo scrivi solo tu), la verifica (CLAUDE.md), un subagent ogni 3, ≤ 5 ricerche o 10
     minuti ciascuno. `aggiorna-nodo` con `esito`, `riferimento`, `originale`, `traduzione`, e `autore` solo se
     verificato. Se non trovi, resta ⚠.
 A4. **Contraddizioni e accoglienze.** Dove una posizione nuova urta una vecchia o lo sguardo: `contraddice` nella

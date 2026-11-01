@@ -2,10 +2,10 @@
 
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
 > È la serie di file pronta per il nuovo repository: `CLAUDE.md` alla radice e i prompt in `prompt/`, allineati al
-> [modello v3](/_progetto/v2/modello-v3.md) **finale** (in breve: **v3**, con i paragrafi §n e le righe del registro §15,
-> fino alla 78). Sostituisce i [prompt operativi](/_progetto/v2/prompt-operativi.md), scritti con i nomi del v2, e riassume
-> dentro `CLAUDE.md` le regole di [voce](/_progetto/v2/voce.md), così il nuovo repository non dipende da quel file. Il
-> calendario è quello del [piano](/_progetto/v2/piano.md).
+> [modello v3](/progetto/v2/modello-v3.md) **finale** (in breve: **v3**, con i paragrafi §n e le righe del registro §15,
+> fino alla 78). Sostituisce i [prompt operativi](/progetto/v2/prompt-operativi.md), scritti con i nomi del v2, e riassume
+> dentro `CLAUDE.md` le regole di [voce](/progetto/v2/voce.md), così il nuovo repository non dipende da quel file. Il
+> calendario è quello del [piano](/progetto/v2/piano.md).
 
 **Come si usa.** Ogni paragrafo qui sotto ha come titolo il percorso del file nel nuovo repository; il blocco di codice è
 il contenuto, da copiare così com'è. Nell'interfaccia di claude.ai il prompt di ogni Routine è una riga sola (v3 §7.4):
@@ -838,7 +838,7 @@ senza voci nuove e senza atti. Se non lo rimando, non succede niente: non ricord
 
 ## 12. Differenze rispetto ai prompt operativi
 
-| tema | [prompt operativi](/_progetto/v2/prompt-operativi.md) (v2) | questi file (v3 finale) | v3 |
+| tema | [prompt operativi](/progetto/v2/prompt-operativi.md) (v2) | questi file (v3 finale) | v3 |
 |---|---|---|---|
 | dove stanno i prompt | testo incollato in claude.ai | file in `prompt/`; la Routine dice "leggi ed esegui"; hash nel campo `prompt` | §7.4, n. 73 |
 | chi scrive i file | l'AI scrive letture, nodi, restituzioni a mano | piano `{ciclo, letto-da, operazioni}`, 7 operazioni, `applica.mjs` | §2.2, n. 73 |
@@ -881,7 +881,7 @@ senza voci nuove e senza atti. Se non lo rimando, non succede niente: non ricord
 ## 14. Incoerenze residue (dopo la prova a freddo)
 
 Le dieci del secondo giro sono risolte nel v3 (registro n. 75 e 77) e restano nell'appendice B. Queste cinque, emerse
-dalla [prova a freddo](/_progetto/v2/prova-a-freddo.md), sono ora **risolte** nel v3 (registro n. 78) e nei file qui
+dalla [prova a freddo](/progetto/v2/prova-a-freddo.md), sono ora **risolte** nel v3 (registro n. 78) e nei file qui
 sopra; restano per memoria:
 
 1. *Risolta.* **`parole`: singolare o forma tua?** v3 §3.3 dice "singolare, minuscolo, la tua forma ("padre", non "padri")", ma
@@ -963,5 +963,5 @@ Risolte nel v3 finale (registro n. 73); restano qui perché il v3 le cita per nu
 
 ## Collegamenti
 
-- [Modello v3](/_progetto/v2/modello-v3.md) · [Prompt operativi](/_progetto/v2/prompt-operativi.md) ·
-  [Voce](/_progetto/v2/voce.md) · [Piano](/_progetto/v2/piano.md) · [Banco definitivo](/_progetto/v2/banco-di-prova-v2.md)
+- [Modello v3](/progetto/v2/modello-v3.md) · [Prompt operativi](/progetto/v2/prompt-operativi.md) ·
+  [Voce](/progetto/v2/voce.md) · [Piano](/progetto/v2/piano.md) · [Banco definitivo](/progetto/v2/banco-di-prova-v2.md)

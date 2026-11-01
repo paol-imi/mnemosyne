@@ -1,16 +1,16 @@
 # Il modello v3
 
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
-> È il modello **definitivo e autosufficiente**: chi lo legge non ha bisogno del [modello v2](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/modello.md).
-> Integra le prove sul v2: [critica del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-tempo.md) (crolli **C1–C15**),
-> [critica della semplicità](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-semplicita.md) (**CS §n**), gli
-> [attriti dell'importazione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-importazione.md) (**A1–A31**) e le
+> È il modello **definitivo e autosufficiente**: chi lo legge non ha bisogno del [modello v2](../v2/modello.md).
+> Integra le prove sul v2: [critica del tempo](../v2/critica-tempo.md) (crolli **C1–C15**),
+> [critica della semplicità](../v2/critica-semplicita.md) (**CS §n**), gli
+> [attriti dell'importazione](../v2/simulazione/attriti-importazione.md) (**A1–A31**) e le
 > [regole d'importazione](./05-regole-importazione.md). È allineato al
 > [banco di prova definitivo](./04-banco-di-prova.md), a [voce](./10-voce.md) e ai
-> [prompt operativi](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/prompt-operativi.md) (§16). Integra anche le
-> simulazioni delle [domande](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-domande.md) (**Q1–Q33**) e
-> dell'[ingresso](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-ingresso.md) (**I1–I25**, gli A1–A25 di quel file, rinominati per non
-> confonderli con gli attriti dell'importazione) e la [prova del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-tempo.md) sul v3
+> [prompt operativi](../v2/prompt-operativi.md) (§16). Integra anche le
+> simulazioni delle [domande](../v2/simulazione/attriti-domande.md) (**Q1–Q33**) e
+> dell'[ingresso](../v2/simulazione/attriti-ingresso.md) (**I1–I25**, gli A1–A25 di quel file, rinominati per non
+> confonderli con gli attriti dell'importazione) e la [prova del tempo](../v2/simulazione/attriti-tempo.md) sul v3
 > (**V1–V16**).
 > Il collaudo è il [banco di prova definitivo](./04-banco-di-prova.md) (casi **B01–B25**, **D01–D25**,
 > prove di restituzione **R01–R14**, prove di tempo **T01–T10**).
@@ -31,18 +31,18 @@ Sono dodici. Ognuno ha la prova che lo fonda.
 
 1. **Le tue parole sono sacre.** Si conservano byte per byte, separate da ogni lettura; l'AI non parla mai con la tua
    voce. *Prova:* "te le sia inventate tu di sana pianta", l'unico scatto d'irritazione documentato
-   ([archivio reale §1](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/archivio-reale.md)); D02 "le mie frasi, solo le mie".
+   ([archivio reale §1](../v2/archivio-reale.md)); D02 "le mie frasi, solo le mie".
 2. **Catturare costa zero.** Un tocco, "Salvato", nessuna domanda obbligatoria. *Prova:* 0 risposte su ~18 domande
-   "a pancia" ([essenza §0](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md)).
+   "a pancia" ([essenza §0](../v2/essenza.md)).
 3. **La struttura è dell'AI: marcata, motivata, usabile subito.** Ogni legame dice da dove viene, perché e con quale voce.
    Nessun cancello di validazione. *Prova:* 0 decisioni su ~130 proposte, poi 23 giorni di silenzio.
 4. **La validazione è l'uso.** Una proposta diventa tua quando la riprendi, la porti da te o dici sì; un no non torna più;
    ciò che resta intatto sbiadisce nella vista, mai nei dati. *Prova:* il caso Karamazov; D17–D18.
 5. **Il significato nasce dopo.** All'ingresso solo entità certe (compresi i concetti che
    nomini tu); i temi **dedotti** nascono alla ricorrenza, rileggendo il vecchio
-   con il nuovo. *Prova:* la sequenza "padre" (D24, [cervello §1](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/cervello.md)).
+   con il nuovo. *Prova:* la sequenza "padre" (D24, [cervello §1](../v2/cervello.md)).
 6. **La restituzione è il prodotto.** Prosa ancorata a tue frasi datate. Sogno, "ti ricordi?" e ritratto restano, con
-   soglie e ritmi (§9). *Prova:* [essenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md) §1 e scene 1–6, [restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/restituzione.md).
+   soglie e ritmi (§9). *Prova:* [essenza](../v2/essenza.md) §1 e scene 1–6, [restituzione](../v2/restituzione.md).
 7. **Il tempo è sincero.** Doppio tempo (registrato e vissuto); le posizioni non si cancellano; l'importato non fa serie;
    nessuna curva che i dati non mostrano; un cambio di lettore non si spaccia per un cambio tuo (C13).
 8. **L'archivio è una lente sul mondo.** Le risposte uniscono il tuo e il mondo, con il confine visibile; le citazioni
@@ -51,7 +51,7 @@ Sono dodici. Ognuno ha la prova che lo fonda.
 10. **Uno specchio che contraddice, con misura.** Poche cose forti; il silenzio è legittimo; mai un sollecito.
 11. **Ciò che deve essere identico lo fa uno script; ciò che è giudizio lo fa l'AI e lo scrive.** Slug, nomi di file,
     numerazioni, conteggi, pulizia dei link, spostamenti: script. Intento, entità, reazioni, legami, prosa: AI, dentro un
-    *piano* che lo script applica e verifica. *Prova:* [CS §3.2](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-semplicita.md); il primo Atlante,
+    *piano* che lo script applica e verifica. *Prova:* [CS §3.2](../v2/critica-semplicita.md); il primo Atlante,
     dove l'AI ricopiava e normalizzava.
 12. **Un file, un solo scrittore alla volta.** Un lucchetto per il repository, un proprietario per ogni file. *Prova:* C6, C9.
 
@@ -111,8 +111,8 @@ memo di Galimberti:
 
 `@Nome` rimanda a un nodo creato nello stesso piano: [S] lo sostituisce con lo slug calcolato. Così l'AI non inventa mai
 uno slug, e due piani con lo stesso nome producono lo stesso file. La **verifica rapida** di una citazione nuova (§7.2) sta
-**dentro** il suo `crea-nodo` (`esito`, `riferimento` quando trova una scheda): avviene prima di `applica`, ed è ancora la
-creazione.
+**dentro** il suo `crea-nodo` (la traccia della ricerca nel corpo del nodo, mai `esito` né `riferimento`: §7.2 passo 4):
+avviene prima di `applica`, ed è ancora la creazione.
 
 **Chi è il lettore.** `letto-da` lo dichiara l'AI nel piano (il modello che sta girando). `prompt` lo calcola [S]: le prime 7
 cifre dell'hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md` messi in fila, perché il lettore dipende da
@@ -168,7 +168,7 @@ Lo scrive il Comando rapido, già completo, in `ingresso/`; [S] lo sposta con `g
 | `voce` | solo importato | `sua` · `seme` | D02 conterebbe il nucleo come tuo |
 | `forma` | importato o chat | `riportata`: frase tua messa per iscritto da Claude (A2), o ricopiata dalla chat del Progetto nel memo (§7.3) | D02 la mostrerebbe come scritta da te |
 | `allegati` | se ci sono | nomi di file accanto, nel formato originale (`<id>.jpg`, `.heic`, `.webp`, `.m4a`); la copia ridotta `<id>.webp` la ricava [S] (I14) | B21 la foto della pagina |
-| `chiede` | se viene da "Chiedi" | `true`: lo scrive il Comando rapido "Chiedi" (§7.1). È un gesto tuo, non una lettura: l'`intento` resta nella lettura, che con `chiede: true` contiene sempre `chiedi` | C15e; prova a freddo R33 |
+| `intento` | no (lo scrive solo "Chiedi") | facoltativo; una lista dallo stesso elenco della lettura, e "Chiedi" (§7.1) scrive il predefinito `[chiedi]`; "Memo" non lo scrive. È un gesto tuo, non una lettura: la lettura contiene sempre i valori del frammento (e può aggiungerne, `[salva, chiedi]`) | C15e; prova a freddo R33 |
 
 Il corpo è il testo **esatto**, link, refusi e a capo compresi ("chioran", "nn", `?si=`). Niente titolo, niente sezioni.
 
@@ -217,7 +217,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 | `intento` | sì | uno o più tra `salva` · `chiedi` · `sguardo` · `niente` | B11 salva **e** chiedi; B18 niente |
 | `reazione` | no | `[{parole: "…citate…", verso: + / - / ±}]`; ± per una commozione o un "ci ha preso" che sta tra i due (I23) | B06 "da bacio perugina" −; D03 il conforto |
 | `legami` | sì (anche vuoto) | §4 | |
-| `parole` | no | parole candidate a tema: singolare, minuscolo, la tua forma ("padre", non "padri") | D24; CS §2.3 |
+| `parole` | no | parole candidate a tema, **sempre una lista** (anche di una sola parola: `[greci]`): singolare, minuscolo, la tua forma ("padre", non "padri") | D24; CS §2.3 |
 | `link` | no | [S] `[{url, titolo, autore}]`: puliti (`?si=` via, `t=` tenuto), titolo da oEmbed | B13, B14 |
 | `trascrizione` | no | il testo letto da una foto o da un vocale; **non** è voce tua | B21 |
 | `altrui` | no | `true`: il corpo è in gran parte parole d'altri che hai trascritto (un monologo, una citazione lunga); ✦ il gesto, ○ le parole | [voce §5](./10-voce.md); U19 |
@@ -229,7 +229,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 
 Un frammento è **parlante** [S] se non è importato, l'intento non è solo `niente` e, tolti i link, restano almeno 3
 parole sue. Tutte le soglie (lettera, sogno, ritratto, giorni attivi) contano solo i parlanti così definiti: i ~32
-importati ✦ non ci entrano (incoerenza 8). I non
+importati ✦ non ci entrano ([prompt v3](./03-prompt-v3.md), appendice A n. 8). I non
 parlanti (link nudi, "boh", "sì", "ok") restano nei dati ma non contano (§6.2).
 
 ```yaml
@@ -281,8 +281,8 @@ Mai per copertura, mai per riempire un campo. La scheda è un documento d'identi
   con il tuo nome (principio 9). "Mia cugina" è una parentela: slug `cugina`, alias "mia cugina" (R62). Un tema nato da una negazione ("non nichilismo") lo dice
   nel `perche`.
 
-**Chi la scrive.** La crea "smista" (file nuovo, compresi `esito` e `riferimento` se la verifica rapida li trova:
-è ancora la creazione). Dopo, "smista" può solo **aggiungere un alias**; ogni altra modifica la fa il
+**Chi la scrive.** La crea "smista" (file nuovo; per una citazione solo `nome`, `attribuita-a` e `nato-da`, senza
+`esito`, cioè ⚠, con la traccia della verifica rapida nel corpo: è ancora la creazione). Dopo, "smista" può solo **aggiungere un alias**; ogni altra modifica la fa il
 consolidamento (§8.3).
 
 | campo | generi | che cosa |
@@ -300,7 +300,7 @@ consolidamento (§8.3).
 | `originale`, `traduzione` | `citazioni` | il testo; per la traduzione, chi l'ha fatta oppure "resa di Claude" |
 | `riferimento` | `citazioni` | una riga: opera, luogo, url, data della verifica; "fonte primaria" o "secondaria" in parole |
 | `esito` | `citazioni` | `verificata` · `simile` · `errata` · `non-trovata`. **Senza esito = ⚠** |
-| `scopo` | `raccolte` | una riga, parole tue; finché manca, `mappa.md` lo segnala e la prima risposta sulla raccolta lo chiede (A30) |
+| `scopo` | `raccolte` | una riga, parole tue; finché manca, `mappa.md` lo segnala; nessuna risposta lo chiede, perché non è tra i 7 casi dell'elenco unico (§7.2.1, §9.1) (A30) |
 
 `esito` giudica l'attribuzione all'`autore`. "Autore giusto, opera sbagliata" (B07) è `verificata` con un `riferimento`
 che dice l'opera vera: la vista lo mette accanto al tuo frammento. Il **vero autore ignoto** (B06) è `errata` con `autore`
@@ -469,6 +469,7 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
     "fonte1": {"type": "string", "pattern": "^[^:]+:\\d+(-\\d+)?(, ?\\d+(-\\d+)?)*@[0-9a-f]{7}$"},
     "fonte": {"anyOf": [{"$ref": "#/$defs/fonte1"}, {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fonte1"}}]},
     "modello": {"type": "string", "minLength": 3},
+    "intento": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["salva", "chiedi", "sguardo", "niente"]}},
 
     "legame": {
       "type": "object",
@@ -527,7 +528,7 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
         "voce": {"enum": ["sua", "seme"]},
         "forma": {"const": "riportata"},
         "continua": {"$ref": "#/$defs/idF"},
-        "chiede": {"const": true},
+        "intento": {"$ref": "#/$defs/intento"},
         "allegati": {"type": "array", "items": {"type": "string", "pattern": "^\\d{8}-\\d{4}-[a-z0-9]{3,4}(-\\d)?\\.(webp|jpg|jpeg|png|heic|m4a)$"}}
       },
       "allOf": [
@@ -548,7 +549,7 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
         "versione": {"type": "integer", "minimum": 1},
         "letto-da": {"$ref": "#/$defs/modello"},
         "prompt": {"type": "string", "pattern": "^[0-9a-f]{7}$"},
-        "intento": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["salva", "chiedi", "sguardo", "niente"]}},
+        "intento": {"$ref": "#/$defs/intento"},
         "reazione": {"type": "array", "items": {"type": "object", "required": ["parole", "verso"], "additionalProperties": false,
           "properties": {"parole": {"type": "string"}, "verso": {"enum": ["+", "-", "±"]}}}},
         "legami": {"type": "array", "items": {"$ref": "#/$defs/legame"}},
@@ -714,6 +715,9 @@ Un legame è un oggetto dell'elenco `legami:` di una lettura (o di una restituzi
   ricerca, e nasce un'opera con `in: <album>` solo dopo la tua conferma.
 - **Le copie non generano legami** (A3): se lo stesso testo vive in due frammenti importati, i legami partono solo dalla
   fonte primaria.
+- **Mettere in una raccolta un frammento precedente** («quella di ieri la voglio tra i tatuaggi»): il memo nuovo porta
+  `serve-a: tatuaggi` e `ritorna-su` verso il frammento vecchio (`come: aggiunge`); il frammento vecchio e la sua lettura
+  non si toccano.
 - **Tolti:** `sente` (è `parla-di` con `come: stato`), `tramite` (è `nomina` + il `perche`: "«marco mi ha mandato»").
 
 ---
@@ -833,7 +837,7 @@ arriva a ~224.000 token in un anno, per l'85% `parole.md`. Quindi:
 Si calcolano al momento della domanda e non si salvano: la pagina di un nodo (3–5 "porte", cioè i tuoi frammenti più forti
 con la data, poi le convergenze, poi il resto per modalità), la linea del tempo (posizioni e stati per mese, con le tue
 parole), il ritratto su richiesta, le assenze (D23: al massimo tre, con numeri ✦). Ogni elenco contiene **una voce della
-coda lunga**, qualcosa che non rivedi da tempo ([cervello §6](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/cervello.md)).
+coda lunga**, qualcosa che non rivedi da tempo ([cervello §6](../v2/cervello.md)).
 
 ---
 
@@ -846,13 +850,14 @@ Il **Comando rapido "Memo"** (iOS; HTTP Shortcuts su Android) scrive il framment
 `fire` della Routine "smista" passando l'id come `text`. Sul telefono: "Salvato". Foto e vocali passano dallo stesso PUT,
 con lo stesso id. Se tutto il resto fallisce, il grezzo c'è.
 
-Il **Comando rapido "Chiedi"** fa lo stesso con una domanda (C15e) e poi apre il Progetto: la domanda resta anche se la
+Il **Comando rapido "Chiedi"** fa lo stesso con una domanda (C15e), con in più `intento: [chiedi]` nel frontmatter (il
+predefinito; il campo è facoltativo, §3.2), e poi apre il Progetto: la domanda resta anche se la
 conversazione del Progetto no.
 
 ### 7.2 "Smista" (minuti, asincrono)
 
 Routine con due inneschi: il `fire` e una passata ogni 3 ore (`7 */3 * * *`) che raccoglie i rimasti. Passi (gli attriti
-citati **I1–I25** sono quelli della [simulazione dell'ingresso](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-ingresso.md)):
+citati **I1–I25** sono quelli della [simulazione dell'ingresso](../v2/simulazione/attriti-ingresso.md)):
 
 1. [S] **attesa e lucchetto** (§8.1);
 2. [S] `smista.mjs`: sposta in `frammenti/` **tutto** `ingresso/` (tranne le chat aperte), in ordine di tempo;
@@ -862,7 +867,8 @@ citati **I1–I25** sono quelli della [simulazione dell'ingresso](https://github
    (`og:description`) (I13);
 3. [AI] per ciascun frammento, un piano:
    - l'**intento**: `chiedi` solo per un fatto del mondo o dell'archivio; una domanda su di te ("sono la stessa persona di
-     5 anni fa?") è `salva`, con al più un `parla-di` ◌ verso una delle 8 domande (I22);
+     5 anni fa?") è `salva`, con al più un `parla-di` ◌ verso una delle 8 domande (I22); se il frammento porta già un
+     `intento` (da "Chiedi", §3.2), la lettura lo contiene sempre;
    - i **riferimenti** ("quella di ieri") nella finestra di 3 giorni di calendario più oggi; se non si trovano, nessun
      atto (I11);
    - le **entità** certe (§3.6, con le regole del §3.4 su quando un nodo nasce), la `reazione`, i legami di voce sua e
@@ -871,12 +877,14 @@ citati **I1–I25** sono quelli della [simulazione dell'ingresso](https://github
      "La 3 è *ecdysis*, giusto?" (I15);
    - la **risposta** (§7.2.1), **solo se ha contenuto** (C11), **una sola** per una raffica (T01). Altrimenti
      `risposta: salvato` (o `ci-sono` per "boh" e per il delicato);
-4. [AI] **la verifica rapida** di una citazione **nuova**, dentro il suo `crea-nodo`, prima di `applica` (I8, V16): una-due ricerche sulla frase così come l'hai scritta. Se trovano una
-   scheda (Quote Investigator, Wikiquote), il nodo prende subito `esito` e la scheda in `riferimento` ("fonte secondaria"),
-   qualunque sia l'esito; altrimenti nessun `esito` (⚠) e la traccia della ricerca nel corpo del nodo. L'attribuzione tua
-   va **sempre** in `attribuita-a` (anche un'opera: `~La peste`); `autore` solo quando è verificato. Questa è la **regola
+4. [AI] **la verifica rapida** di una citazione **nuova**, dentro il suo `crea-nodo`, prima di `applica` (I8, V16): una-due ricerche sulla frase così come l'hai scritta. All'ingresso il
+   nodo nasce **senza `esito`** (⚠, l'ex `prova: memoria`), senza `riferimento` né `autore`, qualunque cosa trovino: ciò
+   che trovano (una scheda di Quote Investigator o Wikiquote, un apocrifo noto) va come traccia nel corpo del nodo e, se
+   conta, in una riga della risposta con ⚠; `esito`, `riferimento`, `autore` e `originale` li scrive solo "consolida"
+   (§7.4 passo 3). L'attribuzione tua va **sempre** in `attribuita-a` (anche un'opera: `~La peste`). Questa è la **regola
    unica** sull'esito all'ingresso (prova a freddo R24/R62): vale per modello, prompt, piano e banco, e `verifica.mjs` la
-   accetta. La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
+   accetta. Unica eccezione voluta: una citazione dell'Atlante che accogli nasce già con `esito` e `riferimento`, perché
+   l'importazione fa le veci di "consolida" e quelle citazioni sono già verificate ([correzioni](./07-correzioni-citazioni.md); §14 R7). La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
    restano `~Nome` finché non li nomini tu. "Smista" crea temi solo per i concetti che nomini tu (§3.4), mai dedotti (R51);
 5. [S] `applica.mjs`: file, slug, numeri, link puliti. È **transazionale** (R69): scrive in una cartella di lavoro, lancia
    `verifica.mjs` e sposta i file al loro posto solo se passa; se no, non resta niente. Il piano arriva da un file scritto
@@ -922,7 +930,7 @@ delicato o con una reazione −; mai un arretrato, mai "bentornato" (T02).
 
 ### 7.3 Le domande: il Progetto, con il memo da rimandare, e Specchio
 
-La simulazione delle domande ([attriti](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-domande.md)) dice: dal Progetto 69 criteri
+La simulazione delle domande ([attriti](../v2/simulazione/attriti-domande.md)) dice: dal Progetto 69 criteri
 passano, 30 male, 1 fallisce; da Code 29/3/0, ma Code costa 4–6 volte il tempo. Quindi **il Progetto è la via di
 default**, e Specchio quella per i casi che lo richiedono.
 
@@ -954,7 +962,7 @@ risposte:
   rapido "Chiedi" (C15e): allora fa testo quella, byte per byte, e il memo aggiunge solo le risposte. Se non rimandi il
   memo, la risposta resta detta in chat e basta: nessun danno, nessun sollecito.
 
-  **Due memo della stessa chat** (stesso id, [prompt v3](./03-prompt-v3.md) §14 n. 10): il memo successivo
+  **Due memo della stessa chat** (stesso id, [prompt v3](./03-prompt-v3.md), appendice B n. 10): il memo successivo
   **sostituisce** il precedente solo se lo contiene come **prefisso**, cioè gli stessi turni e le stesse voci, con turni o
   voci nuovi solo in coda e i numeri `n` continui. Altrimenti [S] `applica.mjs` lo rifiuta e lo mette in coda come
   **conflitto**, che la Specchio successiva ti mostra. Il frammento di chat resta immutabile nel senso del v3: vale l'ultima
@@ -1029,7 +1037,7 @@ tema largo si calcolano al momento della domanda (C8c).
 
 **"Lettera"**, domenica sera (`CRON_TZ=Europe/Rome 37 17 * * 0`). **Non scrive niente**: se "consolida" ha scritto una
 lettera, la consegna; **se non c'è** (soglia mancata o "consolida" fallito), la sessione finisce in silenzio, senza
-notifica: dalla tua parte non succede niente (incoerenza 9 di [prompt v3](./03-prompt-v3.md)).
+notifica: dalla tua parte non succede niente ([prompt v3](./03-prompt-v3.md), appendice A n. 9).
 Il testo della lettera è il **messaggio finale** della sessione (C1b); la notifica, 5–7 parole senza contenuto, dice
 "La lettera è pronta". Così il lavoro pesante sta di notte e la lettura arriva di sera.
 
@@ -1049,7 +1057,7 @@ Prima della pipeline, una restituzione vera (CS §4):
 | 3 | **il bilancio dei ponti**: Specchio rilegge **tutti** i memo dei giorni 1–3 e chiude con il ponte più forte, oppure con "Niente si aggancia ancora." È la prova della meraviglia: almeno un ponte inatteso, con la tua frase vecchia alla lettera e la data |
 | 4–7 | Specchio ogni sera, come nei giorni 1–3, finché le Routine non sono attive; al giorno 7 (o prima, se l'apertura serale pesa) si attivano il `fire` e le Routine, e la domenica parte la prima lettera |
 
-**Il ponte dei primi giorni** (decisione di progetto, [prova di restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-restituzione.md) A2):
+**Il ponte dei primi giorni** (decisione di progetto, [prova di restituzione](../v2/simulazione/attriti-restituzione.md) A2):
 - nei primi 3 giorni i **vicini** di un memo (§6.2) comprendono **tutti** gli importati ✦, non solo quelli che condividono
   un nodo: Rust (u19) deve poter rispondere a Galimberti;
 - un ponte si consegna solo se ha un **luogo preciso** da entrambe le parti: la tua frase con la data, e per un ○ l'opera e
@@ -1123,7 +1131,8 @@ Elaborare due volte non fa danni [S]:
 | `frammenti/` | "smista" o Specchio che ne fa il lavoro (sposta, sigilla) | con il lucchetto |
 | `letture/` v1 | "smista", o Specchio quando ne fa il lavoro | con il lucchetto |
 | `letture/` v≥2 | "consolida", migrazioni | con il lucchetto |
-| nodi: creazione, alias | "smista" | con il lucchetto |
+| nodi: creazione, alias; i temi solo se li nomini tu (✦), e nascono subito | "smista" | con il lucchetto |
+| temi dedotti (◌) | "consolida" | alla 2ª–3ª ricorrenza, cioè a una vicenda (§6.2), con il lucchetto |
 | nodi: ogni altro campo, lapidi | "consolida", migrazioni | con il lucchetto |
 | `restituzioni/` `risposta` | "smista"; Specchio per la chat | con il lucchetto |
 | `restituzioni/` `lettera` | "consolida" ("lettera" la consegna e basta) | con il lucchetto |
@@ -1143,7 +1152,7 @@ Le regole di stile intere sono in [voce](./10-voce.md); qui quelle che il modell
 
 ### 9.1 Le regole di forma (valgono per tutto)
 
-Dalle prove di [restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/restituzione.md) e da [voce](./10-voce.md):
+Dalle prove di [restituzione](../v2/restituzione.md) e da [voce](./10-voce.md):
 - ogni pezzo parte da una **tua frase ✦ con la data**; le tue parole sono **in corsivo**, alla lettera; le date degli
   importati si dicono come tetto: "entro il 4 ottobre, nell'archivio d'origine" (la data vera non si sa: A4);
 - le parole **d'altri** che hai trascritto (un monologo, una citazione, una pagina fotografata) vanno tra «», mai in
@@ -1173,7 +1182,7 @@ memo; notifica 5–7 parole.
 | forma | quando | che cosa contiene | soglie e limiti |
 |---|---|---|---|
 | `risposta` | all'ingresso, a una domanda, a una chat | 1–2 righe; un aggancio, una correzione, o la risposta con voci numerate | solo se ha contenuto (C11); una per raffica (T01) |
-| `lettera` | scritta da "consolida", consegnata domenica sera | **una** cosa tra convergenza, confronto e sogno; i ponti della settimana (≤ 2: "martedì, salvando Galimberti, ho visto Rust"); al massimo **un ricordo** | parte con **≥ 2 frammenti parlanti** dall'ultima lettera consegnata, **oppure ≥ 1 e una proposta pronta** in `riserva/pronte.md`; altrimenti slitta, senza notifica e senza niente da vedere, e la proposta resta in attesa (C3 ammorbidita: con 3 la lettera mancava 6 volte su 9, [prova di restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-restituzione.md) A1) |
+| `lettera` | scritta da "consolida", consegnata domenica sera | **una** cosa tra convergenza, confronto e sogno; i ponti della settimana (≤ 2: "martedì, salvando Galimberti, ho visto Rust"); al massimo **un ricordo** | parte con **≥ 2 frammenti parlanti** dall'ultima lettera consegnata, **oppure ≥ 1 e una proposta pronta** in `riserva/pronte.md`; altrimenti slitta, senza notifica e senza niente da vedere, e la proposta resta in attesa (C3 ammorbidita: con 3 la lettera mancava 6 volte su 9, [prova di restituzione](../v2/simulazione/attriti-restituzione.md) A1) |
 | `ritratto` | il primo del mese nei mesi 1–3, poi ogni tre mesi | che cosa torna, che cosa è nuovo, che cosa è sparito, **che cosa manca**, una tensione, **una** domanda; una riga sulla voce (§9.5) | ≥ 10 frammenti parlanti nel mese (≥ 20 nel trimestre), altrimenti slitta; la riga sulla voce sta **prima** della domanda, che chiude (M2) |
 | `eredita` | importazione | le convergenze e le idee dell'Atlante | fuori dai conti, mai rilanciate |
 
@@ -1326,6 +1335,8 @@ nei campi si scrive allora `~Friedrich Nietzsche`.
    `nichilismo`).
 4. Il piano dell'AI (§2.2): tre nodi nuovi (lo spettacolo nasce con il nome che gli dai tu: l'identità è certa, è il
    titolo vero a essere incerto, e va negli alias quando lo confermi), quattro legami ✦, la reazione, le parole `ragazzo` e `cultura`, la risposta.
+   Dentro il `crea-nodo` della citazione, la verifica rapida (§7.2 passo 4): nessun apocrifo noto, la traccia va nel
+   corpo del nodo, nessun `esito`.
    L'AI vede il ponte con Rust ma lo giudica **non forte** a caldo (il legame c'è solo per una parola): lo tiene per la
    lettera.
 5. `applica`: la lettura del §3.3, `persone/umberto-galimberti.md`, `opere/spettacolo-sulle-emozioni.md`,
@@ -1346,7 +1357,7 @@ voci:
 2. Lo spettacolo forse è *Il mondo delle emozioni* ⚠.
 ```
 
-6. Verifica rapida: nessun apocrifo noto; `contesto.mjs`; commit `smista: 1 memo`; lucchetto rilasciato; push. Tempo stimato: 3–5 minuti.
+6. `contesto.mjs`; commit `smista: 1 memo`; lucchetto rilasciato; push. Tempo stimato: 3–5 minuti.
    **Nessuna notifica** (C1a): la risposta la vedi nel Progetto (`recenti.md`) o in Specchio, se li apri.
 
 ### 13.3 La raffica (variante)
@@ -1439,7 +1450,7 @@ con uno sguardo indietro sui tre mesi:
 ## 14. L'importazione dall'Atlante (una volta sola)
 
 Le regole R1–R13 dell'[eredità](./06-eredita.md), riscritte con gli attriti della
-[simulazione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-importazione.md). Script `importa.mjs` [S]; i giudizi segnati [AI] si
+[simulazione](../v2/simulazione/attriti-importazione.md). Script `importa.mjs` [S]; i giudizi segnati [AI] si
 preparano prima, in una tabella che lo script legge. **Questa sezione è la sola norma dell'importazione**: le
 [regole d'importazione](./05-regole-importazione.md) (il file 05 del pacchetto) sono **superate** e
 usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo come storia (prova a freddo R7).
@@ -1452,8 +1463,8 @@ usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo
 | **R4 convergenze** | C1–C25 → restituzioni `eredita`, `r-AAAAMMGG-0000-eredita-<slug>`, data del passo (riga di `## Evoluzione` o commit: A5), `aggancio: {a, passo}`, voci numerate con `rif` a un nodo o `~Nome`; `converge-con` con `tra` che ammette voci e `~Nome` (A1); voce ✧ solo se tutto il passo è del seme validato, altrimenti ◌ (A23) |
 | **R5 entità vive** | diventano nodi solo quelle nominate da te o dallo sguardo; slug dell'Atlante conservati; concetti e stili nominati da te → temi (A9); band → persone `mondo` (A10); Dostoevskij da U31 (A18); Napoleone resta alias di `resilienza-napoleonica` (A31) |
 | **R6 proposte** | tutto ciò che è di Claude entra solo dentro restituzioni `eredita`, ◌, che **non sbiadiscono** (A11) |
-| **R7 citazioni** | se l'esito dell'eredità e il protocollo delle [citazioni](./08-citazioni.md) divergono, vince il protocollo (R43); nelle tue frasi → nodi senza `esito` (⚠); quelle scelte da Claude → voci di `r-20261007-0000-eredita-citazioni`, **dopo** il protocollo sulle 17 vive (A8); se ne accogli una, il nodo nasce già con `esito` e `riferimento`; le correzioni sulle entità morte si fanno sull'Atlante, fuori dallo script |
-| **R8 tatuaggi** | `raccolte/tatuaggi.md` con `nato-da: [s03]` e lo `scopo` da chiedere alla prima risposta sulla raccolta (A30); le tue idee sono frammenti con `serve-a`; le altre restituzioni `eredita` con `serve-a` ◌. Il brief `s02` non esiste: è una vista (A3) |
+| **R7 citazioni** | se l'esito dell'eredità e il protocollo delle [citazioni](./08-citazioni.md) divergono, vince il protocollo (R43); nelle tue frasi → nodi senza `esito` (⚠); quelle scelte da Claude → voci di `r-20261007-0000-eredita-citazioni`, **dopo** il protocollo sulle 17 vive (A8); se ne accogli una, il nodo nasce già con `esito` e `riferimento`: è l'eccezione voluta alla regola dell'esito all'ingresso (§7.2 passo 4), perché l'importazione fa le veci di "consolida" e queste citazioni sono già verificate ([correzioni](./07-correzioni-citazioni.md)); le correzioni sulle entità morte si fanno sull'Atlante, fuori dallo script |
+| **R8 tatuaggi** | `raccolte/tatuaggi.md` con `nato-da: [s03]` e senza `scopo` finché non lo dici tu (`mappa.md` lo segnala; nessuna domanda: §7.2.1) (A30); le tue idee sono frammenti con `serve-a`; le altre restituzioni `eredita` con `serve-a` ◌. Il brief `s02` non esiste: è una vista (A3) |
 | **R9 ricerche** | la tua frase è il frammento; la pista è `nomina` con `fruizione: da-fare`; lo stato della ricerca nell'Atlante va in `nota` (A12) |
 | **R10 pin** | link nel frammento; le descrizioni di Claude in `nota` |
 | **R11 emozioni** | le 10 parole di U1 → temi; `parla-di` per le tappe, `come: stato` solo per lo stato d'arrivo, con `vissuto` (A21); le 4 di Claude non entrano |
@@ -1586,14 +1597,14 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 42 | lucchetto `ingresso/.lavoro` | `ingresso/.in-corso`, 20 minuti, rinnovato ogni 10; "consolida" e "ritratto" aspettano fino a 30 | C6; prompt operativi; decisione di progetto |
 | 43 | Specchio scrive solo file nuovi | Specchio fa il lavoro di "smista" con il lucchetto (prima settimana, senza Routine) | prompt operativi (i); CS §4 |
 | 44 | — | `anno` sulle opere; Q-contesto; immagini già usate | B04; T07; R03 |
-| 45 | `contraddice` frammento → frammento, rende `superata` la posizione | verso la frase tua più vicina e il `passo`; `come: dubbio`; posizioni per passo in `mappa.md`; il ✦ netto lo scrive già "smista" | [attriti delle domande](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-domande.md) Q6, Q12, Q23, Q31 |
+| 45 | `contraddice` frammento → frammento, rende `superata` la posizione | verso la frase tua più vicina e il `passo`; `come: dubbio`; posizioni per passo in `mappa.md`; il ✦ netto lo scrive già "smista" | [attriti delle domande](../v2/simulazione/attriti-domande.md) Q6, Q12, Q23, Q31 |
 | 46 | scarti in `.indice/` | sezione `## Scarti` in `mappa.md` con chiave, contesto, portata | Q4, Q17 |
 | 47 | le restituzioni importate in `contesto/` come titoli | riga per ognuna in `mappa.md`, con voci, esito ed `estratto` ≤ 25 parole; ritorni con effetto; mondo verificato | Q3, Q21 |
 | 48 | `recenti.md` per numero di frammenti, chat comprese | ultimi 30 del telefono con le risposte, le chat a parte | Q5 |
 | 49 | — | `come: chiede`; effetto senza `n` non è accoglienza; legami di restituzione `da` una voce; una domanda fa nascere il nodo | Q16, Q25, Q18 |
 | 50 | cammini su tutto il grafo | lo sguardo e le liste non si attraversano; niente ponti per persone della vita; delicati a richiesta | Q9, Q24, Q10 |
-| 51 | quattro regole in conflitto sulle domande all'ingresso | un elenco unico di 7 casi, al più una domanda; la tracklist di "la 3" cercata all'ingresso | [attriti dell'ingresso](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-ingresso.md) I1, I15 |
-| 52 | citazione all'ingresso con `originale`, `riferimento`, autore | all'ingresso solo `nome` e `attribuita-a` (più l'esito se il passo 1 trova una scheda); il resto da "consolida" | I3, I8 |
+| 51 | quattro regole in conflitto sulle domande all'ingresso | un elenco unico di 7 casi, al più una domanda; la tracklist di "la 3" cercata all'ingresso | [attriti dell'ingresso](../v2/simulazione/attriti-ingresso.md) I1, I15 |
+| 52 | citazione all'ingresso con `originale`, `riferimento`, autore | all'ingresso solo `nome` e `attribuita-a`, senza `esito` (⚠; la traccia del passo 1 nel corpo); il resto da "consolida" | I3, I8 |
 | 53 | `forma: ritorno` a ogni silenzio di 14 giorni | una riga nella risposta, soglia sul tuo ritmo (> 2 × intervallo mediano, ≥ 14 giorni), contenuto fissato da `riserva/ritorno.md`, mai su delicati | I4 |
 | 54 | consolidamento saltato senza regola | "consolida" copre tutto dall'ultimo riuscito | I5 |
 | 55 | notifiche per le correzioni | notifica solo se hai chiesto; correzione solo di un errore tuo | I6 |
@@ -1601,7 +1612,7 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 57 | `delicato` per sempre | cade quando ci torni sopra; protegge anche i temi vicini nella lettera | I9 |
 | 58 | foto ridotta al posto dell'originale | l'originale resta (è il detto), [S] ricava la copia ridotta come primo passo | I14 |
 | 59 | — | casi di confine sui nodi (concetto con autore, parentele, omonimi, miti, link muti); `citata-da`; `verso: ±`; ritorni spontanei; ricordabili in ordine; `chiedi` solo per il mondo | I7, I12, I17, I18, I20, I21, I22, I23 |
-| 60 | `parole.md` intero, taglio dopo tre anni | finestra mobile dichiarata sotto il tetto, formato compatto, periodi riassunti da [S] alla lettera, archivio intero da Specchio | [prova del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-tempo.md) V2 |
+| 60 | `parole.md` intero, taglio dopo tre anni | finestra mobile dichiarata sotto il tetto, formato compatto, periodi riassunti da [S] alla lettera, archivio intero da Specchio | [prova del tempo](../v2/simulazione/attriti-tempo.md) V2 |
 | 61 | la ricerca lessicale | espansione della domanda obbligatoria (6–10 parole), parole da 3 lettere | V4 |
 | 62 | sigillo d'ufficio della chat dopo 2 ore | dopo le 04:00 del giorno dopo; `continua: <id>` | V3 |
 | 63 | ritornelli a ≥ 3 parole; Q-eco sulle parole | ritornelli a 2 parole di contenuto entro 4; Q-eco in frammenti con base lessicale; Q-nomi e Q-contesto sui ✦ anteriori | V5, V6, V7 |
@@ -1610,21 +1621,21 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 66 | lucchetto rinnovato | gettone e fencing; "smista" aspetta fino a 45 minuti; uscita solo per un memo di meno di 4 minuti; "consolida" svuota prima la coda e ha un secondo orario | V1, V10, V12 |
 | 67 | `contraddice` ✦ scritto da "smista" (Q31) | solo "consolida", niente doppioni, `sua` solo se nega con parole tue | V14 (rovescia Q31: due scrittori facevano doppioni) |
 | 68 | *toccato* = un capo; elenco intero dei ricordabili; raffica per giro | entrambi i capi o un `ritorna-su`; conteggio + 20 id; raffica per sessione | V11, V15, V13 |
-| 69 | lettera con ≥ 3 parlanti, proposte perse se slitta | ≥ 2 parlanti, o ≥ 1 e una proposta pronta; `riserva/pronte.md` tiene le proposte in attesa; senza lettera, silenzio | [prova di restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-restituzione.md) A1; coordinatore |
+| 69 | lettera con ≥ 3 parlanti, proposte perse se slitta | ≥ 2 parlanti, o ≥ 1 e una proposta pronta; `riserva/pronte.md` tiene le proposte in attesa; senza lettera, silenzio | [prova di restituzione](../v2/simulazione/attriti-restituzione.md) A1; coordinatore |
 | 70 | ponte dei primi giorni senza strada | Specchio ogni sera dei giorni 1–3, bilancio dei ponti al giorno 3, vicini = tutti gli importati ✦, mai un ○ senza luogo | A2; coordinatore |
 | 71 | ricordo come affermazione, nessuno nei primi mesi | indizio parziale + affermazione; nei primi mesi gli importati ✦ | A3; coordinatore |
 | 72 | restituzione di chat senza struttura | un file per conversazione, una sezione per domanda | A4; coordinatore |
-| 73 | piano solo per l'ingresso; prompt in claude.ai | piano per ogni ciclo, `applica.mjs`; prompt come file in `prompt/`, hash da lì; `CRON_TZ=Europe/Rome`; `rinnova`; `contesto.mjs` prima della lettera; parlante senza importati | le 15 incoerenze di [prompt v3](./03-prompt-v3.md) §12 |
+| 73 | piano solo per l'ingresso; prompt in claude.ai | piano per ogni ciclo, `applica.mjs`; prompt come file in `prompt/`, hash da lì; `CRON_TZ=Europe/Rome`; `rinnova`; `contesto.mjs` prima della lettera; parlante senza importati | le 15 incoerenze di [prompt v3](./03-prompt-v3.md), appendice A |
 | 74 | — | sogno con "Gioco ◌." più frase ✦ e al più un ○; confronto con la voce dall'altra parte; citazioni ricordate ✦; Q-citato sul trimestre; immagini per lemma; delicati nella soglia | M1–M9, M12 |
-| 75 | piano piatto per "smista"; hash di un solo file; verifica rapida dopo `applica`; `riserva/` scritta dall'AI | involucro con 7 operazioni anche nell'esempio; hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md`, `prompt/specchio.md`; verifica rapida dentro `crea-nodo`; `riserva/` solo da `applica.mjs`; Specchio nei giorni 1–7; ricordabili con gli importati | [prompt v3](./03-prompt-v3.md) §14; coordinatore |
-| 76 | ricordo dopo 60 giorni attivi, importati solo "nei primi mesi" | regola unica: importati ✦ da subito, nuovi dopo 60 giorni di calendario e ≥ 10 attivi; domenica senza parlanti muta; proposte pronte solo da una notte precedente; nessun ○ senza opera e passo | [seconda prova di restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-restituzione.md) S2, S7, S8; coordinatore |
-| 77 | due memo della stessa chat senza regola | il successivo sostituisce solo se contiene il precedente come prefisso (crescita in coda, `n` continui); altrimenti conflitto per Specchio | [prompt v3](./03-prompt-v3.md) §14 n. 10; coordinatore |
-| 78 | schema con `if` su `cerchia: vita` senza `required`; nessun esempio in §3.5; "Chiedi" fuori schema; `nota` stretta; "galimberti" non trova `umberto-galimberti` | `required: [cerchia]` (verificato con ajv: 34 casi validi e non validi); esempio di restituzione; campo `chiede`; corpo della lettura per le cornici; regole cognome e nome; riconciliazione degli slug nell'importazione; 05 dichiarato superato; esito all'ingresso con regola unica; `applica.mjs` transazionale | [prova a freddo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/prova-a-freddo.md) R7, R10, R12, R13, R23, R24, R27, R33, R36, R41, R43, R44, R51, R56, R60–R62, R67, R69 |
+| 75 | piano piatto per "smista"; hash di un solo file; verifica rapida dopo `applica`; `riserva/` scritta dall'AI | involucro con 7 operazioni anche nell'esempio; hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md`, `prompt/specchio.md`; verifica rapida dentro `crea-nodo`; `riserva/` solo da `applica.mjs`; Specchio nei giorni 1–7; ricordabili con gli importati | [prompt v3](./03-prompt-v3.md), appendice B; coordinatore |
+| 76 | ricordo dopo 60 giorni attivi, importati solo "nei primi mesi" | regola unica: importati ✦ da subito, nuovi dopo 60 giorni di calendario e ≥ 10 attivi; domenica senza parlanti muta; proposte pronte solo da una notte precedente; nessun ○ senza opera e passo | [seconda prova di restituzione](../v2/simulazione/attriti-restituzione.md) S2, S7, S8; coordinatore |
+| 77 | due memo della stessa chat senza regola | il successivo sostituisce solo se contiene il precedente come prefisso (crescita in coda, `n` continui); altrimenti conflitto per Specchio | [prompt v3](./03-prompt-v3.md), appendice B n. 10; coordinatore |
+| 78 | schema con `if` su `cerchia: vita` senza `required`; nessun esempio in §3.5; "Chiedi" fuori schema; `nota` stretta; "galimberti" non trova `umberto-galimberti` | `required: [cerchia]` (verificato con ajv: 34 casi validi e non validi); esempio di restituzione; `intento` facoltativo nel frammento (predefinito `[chiedi]` da "Chiedi"); corpo della lettura per le cornici; regole cognome e nome; riconciliazione degli slug nell'importazione; 05 dichiarato superato; esito all'ingresso con regola unica (solo `attribuita-a`, senza `esito`); `applica.mjs` transazionale; `parole` sempre lista; §8.3: temi nominati ✦ subito, dedotti ◌ a una vicenda | [prova a freddo](../v2/prova-a-freddo.md) R7, R10, R12, R13, R23, R24, R27, R33, R36, R41, R43, R44, R51, R56, R60–R62, R67, R69 |
 
 **Scartati, con il motivo:**
 - *Togliere sogno, "ti ricordi?" e ritratto* (CS §1.2): restano. Il banco non li collaudava, ma la ricerca dice che la
-  meraviglia sta lì ([essenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md), [restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/restituzione.md),
-  [cervello §6–7](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/cervello.md)); li governano le soglie di C3–C5.
+  meraviglia sta lì ([essenza](../v2/essenza.md), [restituzione](../v2/restituzione.md),
+  [cervello §6–7](../v2/cervello.md)); li governano le soglie di C3–C5.
 - *Togliere `versione` della lettura* (CS §1.2): resta, perché serve a controllare l'unico scrittore (C9).
 - *Togliere `vissuto`* (CS §1.2): resta facoltativo, perché l'importazione ne ha bisogno (A4, A21).
 - *Togliere `recenti.md`* (CS §1.2): resta, perché `parole.md` ha solo i ✦ parlanti (C7) e "la terza" vuole le restituzioni intere.
@@ -1640,10 +1651,10 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 ## 16. Allineamento con il banco, la voce e i prompt operativi
 
 Il [banco definitivo](./04-banco-di-prova.md), [voce](./10-voce.md) e i
-[prompt operativi](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/prompt-operativi.md) sono scritti con il vocabolario del v2. La regola: si leggono **per
+[prompt operativi](../v2/prompt-operativi.md) sono scritti con il vocabolario del v2. La regola: si leggono **per
 funzione** (CS §0). Un punto *File* o *Indice* passa se l'informazione si trova, anche sotto un altro nome; una *Risposta*
 e un *Non deve* passano solo se restano identici. Dove v3 e banco divergono nel comportamento, segue
-[critica del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-tempo.md), salvo una prova contraria scritta qui.
+[critica del tempo](../v2/critica-tempo.md), salvo una prova contraria scritta qui.
 
 ### 16.1 Il dizionario (nome nel banco e nei prompt → nome nel v3)
 
@@ -1681,7 +1692,7 @@ e un *Non deve* passano solo se restano identici. Dove v3 e banco divergono nel 
 | B22 | la lettura di ieri passa a `versione: 2` subito | la correzione vale subito nelle viste; la v2 la scrive "consolida" | C9 (come T03) |
 
 Le correzioni al banco trovate dalla simulazione delle domande (voci ✧ che sono ✦, D15 e il libro V, cap. 5, i conti di
-D01 e D24, "coda lunga" in D16) sono in [attriti delle domande §3](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-domande.md): il v3
+D01 e D24, "coda lunga" in D16) sono in [attriti delle domande §3](../v2/simulazione/attriti-domande.md): il v3
 le dà per buone. "Coda lunga" vuol dire sempre l'archivio (qualcosa che non rivedi da tempo); un brano poco noto del mondo
 è "fuori dai soliti" (Q30).
 
@@ -1715,7 +1726,6 @@ senza contenuto, la lettera ≤ 250 parole, "Gioco ◌.", "mai ⚠ nel confronto
 - i prompt fanno scrivere i file all'AI; nel v3 l'AI scrive il **piano** e `applica.mjs` scrive (principio 11);
 - i nomi di campi, valori, forme, script e file di §16.1;
 - il ciclo "torna al passo 4" senza limite: al massimo 3 giri, poi la passata delle 3 ore (§8.1);
-- i temi "alla 2ª–3ª ricorrenza": nascono a una vicenda (≥ 3 frammenti in ≥ 3 giorni distinti) o al tuo primo nome (§3.4);
 - il ritratto "con più di 0 frammenti": ≥ 10 nel mese, ≥ 20 nel trimestre (§9.2);
 - la "lettera" che lavora senza lucchetto e il ritratto senza `contesto.mjs`: "lettera" non scrive niente; "ritratto"
   prende il lucchetto e rigenera `contesto/`.
@@ -1730,8 +1740,8 @@ senza contenuto, la lettera ≤ 250 parole, "Gioco ◌.", "mai ⚠ nel confronto
 3. **Rifare la prova di restituzione** sul v3 aggiornato (con una correzione per prova saliva da 7 a 12 su 14); restano
    aperti M3 (`scarto` sul nodo citazione per contare "5 su 6"), M10 (rigenerare l'importazione simulata con le regole v3)
    e l'intenzione esplicita di farsi del male (lacuna nota del banco).
-4. **Riallineare** [prompt v3](./03-prompt-v3.md) a questo modello (le 15 incoerenze della sua §12 sono risolte
-   qui: registro, riga 73) e il resto del [banco](./04-banco-di-prova.md) ai nomi del v3 (§16); scrivere per
+4. **Riallineare** [prompt v3](./03-prompt-v3.md) a questo modello (le 15 incoerenze della sua appendice A sono risolte
+   qui: registro, riga 73; le 10 dell'appendice B alle righe 75 e 77) e il resto del [banco](./04-banco-di-prova.md) ai nomi del v3 (§16); scrivere per
    esteso lo schema del piano (§2.2).
 5. **Scelte tue**: quanto parla per primo lo specchio (racc.: lettera la domenica, ritratto mensile per tre mesi e poi
    trimestrale); il sogno (racc.: sì, max 1 al mese, dai 50 frammenti); la domanda sul link muto (racc.: una, mai
@@ -1741,9 +1751,9 @@ senza contenuto, la lettera ≤ 250 parole, "Gioco ◌.", "mai ⚠ nel confronto
 
 ## Collegamenti
 
-- [Modello v2](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/modello.md) · [Banco di prova](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/banco-di-prova.md) ·
-  [Critica del tempo](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-tempo.md) · [Critica della semplicità](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/critica-semplicita.md) ·
-  [Attriti dell'importazione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/simulazione/attriti-importazione.md) ·
+- [Modello v2](../v2/modello.md) · [Banco di prova](../v2/banco-di-prova.md) ·
+  [Critica del tempo](../v2/critica-tempo.md) · [Critica della semplicità](../v2/critica-semplicita.md) ·
+  [Attriti dell'importazione](../v2/simulazione/attriti-importazione.md) ·
   [Regole d'importazione](./05-regole-importazione.md) · [Telefono](./11-telefono.md) ·
-  [Essenza](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/essenza.md) · [Restituzione](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/restituzione.md) · [Eredità](./06-eredita.md) ·
-  [Banco definitivo](./04-banco-di-prova.md) · [Voce](./10-voce.md) · [Prompt operativi](https://github.com/paol-imi/tattoo-shit/blob/claude/quirky-newton-qe5g9o/_progetto/v2/prompt-operativi.md)
+  [Essenza](../v2/essenza.md) · [Restituzione](../v2/restituzione.md) · [Eredità](./06-eredita.md) ·
+  [Banco definitivo](./04-banco-di-prova.md) · [Voce](./10-voce.md) · [Prompt operativi](../v2/prompt-operativi.md)

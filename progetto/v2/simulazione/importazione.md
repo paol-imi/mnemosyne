@@ -1,10 +1,10 @@
 # Simulazione: i file che l'importazione scriverebbe
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. **Non sono note vere**: ogni file sta in un blocco di
-> codice preceduto dal suo percorso. Applica le [regole di importazione](/_progetto/v2/simulazione/regole-importazione.md)
-> a un campione di [eredità](/_progetto/v2/eredita.md): i 31 frammenti suoi (U1–U31), lo sguardo (il nucleo, `s01`) e il
-> racconto d'origine (`s03`), 8 convergenze, 21 nodi, le citazioni corrette secondo [citazioni](/_progetto/v2/citazioni.md),
-> le 8 domande, il progetto tatuaggi. Gli attriti sono in [attriti](/_progetto/v2/simulazione/attriti-importazione.md).
+> codice preceduto dal suo percorso. Applica le [regole di importazione](/progetto/v2/simulazione/regole-importazione.md)
+> a un campione di [eredità](/progetto/v2/eredita.md): i 31 frammenti suoi (U1–U31), lo sguardo (il nucleo, `s01`) e il
+> racconto d'origine (`s03`), 8 convergenze, 21 nodi, le citazioni corrette secondo [citazioni](/progetto/v2/citazioni.md),
+> le 8 domande, il progetto tatuaggi. Gli attriti sono in [attriti](/progetto/v2/simulazione/attriti-importazione.md).
 > Lavoro diviso in sette lotti, uno per subagent; le scelte locali di un lotto sono dichiarate nel suo attrito.
 
 ## 0. Numeri dell'importazione completa e banco di prova
@@ -69,12 +69,12 @@ precedente), l'esito giudica **solo la parte che dipende dall'eredità**; la col
 Totale: **20 sì, 4 parziali, 1 buco.**
 
 
-I buchi sono in [attriti](/_progetto/v2/simulazione/attriti-importazione.md), §2.
+I buchi sono in [attriti](/progetto/v2/simulazione/attriti-importazione.md), §2.
 
 ## 1. Frammenti U1–U10 (lotto A)
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Regole applicate:
-> [regole di importazione](/_progetto/v2/simulazione/regole-importazione.md) R1, R5, R11.
+> [regole di importazione](/progetto/v2/simulazione/regole-importazione.md) R1, R5, R11.
 > Fonte primaria di tutti e dieci: `diario/2026-10-04-seed.md` (il seme) al commit `4c9fdce`.
 > Corpo = le parole della riga, senza il marcatore d'elenco, senza l'etichetta e lo slug messi da Claude
 > e senza le code di Claude ("Fonti: …", "Collegamento con il Tao…", "vedi il mio percorso in 4.2"). Il grassetto resta.
@@ -439,8 +439,8 @@ parole: [coscienza-elevata, domande]
 
 ## 2. Frammenti U11–U20 e i primi nodi (lotto B)
 
-> Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Applica [regole di importazione](/_progetto/v2/simulazione/regole-importazione.md)
-> su [eredità §1.1](/_progetto/v2/eredita.md), righe al commit `4c9fdce`. Nessun file reale scritto.
+> Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Applica [regole di importazione](/progetto/v2/simulazione/regole-importazione.md)
+> su [eredità §1.1](/progetto/v2/eredita.md), righe al commit `4c9fdce`. Nessun file reale scritto.
 > Scelte del lotto: corpo = solo le parole sue, senza il markup dell'Atlante (link interni resi in testo, `> ` e `\` delle
 > citazioni tolti: vedi attriti B3, B4); `intento` `[niente]` per i profili del seme, `[salva]` per gusto e spunti (B6);
 > "patchwork" e "incisione" restano `parole`, non temi (B7).
@@ -861,7 +861,7 @@ nato-da: [20261004-0000-u20]
 ## 3. U21–U31, lo sguardo e il racconto d'origine (lotto C)
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Nessun file del repository è stato toccato: i file qui
-> sotto sono quelli che lo script d'importazione scriverebbe, secondo le [regole](/_progetto/v2/simulazione/regole-importazione.md)
+> sotto sono quelli che lo script d'importazione scriverebbe, secondo le [regole](/progetto/v2/simulazione/regole-importazione.md)
 > R1, R2, R3, R9, R10. Provenienza: commit `4c9fdce` (le righe citate coincidono con `HEAD`).
 > Slug dei nodi usati e non scritti qui (li scrivono gli altri lotti): `jordan-peterson`, `marco-aurelio`, `camus`,
 > `napoleone`, `radiohead`, `deftones`, `rust-cohle` (persone); `fma-brotherhood`, `true-detective-s1`, `berserk`,
@@ -1438,9 +1438,9 @@ legami: []
 ## 4. Otto convergenze come restituzioni (lotto D)
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Nessun file esistente toccato.
-> Regola applicata: R4 di [regole-importazione](/_progetto/v2/simulazione/regole-importazione.md), con R5 (solo i nodi
+> Regola applicata: R4 di [regole-importazione](/progetto/v2/simulazione/regole-importazione.md), con R5 (solo i nodi
 > ammessi) e R6 (voce `proposta` per le idee di Claude). Data = `creato` della nota d'origine (per i passi su più note:
-> la prima, tutte con lo stesso `creato`). Righe dei passi: [eredità §2](/_progetto/v2/eredita.md).
+> la prima, tutte con lo stesso `creato`). Righe dei passi: [eredità §2](/progetto/v2/eredita.md).
 
 ##### `restituzioni/2026/10/r-20261004-0000-ritratto-c01.md`
 
@@ -1755,9 +1755,9 @@ berserk (2), rust-cohle (2), gli altri una volta.
 ## 5. Quindici nodi, le citazioni e le domande (lotto E)
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script. Applica
-> [regole di importazione](/_progetto/v2/simulazione/regole-importazione.md) R5, R7b, R11, R12, R13 con
-> [modello](/_progetto/v2/modello.md) §2.2, §2.5–2.6, §8.5, [eredità](/_progetto/v2/eredita.md) §1.1 e §3,
-> [citazioni](/_progetto/v2/citazioni.md) §1 e §4. Commit di riferimento `4c9fdce`.
+> [regole di importazione](/progetto/v2/simulazione/regole-importazione.md) R5, R7b, R11, R12, R13 con
+> [modello](/progetto/v2/modello.md) §2.2, §2.5–2.6, §8.5, [eredità](/progetto/v2/eredita.md) §1.1 e §3,
+> [citazioni](/progetto/v2/citazioni.md) §1 e §4. Commit di riferimento `4c9fdce`.
 >
 > Criteri usati per `nato-da` (coerenti con i lotti A e B):
 > - un id entra solo se il **corpo** del frammento nomina il nodo. U2 si ferma a "l'evoluzione." (lotto A): la coda
@@ -2183,8 +2183,8 @@ I cori di citazioni restano nell'Atlante.
 ## 6. Il progetto tatuaggi (lotto F)
 
 > Simulazione v2, 2026-10-31. Proposta di Claude, da validare. Regole applicate:
-> [regole di importazione](/_progetto/v2/simulazione/regole-importazione.md) R2, R4, R6, R8, R12; modello §2.2, §2.5, §8.5;
-> [eredità](/_progetto/v2/eredita.md) §4. Fonti al commit `4c9fdce` (righe verificate: invariate rispetto a oggi).
+> [regole di importazione](/progetto/v2/simulazione/regole-importazione.md) R2, R4, R6, R8, R12; modello §2.2, §2.5, §8.5;
+> [eredità](/progetto/v2/eredita.md) §4. Fonti al commit `4c9fdce` (righe verificate: invariate rispetto a oggi).
 > Le restituzioni non hanno un campo per la provenienza: la scrivo come commento YAML `# fonte:` (vedi attriti).
 > Numerazione dei candidati: alfabetica sulle 31 cartelle di `idee/` tolti il grimorio e le due idee sue
 > (t11 discesa-di-sisifo, t12 elmo-e-vite, t19 lotta-al-guado). L'eredità non dà una lista numerata.

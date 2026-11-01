@@ -880,7 +880,8 @@ citati **I1–I25** sono quelli della [simulazione dell'ingresso](/_progetto/v2/
    conta, in una riga della risposta con ⚠; `esito`, `riferimento`, `autore` e `originale` li scrive solo "consolida"
    (§7.4 passo 3). L'attribuzione tua va **sempre** in `attribuita-a` (anche un'opera: `~La peste`). Questa è la **regola
    unica** sull'esito all'ingresso (prova a freddo R24/R62): vale per modello, prompt, piano e banco, e `verifica.mjs` la
-   accetta. La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
+   accetta. Unica eccezione voluta: una citazione dell'Atlante che accogli nasce già con `esito` e `riferimento`, perché
+   l'importazione fa le veci di "consolida" e quelle citazioni sono già verificate ([correzioni](/_progetto/v2/correzioni-citazioni.md); §14 R7). La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
    restano `~Nome` finché non li nomini tu. "Smista" crea temi solo per i concetti che nomini tu (§3.4), mai dedotti (R51);
 5. [S] `applica.mjs`: file, slug, numeri, link puliti. È **transazionale** (R69): scrive in una cartella di lavoro, lancia
    `verifica.mjs` e sposta i file al loro posto solo se passa; se no, non resta niente. Il piano arriva da un file scritto
@@ -1331,6 +1332,8 @@ nei campi si scrive allora `~Friedrich Nietzsche`.
    `nichilismo`).
 4. Il piano dell'AI (§2.2): tre nodi nuovi (lo spettacolo nasce con il nome che gli dai tu: l'identità è certa, è il
    titolo vero a essere incerto, e va negli alias quando lo confermi), quattro legami ✦, la reazione, le parole `ragazzo` e `cultura`, la risposta.
+   Dentro il `crea-nodo` della citazione, la verifica rapida (§7.2 passo 4): nessun apocrifo noto, la traccia va nel
+   corpo del nodo, nessun `esito`.
    L'AI vede il ponte con Rust ma lo giudica **non forte** a caldo (il legame c'è solo per una parola): lo tiene per la
    lettera.
 5. `applica`: la lettura del §3.3, `persone/umberto-galimberti.md`, `opere/spettacolo-sulle-emozioni.md`,
@@ -1351,7 +1354,7 @@ voci:
 2. Lo spettacolo forse è *Il mondo delle emozioni* ⚠.
 ```
 
-6. Verifica rapida: nessun apocrifo noto; `contesto.mjs`; commit `smista: 1 memo`; lucchetto rilasciato; push. Tempo stimato: 3–5 minuti.
+6. `contesto.mjs`; commit `smista: 1 memo`; lucchetto rilasciato; push. Tempo stimato: 3–5 minuti.
    **Nessuna notifica** (C1a): la risposta la vedi nel Progetto (`recenti.md`) o in Specchio, se li apri.
 
 ### 13.3 La raffica (variante)
@@ -1457,7 +1460,7 @@ usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo
 | **R4 convergenze** | C1–C25 → restituzioni `eredita`, `r-AAAAMMGG-0000-eredita-<slug>`, data del passo (riga di `## Evoluzione` o commit: A5), `aggancio: {a, passo}`, voci numerate con `rif` a un nodo o `~Nome`; `converge-con` con `tra` che ammette voci e `~Nome` (A1); voce ✧ solo se tutto il passo è del seme validato, altrimenti ◌ (A23) |
 | **R5 entità vive** | diventano nodi solo quelle nominate da te o dallo sguardo; slug dell'Atlante conservati; concetti e stili nominati da te → temi (A9); band → persone `mondo` (A10); Dostoevskij da U31 (A18); Napoleone resta alias di `resilienza-napoleonica` (A31) |
 | **R6 proposte** | tutto ciò che è di Claude entra solo dentro restituzioni `eredita`, ◌, che **non sbiadiscono** (A11) |
-| **R7 citazioni** | se l'esito dell'eredità e il protocollo delle [citazioni](/_progetto/v2/citazioni.md) divergono, vince il protocollo (R43); nelle tue frasi → nodi senza `esito` (⚠); quelle scelte da Claude → voci di `r-20261007-0000-eredita-citazioni`, **dopo** il protocollo sulle 17 vive (A8); se ne accogli una, il nodo nasce già con `esito` e `riferimento`; le correzioni sulle entità morte si fanno sull'Atlante, fuori dallo script |
+| **R7 citazioni** | se l'esito dell'eredità e il protocollo delle [citazioni](/_progetto/v2/citazioni.md) divergono, vince il protocollo (R43); nelle tue frasi → nodi senza `esito` (⚠); quelle scelte da Claude → voci di `r-20261007-0000-eredita-citazioni`, **dopo** il protocollo sulle 17 vive (A8); se ne accogli una, il nodo nasce già con `esito` e `riferimento`: è l'eccezione voluta alla regola dell'esito all'ingresso (§7.2 passo 4), perché l'importazione fa le veci di "consolida" e queste citazioni sono già verificate ([correzioni](/_progetto/v2/correzioni-citazioni.md)); le correzioni sulle entità morte si fanno sull'Atlante, fuori dallo script |
 | **R8 tatuaggi** | `raccolte/tatuaggi.md` con `nato-da: [s03]` e lo `scopo` da chiedere alla prima risposta sulla raccolta (A30); le tue idee sono frammenti con `serve-a`; le altre restituzioni `eredita` con `serve-a` ◌. Il brief `s02` non esiste: è una vista (A3) |
 | **R9 ricerche** | la tua frase è il frammento; la pista è `nomina` con `fruizione: da-fare`; lo stato della ricerca nell'Atlante va in `nota` (A12) |
 | **R10 pin** | link nel frammento; le descrizioni di Claude in `nota` |
@@ -1720,7 +1723,6 @@ senza contenuto, la lettera ≤ 250 parole, "Gioco ◌.", "mai ⚠ nel confronto
 - i prompt fanno scrivere i file all'AI; nel v3 l'AI scrive il **piano** e `applica.mjs` scrive (principio 11);
 - i nomi di campi, valori, forme, script e file di §16.1;
 - il ciclo "torna al passo 4" senza limite: al massimo 3 giri, poi la passata delle 3 ore (§8.1);
-- i temi "alla 2ª–3ª ricorrenza": nascono a una vicenda (≥ 3 frammenti in ≥ 3 giorni distinti) o al tuo primo nome (§3.4);
 - il ritratto "con più di 0 frammenti": ≥ 10 nel mese, ≥ 20 nel trimestre (§9.2);
 - la "lettera" che lavora senza lucchetto e il ritratto senza `contesto.mjs`: "lettera" non scrive niente; "ritratto"
   prende il lucchetto e rigenera `contesto/`.

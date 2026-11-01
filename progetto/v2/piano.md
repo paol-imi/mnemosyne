@@ -6,7 +6,7 @@
 > che cosa leggere, che cosa scrivere e quando fermarsi. Dove il modello e un altro documento divergono, **vale il modello v3**
 > (§16 del modello dice come).
 
-Il nome del repository è `mnemosyne` (scelto dall'utente il 2026-11-01, vedi [nome](./nome.md)), sull'account GitHub `paol-imi`. Qui è `MEMO`, nei comandi `OWNER/MEMO`
+Il nome del repository è `mnemosyne` (scelto dall'utente il 2026-11-01, vedi [nome](/progetto/v2/nome.md)), sull'account GitHub `paol-imi`. Qui è `MEMO`, nei comandi `OWNER/MEMO`
 (= `paol-imi/mnemosyne`).
 
 **La prova a freddo e il suo codice.** Una sessione senza contesto ha eseguito questo piano fino al blocco 5 compreso

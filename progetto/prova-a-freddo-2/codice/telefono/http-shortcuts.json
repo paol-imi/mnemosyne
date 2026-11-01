@@ -1,0 +1,57 @@
+{
+  "version": 64,
+  "compatibilityVersion": 64,
+  "categories": [
+    {
+      "id": "7d3c0b8e-memo-categoria",
+      "name": "Memo",
+      "layoutType": "linear_list",
+      "shortcuts": [
+        {
+          "id": "2f6a9c1d-memo",
+          "name": "Memo",
+          "description": "Salva un memo in ingresso/ (PUT GitHub). Il PAT va nella variabile pat, sul telefono.",
+          "executionType": "scripting",
+          "iconName": "flat_color_note",
+          "launcherShortcut": true,
+          "quickSettingsTileShortcut": false,
+          "codeOnPrepare": "// Memo (HTTP Shortcuts, Android): compone il frammento e lo scrive in ingresso/<id>.md con un PUT (telefono/memo-ios.md, azioni 1-21).\n// Nessun token qui: il PAT va nella variabile `pat` sul telefono. Solo testo e link (P3: gli allegati da Android non sono provati).\nconst URL_INGRESSO = 'https://api.github.com/repos/paol-imi/mnemosyne/contents/ingresso/';\nconst due = (n) => String(n).padStart(2, '0');\nconst adesso = new Date(); // un solo istante per id e registrato, nel fuso del telefono\nconst giorno = `${adesso.getFullYear()}${due(adesso.getMonth() + 1)}${due(adesso.getDate())}`;\nconst scarto = -adesso.getTimezoneOffset();\nconst fuso = scarto === 0 ? 'Z' : `${scarto < 0 ? '-' : '+'}${due(Math.floor(Math.abs(scarto) / 60))}:${due(Math.abs(scarto) % 60)}`;\nconst registrato = `${adesso.getFullYear()}-${due(adesso.getMonth() + 1)}-${due(adesso.getDate())}T${due(adesso.getHours())}:${due(adesso.getMinutes())}:${due(adesso.getSeconds())}${fuso}`;\nconst ALFABETO = 'abcdefghijklmnopqrstuvwxyz0123456789';\nlet xxxx = '';\nfor (let i = 0; i < 4; i++) xxxx += ALFABETO[Math.floor(Math.random() * ALFABETO.length)];\nconst id = `${giorno}-${due(adesso.getHours())}${due(adesso.getMinutes())}-${xxxx}`;\n// Il testo condiviso (menu Condividi) o scritto nella finestra della variabile, intatto; vuoto va bene (B18).\n// Sta solo nel corpo, mai nel frontmatter: virgolette, due punti e \"---\" non toccano lo YAML.\nconst testo = String(getVariable('testo') ?? '');\nconst file = `---\\nregistrato: ${registrato}\\ncanale: telefono\\n---\\n${testo}`;\nconst esito = sendHttpRequest(`${URL_INGRESSO}${id}.md`, {\n  method: 'PUT',\n  headers: {\n    'Authorization': `Bearer ${getVariable('pat')}`,\n    'Accept': 'application/vnd.github+json',\n    'X-GitHub-Api-Version': '2022-11-28',\n    'Content-Type': 'application/json',\n  },\n  body: JSON.stringify({ message: `memo ${id}`, content: base64encode(file) }),\n});\nif (esito.status === 'success') {\n  showToast('Salvato');\n  // BLOCCO 7 (U7), spento finché P1 non passa: il fire della Routine \"smista\", con il token di fire nella variabile `fire`.\n  // sendHttpRequest('https://api.anthropic.com/v1/claude_code/routines/<trig_ID>/fire', {\n  //   method: 'POST',\n  //   headers: { 'Authorization': `Bearer ${getVariable('fire')}`, 'anthropic-version': '2023-06-01',\n  //     'anthropic-beta': 'experimental-cc-routine-2026-04-01', 'Content-Type': 'application/json' },\n  //   body: JSON.stringify({ text: id }),\n  // });\n} else {\n  copyToClipboard(testo);\n  showDialog(`Non salvato (${esito.response ? esito.response.statusCode : 'rete'}): il testo è negli appunti.`, 'Memo');\n}\n"
+        }
+      ]
+    }
+  ],
+  "variables": [
+    {
+      "id": "a1b2c3d4-pat",
+      "key": "pat",
+      "type": "constant",
+      "value": "",
+      "flags": 0,
+      "title": "",
+      "message": ""
+    },
+    {
+      "id": "a1b2c3d5-testo",
+      "key": "testo",
+      "type": "text",
+      "value": "",
+      "flags": 0,
+      "title": "Memo",
+      "message": "",
+      "isShareText": true,
+      "isShareTitle": false,
+      "data": {
+        "multiline": "true"
+      }
+    },
+    {
+      "id": "a1b2c3d6-fire",
+      "key": "fire",
+      "type": "constant",
+      "value": "",
+      "flags": 0,
+      "title": "",
+      "message": ""
+    }
+  ]
+}

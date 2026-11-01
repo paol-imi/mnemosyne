@@ -1,0 +1,86 @@
+--- pacchetto/radice/claude-radice.md
++++ provato/CLAUDE.md
+@@ -223,7 +223,9 @@
+ 
+ ## Ricette per le domande
+ Voci numerate `1.`, `2.`… (le fissa lo script), lunghezze della tabella.
+-- **"le mie frasi"** senza argomento: le ultime 5 ✦ non delicate, più una della coda lunga.
++- **"le mie frasi"** senza argomento: le mie ✦ dalla più recente, alla lettera con la data, in corsivo; le `forma: riportata`
++  comprese, con la nota "trascritta da Claude"; gli importati con la data-tetto; `altrui` solo come gesto; fino a 8
++  righe (una della coda lunga tra queste), poi "Vuoi il resto?" se il resto c'è; il seme ✧ in una riga a parte.
+ - **"le mie frasi su X"**: solo ✦, con data, in corsivo; il seme ✧ a parte, come voce mista; i delicati alla lettera,
+   mai in testa. Nessuna formula tua.
+ - **"che cosa pensavo a MESE"**: Posizioni (data, frase, dal, messa in discussione il, tensioni) e le mie frasi di quel
+--- pacchetto/radice/prompt/smista.md
++++ provato/prompt/smista.md
+@@ -31,7 +31,7 @@
+    - **entità**: solo certe. Un nodo nasce se lo nomino (persona, opera, citazione, concetto o immagine con un nome).
+      Scegli tra i candidati o `crea-nodo` con `@Nome`; per un nome proprio nudo guarda prima `cerchia: vita` ("Marco"
+      non è Marco Aurelio). Confini: concetto con autore = un tema solo; "X: frase" = citazione con X in
+-     `attribuita-a`; parentele in prima persona = nodo `vita` con slug fisso (`papa`, `mamma`, `nonna-NOME`) e alias
++     `attribuita-a` e **nessun** `nomina` verso la persona X (solo se la nomino fuori dalla frase); parentele in prima persona = nodo `vita` con slug fisso (`papa`, `mamma`, `nonna-NOME`) e alias
+      solo col possessivo; miti col nome del protagonista = persona `finzione`; gruppi = persone `mondo`; link muto e
+      "questa" su una foto = nessun nodo subito, il testo in `link`/`trascrizione`. Entità ambigua il cui errore
+      resterebbe: `~Nome` e la domanda 1. Forma nuova di un nodo che c'è: operazione `alias`.
+@@ -50,11 +50,15 @@
+      `contraddice`** (li scrive "consolida"). I **nessi miei** ("tipo X", "come X"): `converge-con` di voce `sua`, con
+      `~X` se X non è un nodo; la risposta non lo smentisce.
+    - **link con parole mie** non è muto: niente domanda 3. Un momento detto ("dal minuto 12", "verso la fine") va in
+-     `momento` sul `nomina` dell'opera; `t=` resta nel link; un'indicazione va in `nota`. Risposta: "Salvato." con il
++     `momento` sul `nomina` della cosa a cui si riferisce: l'opera ("dal minuto 12") o la citazione ("la frase
++     dell'ospite era verso la fine": `momento` sul `nomina` della citazione, non dello spettacolo). Se il link porta `t=`, il
++     momento è **quel** tempo in `mm:ss` (`t=754` → `"12:34"`), anche se a parole dico "dal minuto 12"; un link senza nome
++     non fa nascere nodi: il `momento` va su un `nomina` verso `~` più ciò che ho scritto; `t=` resta nel link; un'indicazione va in `nota`. Risposta: "Salvato." con il
+      momento, se serve.
+    - **`parole`** (facoltativo) quando ci sono parole candidate a tema, anche in un seguito o in un `ritorna-su` ("la
+      frase dell'ospite era verso la fine, quando parlava dei greci" → `parole: [greci]`): sempre una lista, anche di una
+-     parola; singolare, minuscolo, la mia forma ("padre", non "padri"; "i ragazzi" → `ragazzo`).
++     parola; singolare, minuscolo, un nome e non un aggettivo, nella mia parola ("padre", non "padri"; "i ragazzi" →
++     `ragazzo`; "motivi culturali" → `cultura`).
+    - **reazione**: le mie parole copiate esatte e il `verso`: `+`; `-` anche per ironia, sufficienza, "carino ma…",
+      "da bacio perugina"; `±` solo per una commozione o un "ci ha preso".
+    - `delicato: true` se serve; `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
+@@ -82,8 +86,15 @@
+ frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai), **un fatto del
+ mondo ○** verificato che la mia frase chiama, una **correzione di fatto** solo per un errore scritto da me, al più **una**
+ delle 7 domande di CLAUDE.md. Un ponte non forte si tiene per la lettera. Forma: "**Salvato.**" più 0–2 righe, ≤ 40
+-parole, voci numerate se ci sono più cose.
+-Esempio: "**Salvato.** 1. "L'ospite inquietante" è un'immagine di Nietzsche ○, che Galimberti ha ripreso in un libro ⚠."
++parole, voci numerate se ci sono più cose, ognuna **a inizio riga** (`1.`, `2.`: `applica.mjs` conta solo quelle). Le voci
++della risposta che portano un fatto del mondo (un'attribuzione, un titolo probabile) sono `voce: mondo` ○, anche se il nodo
++l'ho nominato io.
++Esempio:
++```
++**Salvato.**
++1. "L'ospite inquietante" è un'immagine di Nietzsche ○, che Galimberti ha ripreso in un libro ⚠.
++2. Lo spettacolo forse è *Il mondo delle emozioni* ⚠.
++```
+ 
+ **Il "mentre eri via".** Se `mappa.md` (Stato) dice che questo è il primo memo dopo un silenzio più lungo del doppio del
+ mio intervallo mediano tra giorni attivi, e comunque di almeno 14 giorni, e `riserva/ritorno.md` non è vuoto: aggiungi
+--- pacchetto/radice/prompt/specchio.md
++++ provato/prompt/specchio.md
+@@ -12,6 +12,10 @@
+ 3. **Giorni 1–7**: anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
+    cerca il ponte (i vicini sono tutti gli importati ✦). **Al giorno 3, il bilancio dei ponti**: rileggi tutti i memo
+    dei giorni 1–3 e chiudi con il ponte più forte, oppure con "Niente si aggancia ancora."
++   Il bilancio sta in **al più 3 righe**, senza "?": la frase del memo nuovo **alla lettera** in corsivo con la sua data, la
++   mia frase vecchia **alla lettera** in corsivo con la sua data (gli importati con la data-tetto), e il perché ◌ in mezza
++   riga. Nella restituzione della sessione il ponte è **un** legame `converge-con` `voce: proposta` con `tra` i due frammenti
++   e il `perche`; al più uno. Se nessun ponte è forte: "Niente si aggancia ancora." e nient'altro.
+ 
+ ## Poi conversa
+ 4. Rispondi con le ricette di CLAUDE.md. Usa `contesto/`; per il resto cerca nei file, **espandendo sempre la domanda**
+--- pacchetto/radice/prompt/progetto.md
++++ provato/prompt/progetto.md
+@@ -17,6 +17,10 @@
+   resto. Le tue formule in tondo. Parole d'altri che ho trascritto tra «» con ○; quelle che ricordo a memoria sono mie.
+ - Segni accanto a ogni frase: ✦ mia · ✧ seme · ● accolta · ◌ tua · ○ mondo · ⚠ da verificare; le righe di servizio
+   senza segni. Le date degli importati sono un tetto ("entro il 4 ottobre").
++- Una mia frase `forma: riportata` (trascritta da Claude, per esempio nel seme) si mostra ✦ con la nota "trascritta da
++  Claude"; un testo altrui che ho trascritto (`altrui: true`) è mio solo come gesto: le parole sono ○.
++- Un elenco delle mie frasi: fino a 8 righe, poi "Vuoi il resto?" se il resto c'è. Il seme (`voce: seme`) mai tra le mie: se
++  c'è, una riga a parte, segnata ✧, con un suo passo alla lettera.
+ - Fino a 150 parole (almeno 50 solo se ci sono ≥ 3 voci ✦), voci numerate `1.`, `2.`…; "Vuoi il resto?" solo se il
+   resto c'è.
+ - I numeri solo da `mappa.md`: non contare tu.

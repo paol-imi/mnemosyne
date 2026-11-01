@@ -1,0 +1,198 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "memo/schema-3",
+  "title": "Frontmatter dei file del memo (modello v3, §3.7)",
+  "$comment": "I $defs sono il modello §3.7 alla lettera. Aggiunta solo la radice: sceglie il tipo dalle chiavi (canale → frammento, _genere → nodo, versione → lettura, voci → restituzione). Chi conosce il tipo dalla cartella valida memo/schema-3#/$defs/<tipo>.",
+  "type": "object",
+  "if": {"required": ["canale"]}, "then": {"$ref": "#/$defs/frammento"},
+  "else": {"if": {"required": ["_genere"]}, "then": {"$ref": "#/$defs/nodo"},
+    "else": {"if": {"required": ["versione"]}, "then": {"$ref": "#/$defs/lettura"},
+      "else": {"if": {"required": ["voci"]}, "then": {"$ref": "#/$defs/restituzione"}, "else": false}}},
+  "$defs": {
+    "idF": {"type": "string", "pattern": "^\\d{8}-\\d{4}-[a-z0-9]{3,4}$"},
+    "idR": {"type": "string", "pattern": "^r-\\d{8}-\\d{4}-[a-z0-9-]+$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 60},
+    "chiaro": {"type": "string", "pattern": "^~\\S.*$"},
+    "nodo-o-chiaro": {"anyOf": [{"$ref": "#/$defs/slug"}, {"$ref": "#/$defs/chiaro"}]},
+    "oggetto": {"anyOf": [
+      {"$ref": "#/$defs/slug"}, {"$ref": "#/$defs/chiaro"}, {"$ref": "#/$defs/idF"},
+      {"type": "string", "pattern": "^r-\\d{8}-\\d{4}-[a-z0-9-]+(#\\d+)?$"}]},
+    "voce": {"enum": ["sua", "seme", "proposta", "mondo"]},
+    "quando": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}(T\\d{2}:\\d{2}(:\\d{2})?(Z|[+-]\\d{2}:\\d{2}))?$"},
+    "fonte1": {"type": "string", "pattern": "^[^:]+:\\d+(-\\d+)?(, ?\\d+(-\\d+)?)*@[0-9a-f]{7}$"},
+    "fonte": {"anyOf": [{"$ref": "#/$defs/fonte1"}, {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fonte1"}}]},
+    "modello": {"type": "string", "minLength": 3},
+    "intento": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["salva", "chiedi", "sguardo", "niente"]}},
+
+    "legame": {
+      "type": "object",
+      "required": ["p", "voce", "perche"],
+      "additionalProperties": false,
+      "properties": {
+        "p": {"enum": ["nomina", "parla-di", "serve-a", "ritorna-su", "contraddice", "converge-con"]},
+        "a": {"$ref": "#/$defs/oggetto"},
+        "tra": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/oggetto"}},
+        "voce": {"$ref": "#/$defs/voce"},
+        "perche": {"type": "string", "minLength": 3, "maxLength": 300},
+        "momento": {"type": "string", "maxLength": 60},
+        "fruizione": {"enum": ["da-fare", "in-corso", "fatta"]},
+        "come": {"enum": ["metafora", "stato", "aggiunge", "corregge", "ripensa", "effetto", "accoglie", "rifiuta", "chiede", "dubbio"]},
+        "da": {"type": "integer", "minimum": 1},
+        "n": {"type": "integer", "minimum": 1},
+        "passo": {"type": "string", "pattern": "^[a-z0-9-]+:\\d+(-\\d+)?$"},
+        "turno": {"type": "string", "pattern": "^\\d{2}:\\d{2}$"},
+        "nodo": {"$ref": "#/$defs/slug"},
+        "campo": {"enum": ["autore", "attribuita-a", "in", "nome"]},
+        "vecchio": {"type": "string"},
+        "valore": {"type": "string"}
+      },
+      "allOf": [
+        {"if": {"properties": {"p": {"const": "converge-con"}}},
+         "then": {"required": ["tra"], "not": {"required": ["a"]}},
+         "else": {"required": ["a"], "not": {"required": ["tra"]}}},
+        {"if": {"properties": {"p": {"enum": ["nomina", "parla-di", "serve-a"]}}},
+         "then": {"properties": {"a": {"$ref": "#/$defs/nodo-o-chiaro"}}}},
+        {"if": {"properties": {"p": {"const": "serve-a"}}},
+         "then": {"properties": {"a": {"$ref": "#/$defs/slug"}}}},
+        {"if": {"properties": {"p": {"enum": ["ritorna-su", "contraddice"]}}},
+         "then": {"properties": {"a": {"anyOf": [{"$ref": "#/$defs/idF"}, {"$ref": "#/$defs/idR"}]}}}},
+        {"if": {"properties": {"p": {"const": "ritorna-su"}}},
+         "then": {"required": ["come"], "properties": {"come": {"enum": ["aggiunge", "corregge", "ripensa", "effetto", "accoglie", "rifiuta", "chiede"]}}}},
+        {"if": {"properties": {"p": {"const": "contraddice"}}},
+         "then": {"properties": {"come": {"const": "dubbio"}}}},
+        {"if": {"properties": {"p": {"const": "parla-di"}}},
+         "then": {"properties": {"come": {"enum": ["metafora", "stato"]}}}},
+        {"if": {"properties": {"p": {"enum": ["nomina", "serve-a", "converge-con"]}}},
+         "then": {"not": {"required": ["come"]}}},
+        {"if": {"properties": {"p": {"not": {"const": "nomina"}}}},
+         "then": {"not": {"anyOf": [{"required": ["momento"]}, {"required": ["fruizione"]}]}}},
+        {"if": {"required": ["campo"]},
+         "then": {"required": ["nodo", "valore"], "properties": {"p": {"const": "ritorna-su"}, "come": {"const": "corregge"}}}}
+      ]
+    },
+
+    "frammento": {
+      "type": "object",
+      "required": ["registrato", "canale"],
+      "additionalProperties": false,
+      "properties": {
+        "registrato": {"$ref": "#/$defs/quando"},
+        "canale": {"enum": ["telefono", "chat", "importato"]},
+        "voce": {"enum": ["sua", "seme"]},
+        "forma": {"const": "riportata"},
+        "continua": {"$ref": "#/$defs/idF"},
+        "intento": {"$ref": "#/$defs/intento"},
+        "allegati": {"type": "array", "items": {"type": "string", "pattern": "^\\d{8}-\\d{4}-[a-z0-9]{3,4}(-\\d)?\\.(webp|jpg|jpeg|png|heic|m4a)$"}}
+      },
+      "allOf": [
+        {"if": {"properties": {"canale": {"const": "importato"}}},
+         "then": {"required": ["voce"]},
+         "else": {"not": {"required": ["voce"]}, "properties": {"registrato": {"pattern": "T"}}}},
+        {"if": {"properties": {"canale": {"const": "telefono"}}},
+         "then": {"not": {"required": ["forma"]}}}
+      ]
+    },
+
+    "lettura": {
+      "type": "object",
+      "required": ["schema", "versione", "letto-da", "prompt", "intento", "legami"],
+      "additionalProperties": false,
+      "properties": {
+        "schema": {"const": 3},
+        "versione": {"type": "integer", "minimum": 1},
+        "letto-da": {"$ref": "#/$defs/modello"},
+        "prompt": {"type": "string", "pattern": "^[0-9a-f]{7}$"},
+        "intento": {"$ref": "#/$defs/intento"},
+        "reazione": {"type": "array", "items": {"type": "object", "required": ["parole", "verso"], "additionalProperties": false,
+          "properties": {"parole": {"type": "string"}, "verso": {"enum": ["+", "-", "±"]}}}},
+        "legami": {"type": "array", "items": {"$ref": "#/$defs/legame"}},
+        "parole": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-zàèéìòù]+( [a-zàèéìòù]+)*$"}},
+        "link": {"type": "array", "items": {"type": "object", "required": ["url"], "additionalProperties": false,
+          "properties": {"url": {"type": "string", "pattern": "^https://"}, "titolo": {"type": "string"}, "autore": {"type": "string"}}}},
+        "trascrizione": {"type": "string"},
+        "altrui": {"const": true},
+        "vissuto": {"type": "string", "maxLength": 40},
+        "delicato": {"const": true},
+        "nota": {"type": "string", "maxLength": 200},
+        "fonte": {"$ref": "#/$defs/fonte"},
+        "risposta": {"anyOf": [{"enum": ["salvato", "ci-sono"]}, {"$ref": "#/$defs/idR"}]}
+      }
+    },
+
+    "nodo": {
+      "type": "object",
+      "required": ["schema", "nome", "nato-da", "_genere"],
+      "additionalProperties": false,
+      "properties": {
+        "_genere": {"enum": ["persone", "opere", "citazioni", "temi", "raccolte"]},
+        "schema": {"const": 3},
+        "nome": {"type": "string", "minLength": 1},
+        "alias": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+        "nato-da": {"type": "array", "minItems": 1, "items": {"anyOf": [{"$ref": "#/$defs/idF"}, {"$ref": "#/$defs/idR"}]}},
+        "link": {"type": "array", "items": {"type": "string", "pattern": "^https://"}},
+        "fuso-in": {"$ref": "#/$defs/slug"},
+        "cerchia": {"enum": ["mondo", "vita", "finzione"]},
+        "in": {"$ref": "#/$defs/nodo-o-chiaro"},
+        "autore": {"$ref": "#/$defs/nodo-o-chiaro"},
+        "attribuita-a": {"type": "array", "items": {"$ref": "#/$defs/nodo-o-chiaro"}},
+        "citata-da": {"type": "array", "items": {"$ref": "#/$defs/nodo-o-chiaro"}},
+        "originale": {"type": "string"},
+        "traduzione": {"type": "string"},
+        "riferimento": {"type": "string"},
+        "esito": {"enum": ["verificata", "simile", "errata", "non-trovata"]},
+        "scopo": {"type": "string"},
+        "anno": {"type": "integer"}
+      },
+      "allOf": [
+        {"if": {"required": ["fuso-in"]},
+         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "nato-da", "fuso-in"]}}},
+        {"if": {"properties": {"_genere": {"const": "persone"}}, "not": {"required": ["fuso-in"]}},
+         "then": {"required": ["cerchia"], "propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "cerchia", "in"]}}},
+        {"if": {"required": ["cerchia"], "properties": {"cerchia": {"const": "vita"}}},
+         "then": {"not": {"anyOf": [{"required": ["link"]}, {"required": ["in"]}]}}},
+        {"if": {"properties": {"_genere": {"const": "opere"}}},
+         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in", "autore", "in", "anno"]}}},
+        {"if": {"properties": {"_genere": {"const": "citazioni"}}},
+         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in", "autore", "attribuita-a", "citata-da", "originale", "traduzione", "riferimento", "esito"]}}},
+        {"if": {"properties": {"_genere": {"const": "temi"}}},
+         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in"]}}},
+        {"if": {"properties": {"_genere": {"const": "raccolte"}}, "not": {"required": ["fuso-in"]}},
+         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "scopo"]}}}
+      ]
+    },
+
+    "restituzione": {
+      "type": "object",
+      "required": ["schema", "forma", "letto-da", "registrato", "voci"],
+      "additionalProperties": false,
+      "properties": {
+        "schema": {"const": 3},
+        "forma": {"enum": ["risposta", "lettera", "ritratto", "eredita"]},
+        "letto-da": {"$ref": "#/$defs/modello"},
+        "registrato": {"$ref": "#/$defs/quando"},
+        "per": {"$ref": "#/$defs/idF"},
+        "copre": {"type": "array", "items": {"$ref": "#/$defs/idF"}},
+        "aggancio": {"type": "object", "required": ["a"], "additionalProperties": false,
+          "properties": {"a": {"$ref": "#/$defs/idF"}, "passo": {"type": "string", "pattern": "^[a-z0-9-]+:\\d+(-\\d+)?$"}}},
+        "voci": {"type": "array", "items": {"type": "object", "required": ["n", "rif", "voce", "cosa"], "additionalProperties": false,
+          "properties": {
+            "n": {"type": "integer", "minimum": 1},
+            "turno": {"type": "string", "pattern": "^\\d{2}:\\d{2}$"},
+            "perche": {"type": "string", "maxLength": 300},
+            "rif": {"$ref": "#/$defs/oggetto"},
+            "voce": {"$ref": "#/$defs/voce"},
+            "estratto": {"type": "string", "maxLength": 200},
+            "esito": {"enum": ["verificata", "simile", "errata", "non-trovata"]},
+            "riferimento": {"type": "string"},
+            "cosa": {"enum": ["frase", "tensione", "vuoto", "correzione", "opera", "brano", "libro", "film", "citazione", "persona", "ponte", "convergenza", "confronto", "sogno", "ricordo", "domanda", "assenza", "idea"]}}}},
+        "legami": {"type": "array", "items": {"allOf": [{"$ref": "#/$defs/legame"},
+          {"properties": {"voce": {"enum": ["proposta", "mondo", "seme"]}}}]}},
+        "fonte": {"$ref": "#/$defs/fonte"}
+      },
+      "allOf": [
+        {"if": {"properties": {"forma": {"const": "risposta"}}}, "then": {"required": ["per"]}},
+        {"if": {"properties": {"forma": {"const": "eredita"}}}, "then": {"required": ["fonte"]}, "else": {"not": {"required": ["fonte"]}}}
+      ]
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "$schema": "./schema.json",
+  "id": "D02",
+  "caso": "n.75",
+  "titolo": "le mie frasi, solo le mie",
+  "data": "2026-11-20T21:30:00+01:00",
+  "messaggio": "le mie frasi, solo le mie",
+  "preparazione": "Il 2026-11-20 alle 21:30, nel Progetto claude.ai (che legge solo contesto/ ed è in sola lettura), chiedi:\n\n> le mie frasi, solo le mie\n\nIl Progetto risponde e chiude con il memo YAML (memo: chat), che rimandi con il Comando rapido \"Memo\"; \"smista\" lo separa in un frammento canale: chat, forma: riportata, e una restituzione forma: risposta con per uguale a quel frammento. Nell'archivio ci sono le 32 frasi tue importate (voce: sua, con la data-tetto \"entro il 4 ottobre, nell'archivio d'origine\"; alcune forma: riportata, cioè trascritte da Claude nel seme), i tre sguardi del seme (s01, s03, s04, voce: seme, ✧), e i tuoi memo dal telefono di novembre. Le importate U18, U19 (il monologo di Rust Cohle) e U20 sono parole d'altri che hai riportato (altrui: true): tuo è il gesto, non le parole.",
+  "gravita": "alta",
+  "generali": ["G2", "G3", "G4", "G5", "G7"],
+  "file": [
+    {"dove": "@frammento", "campo": "canale", "vale": "chat"},
+    {"dove": "@frammento", "campo": "forma", "vale": "riportata"},
+    {"dove": "@frammento", "parte": "corpo", "regex": "^\\[21:30\\] le mie frasi, solo le mie$", "flag": "m", "motivo": "il frammento di chat non ha il turno «[21:30] le mie frasi, solo le mie»"},
+    {"dove": "{persone,opere,citazioni,temi,raccolte}/*.md", "nuovo": true, "max": 0, "motivo": "un file nuovo in una cartella di nodi (Scrive: niente)"}
+  ],
+  "mappa": [],
+  "risposta": [
+    {"esiste": "@risposta", "motivo": "nessuna restituzione con per: id(D02)"},
+    {"dove": "@risposta", "campo": "forma", "vale": "risposta"},
+    {"dove": "@risposta", "parte": "corpo", "regex": "^### 21:30 · ", "flag": "m", "motivo": "la restituzione non ha la sezione ### 21:30 · …"},
+    {"dove": "@risposta", "regex": "(?<![*\\p{L}])\\*(?![*\\s])[^*\\n]+\\*|(?<![_\\p{L}])_(?![_\\s])[^_\\n]+_", "flag": "u", "motivo": "nessuna frase in corsivo"},
+    {"dove": "@risposta", "alla_lettera": "frammenti/**/*.md", "motivo": "una frase in corsivo che non si ritrova con una ricerca esatta in frammenti/"},
+    {"dove": "@risposta", "testo": "Vuoi il resto?", "max": 1, "motivo": "«Vuoi il resto?» più di una volta"}
+  ],
+  "non_deve": [
+    {"dove": "@risposta", "regex": "(?<!Vuoi il resto)\\?", "motivo": "un \"?\" che non è «Vuoi il resto?»"},
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"p": {"$presente": true}}], "motivo": "un legame nella lettura del frammento di chat (Scrive: niente)"},
+    {"dove": "@risposta", "regex": "(?<!\\p{L})(?:brav[oaie]|coraggi|profond|straordinari|sensibil|ammirevol|sei fort[ei]|depress|ansia|ansie|traum|sintom|terapi|dovresti|ti consiglio)", "flag": "iu", "motivo": "una parola di X3 (lode, diagnosi o consiglio) nella risposta"}
+  ],
+  "giudice": [
+    {"domanda": "C'è tra le frasi date come tue una sintesi, una parafrasi, una lettura o un testo del mondo (per esempio il passo vero di una citazione) invece delle parole di un frammento?", "attesa": "no"},
+    {"domanda": "Ogni frase tua porta la sua data, e quelle importate la data-tetto («entro il 4 ottobre, nell'archivio d'origine»)?", "attesa": "sì"},
+    {"domanda": "Una riga del seme (✧) o una voce accolta (●) è mescolata o contata tra le tue frasi, invece di stare in una riga a parte segnata ✧?", "attesa": "no"},
+    {"domanda": "Le parole di U18, U19 o U20 (il monologo di Rust e le altre parole d'altri) sono date come tue, invece che solo come il gesto di averle riportate?", "attesa": "no"},
+    {"domanda": "L'elenco va oltre le 8 righe senza fermarsi con «Vuoi il resto?»?", "attesa": "no"},
+    {"domanda": "Un frammento delicato apre l'elenco, oppure un frammento non parlante (un link nudo, «questa», un vuoto) compare come frase senza essere segnato muto?", "attesa": "no"}
+  ],
+  "note": [
+    "D02 si fa nel Progetto, quindi qui c'è un solo passo meccanico: il memo YAML che il Progetto scrive (memo: chat, un turno {ora: \"21:30\", testo: messaggio}, una risposta con turno \"21:30\") va in ingresso/ come memo del Comando rapido \"Memo\" con ATLANTE_ORA = data, poi \"smista\". Il frammento di chat prende l'ora d'arrivo del memo (modello §7.3 non dice quale): perché data lo trovi, turno e memo stanno nello stesso minuto.",
+    "La data è una scelta: la porta del blocco 5 vuole D02 «per primo» con B01, B02, B06 (piano blocco 5), quindi la sera di B06, prima di B07 (22 novembre). Il banco parte 2 la mette dopo B25 nell'ordine delle D: lì la stessa prova vale con la data spostata, e la preparazione cambia (B12, B25 delicati, B13, B18, B21 muti).",
+    "G1 e G6 non valgono: il corpo del frammento è il turno ricopiato con [HH:MM], non il messaggio, e la risposta di una domanda non è quella dell'ingresso (limiti di Forma). G2, G3, G4, G5, G7 sì.",
+    "«un testo che non si ritrova con una ricerca esatta nei frammenti ✦»: il criterio alla_lettera (nuovo in esegui.mjs) cerca ogni corsivo nei corpi di frammenti/; il seme ✧ vi è compreso, perché sta in una riga a parte: che non sia contato tra le tue lo dice il giudice (D3). Un titolo d'opera in corsivo cade come frase non alla lettera.",
+    "«oltre le 8 righe, Vuoi il resto?»: con 32 importate più i memo è quasi certo, ma la scheda lo dà come condizione; il deterministico vieta solo un secondo «Vuoi il resto?» e ogni altro «?», la soglia va al giudice (D5).",
+    "«Scrive: niente»: nessun nodo nuovo e nessun legame nella lettura del frammento di chat, che ha un turno solo (ogni legame sarebbe di quel turno).",
+    "Nel blocco 5 contesto.mjs non scrive ancora parole.md (piano blocco 7): il Progetto vede solo recenti.md e mappa.md, cioè i memo del telefono ma non le 32 importate. D02 «sulle frasi importate» al blocco 5 non può passare dal Progetto finché parole.md manca."
+  ]
+}

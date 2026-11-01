@@ -1,0 +1,49 @@
+{
+  "$schema": "./schema.json",
+  "id": "B11",
+  "caso": "E12",
+  "titolo": "domanda dentro un memo",
+  "data": "2026-12-05T18:40:00+01:00",
+  "messaggio": "chi è che diceva che il mondo ti spezza e poi alcuni diventano più forti nei punti rotti? tipo kintsugi",
+  "gravita": "alta",
+  "file": [
+    {"dove": "@lettura", "campo": "intento", "contiene": ["salva", "chiedi"], "motivo": "intento senza salva e chiedi"},
+    {"esiste": "citazioni/*.md", "nuovo": true, "filtro": {"campo": "nato-da", "contiene": ["id(B11)"]}, "motivo": "nessuna citazione nuova nata da id(B11)"},
+    {"dove": "citazioni/*.md", "nuovo": true, "filtro": {"campo": "nato-da", "contiene": ["id(B11)"]}, "campo": "attribuita-a", "assente": true, "motivo": "la citazione ha attribuita-a: la frase non l'attribuisci"},
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"p": "nomina", "a": "nuovo(citazioni/*.md)", "voce": "sua"}], "motivo": "manca nomina ✦ della citazione nuova"},
+    {"esiste": "temi/kintsugi.md", "motivo": "temi/kintsugi.md non c'è dopo il caso"},
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"p": "converge-con", "tra": ["nuovo(citazioni/*.md)", "kintsugi"], "voce": "sua", "perche": {"$include": "tipo kintsugi"}}], "motivo": "manca converge-con ✦ tra la citazione e kintsugi con «tipo kintsugi» nel perche"}
+  ],
+  "mappa": [
+    {"dove": "@mappa", "sezione": "Nodi", "regex": "(?<![\\w-])kintsugi · temi\\b.*✦1(?!\\d)", "motivo": "§ Nodi senza la riga kintsugi · temi con ✦1"}
+  ],
+  "risposta": [
+    {"esiste": "@risposta", "motivo": "nessun file con per: id(B11)"},
+    {"dove": "@lettura", "campo": "risposta", "contiene": {"$regex": "^r-"}, "motivo": "la lettura non punta a un file di risposta: salvato senza rispondere"},
+    {"dove": "@risposta", "campo": "voci", "contiene": [{"voce": "mondo", "cosa": "citazione", "riferimento": {"$presente": true}}], "motivo": "nessuna voce ○ citazione con riferimento"},
+    {"dove": "@risposta", "testo": "Hemingway"},
+    {"dove": "@risposta", "testo": "Addio alle armi"},
+    {"dove": "@risposta", "testo": "?", "max": 0, "motivo": "un \"?\" nella risposta: la domanda è tua"}
+  ],
+  "non_deve": [
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"p": "converge-con", "voce": "proposta"}], "motivo": "il converge-con è ◌ (voce: proposta)"},
+    {"esiste": "persone/*hemingway*.md", "nuovo": true, "motivo": "nato un nodo persone/*hemingway* dalla verifica"},
+    {"esiste": "opere/*addio*.md", "nuovo": true, "motivo": "nato un nodo opere/*addio* dalla verifica"},
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"a": {"$regex": "^~\\s*kintsugi$", "$flag": "i"}}], "motivo": "il kintsugi come ~Kintsugi invece del tema"},
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"tra": [{"$regex": "^~\\s*kintsugi$", "$flag": "i"}]}], "motivo": "il kintsugi come ~Kintsugi nel converge-con invece del tema"}
+  ],
+  "dopo_consolida": [
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B11)"]}, "campo": "autore", "vale": "~Ernest Hemingway"},
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B11)"]}, "campo": "esito", "vale": "simile"},
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B11)"]}, "campo": "riferimento", "contiene": {"$include": "Addio alle armi"}},
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B11)"]}, "campo": "riferimento", "contiene": {"$include": "34"}}
+  ],
+  "giudice": [],
+  "note": [
+    "intento: [salva, chiedi] si controlla come sottoinsieme: la scheda non fissa l'ordine dei due valori.",
+    "La citazione si riconosce da nato-da: [id(B11)] e, nei legami, dallo slug dell'unico file nuovo in citazioni/ (nuovo(…)); «senza gli altri campi di G4» è G4.",
+    "«salvare senza rispondere»: la lettura punta a un r-… e il file con per: id(B11) esiste; «rispondere senza salvare» è G1 e G2 (frammento e lettura ci sono).",
+    "«temi/kintsugi.md esiste dopo il caso» senza nuovo: se c'era già basta che ci sia; il punto zero non lo ha, quindi nasce qui (G5: kintsugi è una parola del frammento).",
+    "La chiusura della Routine con il messaggio finale e la notifica «La risposta è pronta» non sta nei file: è del blocco 7 e non si controlla qui."
+  ]
+}

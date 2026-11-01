@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "memo/banco-prova",
+  "title": "Una prova del banco: i criteri deterministici della scheda e le domande del giudice (banco §5)",
+  "$comment": "Lo legge banco/esegui.mjs. Ogni criterio descrive un fatto: in file, mappa, risposta e dopo_consolida il fatto deve accadere (salvo non: true), in non_deve non deve accadere. G1–G7 sono nel codice e valgono da sé per le B.",
+  "type": "object",
+  "required": ["id", "gravita"],
+  "additionalProperties": false,
+  "$defs": {
+    "dove": {
+      "type": "string",
+      "description": "un glob dalla radice (**, *, ?, {a,b}) oppure @frammento, @lettura, @risposta (le restituzioni con per o copre uguale a id(Bnn)), @mappa (contesto/mappa.md). Dentro ogni stringa: id(Bnn) è l'id del frammento di quella prova, nuovo(GLOB) lo slug dell'unico file nuovo che GLOB trova."
+    },
+    "filtro": {
+      "type": "object",
+      "description": "restringe i file a quelli il cui frontmatter ha questo campo",
+      "required": ["campo"],
+      "properties": {"campo": {"type": "string"}, "vale": {}, "contiene": {}, "assente": {"const": true}},
+      "oneOf": [{"required": ["vale"]}, {"required": ["contiene"]}, {"required": ["assente"]}],
+      "additionalProperties": false
+    },
+    "criterio": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "esiste": {"$ref": "#/$defs/dove", "description": "almeno un file (come dove + min: 1)"},
+        "cambia": {"type": "string", "description": "glob: un file cambiato o cancellato rispetto alla base (git diff)"},
+        "dove": {"$ref": "#/$defs/dove"},
+        "nuovo": {"type": "boolean", "description": "true: solo i file che alla base non c'erano; false: solo quelli che c'erano"},
+        "filtro": {"$ref": "#/$defs/filtro"},
+        "campo": {"type": "string", "description": "un campo del frontmatter: con vale (uguale), contiene (sottoinsieme) o assente"},
+        "vale": {},
+        "contiene": {"description": "liste come sottoinsiemi, oggetti parziali; un oggetto con chiavi $include, $regex (+$flag), $nodo (genere: il file <genere>/<valore>.md esiste), $presente confronta in modo speciale"},
+        "assente": {"const": true},
+        "alla_lettera": {"type": "string", "description": "glob dei frammenti fonte: ogni tratto in corsivo (*…* o _…_, non il grassetto) dei file di dove si ritrova esatto nel corpo di uno di essi, il frammento della prova escluso; i pezzi tra … o […] si cercano nello stesso frammento, «» e virgolette ai capi si tolgono (D02, X1)"},
+        "testo": {"type": "string", "description": "ricerca esatta"},
+        "regex": {"type": "string"},
+        "flag": {"type": "string", "pattern": "^[imsu]*$"},
+        "parte": {"enum": ["corpo", "frontmatter", "tutto"], "description": "dove si cerca; predefinito corpo per @risposta, tutto altrimenti"},
+        "sezione": {"type": "string", "description": "solo la sezione markdown con questo titolo (## Alias, ## 3. Alias)"},
+        "min": {"type": "integer", "minimum": 0},
+        "max": {"type": "integer", "minimum": 0},
+        "non": {"const": true, "description": "il fatto non deve accadere (in non_deve è implicito)"},
+        "motivo": {"type": "string", "description": "che cosa scrive la riga dell'esito se il criterio cade"}
+      },
+      "anyOf": [
+        {"required": ["esiste"]}, {"required": ["cambia"]}, {"required": ["campo", "dove"]},
+        {"required": ["testo", "dove"]}, {"required": ["alla_lettera", "dove"]}, {"required": ["regex", "dove"]}, {"required": ["min", "dove"]}, {"required": ["max", "dove"]}
+      ],
+      "dependentSchemas": {
+        "campo": {"oneOf": [{"required": ["vale"]}, {"required": ["contiene"]}, {"required": ["assente"]}]},
+        "flag": {"required": ["regex"]}
+      }
+    },
+    "criteri": {"type": "array", "items": {"$ref": "#/$defs/criterio"}}
+  },
+  "properties": {
+    "$schema": {"type": "string"},
+    "id": {"type": "string", "pattern": "^[BDRT][0-9]{2}$"},
+    "caso": {"type": "string", "description": "il caso d'origine negli esempi (E01…)"},
+    "titolo": {"type": "string"},
+    "data": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2})?[+-]\\d{2}:\\d{2}$", "description": "ATLANTE_ORA del messaggio; dà il glob del frammento frammenti/AAAA/MM/AAAAMMGG-HHMM-*.md"},
+    "messaggio": {"type": "string", "description": "il testo esatto del Comando rapido (G1)"},
+    "preparazione": {"type": "string", "description": "ciò che il giudice vede come preparazione; senza, la data e il messaggio"},
+    "gravita": {"enum": ["alta", "media", "bassa"], "description": "dalla tabella di banco §5, Gravità e porte"},
+    "generali": {"type": "array", "items": {"enum": ["G1", "G2", "G3", "G4", "G5", "G6", "G7"]}, "description": "predefinito: tutti per le B, nessuno per le altre"},
+    "file": {"$ref": "#/$defs/criteri"},
+    "mappa": {"$ref": "#/$defs/criteri"},
+    "risposta": {"$ref": "#/$defs/criteri"},
+    "non_deve": {"$ref": "#/$defs/criteri"},
+    "dopo_consolida": {"$ref": "#/$defs/criteri", "description": "si controllano con --fase consolida, dopo il primo commit consolida: che segue il caso"},
+    "giudice": {
+      "type": "array",
+      "description": "ciò che non è deterministico: domande sì/no per banco/giudice.md, con la risposta attesa (il giudice non la vede)",
+      "items": {"type": "object", "required": ["domanda", "attesa"], "additionalProperties": false,
+        "properties": {"domanda": {"type": "string"}, "attesa": {"enum": ["sì", "no"]}}}
+    },
+    "note": {"type": "array", "items": {"type": "string"}, "description": "scelte di trascrizione e ambiguità della scheda"}
+  },
+  "if": {"properties": {"id": {"pattern": "^B"}}},
+  "then": {"required": ["data", "messaggio"]}
+}

@@ -300,7 +300,7 @@ consolidamento (§8.3).
 | `originale`, `traduzione` | `citazioni` | il testo; per la traduzione, chi l'ha fatta oppure "resa di Claude" |
 | `riferimento` | `citazioni` | una riga: opera, luogo, url, data della verifica; "fonte primaria" o "secondaria" in parole |
 | `esito` | `citazioni` | `verificata` · `simile` · `errata` · `non-trovata`. **Senza esito = ⚠** |
-| `scopo` | `raccolte` | una riga, parole tue; finché manca, `mappa.md` lo segnala e la prima risposta sulla raccolta lo chiede (A30) |
+| `scopo` | `raccolte` | una riga, parole tue; finché manca, `mappa.md` lo segnala; nessuna risposta lo chiede, perché non è tra i 7 casi dell'elenco unico (§7.2.1, §9.1) (A30) |
 
 `esito` giudica l'attribuzione all'`autore`. "Autore giusto, opera sbagliata" (B07) è `verificata` con un `riferimento`
 che dice l'opera vera: la vista lo mette accanto al tuo frammento. Il **vero autore ignoto** (B06) è `errata` con `autore`
@@ -715,6 +715,9 @@ Un legame è un oggetto dell'elenco `legami:` di una lettura (o di una restituzi
   ricerca, e nasce un'opera con `in: <album>` solo dopo la tua conferma.
 - **Le copie non generano legami** (A3): se lo stesso testo vive in due frammenti importati, i legami partono solo dalla
   fonte primaria.
+- **Mettere in una raccolta un frammento precedente** («quella di ieri la voglio tra i tatuaggi»): il memo nuovo porta
+  `serve-a: tatuaggi` e `ritorna-su` verso il frammento vecchio (`come: aggiunge`); il frammento vecchio e la sua lettura
+  non si toccano.
 - **Tolti:** `sente` (è `parla-di` con `come: stato`), `tramite` (è `nomina` + il `perche`: "«marco mi ha mandato»").
 
 ---
@@ -1461,7 +1464,7 @@ usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo
 | **R5 entità vive** | diventano nodi solo quelle nominate da te o dallo sguardo; slug dell'Atlante conservati; concetti e stili nominati da te → temi (A9); band → persone `mondo` (A10); Dostoevskij da U31 (A18); Napoleone resta alias di `resilienza-napoleonica` (A31) |
 | **R6 proposte** | tutto ciò che è di Claude entra solo dentro restituzioni `eredita`, ◌, che **non sbiadiscono** (A11) |
 | **R7 citazioni** | se l'esito dell'eredità e il protocollo delle [citazioni](/_progetto/v2/citazioni.md) divergono, vince il protocollo (R43); nelle tue frasi → nodi senza `esito` (⚠); quelle scelte da Claude → voci di `r-20261007-0000-eredita-citazioni`, **dopo** il protocollo sulle 17 vive (A8); se ne accogli una, il nodo nasce già con `esito` e `riferimento`: è l'eccezione voluta alla regola dell'esito all'ingresso (§7.2 passo 4), perché l'importazione fa le veci di "consolida" e queste citazioni sono già verificate ([correzioni](/_progetto/v2/correzioni-citazioni.md)); le correzioni sulle entità morte si fanno sull'Atlante, fuori dallo script |
-| **R8 tatuaggi** | `raccolte/tatuaggi.md` con `nato-da: [s03]` e lo `scopo` da chiedere alla prima risposta sulla raccolta (A30); le tue idee sono frammenti con `serve-a`; le altre restituzioni `eredita` con `serve-a` ◌. Il brief `s02` non esiste: è una vista (A3) |
+| **R8 tatuaggi** | `raccolte/tatuaggi.md` con `nato-da: [s03]` e senza `scopo` finché non lo dici tu (`mappa.md` lo segnala; nessuna domanda: §7.2.1) (A30); le tue idee sono frammenti con `serve-a`; le altre restituzioni `eredita` con `serve-a` ◌. Il brief `s02` non esiste: è una vista (A3) |
 | **R9 ricerche** | la tua frase è il frammento; la pista è `nomina` con `fruizione: da-fare`; lo stato della ricerca nell'Atlante va in `nota` (A12) |
 | **R10 pin** | link nel frammento; le descrizioni di Claude in `nota` |
 | **R11 emozioni** | le 10 parole di U1 → temi; `parla-di` per le tappe, `come: stato` solo per lo stato d'arrivo, con `vissuto` (A21); le 4 di Claude non entrano |

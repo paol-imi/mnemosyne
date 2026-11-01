@@ -2,12 +2,12 @@
 
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. Il piano esegue il [modello v3](./02-modello-v3.md)
 > e si collauda con il [banco di prova definitivo](./04-banco-di-prova.md). È scritto per una sessione Claude Code
-> nel repository privato `paol-imi/memo`, dall'unico account claude.ai (quello del telefono), che non vede la conversazione di progettazione: ogni passo dice
+> nel repository privato `paol-imi/mnemosyne`, dall'unico account claude.ai (quello del telefono), che non vede la conversazione di progettazione: ogni passo dice
 > che cosa leggere, che cosa scrivere e quando fermarsi. Dove il modello e un altro documento divergono, **vale il modello v3**
 > (§16 del modello dice come).
 
-Il nome del repository è provvisorio: `memo`, sull'account GitHub `paol-imi`. Qui è `MEMO`, nei comandi `OWNER/MEMO`
-(= `paol-imi/memo`).
+Il nome del repository è `mnemosyne` (scelto dall'utente il 2026-11-01, vedi [nome](./nome.md)), sull'account GitHub `paol-imi`. Qui è `MEMO`, nei comandi `OWNER/MEMO`
+(= `paol-imi/mnemosyne`).
 
 **La prova a freddo e il suo codice.** Una sessione senza contesto ha eseguito questo piano fino al blocco 5 compreso
 ([resoconto](../v2/prova-a-freddo.md)). Il codice che ha scritto (script, schemi, test, tabella d'importazione) sta
@@ -349,7 +349,7 @@ Separato da ciò che fa Claude Code. Tutto da browser, in vista desktop dove ser
 possono cambiare (se un passo non torna, Claude Code lo verifica sulla documentazione e aggiorna questo file).
 
 **U1 · Il repository privato** (giorno 0, 2 minuti). github.com con l'account `paol-imi` → "+" in alto a destra → *New
-repository* → nome `memo` → **Private** → **nessun** README, `.gitignore` o licenza (il repo nasce vuoto) → *Create repository*.
+repository* → nome `mnemosyne` → **Private** → **nessun** README, `.gitignore` o licenza (il repo nasce vuoto) → *Create repository*.
 Poi riceve con un push il contenuto preparato: quando la prima sessione parte, il repo esiste già e contiene `progetto/`. Il piano Free va bene: senza branch protetti il push
 diretto su `main` passa, ed è quello che si vuole.
 

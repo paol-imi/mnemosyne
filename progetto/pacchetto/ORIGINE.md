@@ -2,7 +2,7 @@
 
 Generato il 2026-11-01 da `aggiorna.sh`, copiando i documenti finali di `progetto/v2/` di questo repo.
 
-- Fonti: `progetto/v2/` al commit `e44638e7fd95a8dac2973f94860572ad3077c350`.
+- Fonti: `progetto/v2/` al commit `1e7579001d7608fbfc373bf3dbbfb6e2683414e8`.
 - Le note dell'Atlante non sono in questo repo: si leggono da [tattoo-shit](https://github.com/paol-imi/tattoo-shit)
   (pubblico) al **checkpoint** `3a7ea794e6595c15ecdc1e6fd51de965a28841c3` (branch `claude/quirky-newton-qe5g9o`), mai da un branch che si muove:
   `git clone https://github.com/paol-imi/tattoo-shit.git /tmp/atlante && git -C /tmp/atlante checkout 3a7ea794e6595c15ecdc1e6fd51de965a28841c3`.

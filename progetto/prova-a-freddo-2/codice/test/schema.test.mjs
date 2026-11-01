@@ -1,0 +1,123 @@
+// Blocco 0: gli schemi compilano, gli esempi del modello §3.3–§3.5 validano e una copia con un campo sbagliato no;
+// i piani del modello §2.2 e di prompt/formato-piano.md validano; l'albero delle cartelle c'è.
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync, readdirSync } from 'node:fs';
+import { join } from 'node:path';
+import Ajv2020 from 'ajv/dist/2020.js';
+import { parse } from 'yaml';
+
+const RADICE = new URL('../', import.meta.url).pathname;
+const FIX = join(RADICE, 'test/fixture');
+const leggiJson = (p) => JSON.parse(readFileSync(join(RADICE, p), 'utf8'));
+const frontmatter = leggiJson('schema/frontmatter.json');
+const piano = leggiJson('schema/piano.json');
+
+// strictTypes spento: il §3.7, copiato alla lettera, ha un "pattern" e un "properties" senza "type".
+const ajv = new Ajv2020({ allErrors: true, strictTypes: false }).addSchema(frontmatter).addSchema(piano);
+const valida = (tipo) => ajv.getSchema(`memo/schema-3#/$defs/${tipo}`);
+const validaPiano = ajv.getSchema('memo/piano-3');
+
+// Il frontmatter di un file (YAML 1.2 core: date e ore restano stringhe), con _genere per i nodi.
+const GENERI = ['persone', 'opere', 'citazioni', 'temi', 'raccolte'];
+function dati(rel) {
+  const testo = readFileSync(join(FIX, 'esempi', rel), 'utf8');
+  const m = /^---\n([\s\S]*?)\n---(\n|$)/.exec(testo);
+  assert.ok(m, `${rel}: frontmatter mancante`);
+  const d = parse(m[1]);
+  const genere = GENERI.find((g) => rel.split('/').includes(g));
+  return genere ? { ...d, _genere: genere } : d;
+}
+function errori(v, x) { return v(x) ? null : JSON.stringify(v.errors.map((e) => `${e.instancePath} ${e.message}`)); }
+
+test('schema/*.json compila con ajv (draft 2020-12, strict di default)', () => {
+  for (const s of [frontmatter, piano]) {
+    const a = new Ajv2020({ logger: false });
+    assert.equal(typeof a.compile(s), 'function');
+  }
+});
+
+test('schema/frontmatter.json ha i $defs del modello §3.7 alla lettera', () => {
+  const t = readFileSync(join(RADICE, 'progetto/pacchetto/02-modello-v3.md'), 'utf8');
+  const da = t.indexOf('```json', t.indexOf('### 3.7')) + 7;
+  const modello = JSON.parse(t.slice(da, t.indexOf('```', da)));
+  assert.deepEqual(frontmatter.$defs, modello.$defs);
+  assert.equal(frontmatter.$id, modello.$id);
+});
+
+// [sezione, file, tipo, il campo sbagliato]
+const ESEMPI = [
+  ['§3.3 lettura', 'letture/2026/11/20261103-2340-k7q2.md', 'lettura', (d) => { d.intento = ['salva', 'ricorda']; }],
+  ['§3.3 legame', 'letture/2026/11/20261103-2340-k7q2.md', 'lettura', (d) => { d.legami[3].come = 'aggiunge'; }],
+  ['§3.3 prompt', 'letture/2026/11/20261103-2340-k7q2.md', 'lettura', (d) => { d.prompt = '3f9a2c'; }],
+  ['§3.4 persona', 'persone/umberto-galimberti.md', 'nodo', (d) => { d.cerchia = 'famiglia'; }],
+  ['§3.4 citazione', 'citazioni/il-nichilismo-e-l-ospite-inquietante.md', 'nodo', (d) => { d['attribuita-a'] = ['Umberto Galimberti']; }],
+  ['§3.4 citazione consolidata', 'consolidata/citazioni/il-nichilismo-e-l-ospite-inquietante.md', 'nodo', (d) => { d.esito = 'vera'; }],
+  ['§3.4 lapide', 'temi/stare-da-solo.md', 'nodo', (d) => { d.alias = ['solo']; }],
+  ['§3.5 restituzione', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { d.voci[0].cosa = 'canzone'; }],
+  ['§3.5 senza registrato', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { delete d.registrato; }],
+];
+
+for (const [sez, rel, tipo, sbaglia] of ESEMPI) {
+  test(`${sez}: l'esempio del modello valida, la copia con un campo sbagliato no`, () => {
+    const d = dati(rel);
+    assert.equal(errori(valida(tipo), d), null);
+    assert.equal(errori(ajv.getSchema('memo/schema-3'), d), null, 'anche dalla radice');
+    const copia = structuredClone(d);
+    sbaglia(copia);
+    assert.equal(valida(tipo)(copia), false);
+  });
+}
+
+test('§3.4: una persona fuori da persone/ non valida (il genere conta)', () => {
+  assert.equal(valida('nodo')({ ...dati('persone/umberto-galimberti.md'), _genere: 'temi' }), false);
+});
+
+test('la radice rifiuta ciò che non è nessuno dei quattro tipi', () => {
+  assert.equal(ajv.getSchema('memo/schema-3')({ schema: 3, nome: 'x' }), false);
+});
+
+test('i piani del modello §2.2 e di prompt/formato-piano.md validano', () => {
+  for (const f of ['piano-2.2.json', 'piano-formato.json']) {
+    assert.equal(errori(validaPiano, leggiJson(`test/fixture/${f}`)), null, f);
+  }
+});
+
+test('piano: le regole delle operazioni', () => {
+  const base = leggiJson('test/fixture/piano-formato.json');
+  const con = (cambia) => { const p = structuredClone(base); cambia(p); return validaPiano(p); };
+  const lapide = { op: 'lapide', da: 'stare-da-solo', in: 'solitudine', perche: 'fusione mensile' };
+  assert.equal(con((p) => { p.operazioni[3].voci[0].n = 1; }), false, 'mai un numero n nelle voci');
+  assert.equal(con((p) => { delete p.operazioni[0].nome; }), false, 'crea-nodo senza nome');
+  assert.equal(con((p) => { p.operazioni[0].cerchia = 'famiglia'; }), false);
+  assert.equal(con((p) => { p.operazioni[2].legami[0].a = 'Umberto Galimberti'; }), false, 'né slug né @Nome né ~Nome');
+  assert.equal(con((p) => { p.operazioni[2].parole = 'cultura'; }), false, 'parole è sempre una lista');
+  assert.equal(con((p) => { p.operazioni[1].esito = 'verificata'; }), false, 'smista: una citazione nuova senza esito');
+  assert.equal(con((p) => { p.operazioni[2].versione = 2; }), false, 'smista scrive solo la versione 1');
+  assert.equal(con((p) => { p.operazioni.push(lapide); }), false, 'lapide solo in consolida');
+  assert.equal(con((p) => { p.ciclo = 'consolida'; p.operazioni.splice(2, 1); p.operazioni.push(lapide); }), true);
+  assert.equal(con((p) => { p.ciclo = 'consolida'; p.operazioni[2].versione = 1; }), false, 'consolida: una lettura è una versione ≥ 2');
+  assert.equal(con((p) => { p.ciclo = 'consolida'; p.operazioni[2].versione = 2; }), true);
+  assert.equal(con((p) => { p.operazioni.push({ op: 'alias', nodo: '@Umberto Galimberti', alias: ['umberto'] }); }), true);
+  assert.equal(con((p) => { p.operazioni.push({ op: 'teletrasporta' }); }), false);
+  assert.equal(con((p) => { p.ciclo = 'ritratto'; }), false, 'ritratto: solo la restituzione ritratto');
+  assert.equal(con((p) => { delete p.operazioni[3].per; }), false, 'una risposta ha per');
+  assert.equal(con((p) => { p.operazioni[3].registrato = '2026-11-03T23:41:05+01:00'; }), false, 'registrato lo mette lo script');
+});
+
+test('piano: legame e voce sono quelli del §3.7, con @Nome dove il §3.7 vuole uno slug', () => {
+  const sost = (s) => JSON.stringify(s)
+    .replaceAll('#/$defs/nodo-o-chiaro"', '#/$defs/nodo-o-chiaro-o-nuovo"')
+    .replaceAll('#/$defs/oggetto"', '#/$defs/oggetto-o-nuovo"')
+    .replaceAll('#/$defs/slug"', '#/$defs/slug-o-nuovo"');
+  assert.equal(JSON.stringify(piano.$defs.legame), sost(frontmatter.$defs.legame));
+  for (const k of ['idF', 'idR', 'slug', 'chiaro', 'modello', 'voce', 'intento']) {
+    assert.deepEqual(piano.$defs[k], frontmatter.$defs[k], k);
+  }
+});
+
+test("l'albero: le cartelle vuote hanno il loro .gitkeep", () => {
+  for (const d of 'ingresso frammenti letture persone opere citazioni temi raccolte restituzioni contesto riserva'.split(' ')) {
+    assert.ok(readdirSync(join(RADICE, d)).includes('.gitkeep'), d);
+  }
+});

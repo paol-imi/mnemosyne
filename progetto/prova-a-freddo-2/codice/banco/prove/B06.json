@@ -1,0 +1,50 @@
+{
+  "$schema": "./schema.json",
+  "id": "B06",
+  "caso": "E08",
+  "titolo": "falsa attribuzione nota, persona della vita",
+  "data": "2026-11-20T12:44:00+01:00",
+  "messaggio": "marco mi ha mandato quella di camus: non camminare davanti a me potrei non seguirti, ecc. carina ma un po' da bacio perugina",
+  "gravita": "alta",
+  "file": [
+    {"esiste": "persone/marco.md", "nuovo": true},
+    {"dove": "persone/marco.md", "campo": "cerchia", "vale": "vita"},
+    {"dove": "persone/marco.md", "campo": "link", "assente": true},
+    {"dove": "persone/marco.md", "campo": "in", "assente": true},
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"p": "nomina", "a": "marco", "voce": "sua", "perche": {"$include": "marco mi ha mandato"}}], "motivo": "manca nomina ✦ marco con «marco mi ha mandato» nel perche"},
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"p": "nomina", "a": {"$nodo": "citazioni"}, "voce": "sua"}], "motivo": "manca nomina ✦ della citazione"},
+    {"dove": "citazioni/*.md", "nuovo": true, "filtro": {"campo": "nato-da", "contiene": ["id(B06)"]}, "campo": "attribuita-a", "vale": ["camus"], "motivo": "nessuna citazione nuova con attribuita-a: [camus]"},
+    {"dove": "@lettura", "campo": "reazione", "vale": [{"parole": "carina ma un po' da bacio perugina", "verso": "-"}]}
+  ],
+  "mappa": [
+    {"dove": "@mappa", "sezione": "Alias", "regex": "(?<![\\w-])marco → marco(?![\\w-])", "motivo": "§ Alias non porta marco a marco"},
+    {"dove": "@mappa", "sezione": "Alias", "regex": "(?<![\\w-])marco → marco-aurelio\\b", "non": true, "motivo": "§ Alias porta marco a marco-aurelio"}
+  ],
+  "risposta": [
+    {"esiste": "@risposta", "motivo": "nessun file con per: id(B06)"},
+    {"dove": "@risposta", "testo": "Camus"},
+    {"dove": "@risposta", "testo": "○"},
+    {"dove": "@risposta", "campo": "voci", "contiene": [{"voce": "mondo", "riferimento": {"$presente": true}}], "motivo": "nessuna voce ○ con riferimento"},
+    {"dove": "@risposta", "testo": "?", "max": 0, "motivo": "un \"?\" nella risposta"}
+  ],
+  "non_deve": [
+    {"dove": "@lettura", "campo": "legami", "contiene": [{"a": "marco-aurelio"}], "motivo": "un legame con a: marco-aurelio"},
+    {"dove": "@lettura", "campo": "reazione", "contiene": [{"verso": "+"}], "motivo": "verso: \"+\" nella reazione"},
+    {"esiste": "temi/*.md", "nuovo": true, "motivo": "un file nuovo in temi/"},
+    {"dove": "persone/marco.md", "campo": "alias", "contiene": [{"$regex": "aurelio", "$flag": "i"}], "motivo": "persone/marco.md con un alias che contiene «aurelio»"}
+  ],
+  "dopo_consolida": [
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B06)"]}, "campo": "esito", "vale": "errata"},
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B06)"]}, "campo": "autore", "assente": true, "motivo": "un autore su una frase d'autore ignoto"},
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B06)"]}, "campo": "riferimento", "contiene": {"$include": "Quote Investigator"}},
+    {"dove": "citazioni/*.md", "filtro": {"campo": "nato-da", "contiene": ["id(B06)"]}, "campo": "riferimento", "contiene": {"$include": "fonte secondaria"}}
+  ],
+  "giudice": [
+    {"domanda": "La risposta riprende, commenta o corregge la tua reazione alla frase («carina ma un po' da bacio perugina»)?", "attesa": "no"}
+  ],
+  "note": [
+    "«nessuna ripresa della reazione (R67)» è l'unico punto di giudizio: va al giudice.",
+    "«senza alias che contengano aurelio» sta in Non deve, come fatto vietato.",
+    "La citazione si riconosce da nato-da: [id(B06)]; «niente altro» è G4."
+  ]
+}

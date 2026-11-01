@@ -35,7 +35,7 @@ Stato del giro 6 (correzioni dopo la prova a freddo):
 
 ## Giro 6 sul repo nuovo (dal 2026-11-01)
 Coordinatore: session_016XqAM2avfjohJSKH8PQkwq (account claude.ai collegato a GitHub `paol-imi`). Da qui il repo nuovo
-(privato, nome provvisorio `memo`, da creare: U1) è la fonte di verità; `progetto/` = copia di `_progetto/` da
+(privato, `paol-imi/mnemosyne`: il nome l'ha scelto l'utente, vedi `nome.md`) è la fonte di verità; `progetto/` = copia di `_progetto/` da
 tattoo-shit `claude/quirky-newton-qe5g9o` @ 3a7ea79. Finché il repo non esiste, il lavoro sta in un clone locale
 (branch `raccolta`) e lo fanno subagent; le sessioni cloud partono quando il repo esiste.
 
@@ -50,7 +50,7 @@ Stato:
   le due regole del fire stanno in `prompt/smista.md`).
 - E. Pacchetto: rigenerato con `bash progetto/pacchetto/aggiorna.sh`; link interni relativi (0 rotti), le note
   dell'Atlante come URL al branch del checkpoint; 05 resta come storia, superato dal §14.
-- F. Seconda prova a freddo: pronta, parte quando il repo `paol-imi/memo` esiste (push del branch `raccolta` su `main`).
+- F. Seconda prova a freddo: pronta, parte quando il repo `paol-imi/mnemosyne` esiste (push del branch `raccolta` su `main`).
 - G. Implementazione: dopo F.
 
 Decisioni del coordinatore (giro 6):

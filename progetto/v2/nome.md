@@ -262,3 +262,22 @@ Latino, "piccola anima": *«Animula vagula blandula, / hospes comesque corporis�
 - "Nostalgia", coniata da J. Hofer nel 1688: https://it.wikipedia.org/wiki/Nostalgia
 - Warburg, *Bilderatlas Mnemosyne*: https://warburg.sas.ac.uk/collections/warburg-institute-archive/bilderatlas-mnemosyne
 - Le collisioni sono state verificate con ricerche web rapide, non nelle banche dati dei marchi: prima di fissare il nome va fatto un controllo su EUIPO e UIBM.
+
+## La scelta
+
+Il 2026-11-01 l'utente ha scelto **Mnemosyne**.
+
+Dopo la rosa ha chiesto nomi che tenessero insieme **memoria, identità e arte**. I due candidati finali, scelti da lui, sono stati:
+
+- **Mnemosyne**: la Memoria, madre delle Muse, cioè delle arti. È il nome di ciò che il sistema è.
+- **Ethopoiesis** (gr. *ethos + poiesis*, "il fare del carattere"): il termine di Plutarco che Foucault riprende in «L'écriture de soi» (*Corps écrit* n. 5, 1983) per la scrittura di sé che forma chi sei. È il nome di ciò che il sistema fa.
+
+Perché Mnemosyne:
+- **Continuità:** il sistema precedente si chiamava Atlante, e l'*Atlante Mnemosyne* di Aby Warburg raccoglie tavole di immagini che mostrano la stessa emozione in epoche diverse. Sono le sue convergenze.
+- **Memoria che genera arte:** la memoria è madre delle arti, non è un archivio.
+- **La discesa:** nelle lamine d'oro orfiche (Hipponion, circa 400 a.C.) il morto deve bere alla fonte di Mnemosyne, non a quella dell'oblio. Va attraversato il buio e scelta la memoria.
+- **Il suono:** regge la frase («Mnemosyne mi ha ricordato…»).
+
+Il rischio noto: il nome è già usato da app di flashcard e di memoria per AI. Per un repo privato pesa poco.
+
+Sottotitolo possibile: *Ethopoiesis*, «ciò che fa». È una proposta di Claude, non ancora confermata dall'utente.

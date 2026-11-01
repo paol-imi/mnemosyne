@@ -33,6 +33,35 @@ Stato del giro 6 (correzioni dopo la prova a freddo):
 - Piano: da fare (contesto.mjs e setup.sh anticipati, esito all'ingresso, misure reali, prototipo non normativo).
 - Poi: rigenerare il pacchetto, seconda prova a freddo, implementazione.
 
+## Giro 6 sul repo nuovo (dal 2026-11-01)
+Coordinatore: session_016XqAM2avfjohJSKH8PQkwq (account claude.ai collegato a GitHub `paol-imi`). Da qui il repo nuovo
+(privato, nome provvisorio `memo`, da creare: U1) è la fonte di verità; `progetto/` = copia di `_progetto/` da
+tattoo-shit `claude/quirky-newton-qe5g9o` @ 3a7ea79. Finché il repo non esiste, il lavoro sta in un clone locale
+(branch `raccolta`) e lo fanno subagent; le sessioni cloud partono quando il repo esiste.
+
+Stato:
+- A. Modello: fatto. `intento` lista con predefinito `[chiedi]`; temi ✦ subito (smista), ◌ alla 2ª–3ª ricorrenza
+  (consolida); prefisso per il memo successivo (c'era); appendici A/B; esito all'ingresso con una regola unica;
+  verifica rapida prima di `applica`; raccolta con un frammento precedente.
+- B. Banco: fatto, riscritto nel v3 (1570 righe, grep dei termini v2 a zero), registro chiuso lato banco.
+- C. Piano: fatto. `setup.sh` al blocco 0, `contesto.mjs` in parte al blocco 2, §14 al posto di 05, misure reali,
+  prototipo non normativo.
+- D. Prompt: in corso. E (pacchetto), F (seconda prova a freddo), G (implementazione): da fare.
+
+Decisioni del coordinatore (giro 6):
+- R70: se un blocco elenca le B/D per nome, la sua porta resta chiusa su ogni fallimento di quelle prove; le prove
+  non elencate restano sulle soglie del blocco (e sulla regola dei 3 medi). La gravità di un fallimento è quella che
+  il banco assegna al caso.
+- Esito all'ingresso: solo `nome`, `attribuita-a`, `nato-da`, senza `esito` (⚠); esito, riferimento, autore e
+  originale li scrive solo "consolida". Eccezione: le citazioni dell'Atlante accolte all'importazione (§14 R7).
+- La verifica rapida avviene prima di `applica` (§7.2 passo 4; §13.2 allineato).
+- §9.1: niente domande nelle risposte fuori da ingresso, confronto e ritratto; tolte dalle schede D del banco.
+- Raccolta con un frammento precedente: il memo nuovo ha `serve-a` verso la raccolta e `ritorna-su` verso il
+  frammento vecchio, che non si tocca.
+- Il banco segue il §3.4: B12 fa nascere `persone/cugina.md`; in B21 la citazione non nasce all'ingresso.
+- Misure della prova: meno di un'ora di orologio (la tabella somma 53 min).
+- Da verificare al passo U2: che la rete *Trusted* lasci passare `registry.npmjs.org` per `npm ci` in `setup.sh`.
+
 ## Diagnosi chiave da non perdere
 - Nell'Atlante l'utente ha scritto ~8 note su ~320, ha preso 0 decisioni su ~130 proposte, ha dato 0 risposte "a pancia", poi 23 giorni di silenzio.
 - Da qui il principio "cattura cieca, struttura derivata": niente coda di validazione, la validazione avviene con l'uso, e la meraviglia sta nella restituzione.

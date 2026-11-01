@@ -1,0 +1,278 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "memo/piano-3",
+  "title": "Il piano che l'AI passa ad applica.mjs (modello v3 §2.2, prompt/formato-piano.md)",
+  "$comment": "Involucro e sette operazioni di prompt/formato-piano.md; legame e voce copiati dal §3.7 (schema/frontmatter.json), con @Nome ammesso dove il §3.7 vuole uno slug. Nessun campo che mette lo script: n delle voci, versione, prompt, registrato, schema, slug dei nodi nuovi.",
+  "type": "object",
+  "required": ["ciclo", "letto-da", "operazioni"],
+  "additionalProperties": false,
+  "properties": {
+    "ciclo": {"enum": ["smista", "consolida", "ritratto", "specchio"]},
+    "letto-da": {"$ref": "#/$defs/modello"},
+    "operazioni": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/operazione"}}
+  },
+  "allOf": [
+    {"if": {"properties": {"ciclo": {"not": {"const": "consolida"}}}},
+     "then": {"properties": {"operazioni": {"type": "array", "items": {"type": "object", "properties": {"op": {"not": {"enum": ["aggiorna-nodo", "riserva", "lapide"]}}}}}}}},
+    {"if": {"properties": {"ciclo": {"const": "ritratto"}}},
+     "then": {"properties": {"operazioni": {"type": "array", "items": {"type": "object", "properties": {"op": {"const": "restituzione"}, "forma": {"const": "ritratto"}}}}}}}
+  ],
+  "$defs": {
+    "idF": {"type": "string", "pattern": "^\\d{8}-\\d{4}-[a-z0-9]{3,4}$"},
+    "idR": {"type": "string", "pattern": "^r-\\d{8}-\\d{4}-[a-z0-9-]+$"},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 60},
+    "chiaro": {"type": "string", "pattern": "^~\\S.*$"},
+    "nuovo": {"type": "string", "pattern": "^@\\S.*$", "$comment": "@Nome: un nodo nuovo dello stesso piano; lo script lo sostituisce con lo slug"},
+    "slug-o-nuovo": {"anyOf": [{"$ref": "#/$defs/slug"}, {"$ref": "#/$defs/nuovo"}]},
+    "nodo-o-chiaro-o-nuovo": {"anyOf": [{"$ref": "#/$defs/slug"}, {"$ref": "#/$defs/chiaro"}, {"$ref": "#/$defs/nuovo"}]},
+    "oggetto-o-nuovo": {"anyOf": [
+      {"$ref": "#/$defs/slug"}, {"$ref": "#/$defs/chiaro"}, {"$ref": "#/$defs/nuovo"}, {"$ref": "#/$defs/idF"},
+      {"type": "string", "pattern": "^r-\\d{8}-\\d{4}-[a-z0-9-]+(#\\d+)?$"}]},
+    "voce": {"enum": ["sua", "seme", "proposta", "mondo"]},
+    "modello": {"type": "string", "minLength": 3},
+    "esito": {"enum": ["verificata", "simile", "errata", "non-trovata"]},
+    "nato-da": {"type": "array", "minItems": 1, "items": {"anyOf": [{"$ref": "#/$defs/idF"}, {"$ref": "#/$defs/idR"}]}},
+    "alias": {"type": "array", "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+
+    "legame": {
+      "type": "object",
+      "required": ["p", "voce", "perche"],
+      "additionalProperties": false,
+      "properties": {
+        "p": {"enum": ["nomina", "parla-di", "serve-a", "ritorna-su", "contraddice", "converge-con"]},
+        "a": {"$ref": "#/$defs/oggetto-o-nuovo"},
+        "tra": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/oggetto-o-nuovo"}},
+        "voce": {"$ref": "#/$defs/voce"},
+        "perche": {"type": "string", "minLength": 3, "maxLength": 300},
+        "momento": {"type": "string", "maxLength": 60},
+        "fruizione": {"enum": ["da-fare", "in-corso", "fatta"]},
+        "come": {"enum": ["metafora", "stato", "aggiunge", "corregge", "ripensa", "effetto", "accoglie", "rifiuta", "chiede", "dubbio"]},
+        "da": {"type": "integer", "minimum": 1},
+        "n": {"type": "integer", "minimum": 1},
+        "passo": {"type": "string", "pattern": "^[a-z0-9-]+:\\d+(-\\d+)?$"},
+        "turno": {"type": "string", "pattern": "^\\d{2}:\\d{2}$"},
+        "nodo": {"$ref": "#/$defs/slug-o-nuovo"},
+        "campo": {"enum": ["autore", "attribuita-a", "in", "nome"]},
+        "vecchio": {"type": "string"},
+        "valore": {"type": "string"}
+      },
+      "allOf": [
+        {"if": {"properties": {"p": {"const": "converge-con"}}},
+         "then": {"required": ["tra"], "not": {"required": ["a"]}},
+         "else": {"required": ["a"], "not": {"required": ["tra"]}}},
+        {"if": {"properties": {"p": {"enum": ["nomina", "parla-di", "serve-a"]}}},
+         "then": {"properties": {"a": {"$ref": "#/$defs/nodo-o-chiaro-o-nuovo"}}}},
+        {"if": {"properties": {"p": {"const": "serve-a"}}},
+         "then": {"properties": {"a": {"$ref": "#/$defs/slug-o-nuovo"}}}},
+        {"if": {"properties": {"p": {"enum": ["ritorna-su", "contraddice"]}}},
+         "then": {"properties": {"a": {"anyOf": [{"$ref": "#/$defs/idF"}, {"$ref": "#/$defs/idR"}]}}}},
+        {"if": {"properties": {"p": {"const": "ritorna-su"}}},
+         "then": {"required": ["come"], "properties": {"come": {"enum": ["aggiunge", "corregge", "ripensa", "effetto", "accoglie", "rifiuta", "chiede"]}}}},
+        {"if": {"properties": {"p": {"const": "contraddice"}}},
+         "then": {"properties": {"come": {"const": "dubbio"}}}},
+        {"if": {"properties": {"p": {"const": "parla-di"}}},
+         "then": {"properties": {"come": {"enum": ["metafora", "stato"]}}}},
+        {"if": {"properties": {"p": {"enum": ["nomina", "serve-a", "converge-con"]}}},
+         "then": {"not": {"required": ["come"]}}},
+        {"if": {"properties": {"p": {"not": {"const": "nomina"}}}},
+         "then": {"not": {"anyOf": [{"required": ["momento"]}, {"required": ["fruizione"]}]}}},
+        {"if": {"required": ["campo"]},
+         "then": {"required": ["nodo", "valore"], "properties": {"p": {"const": "ritorna-su"}, "come": {"const": "corregge"}}}}
+      ]
+    },
+
+    "campi-nodo": {
+      "$comment": "I campi di un nodo che il piano può dare (§3.4, §3.7), senza schema, _genere e fuso-in (la lapide è un'operazione).",
+      "type": "object",
+      "properties": {
+        "nome": {"type": "string", "minLength": 1},
+        "alias": {"$ref": "#/$defs/alias"},
+        "nato-da": {"$ref": "#/$defs/nato-da"},
+        "link": {"type": "array", "items": {"type": "string", "pattern": "^https://"}},
+        "cerchia": {"enum": ["mondo", "vita", "finzione"]},
+        "in": {"$ref": "#/$defs/nodo-o-chiaro-o-nuovo"},
+        "autore": {"$ref": "#/$defs/nodo-o-chiaro-o-nuovo"},
+        "attribuita-a": {"type": "array", "items": {"$ref": "#/$defs/nodo-o-chiaro-o-nuovo"}},
+        "citata-da": {"type": "array", "items": {"$ref": "#/$defs/nodo-o-chiaro-o-nuovo"}},
+        "originale": {"type": "string"},
+        "traduzione": {"type": "string"},
+        "riferimento": {"type": "string"},
+        "esito": {"$ref": "#/$defs/esito"},
+        "scopo": {"type": "string"},
+        "anno": {"type": "integer"}
+      }
+    },
+
+    "operazione": {
+      "type": "object",
+      "required": ["op"],
+      "properties": {"op": {"enum": ["crea-nodo", "alias", "aggiorna-nodo", "lettura", "restituzione", "riserva", "lapide"]}},
+      "allOf": [
+        {"if": {"properties": {"op": {"const": "crea-nodo"}}}, "then": {"$ref": "#/$defs/crea-nodo"}},
+        {"if": {"properties": {"op": {"const": "alias"}}}, "then": {"$ref": "#/$defs/alias-op"}},
+        {"if": {"properties": {"op": {"const": "aggiorna-nodo"}}}, "then": {"$ref": "#/$defs/aggiorna-nodo"}},
+        {"if": {"properties": {"op": {"const": "lettura"}}}, "then": {"$ref": "#/$defs/lettura"}},
+        {"if": {"properties": {"op": {"const": "restituzione"}}}, "then": {"$ref": "#/$defs/restituzione"}},
+        {"if": {"properties": {"op": {"const": "riserva"}}}, "then": {"$ref": "#/$defs/riserva"}},
+        {"if": {"properties": {"op": {"const": "lapide"}}}, "then": {"$ref": "#/$defs/lapide"}}
+      ]
+    },
+
+    "crea-nodo": {
+      "type": "object",
+      "required": ["op", "genere", "nome"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"const": "crea-nodo"},
+        "genere": {"enum": ["persone", "opere", "citazioni", "temi", "raccolte"]},
+        "nome": {"$ref": "#/$defs/campi-nodo/properties/nome"},
+        "alias": {"$ref": "#/$defs/campi-nodo/properties/alias"},
+        "nato-da": {"$ref": "#/$defs/campi-nodo/properties/nato-da"},
+        "link": {"$ref": "#/$defs/campi-nodo/properties/link"},
+        "cerchia": {"$ref": "#/$defs/campi-nodo/properties/cerchia"},
+        "in": {"$ref": "#/$defs/campi-nodo/properties/in"},
+        "autore": {"$ref": "#/$defs/campi-nodo/properties/autore"},
+        "attribuita-a": {"$ref": "#/$defs/campi-nodo/properties/attribuita-a"},
+        "citata-da": {"$ref": "#/$defs/campi-nodo/properties/citata-da"},
+        "originale": {"$ref": "#/$defs/campi-nodo/properties/originale"},
+        "traduzione": {"$ref": "#/$defs/campi-nodo/properties/traduzione"},
+        "riferimento": {"$ref": "#/$defs/campi-nodo/properties/riferimento"},
+        "esito": {"$ref": "#/$defs/campi-nodo/properties/esito"},
+        "scopo": {"$ref": "#/$defs/campi-nodo/properties/scopo"},
+        "anno": {"$ref": "#/$defs/campi-nodo/properties/anno"},
+        "corpo": {"type": "string"}
+      },
+      "allOf": [
+        {"if": {"properties": {"genere": {"const": "persone"}}},
+         "then": {"required": ["cerchia"], "propertyNames": {"enum": ["op", "genere", "nome", "alias", "nato-da", "link", "cerchia", "in", "corpo"]}}},
+        {"if": {"properties": {"cerchia": {"const": "vita"}}},
+         "then": {"not": {"anyOf": [{"required": ["link"]}, {"required": ["in"]}]}}},
+        {"if": {"properties": {"genere": {"const": "opere"}}},
+         "then": {"propertyNames": {"enum": ["op", "genere", "nome", "alias", "nato-da", "link", "autore", "in", "anno", "corpo"]}}},
+        {"if": {"properties": {"genere": {"const": "citazioni"}}},
+         "then": {"propertyNames": {"enum": ["op", "genere", "nome", "alias", "nato-da", "link", "autore", "attribuita-a", "citata-da", "originale", "traduzione", "riferimento", "esito", "corpo"]}}},
+        {"if": {"properties": {"genere": {"const": "temi"}}},
+         "then": {"propertyNames": {"enum": ["op", "genere", "nome", "alias", "nato-da", "link", "corpo"]}}},
+        {"if": {"properties": {"genere": {"const": "raccolte"}}},
+         "then": {"propertyNames": {"enum": ["op", "genere", "nome", "alias", "nato-da", "link", "scopo", "corpo"]}}}
+      ]
+    },
+
+    "alias-op": {
+      "type": "object",
+      "required": ["op", "nodo", "alias"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"const": "alias"},
+        "nodo": {"$ref": "#/$defs/slug-o-nuovo"},
+        "alias": {"anyOf": [{"type": "string", "minLength": 1}, {"type": "array", "minItems": 1, "$ref": "#/$defs/alias"}]}
+      }
+    },
+
+    "aggiorna-nodo": {
+      "type": "object",
+      "required": ["op", "nodo", "campi"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"const": "aggiorna-nodo"},
+        "nodo": {"$ref": "#/$defs/slug-o-nuovo"},
+        "campi": {
+          "type": "object",
+          "minProperties": 1,
+          "additionalProperties": false,
+          "properties": {
+            "nome": {"$ref": "#/$defs/campi-nodo/properties/nome"},
+            "alias": {"$ref": "#/$defs/campi-nodo/properties/alias"},
+            "nato-da": {"$ref": "#/$defs/campi-nodo/properties/nato-da"},
+            "link": {"$ref": "#/$defs/campi-nodo/properties/link"},
+            "cerchia": {"$ref": "#/$defs/campi-nodo/properties/cerchia"},
+            "in": {"$ref": "#/$defs/campi-nodo/properties/in"},
+            "autore": {"$ref": "#/$defs/campi-nodo/properties/autore"},
+            "attribuita-a": {"$ref": "#/$defs/campi-nodo/properties/attribuita-a"},
+            "citata-da": {"$ref": "#/$defs/campi-nodo/properties/citata-da"},
+            "originale": {"$ref": "#/$defs/campi-nodo/properties/originale"},
+            "traduzione": {"$ref": "#/$defs/campi-nodo/properties/traduzione"},
+            "riferimento": {"$ref": "#/$defs/campi-nodo/properties/riferimento"},
+            "esito": {"$ref": "#/$defs/campi-nodo/properties/esito"},
+            "scopo": {"$ref": "#/$defs/campi-nodo/properties/scopo"},
+            "anno": {"$ref": "#/$defs/campi-nodo/properties/anno"},
+            "corpo": {"type": "string"}
+          }
+        }
+      }
+    },
+
+    "lettura": {
+      "type": "object",
+      "required": ["op", "frammento", "intento", "legami"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"const": "lettura"},
+        "frammento": {"$ref": "#/$defs/idF"},
+        "intento": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["salva", "chiedi", "sguardo", "niente"]}},
+        "reazione": {"type": "array", "items": {"type": "object", "required": ["parole", "verso"], "additionalProperties": false,
+          "properties": {"parole": {"type": "string", "minLength": 1}, "verso": {"enum": ["+", "-", "±"]}}}},
+        "legami": {"type": "array", "items": {"$ref": "#/$defs/legame"}},
+        "parole": {"type": "array", "uniqueItems": true, "items": {"type": "string", "pattern": "^[a-zàèéìòù]+( [a-zàèéìòù]+)*$"}},
+        "trascrizione": {"type": "string"},
+        "altrui": {"const": true},
+        "vissuto": {"type": "string", "maxLength": 40},
+        "delicato": {"const": true},
+        "nota": {"type": "string", "maxLength": 200},
+        "risposta": {"anyOf": [{"enum": ["salvato", "ci-sono"]}, {"$ref": "#/$defs/idR"}]}
+      }
+    },
+
+    "restituzione": {
+      "type": "object",
+      "required": ["op", "forma", "testo", "voci"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"const": "restituzione"},
+        "forma": {"enum": ["risposta", "lettera", "ritratto"]},
+        "per": {"$ref": "#/$defs/idF"},
+        "copre": {"type": "array", "items": {"$ref": "#/$defs/idF"}},
+        "aggancio": {"type": "object", "required": ["a"], "additionalProperties": false,
+          "properties": {"a": {"$ref": "#/$defs/idF"}, "passo": {"type": "string", "pattern": "^[a-z0-9-]+:\\d+(-\\d+)?$"}}},
+        "testo": {"type": "string", "minLength": 1},
+        "voci": {"type": "array", "items": {"type": "object", "required": ["rif", "voce", "cosa"], "additionalProperties": false,
+          "properties": {
+            "turno": {"type": "string", "pattern": "^\\d{2}:\\d{2}$"},
+            "perche": {"type": "string", "maxLength": 300},
+            "rif": {"$ref": "#/$defs/oggetto-o-nuovo"},
+            "voce": {"$ref": "#/$defs/voce"},
+            "esito": {"$ref": "#/$defs/esito"},
+            "riferimento": {"type": "string"},
+            "cosa": {"enum": ["frase", "tensione", "vuoto", "correzione", "opera", "brano", "libro", "film", "citazione", "persona", "ponte", "convergenza", "confronto", "sogno", "ricordo", "domanda", "assenza", "idea"]}}}},
+        "legami": {"type": "array", "items": {"allOf": [{"$ref": "#/$defs/legame"},
+          {"type": "object", "properties": {"voce": {"enum": ["proposta", "mondo", "seme"]}}}]}}
+      },
+      "allOf": [
+        {"if": {"properties": {"forma": {"const": "risposta"}}}, "then": {"required": ["per"]}}
+      ]
+    },
+
+    "riserva": {
+      "type": "object",
+      "required": ["op", "file", "testo"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"const": "riserva"},
+        "file": {"enum": ["ritorno", "pronte"]},
+        "testo": {"type": "string"}
+      }
+    },
+
+    "lapide": {
+      "type": "object",
+      "required": ["op", "da", "in", "perche"],
+      "additionalProperties": false,
+      "properties": {
+        "op": {"const": "lapide"},
+        "da": {"$ref": "#/$defs/slug"},
+        "in": {"$ref": "#/$defs/slug-o-nuovo"},
+        "perche": {"type": "string", "minLength": 3, "maxLength": 300}
+      }
+    }
+  }
+}

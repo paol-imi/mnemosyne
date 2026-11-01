@@ -1,0 +1,39 @@
+{
+  "$schema": "./schema.json",
+  "id": "B03",
+  "caso": "E03",
+  "data": "2026-11-09T19:02:00+01:00",
+  "messaggio": "jung: finché non rendi conscio l'inconscio lui guiderà la tua vita e tu lo chiamerai destino. mi ha spaccato",
+  "gravita": "alta",
+  "uscita": "contesto/recenti.md",
+  "file_attesi": [
+    "frammenti/2026/11/20261109-1902*.md",
+    "letture/2026/11/20261109-1902*.md",
+    "persone/*jung*.md",
+    "citazioni/*inconscio*.md"
+  ],
+  "ricerche_esatte": [
+    {"glob": "frammenti/2026/11/20261109-1902*.md", "testo": "jung: finché non rendi conscio l'inconscio lui guiderà la tua vita e tu lo chiamerai destino. mi ha spaccato", "motivo": "frammento corretto o non identico"},
+    {"file": "@uscita", "regex": "^Salvat[ao]", "flag": "m", "motivo": "manca \"Salvata.\""},
+    {"file": "@uscita", "testo": "⚠", "motivo": "la citazione non è segnata ⚠"},
+    {"file": "@uscita", "testo": "Aion", "motivo": "non indica Aion"}
+  ],
+  "frontmatter": [
+    {"glob": "frammenti/2026/11/20261109-1902*.md", "campo": "canale", "vale": "telefono"},
+    {"glob": "letture/2026/11/20261109-1902*.md", "campo": "versione", "vale": 1},
+    {"glob": "letture/2026/11/20261109-1902*.md", "campo": "reazione", "contiene": [{"parole": "mi ha spaccato", "verso": "+"}]},
+    {"glob": "letture/2026/11/20261109-1902*.md", "campo": "legami", "contiene": [{"p": "nomina", "voce": "sua"}]},
+    {"glob": "letture/2026/11/20261109-1902*.md", "campo": "parole", "contiene": ["inconscio", "destino"]},
+    {"glob": "citazioni/*inconscio*.md", "campo": "esito", "assente": true, "motivo": "esito scritto all'ingresso"},
+    {"glob": "citazioni/*inconscio*.md", "campo": "originale", "assente": true, "motivo": "originale scritto all'ingresso"}
+  ],
+  "divieti": [
+    {"glob": "{letture,persone,citazioni}/**", "regex": "^(wikidata|musicbrainz|registrazione|openlibrary|titolo-vero):", "flag": "m", "motivo": "ID esterno all'ingresso"}
+  ],
+  "giudice": [
+    {"domanda": "La citazione ha come autore Jung (in `autore` o in `attribuita-a`, come chiede il modello per «X: frase»)?", "attesa": "sì"},
+    {"domanda": "La risposta presenta la forma che circola come se fosse il testo letterale di Jung?", "attesa": "no"},
+    {"domanda": "La risposta promette di mettere accanto il passo vero dopo il controllo, senza citarlo a memoria?", "attesa": "sì"}
+  ],
+  "note": "Il banco chiede `autore` Jung, ma il modello §3.4 («X: frase») vuole Jung in `attribuita-a`: lo decide il giudice. «Il legame pesa 2» (Indice) e «impatto +» non esistono nel modello v3 (solo `verso`). L'immutabilità del frammento la controlla anche verifica.mjs (hash). Il dopo-consolidamento (esito simile, Aion §126) è un'altra prova."
+}

@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "memo/banco-prova",
+  "title": "Una prova del banco (banco §5): criteri deterministici e domande del giudice",
+  "type": "object",
+  "required": ["id", "gravita"],
+  "additionalProperties": false,
+  "$defs": {
+    "dove": {"type": "string", "description": "percorso o glob dalla radice (**, *, ?, {a,b}); \"@uscita\" è il file di risposta"},
+    "motivo": {"type": "string", "description": "che cosa si scrive nella riga dell'esito se il criterio cade"},
+    "cerca": {
+      "type": "object",
+      "properties": {"file": {"$ref": "#/$defs/dove"}, "glob": {"$ref": "#/$defs/dove"}, "testo": {"type": "string"},
+        "regex": {"type": "string"}, "flag": {"type": "string", "pattern": "^[imsu]*$"}, "motivo": {"$ref": "#/$defs/motivo"}},
+      "oneOf": [{"required": ["testo"]}, {"required": ["regex"]}],
+      "additionalProperties": false
+    }
+  },
+  "properties": {
+    "$schema": {"type": "string"},
+    "id": {"type": "string", "pattern": "^[BDRT][0-9]{2}$"},
+    "caso": {"type": "string", "description": "il caso d'origine negli esempi (E01…)"},
+    "data": {"type": "string", "description": "ATLANTE_ORA del messaggio, ISO 8601 con fuso"},
+    "messaggio": {"type": "string", "description": "il testo esatto che arriva dal Comando rapido"},
+    "gravita": {"enum": ["alta", "media", "bassa"]},
+    "uscita": {"$ref": "#/$defs/dove", "description": "dove sta la risposta se non si passa --uscita"},
+    "file_attesi": {"type": "array", "items": {"$ref": "#/$defs/dove"}, "description": "ognuno deve trovare almeno un file"},
+    "ricerche_esatte": {"type": "array", "items": {"$ref": "#/$defs/cerca"}, "description": "almeno un file del glob contiene il testo"},
+    "frontmatter": {
+      "type": "array",
+      "description": "un campo del frontmatter YAML: vale (uguale), contiene (sottoinsieme: liste e oggetti parziali) o assente",
+      "items": {"type": "object", "required": ["campo"],
+        "properties": {"file": {"$ref": "#/$defs/dove"}, "glob": {"$ref": "#/$defs/dove"}, "campo": {"type": "string"},
+          "vale": {}, "contiene": {}, "assente": {"const": true}, "motivo": {"$ref": "#/$defs/motivo"}},
+        "oneOf": [{"required": ["vale"]}, {"required": ["contiene"]}, {"required": ["assente"]}],
+        "additionalProperties": false}
+    },
+    "divieti": {"type": "array", "items": {"$ref": "#/$defs/cerca"}, "description": "nessun file del glob contiene il testo"},
+    "conteggi": {
+      "type": "array",
+      "description": "senza testo/regex conta i file del glob, con testo/regex le occorrenze",
+      "items": {"type": "object",
+        "properties": {"file": {"$ref": "#/$defs/dove"}, "glob": {"$ref": "#/$defs/dove"}, "testo": {"type": "string"},
+          "regex": {"type": "string"}, "flag": {"type": "string"}, "min": {"type": "integer", "minimum": 0},
+          "max": {"type": "integer", "minimum": 0}, "motivo": {"$ref": "#/$defs/motivo"}},
+        "anyOf": [{"required": ["min"]}, {"required": ["max"]}],
+        "additionalProperties": false}
+    },
+    "giudice": {
+      "type": "array",
+      "description": "ciò che non è deterministico: domande sì/no per banco/giudice.md, con la risposta attesa",
+      "items": {"type": "object", "required": ["domanda", "attesa"],
+        "properties": {"domanda": {"type": "string"}, "attesa": {"enum": ["sì", "no"]}}, "additionalProperties": false}
+    },
+    "note": {"type": "string", "description": "scelte di trascrizione e ambiguità del banco"}
+  }
+}

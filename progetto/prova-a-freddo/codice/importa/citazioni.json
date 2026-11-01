@@ -1,0 +1,172 @@
+[
+  {
+    "entita": "divina-commedia",
+    "citazione": "E quindi uscimmo a riveder le stelle.",
+    "esito": "verificata",
+    "prova": "https://it.wikisource.org/wiki/Divina_Commedia/Inferno/Canto_XXXIV (testo raw scaricato, verso 139, ultimo del canto)",
+    "riferimento": "Dante, Inferno XXXIV, 139 (testo Wikisource; ed. Petrocchi non confrontata)",
+    "originale": "E quindi uscimmo a riveder le stelle.",
+    "traduzione": "edizione pubblicata",
+    "traccia": "Wikisource it, raw del canto XXXIV, grep 'riveder': verso 139 dopo il {{r|138}}."
+  },
+  {
+    "entita": "true-detective-s1",
+    "citazione": "Una volta c'era solo il buio. Se chiedi a me, la luce sta vincendo.",
+    "esito": "verificata",
+    "prova": "https://en.wikiquote.org/wiki/True_Detective (raw, sezione Form and Void [1.8], battuta di Rust Cohle)",
+    "riferimento": "True Detective, stagione 1, ep. 8 «Form and Void» (2014), ultima battuta di Rust Cohle",
+    "originale": "Once there was only dark. If you ask me, the light's winning.",
+    "traduzione": "resa di Claude",
+    "traccia": "Wikiquote en raw, grep \"light's winning\" nella sezione [1.8]; doppiaggio italiano non cercato (non raggiungibile in 3 ricerche), sottotitoli non letti."
+  },
+  {
+    "entita": "camus",
+    "citazione": "Bisogna immaginare Sisifo felice.",
+    "esito": "verificata",
+    "prova": "https://it.wikiquote.org/wiki/Albert_Camus (raw, sezione Il mito di Sisifo, fine del passo 'Lascio Sisifo ai piedi della montagna…'; bibliografia: trad. Attilio Borrelli, Bompiani)",
+    "riferimento": "Camus, Il mito di Sisifo (1942), cap. «Il mito di Sisifo», ultima frase; trad. A. Borrelli, Bompiani 2020 (pagina da verificare)",
+    "originale": "Il faut imaginer Sisyphe heureux.",
+    "traduzione": "edizione pubblicata",
+    "traccia": "Wikiquote it raw (testo e traduttore); ricerca del francese integrale (classiques.uqac.ca, PDF mediterranees.net) non riuscita: originale francese da 07, non riletto oggi."
+  },
+  {
+    "entita": "eraclito",
+    "citazione": "Una e la stessa è la via all'in sù e la via all'in giù.",
+    "esito": "verificata",
+    "prova": "https://el.wikisource.org (Αποσπάσματα (Ηράκλειτος), raw, «fragmentum B 60») + https://it.wikiquote.org/wiki/Eraclito (raw, «(fr. 60)», senza traduttore indicato)",
+    "riferimento": "Eraclito, fr. 22 B 60 DK (tramandato da Ippolito, Refutatio IX 10)",
+    "originale": "ὁδὸς ἄνω κάτω μία καὶ ὡυτή.",
+    "traduzione": "(traduzione da verificare)",
+    "traccia": "Greco letto su Wikisource el (B 60); italiano su Wikiquote it: la riga non ha <ref>, la bibliografia elenca Diels-Kranz/Pasquinelli (Einaudi), Tonelli, Fronterotta: traduttore non attribuibile. La forma 'La via in su e la via in giù sono una e la stessa' è una parafrasi."
+  },
+  {
+    "entita": "jordan-peterson",
+    "citazione": "Metti perfettamente in ordine la tua casa prima di criticare il mondo.",
+    "esito": "verificata",
+    "prova": "Fonti secondarie concordi sul titolo della regola 6: https://www.shortform.com/blog/?p=1285 e altre recensioni; Wikiquote en (pagina Jordan Peterson) non riporta la frase",
+    "riferimento": "J. B. Peterson, 12 Rules for Life (2018), Rule 6 (titolo del capitolo); ed. it. 12 regole per la vita, 2018: titolo italiano della regola da verificare",
+    "originale": "Set your house in perfect order before you criticize the world.",
+    "traduzione": "resa di Claude",
+    "traccia": "Wikiquote en raw (assente), ricerca web sul titolo inglese (molte conferme secondarie), ricerca del titolo italiano della regola (non trovato)."
+  },
+  {
+    "entita": "jung",
+    "citazione": "Non si diventa illuminati immaginando figure di luce, ma rendendo cosciente l'oscurità.",
+    "esito": "verificata",
+    "prova": "https://carljungdepthpsychologysite.blog/2022/02/04/one-does-not-become-enlightened-by-imagining-figures-of-light-but-by-making-the-darkness-conscious/ (cita CW 13, § 335, con il contesto sulla teosofia e l'ombra); testo primario non letto oggi",
+    "riferimento": "Jung, «L'albero filosofico» (Der philosophische Baum), in Opere 13 / CW 13 Alchemical Studies, § 335 (trad. Hull); ed. Boringhieri non letta",
+    "originale": "One does not become enlightened by imagining figures of light, but by making the darkness conscious.",
+    "traduzione": "resa di Claude",
+    "traccia": "Wikiquote en Carl Jung (assente), ricerca web (scheda carljungdepthpsychologysite: CW 13 § 335), archive.org CW 13 (3 copie: testo in prestito, 401). Il tedesco non trovato."
+  },
+  {
+    "entita": "kant",
+    "citazione": "Due cose riempiono l'animo di ammirazione e venerazione sempre nuova e crescente, quanto più spesso e più a lungo la riflessione si occupa di esse: il cielo stellato sopra di me, e la legge morale in me.",
+    "esito": "verificata",
+    "prova": "https://korpora.org/Kant/aa05/161.html (Akademie-Ausgabe V, 161, righe 33-36, «Beschluß») + https://it.wikiquote.org/wiki/Immanuel_Kant (raw, «Conclusione, p. 353»; trad. Capra e Garin)",
+    "riferimento": "Kant, Critica della ragion pratica (1788), Conclusione, AA V 161; trad. F. Capra ed E. Garin, Laterza, Roma-Bari 2006, p. 353",
+    "originale": "Zwei Dinge erfüllen das Gemüth mit immer neuer und zunehmender Bewunderung und Ehrfurcht, je öfter und anhaltender sich das Nachdenken damit beschäftigt: der bestirnte Himmel über mir und das moralische Gesetz in mir.",
+    "traduzione": "edizione pubblicata",
+    "traccia": "korpora.org AA V 161 scaricato e letto; Wikiquote it raw con pagina ed edizione. La forma breve dell'archivio è una riduzione."
+  },
+  {
+    "entita": "maimonide",
+    "citazione": "Il silenzio è lode per te.",
+    "esito": "verificata",
+    "prova": "https://www.gutenberg.org/ebooks/73584 (The Guide for the Perplexed, trad. M. Friedländer; Part I, Chapter LIX: \"Silence is praise to Thee\" (lxv. 2))",
+    "riferimento": "Maimonide, Guida dei perplessi I, 59, che cita Salmo 65,2; CEI 2008: «Per te il silenzio è lode, o Dio, in Sion» (da 07, non riletta); ed. Zonta (UTET) non letta",
+    "originale": "Silence is praise to Thee (trad. inglese Friedländer; l'arabo e l'ebraico non letti)",
+    "traduzione": "resa di Claude",
+    "traccia": "Gutenberg 73584 scaricato, grep 'Silence is praise': riga 8048, nel CHAPTER LIX tra PART I e PART II."
+  },
+  {
+    "entita": "marco-aurelio",
+    "citazione": "L'anima infatti è in grado di trasformare e di rivolgere al suo scopo qualunque ostacolo s'opponga all'attività di lei. Così quel che dianzi impediva un'azione, diventa contributo efficace al compimento di quella stessa azione.",
+    "esito": "verificata",
+    "prova": "https://www.perseus.tufts.edu/hopper/text?doc=Perseus:text:2008.01.0641:book=5:chapter=20 (greco) + https://archive.org/details/marco-aurelio-ricordi-moricca (Ricordi, trad. U. Moricca, 1923, libro V, § 20, p. 160, testo OCR scaricato)",
+    "riferimento": "Marco Aurelio, Pensieri / Ricordi V, 20; trad. Umberto Moricca, Chiantore, Torino 1923, p. 160 (la frase seguente, 'e l'osta[…]va la via, diventa esso stesso una via', ha un buco nell'OCR: da verificare sulla pagina)",
+    "originale": "περιτρέπει γὰρ καὶ μεθίστησι πᾶν τὸ τῆς ἐνεργείας κώλυμα ἡ διάνοια εἰς τὸ προηγούμενον καὶ πρὸ ἔργου γίνεται τὸ τοῦ ἔργου τούτου ἐφεκτικὸν καὶ πρὸ ὁδοῦ τὸ τῆς ὁδοῦ ταύτης ἐνστατικόν.",
+    "traduzione": "edizione pubblicata",
+    "traccia": "Perseus V 20 (greco letto); Wikiquote it (V 20 assente); Moricca 1923 su archive.org (djvu.txt, grep 'ostacol', § 20 confermato dal contesto 'il sole, il vento, o una fiera'). Sostituisce la forma ricalcata su Hays e la resa di Claude di 07."
+  },
+  {
+    "entita": "nietzsche",
+    "citazione": "Amor fati: questo sia d'ora innanzi il mio amore!",
+    "esito": "verificata",
+    "prova": "primaria: testo tedesco su zeno.org, http://www.zeno.org/Philosophie/M/Nietzsche,+Friedrich/Die+fröhliche+Wissenschaft/Viertes+Buch.+Sanctus+Januarius/276 (letto il 2026-10-31)",
+    "riferimento": "Die fröhliche Wissenschaft (1882), libro IV «Sanctus Januarius», § 276 «Zum neuen Jahre»",
+    "originale": "Amor fati: das sei von nun an meine Liebe!",
+    "traduzione": "resa di Claude (traduzione Masini non vista: da verificare)",
+    "traccia": "zeno.org FW 276 (tedesco letto); Wikiquote it La gaia scienza: § 276 assente; 1 ricerca web per la forma Masini, nessun testo italiano"
+  },
+  {
+    "entita": "schopenhauer",
+    "citazione": "La sua vita oscilla quindi come un pendolo, di qua e di là, tra il dolore e la noia.",
+    "esito": "verificata",
+    "prova": "primaria: tedesco su zeno.org (Die Welt als Wille und Vorstellung, Erster Band, Viertes Buch, § 57); italiano nel PDF Liber Liber della trad. Savj-Lopez e De Lorenzo (Laterza 1991), confermato da Wikiquote it «Il mondo come volontà e rappresentazione» (§ 57; tomo II, p. 244)",
+    "riferimento": "Il mondo come volontà e rappresentazione (1819), vol. I, libro IV, § 57; trad. P. Savj-Lopez e G. De Lorenzo, Laterza, Roma-Bari 1991, tomo II, p. 244",
+    "originale": "Sein Leben schwingt also, gleich einem Pendel, hin und her, zwischen dem Schmerz und der Langenweile",
+    "traduzione": "edizione pubblicata",
+    "traccia": "zeno.org libro IV (grep 'Pendel', dentro § 57); Wikiquote it raw; PDF Liber Liber scaricato e letto con grep. Cambia la forma rispetto alla resa di Claude in 07 ('dunque'→'quindi', senza virgola dopo 'oscilla')"
+  },
+  {
+    "entita": "stoicismo",
+    "citazione": "Le cose sono di due maniere; alcune in poter nostro, altre no.",
+    "esito": "verificata",
+    "prova": "primaria: Wikisource it, Manuale di Epitteto/Manuale (trad. Leopardi, dall'ed. Pensieri, Moralisti greci, 1932, BEIC); greco su Wikisource el «Εγχειρίδιον»; Wikiquote it Epitteto riporta 'in potere nostro'",
+    "riferimento": "Epitteto, Manuale (Enchiridion), cap. 1; trad. G. Leopardi (1825), in Pensieri, Moralisti greci, 1932",
+    "originale": "Τῶν ὄντων τὰ μέν ἐστιν ἐφ' ἡμῖν, τὰ δὲ οὐκ ἐφ' ἡμῖν",
+    "traduzione": "edizione pubblicata",
+    "traccia": "Wikiquote it raw (Leopardi: 'in potere nostro'); Wikisource it testo Leopardi ('in poter nostro'); Wikisource el. Variante: la nota attuale ha 'in potere nostro' (da Wikiquote), il testo d'edizione ha 'in poter nostro'"
+  },
+  {
+    "entita": "tao-te-ching",
+    "citazione": "Il Tao che può essere detto non è l'eterno Tao.",
+    "esito": "verificata",
+    "prova": "primaria: cinese su Gutenberg ebook 7337 (道德經); secondaria per l'italiano: Wikiquote it Laozi, sezione Luciano Parinetto, con NDR dell'edizione",
+    "riferimento": "Laozi, Tao Te Ching, cap. 1; trad. L. Parinetto, La Vita Felice, Milano 1995 (ISBN 888631423X)",
+    "originale": "道可道，非常道",
+    "traduzione": "edizione pubblicata",
+    "traccia": "Wikiquote it raw (Parinetto: 'Il Tao che può essere detto / non è l'eterno Tao'); Gutenberg 7337 per il cinese (zh.wikisource e ctext non leggibili via curl)"
+  },
+  {
+    "entita": "zapffe",
+    "citazione": "Conoscete voi stessi, siate infecondi, e lasciate che la terra resti silenziosa dopo di voi.",
+    "esito": "verificata",
+    "prova": "primaria (traduzione): Philosophy Now n. 45, https://philosophynow.org/issues/45/The_Last_Messiah, trad. inglese di G. R. Tangenes, finale del saggio",
+    "riferimento": "P. W. Zapffe, «Den sidste Messias» (1933), finale; trad. inglese G. R. Tangenes (Philosophy Now, 2004)",
+    "originale": "",
+    "traduzione": "resa di Claude dall'inglese (traduzione da verificare; ed. Mimesis 2024 non vista)",
+    "traccia": "Philosophy Now (inglese letto: 'Know yourselves – be infertile and let the earth be silent after ye'); 1 ricerca web per il norvegese, non trovato"
+  },
+  {
+    "entita": "ermetismo",
+    "citazione": "Ciò che è in basso è come ciò che è in alto, e ciò che è in alto è come ciò che è in basso, per compiere i miracoli della cosa unica.",
+    "esito": "verificata",
+    "prova": "primaria: Wikisource la, Tabula Smaragdina (versione latina medievale)",
+    "riferimento": "Tavola di smeraldo, versione latina medievale (vulgata), v. 2",
+    "originale": "Quod est inferius, est sicut quod est superius, et quod est superius, est sicut quod est inferius, ad perpetranda miracula rei unius.",
+    "traduzione": "resa di Claude dal latino",
+    "traccia": "Wikisource la letto. Correzione: il latino ha 'miracula' (plurale) e 'perpetranda' (compiere): la resa in nota, 'per fare il miracolo', va al plurale"
+  },
+  {
+    "entita": "iside",
+    "citazione": "Io sono tutto ciò che è stato, che è e che sarà, e nessun mortale ha mai sollevato il mio velo.",
+    "esito": "verificata",
+    "prova": "secondaria in questa passata: Perseus, Plutarco, De Iside et Osiride 9, trad. inglese Babbitt (Loeb 1936, p. 25): 'I am all that has been, and is, and shall be, and my robe no mortal has yet uncovered.' Il greco è stato letto su Perseus nella passata precedente (07), non in questa",
+    "riferimento": "Plutarco, Iside e Osiride, 9 (354C): iscrizione della statua di Atena-Iside a Sais",
+    "originale": "",
+    "traduzione": "resa di Claude (\"velo\" per il peplo; \"ancora\" più fedele di \"mai\"; Cavalli, Adelphi, non visto: traduzione da verificare)",
+    "traccia": "Perseus 2008.01.0239 sez. 9 (inglese letto); pagina greca 2007.01.0238 non restituita; LacusCurtius: connessione rifiutata"
+  },
+  {
+    "entita": "vangelo-matteo",
+    "citazione": "Non sappia la tua sinistra ciò che fa la tua destra.",
+    "esito": "verificata",
+    "prova": "primaria: bibbiaedu.it, CEI 2008, Mt 6; greco su biblehub.com/text/matthew/6-3.htm",
+    "riferimento": "Vangelo secondo Matteo 6,3 (Bibbia CEI 2008); il versetto comincia con «Invece, mentre tu fai l'elemosina,»",
+    "originale": "σοῦ δὲ ποιοῦντος ἐλεημοσύνην μὴ γνώτω ἡ ἀριστερά σου τί ποιεῖ ἡ δεξιά σου",
+    "traduzione": "edizione pubblicata",
+    "traccia": "bibbiaedu CEI 2008 e biblehub (greco) letti via curl"
+  }
+]

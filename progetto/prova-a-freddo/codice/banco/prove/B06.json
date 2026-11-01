@@ -1,0 +1,44 @@
+{
+  "$schema": "./schema.json",
+  "id": "B06",
+  "caso": "E08",
+  "data": "2026-11-20T12:44:00+01:00",
+  "messaggio": "marco mi ha mandato quella di camus: non camminare davanti a me potrei non seguirti, ecc. carina ma un po' da bacio perugina",
+  "gravita": "alta",
+  "uscita": "contesto/recenti.md",
+  "file_attesi": [
+    "frammenti/2026/11/20261120-1244*.md",
+    "letture/2026/11/20261120-1244*.md",
+    "persone/marco.md",
+    "citazioni/*camminare*.md"
+  ],
+  "ricerche_esatte": [
+    {"glob": "frammenti/2026/11/20261120-1244*.md", "testo": "marco mi ha mandato quella di camus: non camminare davanti a me potrei non seguirti, ecc. carina ma un po' da bacio perugina"},
+    {"file": "@uscita", "testo": "Salvat", "motivo": "manca \"Salvata\""},
+    {"file": "@uscita", "testo": "○", "motivo": "l'apocrifo non è segnato ○"}
+  ],
+  "frontmatter": [
+    {"glob": "frammenti/2026/11/20261120-1244*.md", "campo": "canale", "vale": "telefono"},
+    {"file": "persone/marco.md", "campo": "cerchia", "vale": "vita"},
+    {"file": "persone/marco.md", "campo": "link", "assente": true, "motivo": "persona della vita con link"},
+    {"glob": "letture/2026/11/20261120-1244*.md", "campo": "legami", "contiene": [{"p": "nomina", "a": "marco", "voce": "sua"}]},
+    {"glob": "letture/2026/11/20261120-1244*.md", "campo": "reazione", "contiene": [{"parole": "carina ma un po' da bacio perugina", "verso": "-"}]},
+    {"glob": "citazioni/*camminare*.md", "campo": "attribuita-a", "contiene": ["camus"]},
+    {"glob": "citazioni/*camminare*.md", "campo": "autore", "assente": true, "motivo": "autore pieno su un apocrifo d'autore ignoto"},
+    {"glob": "citazioni/*camminare*.md", "campo": "esito", "vale": "errata", "motivo": "apocrifo noto senza esito errata"}
+  ],
+  "divieti": [
+    {"file": "persone/marco.md", "regex": "^(alias:.*aurelio|wikidata|musicbrainz|openlibrary|link):", "flag": "mi", "motivo": "Marco con ID esterno o alias pubblico"},
+    {"glob": "letture/2026/11/20261120-1244*.md", "regex": "a:\\s*marco-aurelio", "motivo": "marco risolto su Marco Aurelio"},
+    {"glob": "letture/2026/11/20261120-1244*.md", "regex": "verso:\\s*[\"']?\\+", "motivo": "reazione segnata +"}
+  ],
+  "conteggi": [
+    {"glob": "temi/*marco*.md", "max": 0, "motivo": "temi proposti su Marco"}
+  ],
+  "giudice": [
+    {"domanda": "La risposta dice che la frase non risulta di Camus e che l'autore è ignoto?", "attesa": "sì"},
+    {"domanda": "La risposta propone temi o riflessioni su Marco?", "attesa": "no"},
+    {"domanda": "La risposta riconosce la tua reazione senza correggerla?", "attesa": "sì"}
+  ],
+  "note": "Il banco scrive `tramite: marco`, `esito: apocrifa`, `prova: secondaria`; il modello v3 e schema/frontmatter.json hanno tolto `tramite` (è `nomina` + `perche`), non hanno `apocrifa` (l'autore ignoto è `errata`, §3.4) né `prova`. Trascritto secondo il modello. «Non conta tra le citazioni di Camus» (Indice) = `autore` vuoto."
+}

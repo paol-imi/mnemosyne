@@ -1,0 +1,55 @@
+{
+  "$schema": "./schema.json",
+  "id": "B01",
+  "caso": "E01",
+  "data": "2026-11-03T23:40:00+01:00",
+  "messaggio": "ho visto uno spezzone di galimberti a teatro, credo lo spettacolo sulle emozioni, diceva che il nichilismo è l'ospite inquietante e che i ragazzi nn stanno male per motivi psicologici ma culturali. molto interessante",
+  "gravita": "alta",
+  "uscita": "contesto/recenti.md",
+  "file_attesi": [
+    "frammenti/2026/11/20261103-2340*.md",
+    "letture/2026/11/20261103-2340*.md",
+    "persone/*galimberti*.md",
+    "opere/*emozioni*.md",
+    "citazioni/*ospite*.md",
+    "temi/nichilismo.md"
+  ],
+  "ricerche_esatte": [
+    {"glob": "frammenti/2026/11/20261103-2340*.md", "testo": "ho visto uno spezzone di galimberti a teatro, credo lo spettacolo sulle emozioni, diceva che il nichilismo è l'ospite inquietante e che i ragazzi nn stanno male per motivi psicologici ma culturali. molto interessante", "motivo": "testo non identico (\"nn\" compreso)"},
+    {"glob": "citazioni/*ospite*.md", "regex": "^autore:.*Nietzsche", "motivo": "autore Nietzsche non in chiaro"},
+    {"file": "@uscita", "testo": "Salvato", "motivo": "manca \"Salvato.\""},
+    {"file": "@uscita", "testo": "Nietzsche", "motivo": "la risposta non dice che l'ospite è di Nietzsche"},
+    {"file": "@uscita", "regex": "[Mm]ondo delle emozioni[^\\n]*\\?", "motivo": "manca la domanda sul titolo"},
+    {"file": "@uscita", "testo": "⚠", "motivo": "il titolo non è segnato ⚠"}
+  ],
+  "frontmatter": [
+    {"glob": "frammenti/2026/11/20261103-2340*.md", "campo": "canale", "vale": "telefono"},
+    {"glob": "letture/2026/11/20261103-2340*.md", "campo": "versione", "vale": 1},
+    {"glob": "letture/2026/11/20261103-2340*.md", "campo": "intento", "vale": ["salva"]},
+    {"glob": "letture/2026/11/20261103-2340*.md", "campo": "reazione", "contiene": [{"parole": "molto interessante", "verso": "+"}]},
+    {"glob": "letture/2026/11/20261103-2340*.md", "campo": "legami", "contiene": [{"p": "nomina", "voce": "sua"}, {"p": "parla-di", "a": "nichilismo", "voce": "sua"}]},
+    {"glob": "letture/2026/11/20261103-2340*.md", "campo": "parole", "contiene": ["ragazzi", "cultura"]},
+    {"glob": "persone/*galimberti*.md", "campo": "cerchia", "vale": "mondo"},
+    {"glob": "citazioni/*ospite*.md", "campo": "attribuita-a", "contiene": ["umberto-galimberti"]},
+    {"glob": "citazioni/*ospite*.md", "campo": "esito", "assente": true, "motivo": "esito scritto all'ingresso"}
+  ],
+  "divieti": [
+    {"glob": "{opere,citazioni,persone}/**", "regex": "^(nome|alias):.*mondo delle emozioni", "flag": "mi", "motivo": "titolo dello spettacolo dato per certo nel nodo"},
+    {"glob": "{frammenti,letture,persone,opere,citazioni,temi}/**/*20261103-2340*", "regex": "^(wikidata|musicbrainz|registrazione|openlibrary|titolo-vero):", "flag": "m", "motivo": "ID esterno all'ingresso"},
+    {"glob": "{persone/*galimberti*,opere/*emozioni*,citazioni/*ospite*}.md", "regex": "^(wikidata|musicbrainz|registrazione|openlibrary|titolo-vero):", "flag": "m", "motivo": "ID esterno all'ingresso"},
+    {"file": "@uscita", "regex": "quanto ti ha colpit", "flag": "i", "motivo": "chiede quanto ti ha colpito"},
+    {"file": "@uscita", "regex": "2008|plagi", "flag": "i", "motivo": "cita la polemica del 2008"}
+  ],
+  "conteggi": [
+    {"glob": "opere/*ospite*.md", "max": 0, "motivo": "nato il nodo del libro del 2007"},
+    {"glob": "temi/{giovani,ragazzi,cultura}.md", "max": 0, "motivo": "creati i temi giovani o cultura"},
+    {"glob": "persone/*nietzsche*.md", "max": 0, "motivo": "creato il nodo Nietzsche"},
+    {"file": "@uscita", "testo": "?", "min": 1, "max": 1, "motivo": "non una domanda sola"}
+  ],
+  "giudice": [
+    {"domanda": "La risposta dà il titolo «Il mondo delle emozioni» come certo?", "attesa": "no"},
+    {"domanda": "La risposta dice che l'«ospite inquietante» è un'immagine di Nietzsche e che Galimberti ne ha fatto un libro (2007), segnando questi fatti come del mondo (○)?", "attesa": "sì"},
+    {"domanda": "Il `perche` della lettura propone il titolo «Il mondo delle emozioni» come ipotesi (⚠) e non come fatto?", "attesa": "sì"}
+  ],
+  "note": "Indice (vitalità 1) non trascritto: il modello v3 ha tolto .indice/ e le formule. `prova: memoria` non è nello schema 3: si controlla l'assenza di `esito`. L'id del frammento ha un suffisso (20261103-2340-k7q2), da qui il glob. `autore` Nietzsche in chiaro segue il banco, non l'esempio d'ingresso del modello §3.4. Il conteggio di «?» vale su recenti.md subito dopo B01."
+}

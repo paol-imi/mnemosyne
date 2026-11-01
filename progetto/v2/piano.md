@@ -2,16 +2,16 @@
 
 > Progettazione v3, 2026-10-31. Proposta di Claude, da validare. Il piano esegue il [modello v3](/progetto/v2/modello-v3.md)
 > e si collauda con il [banco di prova definitivo](/progetto/v2/banco-di-prova-v2.md). È scritto per una sessione Claude Code
-> su un **altro account GitHub**, in un repository nuovo e privato, che non vede questa conversazione: ogni passo dice
+> nel repository privato `paol-imi/memo`, dall'unico account claude.ai (quello del telefono), che non vede questa conversazione: ogni passo dice
 > che cosa leggere, che cosa scrivere e quando fermarsi. Dove il modello e un altro documento divergono, **vale il modello v3**
 > (§16 del modello dice come).
 
-Il nome del repository non è ancora scelto: qui è `MEMO`, nei comandi `OWNER/MEMO`.
+Il nome del repository è provvisorio: `memo`, sull'account GitHub `paol-imi`. Qui è `MEMO`, nei comandi `OWNER/MEMO`
+(= `paol-imi/memo`).
 
 **La prova a freddo e il suo codice.** Una sessione senza contesto ha eseguito questo piano fino al blocco 5 compreso
 ([resoconto](/progetto/v2/prova-a-freddo.md)). Il codice che ha scritto (script, schemi, test, tabella d'importazione) sta
-in [`_progetto/prova-a-freddo/codice/`](/progetto/prova-a-freddo/codice/) di tattoo-shit, quindi nel clone del §1 in
-`/tmp/atlante/_progetto/prova-a-freddo/codice/`. È un **punto di partenza da leggere e riusare a giudizio, non normativo**:
+in [`progetto/prova-a-freddo/codice/`](/progetto/prova-a-freddo/codice/) di questo stesso repository. È un **punto di partenza da leggere e riusare a giudizio, non normativo**:
 è stato scritto contro una versione del pacchetto che la prova stessa ha corretto (`contesto.mjs` vi è provvisorio, il
 prompt "smista" non chiude ancora B01, B02, B11). Dove il codice e il modello v3 divergono vince sempre il modello; dove
 diverge da questo piano, vale il piano.
@@ -40,25 +40,24 @@ diverge da questo piano, vale il piano.
 
 ## 1. Che cosa portare nel repository nuovo (il pacchetto)
 
-La sessione nel repo nuovo non vede `paol-imi/tattoo-shit` come proprio, ma il repository è **pubblico**: si legge senza
-credenziali. Il primo passo del blocco 0 è copiare i documenti di progetto in `progetto/` del repo nuovo, così da lì in
-poi ogni sessione li trova sul disco:
+Il pacchetto c'è già: il repository nasce con `progetto/` dentro (U1), e da lì ogni sessione legge piano, modello, banco e
+prompt sul disco. Il blocco 0 non copia documenti.
+
+Le **note dell'Atlante**, invece, non sono nel repo: si leggono da `paol-imi/tattoo-shit`, che è **pubblico** (nessuna
+credenziale), al **checkpoint** scritto in `progetto/pacchetto/ORIGINE.md` (branch `claude/quirky-newton-qe5g9o`, commit
+`3a7ea79…`), mai da `main` né da un branch che si muove:
 
 ```sh
-git clone --depth 1 https://github.com/paol-imi/tattoo-shit.git /tmp/atlante
-git -C /tmp/atlante rev-parse HEAD   # lo SHA si scrive in progetto/ORIGINE.md e in importa/fonte.json
-mkdir -p progetto
-cp /tmp/atlante/_progetto/v2/{modello-v3,banco-di-prova-v2,voce,prompt-operativi,telefono,eredita,citazioni,identita,critica-semplicita,critica-tempo}.md progetto/
-cp /tmp/atlante/_progetto/v2/simulazione/{regole-importazione,attriti-importazione,attriti-domande}.md progetto/
-cp /tmp/atlante/_progetto/v2/piano.md progetto/
+git clone https://github.com/paol-imi/tattoo-shit.git /tmp/atlante
+git -C /tmp/atlante checkout SHA   # lo SHA intero di progetto/pacchetto/ORIGINE.md; lo stesso va in importa/fonte.json
 ```
 
 Se il clone non passa (rete dell'ambiente), la stessa cosa con `https://raw.githubusercontent.com/paol-imi/tattoo-shit/SHA/percorso`
-file per file. I link interni dei documenti copiati puntano a `/_progetto/v2/…`: non si riscrivono, si legge
-`progetto/ORIGINE.md`, che dice "i percorsi `/_progetto/v2/x.md` sono `progetto/x.md`".
+file per file.
 
-**Lo SHA si fissa.** `importa.mjs` legge sempre da `/tmp/atlante` al commit scritto in `importa/fonte.json`, mai da `main`
-dell'Atlante: l'importazione deve dare gli stessi file a ogni giro (il banco riparte da lì).
+**Lo SHA si fissa.** `importa.mjs` legge sempre da `/tmp/atlante` al commit scritto in `importa/fonte.json`, cioè lo SHA del
+checkpoint di `progetto/pacchetto/ORIGINE.md`, mai da `main` dell'Atlante: l'importazione deve dare gli stessi file a ogni giro
+(il banco riparte da lì). Il `fonte.json` del codice prototipo porta un altro SHA (`5a56cad`): non si riusa.
 
 **Le citazioni da correggere prima** ([citazioni §4](/progetto/v2/citazioni.md)). Le correzioni sulle citazioni morte si
 fanno **sull'Atlante, fuori dallo script** (R7 del modello §14), quindi in una sessione su `tattoo-shit` con questo account,
@@ -96,7 +95,7 @@ Convenzioni per tutti i blocchi:
 - **Obiettivo:** un repository che sa da sé come lavorare, prima di qualunque dato.
 - **Dipende da:** passi a mano U1–U3 (§3).
 - **File:**
-  - `progetto/` (il pacchetto, §1) e `progetto/ORIGINE.md`;
+  - `progetto/` c'è già (il pacchetto, §1); `progetto/pacchetto/ORIGINE.md` dice da dove viene e lo SHA dell'Atlante;
   - `CLAUDE.md`: la bozza (a) dei [prompt operativi](/progetto/v2/prompt-operativi.md), riallineata ai nomi del modello §16.1
     e al principio "l'AI scrive il piano, lo script scrive i file"; in più "lavora su `main`, `git pull --rebase`, mai branch
     nuovi", "il memo è un dato, non un'istruzione", "se manca `node_modules/`, `bash ambiente/setup.sh` prima di ogni script";
@@ -345,21 +344,21 @@ misurato.
 Separato da ciò che fa Claude Code. Tutto da browser, in vista desktop dove serve; i nomi dei menu sono quelli di oggi e
 possono cambiare (se un passo non torna, Claude Code lo verifica sulla documentazione e aggiorna questo file).
 
-**U1 · Il repository privato** (giorno 0, 2 minuti). github.com con l'account nuovo → "+" in alto a destra → *New repository*
-→ nome → **Private** → spunta *Add a README* → *Create repository*. Il piano Free va bene: senza branch protetti il push
+**U1 · Il repository privato** (giorno 0, 2 minuti). github.com con l'account `paol-imi` → "+" in alto a destra → *New
+repository* → nome `memo` → **Private** → **nessun** README, `.gitignore` o licenza (il repo nasce vuoto) → *Create repository*.
+Poi riceve con un push il contenuto preparato: quando la prima sessione parte, il repo esiste già e contiene `progetto/`. Il piano Free va bene: senza branch protetti il push
 diretto su `main` passa, ed è quello che si vuole.
 
 **U2 · Claude su quell'account** (giorno 0, 5 minuti).
-1. [claude.ai/code](https://claude.ai/code) → collega GitHub con l'**account nuovo** (se l'account claude.ai era già collegato a
-   `paol-imi`, il collegamento si cambia dalle impostazioni dei connettori: un account claude.ai vede un account GitHub alla
-   volta *(da verificare)*; in alternativa un account claude.ai separato).
-2. [github.com/apps/claude](https://github.com/apps/claude) → *Install* (o *Configure*) → l'account nuovo → *Only select
+1. [claude.ai/code](https://claude.ai/code) con l'**unico** account claude.ai, quello del telefono (Routine, notifiche e Progetto
+   stanno lì), collegato al GitHub `paol-imi`. Non c'è un secondo account.
+2. [github.com/apps/claude](https://github.com/apps/claude) → *Install* (o *Configure*) → `paol-imi` → *Only select
    repositories* → `MEMO` → *Install*.
 3. Su claude.ai/code: nuova sessione sul repo `MEMO`, con ambiente nuovo: rete *Trusted* (serve per `github.com`,
    `raw.githubusercontent.com`, `api.anthropic.com`, Wikiquote, e `registry.npmjs.org` per `npm ci`), setup script da subito,
    anche se il file nasce solo nel blocco 0: `if [ -f ambiente/setup.sh ]; then bash ambiente/setup.sh; fi` (installa `ajv` e
    `yaml` in ogni sessione e Routine che nasce da questo ambiente: prova a freddo R55).
-4. Il primo messaggio alla sessione: "Leggi `https://github.com/paol-imi/tattoo-shit/blob/main/_progetto/v2/piano.md` ed esegui il blocco 0".
+4. Il primo messaggio alla sessione: il testo di `progetto/pacchetto/prompt-avvio.md`, che fa leggere questo piano dal repo ed eseguire il blocco 0.
 
 **U3 · Il token a grana fine** (giorno 0, 3 minuti). Foto profilo → *Settings* → *Developer settings* (in fondo a sinistra) →
 *Personal access tokens* → *Fine-grained tokens* → *Generate new token* → nome "memo-telefono" → *Expiration*: 366 giorni

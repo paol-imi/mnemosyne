@@ -2,7 +2,7 @@
 
 > Progettazione v3, 2026-10-31; riscritto il 2026-11-01 dopo la [prova a freddo](/progetto/v2/prova-a-freddo.md)
 > (R30, R46, R54, R58, R64, R66, R70, R24/R62). Proposta di Claude, da validare. Serve a collaudare l'implementazione
-> del [modello v3](/progetto/v2/modello-v3.md) su un altro account: ogni criterio si controlla sui file del repository
+> del [modello v3](/progetto/v2/modello-v3.md) nel repo nuovo: ogni criterio si controlla sui file del repository
 > (percorsi, campi del frontmatter, legami, conteggi, ricerche esatte), senza giudizio; il giudizio sta solo nelle
 > domande del giudice (parti 3 e 4). Parti: 1 messaggi, 2 domande, 3 restituzione, 4 tempo e uso, 5 come si esegue.
 > Nomi, campi, segni e percorsi sono quelli del modello v3 (§3, §4, §5, §6.1): dove il banco e il modello divergono vince

@@ -111,8 +111,8 @@ memo di Galimberti:
 
 `@Nome` rimanda a un nodo creato nello stesso piano: [S] lo sostituisce con lo slug calcolato. Così l'AI non inventa mai
 uno slug, e due piani con lo stesso nome producono lo stesso file. La **verifica rapida** di una citazione nuova (§7.2) sta
-**dentro** il suo `crea-nodo` (`esito`, `riferimento` quando trova una scheda): avviene prima di `applica`, ed è ancora la
-creazione.
+**dentro** il suo `crea-nodo` (la traccia della ricerca nel corpo del nodo, mai `esito` né `riferimento`: §7.2 passo 4):
+avviene prima di `applica`, ed è ancora la creazione.
 
 **Chi è il lettore.** `letto-da` lo dichiara l'AI nel piano (il modello che sta girando). `prompt` lo calcola [S]: le prime 7
 cifre dell'hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md` messi in fila, perché il lettore dipende da
@@ -168,7 +168,7 @@ Lo scrive il Comando rapido, già completo, in `ingresso/`; [S] lo sposta con `g
 | `voce` | solo importato | `sua` · `seme` | D02 conterebbe il nucleo come tuo |
 | `forma` | importato o chat | `riportata`: frase tua messa per iscritto da Claude (A2), o ricopiata dalla chat del Progetto nel memo (§7.3) | D02 la mostrerebbe come scritta da te |
 | `allegati` | se ci sono | nomi di file accanto, nel formato originale (`<id>.jpg`, `.heic`, `.webp`, `.m4a`); la copia ridotta `<id>.webp` la ricava [S] (I14) | B21 la foto della pagina |
-| `chiede` | se viene da "Chiedi" | `true`: lo scrive il Comando rapido "Chiedi" (§7.1). È un gesto tuo, non una lettura: l'`intento` resta nella lettura, che con `chiede: true` contiene sempre `chiedi` | C15e; prova a freddo R33 |
+| `intento` | no (lo scrive solo "Chiedi") | facoltativo; una lista dallo stesso elenco della lettura, e "Chiedi" (§7.1) scrive il predefinito `[chiedi]`; "Memo" non lo scrive. È un gesto tuo, non una lettura: la lettura contiene sempre i valori del frammento (e può aggiungerne, `[salva, chiedi]`) | C15e; prova a freddo R33 |
 
 Il corpo è il testo **esatto**, link, refusi e a capo compresi ("chioran", "nn", `?si=`). Niente titolo, niente sezioni.
 
@@ -217,7 +217,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 | `intento` | sì | uno o più tra `salva` · `chiedi` · `sguardo` · `niente` | B11 salva **e** chiedi; B18 niente |
 | `reazione` | no | `[{parole: "…citate…", verso: + / - / ±}]`; ± per una commozione o un "ci ha preso" che sta tra i due (I23) | B06 "da bacio perugina" −; D03 il conforto |
 | `legami` | sì (anche vuoto) | §4 | |
-| `parole` | no | parole candidate a tema: singolare, minuscolo, la tua forma ("padre", non "padri") | D24; CS §2.3 |
+| `parole` | no | parole candidate a tema, **sempre una lista** (anche di una sola parola: `[greci]`): singolare, minuscolo, la tua forma ("padre", non "padri") | D24; CS §2.3 |
 | `link` | no | [S] `[{url, titolo, autore}]`: puliti (`?si=` via, `t=` tenuto), titolo da oEmbed | B13, B14 |
 | `trascrizione` | no | il testo letto da una foto o da un vocale; **non** è voce tua | B21 |
 | `altrui` | no | `true`: il corpo è in gran parte parole d'altri che hai trascritto (un monologo, una citazione lunga); ✦ il gesto, ○ le parole | [voce §5](/_progetto/v2/voce.md); U19 |
@@ -229,7 +229,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 
 Un frammento è **parlante** [S] se non è importato, l'intento non è solo `niente` e, tolti i link, restano almeno 3
 parole sue. Tutte le soglie (lettera, sogno, ritratto, giorni attivi) contano solo i parlanti così definiti: i ~32
-importati ✦ non ci entrano (incoerenza 8). I non
+importati ✦ non ci entrano ([prompt v3](/_progetto/v2/prompt-v3.md), appendice A n. 8). I non
 parlanti (link nudi, "boh", "sì", "ok") restano nei dati ma non contano (§6.2).
 
 ```yaml
@@ -281,8 +281,8 @@ Mai per copertura, mai per riempire un campo. La scheda è un documento d'identi
   con il tuo nome (principio 9). "Mia cugina" è una parentela: slug `cugina`, alias "mia cugina" (R62). Un tema nato da una negazione ("non nichilismo") lo dice
   nel `perche`.
 
-**Chi la scrive.** La crea "smista" (file nuovo, compresi `esito` e `riferimento` se la verifica rapida li trova:
-è ancora la creazione). Dopo, "smista" può solo **aggiungere un alias**; ogni altra modifica la fa il
+**Chi la scrive.** La crea "smista" (file nuovo; per una citazione solo `nome`, `attribuita-a` e `nato-da`, senza
+`esito`, cioè ⚠, con la traccia della verifica rapida nel corpo: è ancora la creazione). Dopo, "smista" può solo **aggiungere un alias**; ogni altra modifica la fa il
 consolidamento (§8.3).
 
 | campo | generi | che cosa |
@@ -469,6 +469,7 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
     "fonte1": {"type": "string", "pattern": "^[^:]+:\\d+(-\\d+)?(, ?\\d+(-\\d+)?)*@[0-9a-f]{7}$"},
     "fonte": {"anyOf": [{"$ref": "#/$defs/fonte1"}, {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fonte1"}}]},
     "modello": {"type": "string", "minLength": 3},
+    "intento": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["salva", "chiedi", "sguardo", "niente"]}},
 
     "legame": {
       "type": "object",
@@ -527,7 +528,7 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
         "voce": {"enum": ["sua", "seme"]},
         "forma": {"const": "riportata"},
         "continua": {"$ref": "#/$defs/idF"},
-        "chiede": {"const": true},
+        "intento": {"$ref": "#/$defs/intento"},
         "allegati": {"type": "array", "items": {"type": "string", "pattern": "^\\d{8}-\\d{4}-[a-z0-9]{3,4}(-\\d)?\\.(webp|jpg|jpeg|png|heic|m4a)$"}}
       },
       "allOf": [
@@ -548,7 +549,7 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
         "versione": {"type": "integer", "minimum": 1},
         "letto-da": {"$ref": "#/$defs/modello"},
         "prompt": {"type": "string", "pattern": "^[0-9a-f]{7}$"},
-        "intento": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["salva", "chiedi", "sguardo", "niente"]}},
+        "intento": {"$ref": "#/$defs/intento"},
         "reazione": {"type": "array", "items": {"type": "object", "required": ["parole", "verso"], "additionalProperties": false,
           "properties": {"parole": {"type": "string"}, "verso": {"enum": ["+", "-", "±"]}}}},
         "legami": {"type": "array", "items": {"$ref": "#/$defs/legame"}},
@@ -846,7 +847,8 @@ Il **Comando rapido "Memo"** (iOS; HTTP Shortcuts su Android) scrive il framment
 `fire` della Routine "smista" passando l'id come `text`. Sul telefono: "Salvato". Foto e vocali passano dallo stesso PUT,
 con lo stesso id. Se tutto il resto fallisce, il grezzo c'è.
 
-Il **Comando rapido "Chiedi"** fa lo stesso con una domanda (C15e) e poi apre il Progetto: la domanda resta anche se la
+Il **Comando rapido "Chiedi"** fa lo stesso con una domanda (C15e), con in più `intento: [chiedi]` nel frontmatter (il
+predefinito; il campo è facoltativo, §3.2), e poi apre il Progetto: la domanda resta anche se la
 conversazione del Progetto no.
 
 ### 7.2 "Smista" (minuti, asincrono)
@@ -862,7 +864,8 @@ citati **I1–I25** sono quelli della [simulazione dell'ingresso](/_progetto/v2/
    (`og:description`) (I13);
 3. [AI] per ciascun frammento, un piano:
    - l'**intento**: `chiedi` solo per un fatto del mondo o dell'archivio; una domanda su di te ("sono la stessa persona di
-     5 anni fa?") è `salva`, con al più un `parla-di` ◌ verso una delle 8 domande (I22);
+     5 anni fa?") è `salva`, con al più un `parla-di` ◌ verso una delle 8 domande (I22); se il frammento porta già un
+     `intento` (da "Chiedi", §3.2), la lettura lo contiene sempre;
    - i **riferimenti** ("quella di ieri") nella finestra di 3 giorni di calendario più oggi; se non si trovano, nessun
      atto (I11);
    - le **entità** certe (§3.6, con le regole del §3.4 su quando un nodo nasce), la `reazione`, i legami di voce sua e
@@ -871,10 +874,11 @@ citati **I1–I25** sono quelli della [simulazione dell'ingresso](/_progetto/v2/
      "La 3 è *ecdysis*, giusto?" (I15);
    - la **risposta** (§7.2.1), **solo se ha contenuto** (C11), **una sola** per una raffica (T01). Altrimenti
      `risposta: salvato` (o `ci-sono` per "boh" e per il delicato);
-4. [AI] **la verifica rapida** di una citazione **nuova**, dentro il suo `crea-nodo`, prima di `applica` (I8, V16): una-due ricerche sulla frase così come l'hai scritta. Se trovano una
-   scheda (Quote Investigator, Wikiquote), il nodo prende subito `esito` e la scheda in `riferimento` ("fonte secondaria"),
-   qualunque sia l'esito; altrimenti nessun `esito` (⚠) e la traccia della ricerca nel corpo del nodo. L'attribuzione tua
-   va **sempre** in `attribuita-a` (anche un'opera: `~La peste`); `autore` solo quando è verificato. Questa è la **regola
+4. [AI] **la verifica rapida** di una citazione **nuova**, dentro il suo `crea-nodo`, prima di `applica` (I8, V16): una-due ricerche sulla frase così come l'hai scritta. All'ingresso il
+   nodo nasce **senza `esito`** (⚠, l'ex `prova: memoria`), senza `riferimento` né `autore`, qualunque cosa trovino: ciò
+   che trovano (una scheda di Quote Investigator o Wikiquote, un apocrifo noto) va come traccia nel corpo del nodo e, se
+   conta, in una riga della risposta con ⚠; `esito`, `riferimento`, `autore` e `originale` li scrive solo "consolida"
+   (§7.4 passo 3). L'attribuzione tua va **sempre** in `attribuita-a` (anche un'opera: `~La peste`). Questa è la **regola
    unica** sull'esito all'ingresso (prova a freddo R24/R62): vale per modello, prompt, piano e banco, e `verifica.mjs` la
    accetta. La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
    restano `~Nome` finché non li nomini tu. "Smista" crea temi solo per i concetti che nomini tu (§3.4), mai dedotti (R51);
@@ -954,7 +958,7 @@ risposte:
   rapido "Chiedi" (C15e): allora fa testo quella, byte per byte, e il memo aggiunge solo le risposte. Se non rimandi il
   memo, la risposta resta detta in chat e basta: nessun danno, nessun sollecito.
 
-  **Due memo della stessa chat** (stesso id, [prompt v3](/_progetto/v2/prompt-v3.md) §14 n. 10): il memo successivo
+  **Due memo della stessa chat** (stesso id, [prompt v3](/_progetto/v2/prompt-v3.md), appendice B n. 10): il memo successivo
   **sostituisce** il precedente solo se lo contiene come **prefisso**, cioè gli stessi turni e le stesse voci, con turni o
   voci nuovi solo in coda e i numeri `n` continui. Altrimenti [S] `applica.mjs` lo rifiuta e lo mette in coda come
   **conflitto**, che la Specchio successiva ti mostra. Il frammento di chat resta immutabile nel senso del v3: vale l'ultima
@@ -1029,7 +1033,7 @@ tema largo si calcolano al momento della domanda (C8c).
 
 **"Lettera"**, domenica sera (`CRON_TZ=Europe/Rome 37 17 * * 0`). **Non scrive niente**: se "consolida" ha scritto una
 lettera, la consegna; **se non c'è** (soglia mancata o "consolida" fallito), la sessione finisce in silenzio, senza
-notifica: dalla tua parte non succede niente (incoerenza 9 di [prompt v3](/_progetto/v2/prompt-v3.md)).
+notifica: dalla tua parte non succede niente ([prompt v3](/_progetto/v2/prompt-v3.md), appendice A n. 9).
 Il testo della lettera è il **messaggio finale** della sessione (C1b); la notifica, 5–7 parole senza contenuto, dice
 "La lettera è pronta". Così il lavoro pesante sta di notte e la lettura arriva di sera.
 
@@ -1123,7 +1127,8 @@ Elaborare due volte non fa danni [S]:
 | `frammenti/` | "smista" o Specchio che ne fa il lavoro (sposta, sigilla) | con il lucchetto |
 | `letture/` v1 | "smista", o Specchio quando ne fa il lavoro | con il lucchetto |
 | `letture/` v≥2 | "consolida", migrazioni | con il lucchetto |
-| nodi: creazione, alias | "smista" | con il lucchetto |
+| nodi: creazione, alias; i temi solo se li nomini tu (✦), e nascono subito | "smista" | con il lucchetto |
+| temi dedotti (◌) | "consolida" | alla 2ª–3ª ricorrenza, cioè a una vicenda (§6.2), con il lucchetto |
 | nodi: ogni altro campo, lapidi | "consolida", migrazioni | con il lucchetto |
 | `restituzioni/` `risposta` | "smista"; Specchio per la chat | con il lucchetto |
 | `restituzioni/` `lettera` | "consolida" ("lettera" la consegna e basta) | con il lucchetto |
@@ -1593,7 +1598,7 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 49 | — | `come: chiede`; effetto senza `n` non è accoglienza; legami di restituzione `da` una voce; una domanda fa nascere il nodo | Q16, Q25, Q18 |
 | 50 | cammini su tutto il grafo | lo sguardo e le liste non si attraversano; niente ponti per persone della vita; delicati a richiesta | Q9, Q24, Q10 |
 | 51 | quattro regole in conflitto sulle domande all'ingresso | un elenco unico di 7 casi, al più una domanda; la tracklist di "la 3" cercata all'ingresso | [attriti dell'ingresso](/_progetto/v2/simulazione/attriti-ingresso.md) I1, I15 |
-| 52 | citazione all'ingresso con `originale`, `riferimento`, autore | all'ingresso solo `nome` e `attribuita-a` (più l'esito se il passo 1 trova una scheda); il resto da "consolida" | I3, I8 |
+| 52 | citazione all'ingresso con `originale`, `riferimento`, autore | all'ingresso solo `nome` e `attribuita-a`, senza `esito` (⚠; la traccia del passo 1 nel corpo); il resto da "consolida" | I3, I8 |
 | 53 | `forma: ritorno` a ogni silenzio di 14 giorni | una riga nella risposta, soglia sul tuo ritmo (> 2 × intervallo mediano, ≥ 14 giorni), contenuto fissato da `riserva/ritorno.md`, mai su delicati | I4 |
 | 54 | consolidamento saltato senza regola | "consolida" copre tutto dall'ultimo riuscito | I5 |
 | 55 | notifiche per le correzioni | notifica solo se hai chiesto; correzione solo di un errore tuo | I6 |
@@ -1614,12 +1619,12 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 70 | ponte dei primi giorni senza strada | Specchio ogni sera dei giorni 1–3, bilancio dei ponti al giorno 3, vicini = tutti gli importati ✦, mai un ○ senza luogo | A2; coordinatore |
 | 71 | ricordo come affermazione, nessuno nei primi mesi | indizio parziale + affermazione; nei primi mesi gli importati ✦ | A3; coordinatore |
 | 72 | restituzione di chat senza struttura | un file per conversazione, una sezione per domanda | A4; coordinatore |
-| 73 | piano solo per l'ingresso; prompt in claude.ai | piano per ogni ciclo, `applica.mjs`; prompt come file in `prompt/`, hash da lì; `CRON_TZ=Europe/Rome`; `rinnova`; `contesto.mjs` prima della lettera; parlante senza importati | le 15 incoerenze di [prompt v3](/_progetto/v2/prompt-v3.md) §12 |
+| 73 | piano solo per l'ingresso; prompt in claude.ai | piano per ogni ciclo, `applica.mjs`; prompt come file in `prompt/`, hash da lì; `CRON_TZ=Europe/Rome`; `rinnova`; `contesto.mjs` prima della lettera; parlante senza importati | le 15 incoerenze di [prompt v3](/_progetto/v2/prompt-v3.md), appendice A |
 | 74 | — | sogno con "Gioco ◌." più frase ✦ e al più un ○; confronto con la voce dall'altra parte; citazioni ricordate ✦; Q-citato sul trimestre; immagini per lemma; delicati nella soglia | M1–M9, M12 |
-| 75 | piano piatto per "smista"; hash di un solo file; verifica rapida dopo `applica`; `riserva/` scritta dall'AI | involucro con 7 operazioni anche nell'esempio; hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md`, `prompt/specchio.md`; verifica rapida dentro `crea-nodo`; `riserva/` solo da `applica.mjs`; Specchio nei giorni 1–7; ricordabili con gli importati | [prompt v3](/_progetto/v2/prompt-v3.md) §14; coordinatore |
+| 75 | piano piatto per "smista"; hash di un solo file; verifica rapida dopo `applica`; `riserva/` scritta dall'AI | involucro con 7 operazioni anche nell'esempio; hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md`, `prompt/specchio.md`; verifica rapida dentro `crea-nodo`; `riserva/` solo da `applica.mjs`; Specchio nei giorni 1–7; ricordabili con gli importati | [prompt v3](/_progetto/v2/prompt-v3.md), appendice B; coordinatore |
 | 76 | ricordo dopo 60 giorni attivi, importati solo "nei primi mesi" | regola unica: importati ✦ da subito, nuovi dopo 60 giorni di calendario e ≥ 10 attivi; domenica senza parlanti muta; proposte pronte solo da una notte precedente; nessun ○ senza opera e passo | [seconda prova di restituzione](/_progetto/v2/simulazione/attriti-restituzione.md) S2, S7, S8; coordinatore |
-| 77 | due memo della stessa chat senza regola | il successivo sostituisce solo se contiene il precedente come prefisso (crescita in coda, `n` continui); altrimenti conflitto per Specchio | [prompt v3](/_progetto/v2/prompt-v3.md) §14 n. 10; coordinatore |
-| 78 | schema con `if` su `cerchia: vita` senza `required`; nessun esempio in §3.5; "Chiedi" fuori schema; `nota` stretta; "galimberti" non trova `umberto-galimberti` | `required: [cerchia]` (verificato con ajv: 34 casi validi e non validi); esempio di restituzione; campo `chiede`; corpo della lettura per le cornici; regole cognome e nome; riconciliazione degli slug nell'importazione; 05 dichiarato superato; esito all'ingresso con regola unica; `applica.mjs` transazionale | [prova a freddo](/_progetto/v2/prova-a-freddo.md) R7, R10, R12, R13, R23, R24, R27, R33, R36, R41, R43, R44, R51, R56, R60–R62, R67, R69 |
+| 77 | due memo della stessa chat senza regola | il successivo sostituisce solo se contiene il precedente come prefisso (crescita in coda, `n` continui); altrimenti conflitto per Specchio | [prompt v3](/_progetto/v2/prompt-v3.md), appendice B n. 10; coordinatore |
+| 78 | schema con `if` su `cerchia: vita` senza `required`; nessun esempio in §3.5; "Chiedi" fuori schema; `nota` stretta; "galimberti" non trova `umberto-galimberti` | `required: [cerchia]` (verificato con ajv: 34 casi validi e non validi); esempio di restituzione; `intento` facoltativo nel frammento (predefinito `[chiedi]` da "Chiedi"); corpo della lettura per le cornici; regole cognome e nome; riconciliazione degli slug nell'importazione; 05 dichiarato superato; esito all'ingresso con regola unica (solo `attribuita-a`, senza `esito`); `applica.mjs` transazionale; `parole` sempre lista; §8.3: temi nominati ✦ subito, dedotti ◌ a una vicenda | [prova a freddo](/_progetto/v2/prova-a-freddo.md) R7, R10, R12, R13, R23, R24, R27, R33, R36, R41, R43, R44, R51, R56, R60–R62, R67, R69 |
 
 **Scartati, con il motivo:**
 - *Togliere sogno, "ti ricordi?" e ritratto* (CS §1.2): restano. Il banco non li collaudava, ma la ricerca dice che la
@@ -1730,8 +1735,8 @@ senza contenuto, la lettera ≤ 250 parole, "Gioco ◌.", "mai ⚠ nel confronto
 3. **Rifare la prova di restituzione** sul v3 aggiornato (con una correzione per prova saliva da 7 a 12 su 14); restano
    aperti M3 (`scarto` sul nodo citazione per contare "5 su 6"), M10 (rigenerare l'importazione simulata con le regole v3)
    e l'intenzione esplicita di farsi del male (lacuna nota del banco).
-4. **Riallineare** [prompt v3](/_progetto/v2/prompt-v3.md) a questo modello (le 15 incoerenze della sua §12 sono risolte
-   qui: registro, riga 73) e il resto del [banco](/_progetto/v2/banco-di-prova-v2.md) ai nomi del v3 (§16); scrivere per
+4. **Riallineare** [prompt v3](/_progetto/v2/prompt-v3.md) a questo modello (le 15 incoerenze della sua appendice A sono risolte
+   qui: registro, riga 73; le 10 dell'appendice B alle righe 75 e 77) e il resto del [banco](/_progetto/v2/banco-di-prova-v2.md) ai nomi del v3 (§16); scrivere per
    esteso lo schema del piano (§2.2).
 5. **Scelte tue**: quanto parla per primo lo specchio (racc.: lettera la domenica, ritratto mensile per tre mesi e poi
    trimestrale); il sogno (racc.: sì, max 1 al mese, dai 50 frammenti); la domanda sul link muto (racc.: una, mai

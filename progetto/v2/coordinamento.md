@@ -46,7 +46,12 @@ Stato:
 - B. Banco: fatto, riscritto nel v3 (1570 righe, grep dei termini v2 a zero), registro chiuso lato banco.
 - C. Piano: fatto. `setup.sh` al blocco 0, `contesto.mjs` in parte al blocco 2, §14 al posto di 05, misure reali,
   prototipo non normativo.
-- D. Prompt: in corso. E (pacchetto), F (seconda prova a freddo), G (implementazione): da fare.
+- D. Prompt: fatto (esito, `intento`, temi, §9.1, `setup.sh`, appendici A/B; la Routine "smista" è una riga sola e
+  le due regole del fire stanno in `prompt/smista.md`).
+- E. Pacchetto: rigenerato con `bash progetto/pacchetto/aggiorna.sh`; link interni relativi (0 rotti), le note
+  dell'Atlante come URL al branch del checkpoint; 05 resta come storia, superato dal §14.
+- F. Seconda prova a freddo: pronta, parte quando il repo `paol-imi/memo` esiste (push del branch `raccolta` su `main`).
+- G. Implementazione: dopo F.
 
 Decisioni del coordinatore (giro 6):
 - R70: se un blocco elenca le B/D per nome, la sua porta resta chiusa su ogni fallimento di quelle prove; le prove
@@ -59,6 +64,9 @@ Decisioni del coordinatore (giro 6):
 - Raccolta con un frammento precedente: il memo nuovo ha `serve-a` verso la raccolta e `ritorna-su` verso il
   frammento vecchio, che non si tocca.
 - Il banco segue il §3.4: B12 fa nascere `persone/cugina.md`; in B21 la citazione non nasce all'ingresso.
+- Routine "smista": nessun `prompt/routine-smista.md`; la Routine dice solo «leggi ed esegui `prompt/smista.md`».
+- Lo `scopo` mancante di una raccolta lo segnala `mappa.md` e nessuna risposta lo chiede. La raccolta con un frammento
+  precedente usa `ritorna-su` con `come: aggiunge`.
 - Misure della prova: meno di un'ora di orologio (la tabella somma 53 min).
 - Da verificare al passo U2: che la rete *Trusted* lasci passare `registry.npmjs.org` per `npm ci` in `setup.sh`.
 

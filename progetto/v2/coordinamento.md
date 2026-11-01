@@ -50,7 +50,8 @@ Stato:
   le due regole del fire stanno in `prompt/smista.md`).
 - E. Pacchetto: rigenerato con `bash progetto/pacchetto/aggiorna.sh`; link interni relativi (0 rotti), le note
   dell'Atlante come URL al branch del checkpoint; 05 resta come storia, superato dal §14.
-- F. Seconda prova a freddo: pronta, parte quando il repo `paol-imi/mnemosyne` esiste (push del branch `raccolta` su `main`).
+- F. Seconda prova a freddo: in corso, sessione session_016XqALybr9EWMWePrP1czPF, branch `claude/g6-prova-a-freddo-2`, uscita `progetto/v2/prova-a-freddo-2.md`. Branch di raccolta del coordinatore: `main`.
+- Nome: Mnemosyne (sessione session_016XqALzZG9b2QGQbSqhNrc7, documento `nome.md`).
 - G. Implementazione: dopo F.
 
 Decisioni del coordinatore (giro 6):

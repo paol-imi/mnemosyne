@@ -33,8 +33,10 @@ PASSO 2: LEGGERE
 Leggi `progetto/pacchetto/LEGGIMI.md` e poi i file nell'ordine dei prefissi (01-piano, 02-modello-v3, …) (con subagent
 per i lunghi, chiedendo sintesi mirate).
 Normativi: 02-modello-v3 (vince su tutto), 03-prompt-v3, 04-banco-di-prova, 01-piano. 05-regole-importazione è superato
-dal §14 del modello: solo storia. Gli altri sono contesto. Il codice della prova a freddo
-(`progetto/prova-a-freddo/codice/`) è un punto di partenza non normativo, da riusare a giudizio.
+dal §14 del modello: solo storia. Gli altri sono contesto. Il codice delle due prove a freddo è un punto di partenza non
+normativo, da riusare a giudizio: prima quello della seconda (`progetto/prova-a-freddo-2/codice/`, il più avanzato: arriva
+alla porta del blocco 6), poi quello della prima (`progetto/prova-a-freddo/codice/`). Dove diverge dal pacchetto, vale il
+pacchetto.
 Dove il piano dice "prompt operativi" valgono i prompt v3. Dove nomina un file del pacchetto in `progetto/` (per esempio
 `progetto/ORIGINE.md`), il file è in `progetto/pacchetto/`. Una lacuna va in `progetto/lacune.md` con la scelta fatta.
 
@@ -56,7 +58,7 @@ la documentazione ufficiale e aggiorna il piano. Non chiedere mai di incollarti 
 
 LA PORTA DEL BLOCCO 6
 Arrivato al blocco 6 (la prova della meraviglia, R14 sui memo veri dei giorni 1–3) ti fermi. Esegui la prova come dice il
-piano, riferisci l'esito in cinque righe, fai all'utente la sua domanda a pancia e aspetti. Non apri il blocco 7, né le
+piano, riferisci l'esito in cinque righe, fai all'utente la domanda a pancia scritta nel blocco 6 del piano e aspetti. Non apri il blocco 7, né le
 prove P1, P2, P4, senza un suo "vai avanti" esplicito. Questa porta non si salta.
 
 Comincia dal passo 1.

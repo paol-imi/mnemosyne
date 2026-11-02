@@ -1,6 +1,6 @@
 # Stato
 
-- **Blocco corrente:** 4 e 5 in parallelo. Blocco 4: R01a fallita ai giri 1–4 (sempre sulla convergenza o su righe generiche), `prompt/ritratto.md` corretto dopo ogni giro (vedi lacune), giro 5 in corso. Blocco 5: B01, B02, B03, B06, B11, B12, B14, B22, D02 sera passano; B25 in corso. Blocchi 2 e 3 chiusi.
+- **Blocco corrente:** 4 e 5 in parallelo. Blocco 4: R01a fallita ai giri 1–4 (sempre sulla convergenza o su righe generiche), `prompt/ritratto.md` corretto dopo ogni giro (vedi lacune), giro 5 in corso. Blocco 5: porta aperta, 10 prove su 10 al primo giro (B01, B02, B03, B06, B11, B12, B14, B22, B25, D02 sera). Blocchi 2 e 3 chiusi.
 - **Fatto:** passo 1 (radice: `CLAUDE.md`, `prompt/`); clone dell'Atlante in `/tmp/atlante` al checkpoint `3a7ea79`
   (non sopravvive alla sessione: riclonare con il comando di `progetto/pacchetto/ORIGINE.md`).
 - **Blocco 0:** riusato il codice della sesta prova (`progetto/prova-a-freddo-6/codice/`, senza `lacune.md`, `stato.md`,

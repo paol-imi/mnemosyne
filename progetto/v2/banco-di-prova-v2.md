@@ -2,7 +2,8 @@
 
 > Progettazione v3, 2026-10-31; riscritto il 2026-11-01 dopo la [prova a freddo](/progetto/v2/prova-a-freddo.md)
 > (R30, R46, R54, R58, R64, R66, R70, R24/R62) e il 2026-11-02 dopo la
-> [seconda prova a freddo](/progetto/v2/prova-a-freddo-2.md) (P2-1, P2-16, P2-19, P2-37, P2-40, P2-41, P2-79, P2-87, P2-88).
+> [seconda prova a freddo](/progetto/v2/prova-a-freddo-2.md) (P2-1, P2-16, P2-19, P2-37, P2-40, P2-41, P2-79, P2-87, P2-88)
+> e dopo la [terza](/progetto/v2/prova-a-freddo-3.md) (P3-9, P3-10, P3-17, P3-40, P3-55, P3-56, P3-61, P3-64, P3-69, P3-79).
 > Proposta di Claude, da validare. Serve a collaudare l'implementazione
 > del [modello v3](/progetto/v2/modello-v3.md) nel repo nuovo: ogni criterio si controlla sui file del repository
 > (percorsi, campi del frontmatter, legami, conteggi, ricerche esatte), senza giudizio; il giudizio sta solo nelle
@@ -27,7 +28,7 @@ blocco 2); i frammenti dentro portano ciascuno la sua data, dal 4 al 31 ottobre 
     Rust) e U20 hanno nella lettura `altrui: true`: ✦ il gesto, ○ le parole;
   - tre sguardi `voce: seme` (✧): `20261005-0000-s01` (il nucleo, `intento: [sguardo]`, passi citabili come
     `passo: nucleo:19`), `20261005-0000-s04` (tensioni, virtù e fortuna, evoluzione), `20261004-0000-s03` (il racconto
-    d'origine, `intento: [niente]`, non fa nascere nodi). **Nessun `s02`**: il brief dei tatuaggi è la vista dei frammenti
+    d'origine, `intento: [niente]`, non fa nascere nodi, salvo `raccolte/tatuaggi.md`). **Nessun `s02`**: il brief dei tatuaggi è la vista dei frammenti
     con `serve-a: tatuaggi`. Nel nucleo U1, U3, U10–U17 sono copie: i legami partono solo dalle frasi `uNN`.
 - **~60 restituzioni** `forma: eredita` (`r-AAAAMMGG-0000-eredita-<slug>`, `r-20261007-0000-eredita-citazioni`,
   `r-20261007-0000-eredita-domande`): fuori dai conti, mai sbiadite. Le loro voci `~Nome` sono raggiungibili per chiave in
@@ -431,8 +432,10 @@ nessuno parla della casa in ordine.
 > ho sentito una frase di chioran sul suicidio come idea che ti tiene in vita, cioè la possibilità di farla finita che ti fa resistere
 
 - **File:** il frammento con "chioran" intatto (G1); lettura con `delicato: true` e zero legami `voce: proposta`;
-  `persone/emil-cioran.md` trovato per **scheletro** (`crn`: modello §3.6) e con `chioran` aggiunto agli `alias`, o nuovo
-  con quell'alias; un file nuovo in `citazioni/` con `attribuita-a: [emil-cioran]` e niente altro (G4). Dopo "consolida":
+  `persone/emil-cioran.md` **nuovo**, con `chioran` negli `alias` (nella parte 1 nessun caso prima di B25 fa nascere Cioran,
+  e un nome che non ha la chiave `cioran` tra nome e alias non dà candidati per "chioran"); se sul ramo c'è già un nodo
+  Cioran con la chiave `cioran` (come dopo T01), è quello, trovato per **scheletro** (`crn`: modello §3.6), con `chioran`
+  aggiunto agli `alias`; un file nuovo in `citazioni/` con `attribuita-a: [emil-cioran]` e niente altro (G4). Dopo "consolida":
   `riferimento` con "Sillogismi dell'amarezza" (1952), non *L'inconveniente di essere nati*.
 - **Mappa:** § Conti conta il frammento senza nominarlo.
 - **Risposta:** allineata al modello §7.2.1 (R64): `risposta: ci-sono` e nessun file con `per: id(B25)`; **oppure** un
@@ -493,16 +496,21 @@ Il giudizio sulle risposte si dà con le domande del giudice della parte 3, che 
   **oggi**. **Oggi:** le frasi tue importate, il seme a parte.
 - **Forma** (ogni punto è un controllo sulle righe non vuote della sezione):
   - **righe ✦**: al più **8** righe con ✦, ognuna con un tratto in corsivo alla lettera (refusi compresi) di un frammento ✦
-    e la sua data (per gli importati la data-tetto, "entro il …"); se i frammenti ✦ citabili sono più di 8, l'ultima riga
-    della sezione è "Vuoi il resto?"; nessun altro "?";
-  - **riportate**: ogni riga ✦ il cui tratto viene da un frammento `forma: riportata` contiene "trascritta da Claude";
+    e la sua data (per gli importati la data-tetto, "entro il …"); fanno eccezione la riga di un gesto altrui e quella di un
+    muto, che non hanno corsivo (sotto); se i frammenti ✦ citabili sono più di 8, l'ultima riga della sezione è "Vuoi il
+    resto?"; nessun altro "?";
+  - **riportate**: le righe ✦ i cui tratti vengono da frammenti `forma: riportata` stanno in gruppi di righe consecutive, e
+    la nota "trascritta da Claude" compare **una volta sola** per gruppo, in testa al gruppo a cui si applica (sulla sua
+    prima riga o in una riga senza segni subito prima); nessuna riga di un frammento non riportato sta in un gruppo con la
+    nota, e la nota non compare altrove (modello §5);
   - **altrui**: nessun tratto in corsivo si ritrova in `u18`, `u19` o `u20`; una loro riga dice il gesto con ✦ e le parole,
     se ci sono, tra «» con ○;
   - **muti e delicati**: nessun tratto in corsivo di B13, B18, B21 (non parlanti), oppure la loro riga dice "muto"; un
     tratto di B12 o B25, se c'è, non sta nella prima riga ✦ (modello §7.2.1, Q10: a una richiesta esplicita delle tue
-    parole i delicati si riportano alla lettera, mai in testa);
-  - **seme**: **esattamente una** riga con ✧, dopo l'ultima riga ✦ (prima di "Vuoi il resto?", se c'è), con un tratto in
-    corsivo alla lettera di `s01`, `s03` o `s04`; nessuna riga porta insieme ✦ e ✧, nessuna riga porta ●.
+    parole i delicati si riportano alla lettera, mai in testa). Vale solo per i casi già accaduti alla data della prova:
+    **oggi** e la sera del 2026-11-20 (porta del blocco 5) nessuno di questi esiste, e il punto passa;
+  - **seme**: **esattamente una** riga con ✧, dopo l'ultima riga ✦ (prima di "Vuoi il resto?", se c'è), con un passo
+    alla lettera di `s01`, `s03` o `s04` **in corsivo**, come ogni passo citato alla lettera (modello §5, §9.1); nessuna riga porta insieme ✦ e ✧, nessuna riga porta ●.
 - **Scrive:** niente.
 - **Non deve:** un testo in corsivo che non si ritrova con una ricerca esatta nei frammenti ✦ o, sulla riga ✧, nel seme (il
   passo vero di Jung, una sintesi, una lettura); una riga ✧ o ● tra le righe ✦; più di una riga ✧ o nessuna; le parole di
@@ -1144,9 +1152,10 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
 - **Azione:** Specchio, la sera del 2026-11-05: il bilancio dei ponti del giorno 3 (modello §7.5). Le risposte a B01 e B02
   restano quelle del banco (B02: `risposta: salvato`).
 - **Uscita attesa:** 1–3 righe: B01 o B02 ✦, con un tratto alla lettera e la data, agganciato a un frammento suo del punto
-  zero: una sua frase alla lettera con la data-tetto, **oppure**, per un frammento `altrui: true` (U18–U20), il gesto ✦ con
-  la data-tetto e al più una riga delle parole ○ tra «», alla lettera come le ha trascritte, con l'opera e il passo
-  (modello §7.5); il perché ◌ in mezza riga. Es. del ponte atteso: "*diceva che il nichilismo è l'ospite inquietante* ✦
+  zero (`voce: sua`, uno degli `uNN`): una sua frase alla lettera con la data-tetto, **oppure**, per un frammento
+  `altrui: true` (U18–U20), il gesto ✦ con la data-tetto e al più una riga delle parole ○ tra «», alla lettera come le ha
+  trascritte, con l'opera e il passo (modello §7.5); il perché ◌ in mezza riga. **Il seme ✧** (`s01`, `s03`, `s04`) **non**
+  è un capo del ponte: è una sintesi scritta da Claude (modello §7.5), e un ponte verso il seme fa fallire D1 e D2. Es. del ponte atteso: "*diceva che il nichilismo è l'ospite inquietante* ✦
   (3 novembre) / entro il 4 ottobre hai trascritto il monologo di Rust ✦: «I think human consciousness is a tragic misstep
   in human evolution» ○ (*True Detective*, st. 1, ep. 1) / il prezzo della lucidità, da due lati ◌". Se nessun ponte è
   forte, la sola riga "Niente si aggancia ancora." (la formula del giorno 3; "Nessun ponte oggi." è delle altre sere).
@@ -1154,16 +1163,20 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
   - D0 (preparazione) I vicini che [S] calcola per `id(B01)` con l'ora del 2026-11-05 (modello §6.2) comprendono
     `20261004-0000-u19`. Se mancano, la prova fallisce: un "nessun ponte" senza vicini non prova niente.
   - D1 Se c'è un ponte, il bilancio contiene un tratto alla lettera (≥ 4 parole consecutive) di B01 o B02 e un tratto
-    alla lettera di un frammento del punto zero (per U18–U20, tra «», nella lingua del frammento), con le due date: "3
-    novembre" o "4 novembre", e il giorno e il mese della data-tetto del frammento del punto zero.
-  - D2 Il ponte è **un** legame `{p: converge-con, tra: [id(B01) o id(B02), <id del frammento del punto zero>], voce:
-    proposta, perche}` nella restituzione della sessione; al massimo uno.
+    alla lettera di un frammento `voce: sua` del punto zero, cioè di un `2026MMGG-0000-uNN` (`u01` … `u31`, `u26a`, `u26b`) e mai di
+    `s01`, `s03`, `s04` (per U18–U20, tra «», nella lingua del frammento), con le due date: "3 novembre" o "4 novembre", e
+    il giorno e il mese della data-tetto del frammento del punto zero.
+  - D2 Il ponte è **un** legame `{p: converge-con, tra: [id(B01) o id(B02), <id di un frammento voce: sua del punto zero,
+    …-uNN>], voce: proposta, perche}` nella restituzione della sessione; al massimo uno. Un `tra` con `s01`, `s03` o `s04`
+    fa fallire D2.
   - D3 Nessun ponte verso un nodo che il punto zero non contiene.
   - D4 Il bilancio ha al più 3 righe non vuote e zero "?" (contati come in G6). Senza ponte, la sua unica riga è
     esattamente "Niente si aggancia ancora." (mai insieme a "Nessun ponte oggi.").
   - D5 Misura di valore (non decide la prova): a fine banco si contano le restituzioni seguite entro 7 giorni da un suo
     frammento con un `ritorna-su` verso di loro; se sono zero, critica-semplicita ha ragione sul ritmo.
-- **Giudice AI (sì/no):** 1. È un nesso che lui non aveva fatto? 2. Il nesso regge senza la frase "◌ perché"? 3. È
+- **Giudice AI (sì/no):** 1. È un nesso che lui non aveva fatto? 2. Coprendo la riga del perché (◌), le due frasi citate,
+  una accanto all'altra, bastano già a far vedere il nesso? (Non si chiede se il nesso sia scritto: si chiede se si regge
+  sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea: modello §7.5.) 3. È
   inventato o forzato? (deve essere no) **Soglia:** tutte; oppure, se non c'è ponte, solo la 3.
 - **Gravità se fallisce:** alta: è la prima restituzione che vede, e decide se ne leggerà una seconda.
 
@@ -1440,8 +1453,8 @@ i nomi e le soglie.
 
 1. **Punto zero.** Su una copia privata del repository (branch `banco/zero`, mai su `main`) si lancia l'importazione e si
    congela il risultato con un tag `banco-zero`. Ogni prova riparte da lì, con i dati del tag e il codice della punta di
-   `main` (`scripts/`, `schema/`, `prompt/`, `_schema.md`, `CLAUDE.md`), perché il codice scritto dopo il tag deve esserci
-   (R53). Lo schema dei frontmatter è `schema/frontmatter.json`; `_schema.md` ne dice solo la versione e la storia delle
+   `main` (`scripts/`, `schema/`, `prompt/`, `banco/`, `_schema.md`, `CLAUDE.md`, `package.json`, `package-lock.json`,
+   `ambiente/`: lo stesso elenco del piano §4), perché il codice scritto dopo il tag deve esserci (R53). Lo schema dei frontmatter è `schema/frontmatter.json`; `_schema.md` ne dice solo la versione e la storia delle
    migrazioni (modello §11).
 2. **Parte 1**, B01–B25, in ordine di data, con `ATLANTE_ORA` uguale alla data del messaggio (vedi parte 4). Dopo ogni
    messaggio si lancia "smista" e si controllano File, Mappa e Risposta prima del messaggio successivo; le domeniche e i
@@ -1454,6 +1467,12 @@ i nomi e le soglie.
 5. **Parte 4**, T01–T10: ognuna sul suo branch `banco/tempo-T0x`. T06 (secondo modello) e T08 (3000 frammenti) sono le
    più costose e vanno per ultime.
 6. **Dove ci si ferma:** vedi "Gravità e porte", sotto.
+
+**La base del confronto.** "Nuovo", "nessun file cambia" e i controlli sull'hash si misurano rispetto a una **base**, un
+commit del ramo di prova: per una B il commit prima del caso; per una D o una R senza frammento proprio, il commit da cui
+parte la sessione (per una R la punta di `banco/R0x` con la sua Preparazione; per R14 il commit dopo B02; per una D
+**oggi** il tag `banco-zero`). Ogni prova eseguibile la dichiara (nel codice delle prove a freddo, il campo `base` della
+prova JSON).
 
 ### Dati sintetici da generare
 
@@ -1512,7 +1531,8 @@ Per R e T la gravità è scritta nella prova; per B e D è nella tabella sotto. 
   o di Forma, un Non deve accaduto, un controllo G1–G7) vale con la gravità della tabella, non solo quando accade il fatto
   che la colonna "perché" nomina: quella colonna dice soltanto perché il caso pesa.
 - **Le porte del piano.** La porta di un blocco si chiude su **ogni** fallimento di una B o di una D che il piano elenca
-  per quel blocco, qualunque sia la sua gravità (per la porta del blocco 5: B01, B02, B06, D02, come il modello §7.5).
+  per quel blocco, qualunque sia la sua gravità (per la porta del blocco 5 le dieci del piano: B01, B02, B06, D02 per prime,
+  come il modello §7.5, poi B03, B11, B12, B14, B22, B25).
   Nessun giudizio su "quanto è grave": un caso elencato che fallisce chiude la porta. Una D che una porta chiede prima che
   il Progetto esista (D02 alla porta del blocco 5) si fa in **Specchio**, alla data che il piano dice, con gli stessi
   criteri: il frammento di chat e la restituzione della sessione non contano come "Scrive".

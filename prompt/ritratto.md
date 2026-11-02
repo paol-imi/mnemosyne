@@ -30,7 +30,9 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
      l'ultima riga è la domanda.
    **Variante giorno 1** (giorno 1 = il **primo ritratto**, non il primo del mese): salta i passi 2 e 3 (ritmo e
    soglia): il primo ritratto si scrive con 0 frammenti parlanti, prima del primo memo. Sul nucleo e sulle frasi
-   importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); le date come tetto ("entro il 4
+   importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); nuova vuol dire che i due capi
+   vengono da cose che non ho mai accostato (temi, opere o momenti diversi), non due frasi che dicono già la stessa idea:
+   se una delle due contiene già il nesso, non è una convergenza; le date come tetto ("entro il 4
    ottobre"), su **ogni** frase ✦ citata, i due capi della convergenza compresi (sulla riga, o una volta in testa al
    gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota
    della regola 6 una volta sola, le altre senza nota; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,

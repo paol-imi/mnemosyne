@@ -17,3 +17,6 @@ Le lacune del pacchetto (il modello non dice) con la scelta fatta.
   subito (una scelta tra Rust e la sua frase). Scelta: due righe in `prompt/ritratto.md` (la serie dei memo non si dice
   nella variante giorno 1; la domanda non è una scelta tra due parti di cui una è già sua). Il pacchetto
   (`radice/prompt/ritratto.md`, prompt v3) resta com'è: la correzione vive in `prompt/`.
+- R01a, secondo giro (7 su 8, cade l'obbligatoria 5): la convergenza u01–u09 ("lo stesso metro") ripeteva un'idea che
+  u09 dice già in forma generale. Scelta: una riga in `prompt/ritratto.md` (variante giorno 1): i due capi vengono da cose
+  mai accostate, non due frasi che dicono già la stessa idea.

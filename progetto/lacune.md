@@ -9,3 +9,6 @@ Le lacune del pacchetto (il modello non dice) con la scelta fatta.
   sessione nuova ritrova e ritagga con
   `git tag punto-zero $(git log --format=%H --grep='^importa: punto zero$' -n1 main)`. I rami `banco/*` restano locali ai
   cloni del banco, come vuole il piano §4.
+- D02, la nota delle riportate con la maiuscola a inizio riga («Trascritte da Claude nel seme, …:»): `CLAUDE.md` regola 6
+  vuole "le stesse parole", non la minuscola; il checker cercava solo `trascritt[ae] da Claude`. Scelta: `D02.json`
+  accetta `[Tt]rascritt[ae] da Claude` (e `esegui.mjs` stampa la nota in minuscolo). Primo giro di D02 «oggi» caduto lì.

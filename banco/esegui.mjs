@@ -320,7 +320,7 @@ function perRighe(ctx, c, fs) {
     // gruppi (D02 «riportate»): le righe scelte che si toccano formano un gruppo; la nota sta una volta sola per gruppo, in
     // testa (sulla prima riga o in una riga senza segni subito prima), e in nessun'altra riga.
     if (c.gruppi !== undefined) {
-      const mie = new Set(ks.map((k) => k.i)), ha = (i) => new RegExp(c.gruppi, 'u').test(ls[i]), nota = c.gruppi.replace('[ae]', 'a'), capi = new Set();
+      const mie = new Set(ks.map((k) => k.i)), ha = (i) => new RegExp(c.gruppi, 'u').test(ls[i]), nota = c.gruppi.replace('[ae]', 'a').replace('[Tt]', 't'), capi = new Set();
       for (const i of [...mie].sort((x, y) => x - y)) {
         if (mie.has(i - 1)) continue;
         const sopra = i > 0 && !/[✦✧◌○●⚠]/u.test(ls[i - 1]) && ha(i - 1);

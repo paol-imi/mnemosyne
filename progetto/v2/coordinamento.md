@@ -50,7 +50,17 @@ Stato:
   le due regole del fire stanno in `prompt/smista.md`).
 - E. Pacchetto: rigenerato con `bash progetto/pacchetto/aggiorna.sh`; link interni relativi (0 rotti), le note
   dell'Atlante come URL al branch del checkpoint; 05 resta come storia, superato dal §14.
-- F. Seconda prova a freddo: in corso, sessione session_016XqALybr9EWMWePrP1czPF, branch `claude/g6-prova-a-freddo-2`, uscita `progetto/v2/prova-a-freddo-2.md`. Branch di raccolta del coordinatore: `main`.
+- F. Seconda prova a freddo: fatta (session_016XqALybr9EWMWePrP1czPF): blocchi 0–6, fermo alla porta del 6, verdetto
+  «va corretto» (11 voci alte, quasi tutte nei prompt; 63 subagent, ~5,7 M token, ~1 h 50). Resoconto in
+  `prova-a-freddo-2.md`, codice in `progetto/prova-a-freddo-2/codice/`.
+- Giro 7: correzioni dalla seconda prova applicate a prompt, piano, banco e modello (subagent); pacchetto rigenerato.
+  Decisioni: il seme ✧ entra in `contesto/` (sezione in fondo a `parole.md`), quindi D02 si fa anche nel Progetto;
+  `_schema.md` alla radice dal blocco 0 (versione, rimando a `schema/frontmatter.json`, migrazioni); `contesto.mjs`
+  in tre tappe (blocchi 2, 5, 7); `smista.mjs vicini ID` e `prepara --sigilla ID` al blocco 5; un frammento `altrui`
+  può essere il capo vecchio di un ponte (§7.5), il che rende possibile il ponte Galimberti–Rust di R14; i delicati,
+  a una richiesta esplicita delle mie parole, si riportano alla lettera e mai in testa (§7.2.1 Q10); la citazione
+  all'ingresso ammette `alias`.
+- F3. Terza prova a freddo: da lanciare sul pacchetto rigenerato.
 - Nome: Mnemosyne (sessione session_016XqALzZG9b2QGQbSqhNrc7, documento `nome.md`).
 - G. Implementazione: dopo F.
 

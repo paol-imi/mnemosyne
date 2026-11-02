@@ -7,7 +7,7 @@ passata delle 3 ore.
 
 ## Passi
 1. **Lucchetto.** `node scripts/lucchetto.mjs prendi --ciclo smista --fire ID` (senza `--fire` nella passata).
-   Lo script aspetta 90 secondi e fa `git pull`; esce con "non tocca a te" solo se in `ingresso/` c'è un memo del
+   Lo script aspetta 90 secondi e fa `git pull`; esce con "non tocca a te" (codice 4) solo se in `ingresso/` c'è un memo del
    telefono **più recente** del tuo **e con meno di 4 minuti** (lo elaborerà quella sessione): allora termina subito,
    senza messaggio. Se il lucchetto è preso, aspetta fino a 45 minuti; se resta preso, termina (la passata delle 3 ore
    raccoglie tutto). La passata cancella i lucchetti orfani (più vecchi di 20 minuti).
@@ -15,7 +15,8 @@ passata delle 3 ore.
    lasciando l'originale; separa i memo del Progetto (`memo: chat` diventa un frammento `canale: chat` e una
    restituzione con una sezione per domanda: tu ne scrivi solo la lettura); sigilla le chat di Specchio ferme da prima
    delle 04:00 di oggi. Ti dà un pacchetto per ogni frammento senza lettura: il frammento, `contesto/recenti.md`, gli
-   alias, i candidati per ogni nome, i vicini (nei primi 3 giorni tutti gli importati ✦), gli scarti, i titoli dei link.
+   alias, i candidati per ogni nome, i vicini (nei primi 3 giorni tutti gli importati ✦), gli scarti, i titoli dei link
+   (lo script li chiede all'oEmbed, e l'autore alla pagina: tu non li cerchi).
 3. Per ogni pacchetto, in ordine di tempo (un subagent per frammento se sono più di 3), le operazioni del piano:
    - **intento**: `salva` di norma; `chiedi` solo per un fatto del mondo o dell'archivio; una domanda dentro un memo che
      dice anche altro (un ricordo, un nesso, un nome) è `[salva, chiedi]`; una domanda su di me ("sono la stessa persona
@@ -31,10 +32,10 @@ passata delle 3 ore.
    - **entità**: solo certe. Un nodo nasce se lo nomino (persona, opera, citazione, concetto o immagine con un nome).
      Scegli tra i candidati o `crea-nodo` con `@Nome`; per un nome proprio nudo guarda prima `cerchia: vita` ("Marco"
      non è Marco Aurelio). Confini: concetto con autore = un tema solo; "X: frase" = citazione con X in
-     `attribuita-a`; parentele in prima persona = nodo `vita` con slug fisso (`papa`, `mamma`, `nonna-NOME`) e alias
-     solo col possessivo; miti col nome del protagonista = persona `finzione`; gruppi = persone `mondo`; link muto e
-     "questa" su una foto = nessun nodo subito, il testo in `link`/`trascrizione`. Entità ambigua il cui errore
-     resterebbe: `~Nome` e la domanda 1. Forma nuova di un nodo che c'è: operazione `alias`.
+     `attribuita-a` e **nessun** `nomina` verso la persona X (ce l'ha solo se la nomino fuori dalla frase); parentele
+     in prima persona = nodo `vita` con slug fisso (`papa`, `mamma`, `nonna-NOME`) e alias solo col possessivo; miti col
+     nome del protagonista = persona `finzione`; gruppi = persone `mondo`; link muto e "questa" su una foto = nessun
+     nodo subito, il testo in `link`/`trascrizione`. Entità ambigua il cui errore resterebbe: `~Nome` e la domanda 1. Forma nuova di un nodo che c'è: operazione `alias`.
      **Nome incerto** ("credo lo spettacolo sulle emozioni", "forse X"): il nodo **nasce** con il nome che ho detto, con
      `nomina` ✦ e le mie parole nel `perche`; il titolo probabile va in una riga della risposta con ⚠ ("Lo spettacolo
      forse è *Il mondo delle emozioni* ⚠."); l'alias solo quando lo confermo.
@@ -50,11 +51,15 @@ passata delle 3 ore.
      `contraddice`** (li scrive "consolida"). I **nessi miei** ("tipo X", "come X"): `converge-con` di voce `sua`, con
      `~X` se X non è un nodo; la risposta non lo smentisce.
    - **link con parole mie** non è muto: niente domanda 3. Un momento detto ("dal minuto 12", "verso la fine") va in
-     `momento` sul `nomina` dell'opera; `t=` resta nel link; un'indicazione va in `nota`. Risposta: "Salvato." con il
-     momento, se serve.
+     `momento` sul `nomina` della cosa a cui si riferisce: l'opera ("dal minuto 12") o la citazione ("la frase dell'ospite
+     era verso la fine": `momento` sul `nomina` della citazione, non dello spettacolo). Se il link porta `t=`, il momento
+     è **quel** tempo in `mm:ss` (`t=754` → `"12:34"`), anche se a parole dico "dal minuto 12"; `t=` resta nel link. Un
+     link senza nome (titolo assente) non fa nascere nodi: il `momento` va su un `nomina` verso un `~Nome` in chiaro preso
+     dalle mie parole, mai un titolo inventato. Un'indicazione va in `nota`. Risposta: "Salvato." con il momento, se serve.
    - **`parole`** (facoltativo) quando ci sono parole candidate a tema, anche in un seguito o in un `ritorna-su` ("la
      frase dell'ospite era verso la fine, quando parlava dei greci" → `parole: [greci]`): sempre una lista, anche di una
-     parola; singolare, minuscolo, la mia forma ("padre", non "padri"; "i ragazzi" → `ragazzo`).
+     parola; singolare, minuscolo, un nome e non un aggettivo, dalla mia parola ("padre", non "padri"; "i ragazzi" →
+     `ragazzo`; "motivi culturali" → `cultura`).
    - **reazione**: le mie parole copiate esatte e il `verso`: `+`; `-` anche per ironia, sufficienza, "carino ma…",
      "da bacio perugina"; `±` solo per una commozione o un "ci ha preso".
    - `delicato: true` se serve; `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
@@ -62,8 +67,8 @@ passata delle 3 ore.
    - "la 3" di un album: una ricerca leggera della tracklist, per chiedere "La 3 è X, giusto?".
    - **verifica rapida** di ogni citazione **nuova**, dentro il suo `crea-nodo`, prima di applicare: una-due ricerche
      sulla frase così come l'ho scritta. Il nodo nasce comunque **senza `esito`** (⚠), senza `riferimento`, `autore`,
-     `originale`, qualunque cosa trovi: ciò che trovi (una scheda di Quote Investigator o Wikiquote, un apocrifo noto) va
-     come traccia nel `corpo` e, se conta, in una riga della risposta con ⚠. La mia attribuzione sempre in
+     `originale`, `traduzione`, `citata-da`, qualunque cosa trovi: ciò che trovi (una scheda di Quote Investigator o
+     Wikiquote, un apocrifo noto) va come traccia nel `corpo` e, se conta, in una riga della risposta con ⚠. La mia attribuzione sempre in
      `attribuita-a`. L'esito lo scrive "consolida".
    - **risposta** (sotto), solo se ha contenuto. Altrimenti la lettura ha `risposta: salvato` (o `ci-sono` per "boh" e
      per il delicato). Un seguito che aggiunge un dettaglio a un memo di ieri ("ah e…") **non** ha risposta: "Aggiunto
@@ -82,8 +87,14 @@ Al più: **un aggancio** dall'archivio (un ponte forte a un vicino, con un **luo
 frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai), **un fatto del
 mondo ○** verificato che la mia frase chiama, una **correzione di fatto** solo per un errore scritto da me, al più **una**
 delle 7 domande di CLAUDE.md. Un ponte non forte si tiene per la lettera. Forma: "**Salvato.**" più 0–2 righe, ≤ 40
-parole, voci numerate se ci sono più cose.
-Esempio: "**Salvato.** 1. "L'ospite inquietante" è un'immagine di Nietzsche ○, che Galimberti ha ripreso in un libro ⚠."
+parole; ogni voce numerata **a inizio riga** (`1.`, `2.`), anche quando è una sola. Le voci che portano un fatto del mondo
+(un'attribuzione, un titolo probabile) sono `voce: mondo` ○, anche se il nodo l'ho nominato io (lo spettacolo).
+Esempio:
+```
+**Salvato.**
+1. "L'ospite inquietante" è un'immagine di Nietzsche ○, che Galimberti ha ripreso in un libro ⚠.
+2. Lo spettacolo forse è *Il mondo delle emozioni* ⚠.
+```
 
 **Il "mentre eri via".** Se `mappa.md` (Stato) dice che questo è il primo memo dopo un silenzio più lungo del doppio del
 mio intervallo mediano tra giorni attivi, e comunque di almeno 14 giorni, e `riserva/ritorno.md` non è vuoto: aggiungi
@@ -108,6 +119,6 @@ quelli che nomino io), mai `contraddice`, mai `riserva/`.
 - `contesto/` assente: `contesto.mjs` prima del passo 3. Nella prima settimana lo script scrive solo `recenti.md` e
   Stato, Nodi, Alias di `mappa.md` (il resto arriva nei giorni 5–7): per ciò che manca lavora con `frammenti/`, gli
   alias dei nodi e le ultime restituzioni, e dillo nel messaggio finale.
-- oEmbed fallito: il titolo in `nota`, con ⚠.
+- oEmbed fallito: il link resta senza titolo; nessun titolo né autore dato da te, né in `nota` né nella risposta.
 - Foto illeggibile: `trascrizione` vuota, "Salvato." e basta.
 - Push rifiutato: `git pull --rebase` e il fencing; se il lucchetto è ancora tuo, ritenta una volta; se no, abbandona.

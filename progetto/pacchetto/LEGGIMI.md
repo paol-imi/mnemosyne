@@ -21,7 +21,7 @@ Per avviare il lavoro: [prompt-avvio](./prompt-avvio.md), da incollare nella pri
 | 8 | [citazioni](./08-citazioni.md) e [identità](./09-identita.md) | i protocolli di verifica delle citazioni e degli ID esterni | protocolli per "consolida"; il resto è prova sul campo |
 | 9 | [voce](./10-voce.md) | come parla il sistema, con esempi | contesto: le regole sono già riassunte nel `CLAUDE.md` di prompt v3 |
 | 10 | [telefono](./11-telefono.md) | dal tocco al repo e ritorno, con le fonti | contesto per i blocchi 3, 7, 8 e le prove P |
-| 11 | [codice della prova a freddo](../prova-a-freddo/codice/) | script, schemi, test e tabella d'importazione scritti da una sessione senza contesto fino al blocco 5 ([resoconto](../v2/prova-a-freddo.md)) | **punto di partenza non normativo**: da leggere e riusare a giudizio; dove diverge vince il modello, poi il piano |
+| 11 | [codice della seconda prova a freddo](../prova-a-freddo-2/codice/) e, prima, [della prima](../prova-a-freddo/codice/) | script, schemi e test scritti da due sessioni senza contesto: la seconda arriva alla porta del blocco 6 (108 test verdi), la prima al blocco 5 ([resoconto 2](../v2/prova-a-freddo-2.md), [resoconto 1](../v2/prova-a-freddo.md)) | **punto di partenza non normativo**: da leggere e riusare a giudizio, prima la seconda; dove diverge vince il modello, poi il piano |
 
 Il codice della prova a freddo sta in questo repo, in `progetto/prova-a-freddo/codice/`: dove il piano lo cerca nel clone
 dell'Atlante (sotto `/tmp/atlante/`) vale questa copia. Il suo `importa/fonte.json` ha uno SHA

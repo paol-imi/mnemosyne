@@ -1,0 +1,59 @@
+--- progetto/pacchetto/radice/claude-radice.md	2026-11-02 01:20:46.966827696 +0000
++++ CLAUDE.md	2026-11-02 01:46:47.526086600 +0000
+@@ -51,7 +51,8 @@
+   Comando rapido "Chiedi", con il predefinito `[chiedi]`, e la lettura contiene sempre i suoi valori. Il corpo è il testo esatto, refusi compresi. In una chat:
+   solo i miei turni, ciascuno preceduto da `[HH:MM]`.
+ - **lettura**: `schema: 3`, `versione`, `letto-da`, `prompt`, `intento` (`salva` · `chiedi` · `sguardo` · `niente`),
+-  `reazione` (`{parole, verso: "+" · "-" · "±"}`, `parole` copiate esatte dal frammento), `legami`, `parole`, `link`,
++  `reazione` (`{parole, verso: "+" · "-" · "±"}`, `parole` copiate esatte dal frammento; l'iperbole d'entusiasmo è `+`:
++  "mi ha spaccato", "mi ha distrutto", "mi ha colpito tanto"; `±` solo per un giudizio che sta tra i due, "ci ha preso"), `legami`, `parole`, `link`,
+   `trascrizione`, `altrui`, `vissuto`, `delicato`, `nota`, `fonte`, `risposta` (id, `salvato` o `ci-sono`).
+ - **nodo**: `schema`, `nome`, `nato-da`, `alias`, `link`, `fuso-in`; persone `cerchia` (`mondo` · `vita` · `finzione`)
+   e `in`; opere `autore`, `in`, `anno`; citazioni `autore`, `attribuita-a`, `citata-da`, `originale`, `traduzione`,
+@@ -240,7 +241,8 @@
+ ## Ricette per le domande
+ Voci numerate `1.`, `2.`… (le fissa lo script), lunghezze della tabella.
+ - **"le mie frasi"** (anche "solo le mie") senza argomento: solo le mie ✦, dalla più recente, alla lettera con la data,
+-  refusi compresi, in corsivo; gli importati con la data-tetto; le `forma: riportata` comprese, con la nota (regola 6:
++  refusi compresi, in corsivo (un frammento su più righe: il corsivo è un tratto di **una** sua riga, mai righe unite
++  con " / " o con uno spazio); gli importati con la data-tetto; le `forma: riportata` comprese, con la nota (regola 6:
+   una volta sola, in testa al loro gruppo); gli `altrui` solo come gesto, mai le loro parole come mie; i non parlanti
+   fuori; i delicati alla lettera, mai in testa.
+   Fino a 8 righe, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
+--- progetto/pacchetto/radice/prompt/formato-piano.md	2026-11-02 01:20:46.969091545 +0000
++++ prompt/formato-piano.md	2026-11-02 02:00:48.263290232 +0000
+@@ -17,7 +17,10 @@
+      "attribuita-a": ["@Umberto Galimberti"], "corpo": "Verifica rapida: nessun apocrifo noto; … (traccia)"},
+     {"op": "lettura", "frammento": "20261103-2340-k7q2", "versione": 1, "intento": ["salva"],
+      "reazione": [{"parole": "molto interessante", "verso": "+"}],
+-     "legami": [{"p": "nomina", "a": "@Umberto Galimberti", "voce": "sua", "perche": "«uno spezzone di galimberti a teatro»"}],
++     "legami": [{"p": "nomina", "a": "@Umberto Galimberti", "voce": "sua", "perche": "«uno spezzone di galimberti a teatro»"},
++                {"p": "nomina", "a": "@spettacolo sulle emozioni", "voce": "sua", "perche": "«credo lo spettacolo sulle emozioni»"},
++                {"p": "nomina", "a": "@Il nichilismo è l'ospite inquietante", "voce": "sua", "perche": "«diceva che il nichilismo è l'ospite inquietante»"},
++                {"p": "parla-di", "a": "nichilismo", "voce": "sua", "perche": "parola tua, anche dentro la frase che riporti"}],
+      "parole": ["ragazzo", "cultura"]},
+     {"op": "restituzione", "forma": "risposta", "per": "20261103-2340-k7q2",
+      "testo": "**Salvato.**\n1. …\n2. …",
+--- progetto/pacchetto/radice/prompt/specchio.md	2026-11-02 01:20:46.969091545 +0000
++++ prompt/specchio.md	2026-11-02 02:22:16.362713347 +0000
+@@ -9,10 +9,19 @@
+    lucchetto all'apertura: lo prendi solo alla fine (passo 6).
+ 2. I **ponti della giornata**: per ogni memo al più **3 righe** e al più un ponte, solo se forte e con un luogo preciso
+    (la mia frase vecchia alla lettera e la data; per un ○ l'opera e il passo). Formato `HH:MM · **Salvato.** …`.
++   **Forte** vuol dire: coprendo la riga del perché ◌, le due frasi alla lettera, una accanto all'altra, bastano già
++   a far vedere il nesso (una parola, un'immagine o un'idea che sta in **tutte e due**, non solo nella tua formula); e il
++   perché dice che cosa le unisce, non che cosa le divide (un `converge-con` non si regge su un contrasto). Se il ponte
++   regge solo sul tuo perché, non è forte: niente ponte. Del testo `altrui` scegli la riga che da sola regge il nesso.
++   **La prova, prima di consegnarlo** (non la fai tu, che l'hai trovato): dai a un subagent nuovo **solo** le due frasi
++   alla lettera con i loro luoghi, senza il perché, e chiedigli sì/no: "le due frasi, una accanto all'altra, bastano a far
++   vedere un nesso?" e "il nesso è forzato (regge su una parola sola o su un'idea che non sta nelle frasi)?". Consegni il
++   ponte solo con sì al primo e no al secondo, anche se ne sei convinto e anche se somiglia a un esempio; altrimenti la formula (al giorno 3: "Niente si aggancia ancora."). Una
++   parola in comune non basta da sola.
+    Altrimenti "Nessun ponte oggi." Non inventare. Al giorno 0, prima del primo memo, niente ponti e nessuna formula.
+    I vicini di un memo vengono dal suo pacchetto o, se il memo è già
+    smistato, da `node scripts/smista.mjs vicini ID` (sola lettura, senza lucchetto): non sceglierli tu. Guardali
+-   **tutti**, anche quelli che non hanno parole in comune con il memo: il ponte inatteso sta lì (Rust per Galimberti).
++   **tutti**, anche quelli che non hanno parole in comune con il memo: il ponte inatteso, se c'è, sta lì.
+    **I capi del ponte.** Il capo vecchio è una mia frase ✦ oppure un testo `altrui` che ho trascritto (il gesto ✦, le
+    parole ○: passo 3). **Il seme ✧ non vale come capo vecchio** (lo script non lo mette tra i vicini): è una sintesi scritta da
+    Claude, e la meraviglia si aggancia alle mie parole o ai miei gesti.

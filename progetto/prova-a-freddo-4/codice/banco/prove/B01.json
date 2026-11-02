@@ -1,0 +1,64 @@
+{
+  "$schema": "./schema.json",
+  "id": "B01",
+  "caso": "E01",
+  "titolo": "video, citazione dentro una citazione",
+  "data": "2026-11-03T23:40:00+01:00",
+  "messaggio": "ho visto uno spezzone di galimberti a teatro, credo lo spettacolo sulle emozioni, diceva che il nichilismo è l'ospite inquietante e che i ragazzi nn stanno male per motivi psicologici ma culturali. molto interessante",
+  "gravita": "alta",
+  "file": [
+    { "dove": "@lettura", "campo": "intento", "vale": [ "salva" ] },
+    { "dove": "@lettura", "campo": "reazione", "vale": [ { "parole": "molto interessante", "verso": "+" } ] },
+    { "dove": "@lettura", "campo": "parole", "contiene": [ "ragazzo", "cultura" ] },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": "umberto-galimberti", "voce": "sua" } ], "motivo": "manca nomina ✦ umberto-galimberti" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": "spettacolo-sulle-emozioni", "voce": "sua", "perche": { "$regex": "«[^»]*spettacolo[^»]*»" } } ], "motivo": "manca nomina ✦ dello spettacolo con le tue parole nel perche" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$nodo": "citazioni", "$regex": "ospite" }, "voce": "sua" } ], "motivo": "manca nomina ✦ della citazione" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "parla-di", "a": "nichilismo", "voce": "sua" } ], "motivo": "manca parla-di ✦ nichilismo" },
+    { "esiste": "persone/umberto-galimberti.md", "nuovo": true },
+    { "dove": "persone/umberto-galimberti.md", "campo": "cerchia", "vale": "mondo" },
+    { "dove": "persone/umberto-galimberti.md", "campo": "alias", "contiene": [ "galimberti" ] },
+    { "esiste": "opere/spettacolo-sulle-emozioni.md", "nuovo": true, "motivo": "lo spettacolo detto con «credo» non è nato" },
+    { "dove": "opere/spettacolo-sulle-emozioni.md", "campo": "autore", "vale": "umberto-galimberti" },
+    { "esiste": "citazioni/*ospite*.md", "nuovo": true },
+    { "dove": "citazioni/*ospite*.md", "nuovo": true, "campo": "attribuita-a", "vale": [ "umberto-galimberti" ] },
+    { "esiste": "temi/nichilismo.md", "nuovo": false, "motivo": "temi/nichilismo.md non c'era già (nato dallo sguardo)" }
+  ],
+  "mappa": [
+    { "dove": "@mappa", "sezione": "Nodi", "regex": "(?<![\\w-])umberto-galimberti · persone\\b.*✦1(?!\\d)", "motivo": "§ Nodi senza la riga umberto-galimberti · persone con ✦1" },
+    { "dove": "@mappa", "sezione": "Alias", "regex": "(?<![\\w-])galimberti → umberto-galimberti(?![\\w-])", "motivo": "§ Alias senza galimberti → umberto-galimberti" }
+  ],
+  "risposta": [
+    { "esiste": "@risposta", "motivo": "nessun file con per: id(B01)" },
+    { "dove": "@risposta", "campo": "voci", "contiene": [ { "voce": "mondo", "cosa": "citazione" }, { "voce": "mondo", "cosa": "opera" } ], "motivo": "mancano le due voci ○ (citazione, opera)" },
+    { "dove": "@risposta", "testo": "Salvato" },
+    { "dove": "@risposta", "testo": "Nietzsche" },
+    { "dove": "@risposta", "testo": "Il mondo delle emozioni" },
+    { "dove": "@risposta", "testo": "⚠" },
+    { "dove": "@risposta", "conta": "domande", "max": 0, "motivo": "un \"?\" (contato come G6): il titolo è solo incerto, non è il caso 1 del §7.2.1" },
+    { "dove": "@risposta", "voci_a_inizio_riga": true, "motivo": "una voce non sta a inizio riga (1., 2.: modello §3.5)" }
+  ],
+  "non_deve": [
+    { "dove": "opere/*.md", "nuovo": true, "min": 2, "motivo": "un nodo nuovo in opere/ oltre allo spettacolo (il libro del 2007)" },
+    { "dove": "{persone,opere,citazioni,temi,raccolte}/*.md", "campo": "nome", "contiene": { "$regex": "mondo delle emozioni", "$flag": "i" }, "motivo": "«Il mondo delle emozioni» nel nome di un nodo" },
+    { "dove": "{persone,opere,citazioni,temi,raccolte}/*.md", "campo": "alias", "contiene": [ { "$regex": "mondo delle emozioni", "$flag": "i" } ], "motivo": "«Il mondo delle emozioni» negli alias di un nodo" },
+    { "esiste": "temi/{ragazzo,giovani,cultura}.md", "nuovo": true, "motivo": "nato un tema ragazzo, giovani o cultura" },
+    { "esiste": "persone/*nietzsche*.md", "motivo": "c'è un file persone/*nietzsche*" },
+    { "dove": "@risposta", "regex": "quanto ti ha colpit", "flag": "i", "motivo": "la risposta chiede quanto ti ha colpito" },
+    { "dove": "@risposta", "testo": "2008", "motivo": "la risposta cita il 2008" },
+    { "dove": "@risposta", "regex": "plagi", "flag": "i", "motivo": "la risposta parla di plagi" }
+  ],
+  "dopo_consolida": [
+    { "dove": "citazioni/*ospite*.md", "campo": "autore", "vale": "~Friedrich Nietzsche" },
+    { "dove": "citazioni/*ospite*.md", "campo": "esito", "vale": "simile" },
+    { "dove": "citazioni/*ospite*.md", "campo": "riferimento", "contiene": { "$include": "Frammenti postumi" } }
+  ],
+  "giudice": [],
+  "note": [
+    "La scheda non ha punti di giudizio: tutto è deterministico (il testo dopo «Es.» è un esempio). G6 «solo nei 7 casi» qui non serve: la scheda vuole zero «?».",
+    "«*Il mondo delle emozioni*» si cerca senza asterischi: il corsivo non è un criterio.",
+    "«i quattro legami ✦»: si controlla che ci siano tutti e quattro, non che siano solo quattro.",
+    "«lo spettacolo con le tue parole nel perche»: un perche con «…spettacolo…» tra caporali.",
+    "«Ogni voce sta a inizio riga»: per ogni voce n del frontmatter il corpo ha una riga che comincia con «n.» (grassetto tollerato).",
+    "I «?» si contano come G6: non contano quelli dentro «» o dentro un corsivo che è una tua frase in frammenti/."
+  ]
+}

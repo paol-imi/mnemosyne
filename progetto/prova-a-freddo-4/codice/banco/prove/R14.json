@@ -1,0 +1,211 @@
+{
+  "$schema": "./schema.json",
+  "id": "R14",
+  "titolo": "il ponte dei primi giorni",
+  "base": [
+    {
+      "dopo": "B02"
+    }
+  ],
+  "preparazione": "L'archivio è il punto zero (le 32 frasi tue importate, ciascuna con la sua data-tetto; il nucleo ✧; il monologo di Rust, U19, è parole d'altri che hai trascritto: altrui: true, con i legami nomina rust-cohle e nomina true-detective-s1 con momento «episodio 1») più due memo dal telefono:\n\n- 3 novembre 2026, 23:40 (B01): «ho visto uno spezzone di galimberti a teatro, credo lo spettacolo sulle emozioni, diceva che il nichilismo è l'ospite inquietante e che i ragazzi nn stanno male per motivi psicologici ma culturali. molto interessante»\n- 4 novembre 2026, 08:12 (B02): «ah e la frase dell'ospite era verso la fine, quando parlava dei greci»\n\nLa sera del 5 novembre 2026 Specchio fa il bilancio dei ponti del giorno 3: al più 3 righe, un memo di questi giorni agganciato a una tua frase del punto zero (o al gesto di un frammento altrui, con le parole tra «» e ○), il perché ◌ in mezza riga; se nessun ponte è forte, la sola riga «Niente si aggancia ancora.».",
+  "gravita": "alta",
+  "generali": [
+    "G3",
+    "G7"
+  ],
+  "deterministici": [
+    {
+      "nome": "D0",
+      "comando": [
+        "node",
+        "scripts/smista.mjs",
+        "vicini",
+        "id(B01)"
+      ],
+      "env": {
+        "ATLANTE_ORA": "2026-11-05T21:00:00+01:00"
+      },
+      "testo": "20261004-0000-u19",
+      "motivo": "i vicini di id(B01) al 2026-11-05 non comprendono 20261004-0000-u19 (o smista.mjs vicini fallisce)"
+    },
+    {
+      "nome": "D1–D2",
+      "oppure": [
+        [
+          {
+            "dove": "@uscita",
+            "conta": "righe",
+            "max": 1
+          },
+          {
+            "dove": "@uscita",
+            "riga": "^Niente si aggancia ancora\\.$",
+            "min": 1,
+            "max": 1
+          }
+        ],
+        [
+          {
+            "dove": "@uscita",
+            "riga": "",
+            "corsivo_da": "frammenti/2026/11/{20261103,20261104}-*.md",
+            "parole_min": 4,
+            "con_data": "testo",
+            "min": 1
+          },
+          {
+            "dove": "@uscita",
+            "riga": "",
+            "corsivo_da": "frammenti/2026/10/*-u*.md",
+            "fonte": {
+              "campo": "voce",
+              "vale": "sua"
+            },
+            "tratti": "entrambi",
+            "parole_min": 4,
+            "con_data": "testo",
+            "min": 1
+          },
+          {
+            "dove": "restituzioni/**/*.md",
+            "nuovo": true,
+            "campo": "legami",
+            "elementi": {
+              "p": "converge-con",
+              "voce": "proposta",
+              "perche": {
+                "$presente": true
+              },
+              "tra": [
+                {
+                  "$regex": "^(id(B01)|id(B02))$"
+                },
+                {
+                  "$regex": "^202610\\d\\d-0000-u\\d{2}[ab]?$"
+                }
+              ]
+            },
+            "min": 1,
+            "max": 1
+          },
+          {
+            "dove": "restituzioni/**/*.md",
+            "nuovo": true,
+            "campo": "legami",
+            "elementi": {
+              "p": "converge-con"
+            },
+            "max": 1
+          }
+        ]
+      ],
+      "motivo": "né la sola riga «Niente si aggancia ancora.» né un ponte con un tratto alla lettera di B01 o B02 e uno del punto zero, le due date, e un solo converge-con ◌ tra i due frammenti nella restituzione della sessione"
+    },
+    {
+      "nome": "D1–D2 seme",
+      "dove": "restituzioni/**/*.md",
+      "nuovo": true,
+      "campo": "legami",
+      "elementi": {
+        "p": "converge-con",
+        "tra": {
+          "$alcuno": {
+            "$regex": "^202610\\d\\d-0000-s\\d{2}$|^r-.*-eredita-"
+          }
+        }
+      },
+      "max": 0,
+      "motivo": "un ponte verso il seme ✧ (s01, s03, s04) o una restituzione eredita: il capo vecchio è una frase ✦ uNN o un frammento altrui"
+    },
+    {
+      "nome": "D3",
+      "dove": "restituzioni/**/*.md",
+      "nuovo": true,
+      "campo": "legami",
+      "elementi": {
+        "p": "converge-con",
+        "tra": {
+          "$alcuno": {
+            "$alla_base": false
+          }
+        }
+      },
+      "max": 0,
+      "motivo": "un ponte verso un nodo o un frammento che il punto zero non contiene"
+    },
+    {
+      "nome": "D4",
+      "dove": "@uscita",
+      "conta": "righe",
+      "min": 1,
+      "max": 3,
+      "motivo": "il bilancio non ha da 1 a 3 righe non vuote"
+    },
+    {
+      "nome": "D4",
+      "dove": "@uscita",
+      "conta": "domande",
+      "max": 0,
+      "motivo": "un \"?\" nel bilancio (contato come G6)"
+    }
+  ],
+  "non_deve": [
+    {
+      "nome": "D4",
+      "dove": "@uscita",
+      "testo": "Nessun ponte oggi.",
+      "motivo": "«Nessun ponte oggi.» è delle altre sere, non del giorno 3"
+    },
+    {
+      "nome": "X3",
+      "dove": "@uscita",
+      "regex": "(?<!\\p{L})(?:brav[oaie]|coraggi|profond|straordinari|sensibil|ammirevol|sei fort[ei]|depress|ansia|ansie|traum|sintom|terapi|dovresti|ti consiglio)",
+      "flag": "iu",
+      "motivo": "una parola di X3 (lode, diagnosi o consiglio)"
+    }
+  ],
+  "giudice": [
+    {
+      "domanda": "Il bilancio propone un nesso che lui non aveva fatto in nessuno dei frammenti mostrati?",
+      "attesa": "sì"
+    },
+    {
+      "domanda": "Coprendo la riga del perché (◌), le due frasi citate, una accanto all'altra, bastano già a far vedere il nesso? (Non si chiede se il nesso sia scritto: si chiede se si regge sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea.)",
+      "attesa": "sì"
+    },
+    {
+      "domanda": "Il nesso è inventato o forzato?",
+      "attesa": "no"
+    }
+  ],
+  "soglie": [
+    {
+      "quando": {
+        "dove": "@uscita",
+        "riga": "^Niente si aggancia ancora\\.$",
+        "min": 1
+      },
+      "obbligatorie": [
+        3
+      ]
+    },
+    {
+      "obbligatorie": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "note": [
+    "Si esegue sul ramo della prova (punto zero + B01, B02 come il banco li scrive) dopo la sessione di Specchio della sera del 2026-11-05; il bilancio, così come Specchio lo dice, si salva in un file e si passa con --uscita. La base è l'ultimo commit che tocca la lettura di B02 (la sessione viene dopo); --base la fissa a mano.",
+    "D0 si controlla col comando di [S], `node scripts/smista.mjs vicini ID` (piano blocco 5), con ATLANTE_ORA del 2026-11-05 alle 21:00, nella cartella del ramo (un worktree): l'uscita JSON deve contenere 20261004-0000-u19. Se smista.mjs manca, D0 cade.",
+    "D1 e D2 valgono «se c'è un ponte»: si scrivono come alternativa alla sola riga «Niente si aggancia ancora.». Il tratto di B01 o B02 è un corsivo di almeno 4 parole; quello del punto zero un corsivo o un tratto tra «» (per U18–U20, nella lingua del frammento) di almeno 4 parole, da un frammento voce: sua del punto zero, cioè un uNN (frammenti/2026/10/*-u*.md: mai s01, s03, s04, mai una restituzione eredita, che non sta in frammenti/); le date si cercano nel bilancio («3 novembre», «4 novembre», e giorno e mese della data-tetto: id, registrato o vissuto ≤…).",
+    "D2: il legame sta nelle restituzioni nuove rispetto alla base (la restituzione della sessione); tra contiene id(B01) o id(B02) e l'id di una frase voce: sua del punto zero (202610GG-0000-uNN, anche u26a/u26b), in qualunque ordine; al più un converge-con in tutto. «D1–D2 seme»: nessun converge-con nuovo ha nel tra s01, s03, s04 o una r-…-eredita-…, anche quando l'uscita è «Niente si aggancia ancora.».",
+    "D3: ogni elemento del tra di un converge-con nuovo è un id di frammento o uno slug che alla base c'era (B01 e B02 compresi, perché la base è dopo B02); un ~Nome conta come nodo che il punto zero non contiene.",
+    "Nel bilancio non si vieta un corsivo che si ritrova nel seme: U1, U3, U10–U17 sono copiate nel nucleo s01 (banco «Il punto zero»), quindi un tratto di U10 si ritrova anche in s01. Il seme come capo si esclude dal lato dei file (D2, «D1–D2 seme») e da D1, che vuole un tratto di un uNN.",
+    "D5 è una misura di fine banco, non decide la prova: non sta qui.",
+    "X1–X6 della parte 3: X1 è D1; X3 in Non deve; X5 in parte con G3 (schema) e G7 (nessun frammento o restituzione precedente cambia); X2, X4, X6 non hanno un controllo in più su un bilancio di 1–3 righe.",
+    "Soglia del giudice (scheda): tutte; se non c'è ponte, solo la 3."
+  ]
+}

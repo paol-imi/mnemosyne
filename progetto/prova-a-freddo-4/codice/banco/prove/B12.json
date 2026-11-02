@@ -1,0 +1,49 @@
+{
+  "$schema": "./schema.json",
+  "id": "B12",
+  "caso": "E26",
+  "titolo": "intimo, lutto",
+  "data": "2026-12-07T02:10:00+01:00",
+  "messaggio": "la cura di battiato al matrimonio di mia cugina, il primo ballo. ho pianto come un cretino. nonna lina c'era ancora l'anno scorso",
+  "gravita": "alta",
+  "file": [
+    { "dove": "@lettura", "campo": "delicato", "vale": true },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": "la-cura", "voce": "sua" } ], "motivo": "manca nomina ✦ la-cura" },
+    { "esiste": "opere/la-cura.md", "motivo": "opere/la-cura.md non c'è" },
+    { "dove": "opere/la-cura.md", "campo": "autore", "contiene": { "$regex": "battiato", "$flag": "i" }, "motivo": "autore di la-cura non è Battiato (slug o ~Franco Battiato)" },
+    { "esiste": "persone/nonna-lina.md", "nuovo": true },
+    { "dove": "persone/nonna-lina.md", "campo": "cerchia", "vale": "vita" },
+    { "dove": "persone/nonna-lina.md", "campo": "link", "assente": true },
+    { "esiste": "persone/cugina.md", "nuovo": true },
+    { "dove": "persone/cugina.md", "campo": "cerchia", "vale": "vita" },
+    { "dove": "persone/cugina.md", "campo": "link", "assente": true },
+    { "dove": "persone/cugina.md", "campo": "alias", "vale": [ "mia cugina" ], "motivo": "gli alias di cugina non sono solo «mia cugina» (parentela: alias solo col possessivo)" },
+    { "dove": "@lettura", "campo": "reazione", "vale": [ { "parole": "ho pianto come un cretino", "verso": "±" } ] }
+  ],
+  "mappa": [
+    { "dove": "@mappa", "sezione": "Conti", "regex": "[1-9]", "motivo": "§ Conti assente o senza conti" },
+    { "dove": "@mappa", "regex": "^(?!fino-a:).*id(B12)", "flag": "m", "non": true, "motivo": "mappa.md nomina il frammento delicato (fuori dalla testata fino-a)" },
+    { "dove": "@mappa", "sezione": "Nodi", "regex": "(?<![\\w-])nonna-lina · persone\\b.*◌0(?!\\d)", "motivo": "§ Nodi senza nonna-lina con ◌0" },
+    { "dove": "@mappa", "sezione": "Nodi", "regex": "(?<![\\w-])cugina · persone\\b.*◌0(?!\\d)", "motivo": "§ Nodi senza cugina con ◌0" }
+  ],
+  "risposta": [
+    { "dove": "@lettura", "campo": "risposta", "contiene": { "$regex": "^(ci-sono|r-\\d{8}-\\d{4}-risposta(-\\d+)?)$" }, "motivo": "la lettura non ha risposta: ci-sono né un file di risposta" }
+  ],
+  "non_deve": [
+    { "dove": "@risposta", "regex": "^(?![\\s*_]*C\\s*i\\s*s\\s*o\\s*n\\s*o\\s*\\.[\\s*_]*T\\s*u\\s*t\\s*t\\s*o\\s*b\\s*e\\s*n\\s*e\\s*\\?[\\s*_]*$)", "motivo": "un file di risposta il cui corpo non è esattamente «Ci sono. Tutto bene?»" },
+    { "dove": "@lettura", "campo": "risposta", "vale": "salvato", "motivo": "risposta: salvato su un frammento delicato" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "voce": "proposta" } ], "motivo": "un legame voce: proposta" },
+    { "esiste": "temi/*.md", "nuovo": true, "motivo": "un file nuovo in temi/" },
+    { "esiste": "{persone,opere,citazioni,temi,raccolte}/*matrimonio*.md", "motivo": "un nodo per il matrimonio" },
+    { "dove": "@risposta", "regex": "amore|perdita|lutto|nonna|battiato", "flag": "i", "motivo": "la risposta dice amore, perdita, lutto, nonna o Battiato" },
+    { "dove": "persone/*.md", "filtro": { "campo": "cerchia", "vale": "vita" }, "campo": "link", "contiene": { "$presente": true }, "motivo": "un link in un nodo cerchia: vita" }
+  ],
+  "giudice": [],
+  "note": [
+    "La Risposta è una disgiunzione: risposta: ci-sono senza file, oppure un file con il solo «Ci sono. Tutto bene?». Si scrive come: la lettura ha ci-sono o un r-…-risposta, e nessun file con per: id(B12) ha un corpo diverso da quella frase (tolti spazi e a capo; si tollerano * e _ del grassetto, come «**Salvato.**» negli esempi).",
+    "«Mappa: § Conti conta il frammento senza nominarlo»: § Conti deve esserci con un numero, e l'id di B12 non compare in mappa.md. Che il conto comprenda proprio B12 non si controlla: il formato di § Conti il modello §6.1 non lo fissa. § Conti la scrive la seconda parte di contesto.mjs, anticipata al blocco 5 (piano, blocco 5): il criterio vale dalla porta del blocco 5.",
+    "«nessun tema proposto per nonna-lina o cugina»: ◌0 sulle loro righe di § Nodi, più zero legami voce: proposta nella lettura (File) e G5.",
+    "opere/la-cura.md «nuovo se non c'era»: si chiede che esista, non che sia nuovo; nel punto zero non c'è.",
+    "«alias solo col possessivo»: alias esattamente [mia cugina]; nonna-lina non ha un criterio sugli alias (la scheda non lo dà)."
+  ]
+}

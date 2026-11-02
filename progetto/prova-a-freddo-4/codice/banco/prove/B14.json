@@ -1,0 +1,40 @@
+{
+  "$schema": "./schema.json",
+  "id": "B14",
+  "caso": "E37",
+  "titolo": "link con il momento",
+  "data": "2026-12-10T23:00:00+01:00",
+  "messaggio": "https://youtu.be/dQ9xLmP0aBc?t=754&si=Hk2 dal minuto 12 in poi, ascolta solo quello",
+  "gravita": "alta",
+  "file": [
+    { "dove": "@frammento", "parte": "corpo", "testo": "t=754&si=Hk2", "motivo": "il frammento non ha più t=754&si=Hk2" },
+    { "dove": "@lettura", "campo": "link", "contiene": [ { "url": "https://youtu.be/dQ9xLmP0aBc?t=754" } ], "motivo": "nessun link con url https://youtu.be/dQ9xLmP0aBc?t=754 (t= tenuto, si= tolto)" },
+    { "dove": "{opere,persone}/*.md", "nuovo": true, "max": 0, "motivo": "un file nuovo in opere/ o persone/ da un link senza nome" }
+  ],
+  "mappa": [],
+  "risposta": [
+    { "dove": "@lettura", "campo": "risposta", "contiene": { "$regex": "^(salvato|r-\\d{8}-\\d{4}-risposta(-\\d+)?)$" }, "motivo": "la lettura non ha risposta: salvato né un file di risposta" }
+  ],
+  "non_deve": [
+    { "dove": "@lettura", "campo": "link", "contiene": [ { "url": { "$regex": "[?&]si=" } } ], "motivo": "un link con si= ancora dentro" },
+    { "dove": "@lettura", "campo": "link", "contiene": [ { "url": { "$regex": "^https://youtu\\.be/dQ9xLmP0aBc(?![^#]*[?&]t=754(?![\\d]))" } } ], "motivo": "il link pulito ha perso t=754" },
+    { "dove": "@lettura", "campo": "link", "contiene": [ { "titolo": { "$presente": true } } ], "motivo": "un titolo nel link (l'id non esiste: oEmbed 404)" },
+    { "dove": "@lettura", "campo": "link", "contiene": [ { "autore": { "$presente": true } } ], "motivo": "un autore o canale nel link (l'id non esiste)" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$regex": "^~" }, "momento": { "$regex": "^(?!12:34$)" } } ], "motivo": "un nomina verso un ~Nome con un momento diverso da 12:34" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$regex": "^~" }, "momento": { "$presente": false } } ], "motivo": "un nomina verso un ~Nome senza momento: \"12:34\"" },
+    { "dove": "@lettura", "campo": "intento", "vale": [ "niente" ], "motivo": "intento: [niente]: il frammento è parlante" },
+    { "dove": "@risposta", "conta": "domande", "min": 1, "motivo": "un \"?\" nella risposta (hai scritto «solo quello»)" },
+    { "dove": "@risposta", "regex": "^(?![\\s\\S]*(?:12:34|minuto 12))", "motivo": "un file di risposta senza «12:34» né «minuto 12»" }
+  ],
+  "giudice": [
+    { "domanda": "La risposta o la lettura danno al video un titolo, un canale o un autore (anche come ipotesi)?", "attesa": "no" }
+  ],
+  "note": [
+    "«il primo url»: si controlla che un link abbia quell'url; il messaggio ha un solo link, quindi è il primo. Lo schema delle prove non indicizza le liste.",
+    "La Risposta è una disgiunzione: risposta: salvato senza file, oppure un file con «12:34» o «minuto 12»; si scrive come: la lettura ha salvato o un r-…, e nessun file con per: id(B14) è senza quelle parole.",
+    "«un eventuale nomina verso un ~Nome porta momento: \"12:34\"»: due divieti, un momento diverso e un momento assente.",
+    "«Il frammento è parlante»: il modello §3.3 lo calcola (intento non solo niente, ≥ 3 parole tolti i link); qui si vieta intento: [niente]; le parole ci sono per G1.",
+    "«nessun titolo né canale» nella risposta va al giudice: il deterministico vede solo i campi titolo e autore di link.",
+    "L'oEmbed 404 presuppone che applica.mjs raggiunga YouTube: senza rete il titolo manca comunque, e il caso passa per un motivo diverso."
+  ]
+}

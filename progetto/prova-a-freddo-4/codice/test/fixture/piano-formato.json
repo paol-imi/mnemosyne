@@ -1,0 +1,92 @@
+{
+  "ciclo": "smista",
+  "letto-da": "il modello che sta girando",
+  "operazioni": [
+    {
+      "op": "crea-nodo",
+      "genere": "persone",
+      "nome": "Umberto Galimberti",
+      "alias": [
+        "galimberti"
+      ],
+      "cerchia": "mondo"
+    },
+    {
+      "op": "crea-nodo",
+      "genere": "opere",
+      "nome": "spettacolo sulle emozioni",
+      "autore": "@Umberto Galimberti"
+    },
+    {
+      "op": "crea-nodo",
+      "genere": "citazioni",
+      "nome": "Il nichilismo è l'ospite inquietante",
+      "attribuita-a": [
+        "@Umberto Galimberti"
+      ],
+      "corpo": "Verifica rapida: nessun apocrifo noto; … (traccia)"
+    },
+    {
+      "op": "lettura",
+      "frammento": "20261103-2340-k7q2",
+      "versione": 1,
+      "intento": [
+        "salva"
+      ],
+      "reazione": [
+        {
+          "parole": "molto interessante",
+          "verso": "+"
+        }
+      ],
+      "legami": [
+        {
+          "p": "nomina",
+          "a": "@Umberto Galimberti",
+          "voce": "sua",
+          "perche": "«uno spezzone di galimberti a teatro»"
+        },
+        {
+          "p": "nomina",
+          "a": "@spettacolo sulle emozioni",
+          "voce": "sua",
+          "perche": "«credo lo spettacolo sulle emozioni»"
+        },
+        {
+          "p": "nomina",
+          "a": "@Il nichilismo è l'ospite inquietante",
+          "voce": "sua",
+          "perche": "«diceva che il nichilismo è l'ospite inquietante»"
+        },
+        {
+          "p": "parla-di",
+          "a": "nichilismo",
+          "voce": "sua",
+          "perche": "parola tua, anche dentro la frase che riporti"
+        }
+      ],
+      "parole": [
+        "ragazzo",
+        "cultura"
+      ]
+    },
+    {
+      "op": "restituzione",
+      "forma": "risposta",
+      "per": "20261103-2340-k7q2",
+      "testo": "**Salvato.**\n1. …\n2. …",
+      "voci": [
+        {
+          "rif": "@Il nichilismo è l'ospite inquietante",
+          "voce": "mondo",
+          "cosa": "citazione"
+        },
+        {
+          "rif": "@spettacolo sulle emozioni",
+          "voce": "mondo",
+          "cosa": "opera"
+        }
+      ]
+    }
+  ]
+}

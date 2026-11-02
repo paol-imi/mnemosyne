@@ -114,3 +114,10 @@ Decisioni del coordinatore (giro 6):
 - Il sogno (racc.: max 1 al mese).
 - Il giudizio a pancia su `restituzione.md` (chiesto, ancora senza risposta).
 - Fuori ambito, da proporre: correggere le citazioni sbagliate dell'Atlante (vedi citazioni.md, simulazione/attriti-importazione.md A8).
+
+## Implementazione (G), dal 2026-11-02
+Sessione session_016XqAM2gtagVkVaJ6aAiqKJ, su `main`. Blocchi 0–5 chiusi; porta del blocco 6 raggiunta (R14 sul banco
+passa nel caso (b)). R01a è passata solo al 6° giro, dopo 5 correzioni a `prompt/ritratto.md` registrate in
+`progetto/lacune.md`: da riportare in `progetto/v2/prompt-v3.md`. Il tag `punto-zero` non si spinge (403 del proxy):
+resta locale. Restano all'utente: U3 (token) e U4 (Comando rapido) nella sessione di implementazione; tre sere di
+Specchio con memo veri; la risposta a pancia; un «vai avanti» esplicito per il blocco 7.

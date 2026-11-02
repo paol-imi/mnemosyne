@@ -33,11 +33,12 @@ PASSO 2: LEGGERE
 Leggi `progetto/pacchetto/LEGGIMI.md` e poi i file nell'ordine dei prefissi (01-piano, 02-modello-v3, …) (con subagent
 per i lunghi, chiedendo sintesi mirate).
 Normativi: 02-modello-v3 (vince su tutto), 03-prompt-v3, 04-banco-di-prova, 01-piano. 05-regole-importazione è superato
-dal §14 del modello: solo storia. Gli altri sono contesto. Il codice delle quattro prove a freddo è un punto di partenza
-non normativo, da riusare a giudizio: prima quello della quarta (`progetto/prova-a-freddo-4/codice/`, il prototipo più
-recente: arriva alla porta del blocco 6, 121 test verdi, e contiene `importa/` con tabella e citazioni già riviste), poi,
-se serve, quello della terza (`progetto/prova-a-freddo-3/codice/`). Che cosa vi è superato lo dice l'introduzione del
-piano; la `radice/` della quarta non si copia: vale quella del pacchetto (passo 1). Dove il codice
+dal §14 del modello: solo storia. Gli altri sono contesto. Il codice delle cinque prove a freddo è un punto di partenza
+non normativo, da riusare a giudizio: prima quello della quinta (`progetto/prova-a-freddo-5/codice/`, il prototipo più
+recente: arriva alla porta del blocco 6 con 14 prove su 14, 125 test verdi, e contiene `importa/` con tabella e citazioni
+già riviste), poi, se serve, quello della quarta (`progetto/prova-a-freddo-4/codice/`). Che cosa vi è superato lo dice
+l'introduzione del piano; la quinta non ha una `radice/`, e quella della quarta non si copia: vale quella del pacchetto
+(passo 1). Dove il codice
 diverge dal pacchetto, vale il pacchetto. I resoconti delle prove non servono.
 Dove il piano dice "prompt operativi" valgono i prompt v3. Dove nomina un file del pacchetto in `progetto/` (per esempio
 `progetto/ORIGINE.md`), il file è in `progetto/pacchetto/`. Una lacuna va in `progetto/lacune.md` con la scelta fatta.

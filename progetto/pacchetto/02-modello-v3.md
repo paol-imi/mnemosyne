@@ -236,7 +236,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 | `letto-da` | sì | il modello che l'ha letta | C13 |
 | `prompt` | sì | le prime 7 cifre dell'hash del prompt usato | C13 |
 | `intento` | sì | uno o più tra `salva` · `chiedi` · `sguardo` · `niente` | B11 salva **e** chiedi; B18 niente |
-| `reazione` | no | `[{parole: "…citate…", verso: + / - / ±}]`; l'iperbole d'entusiasmo, anche quando dice una commozione, è `+` ("mi ha spaccato", "mi ha distrutto", "mi ha colpito tanto"); ± solo per un giudizio che sta tra i due ("ci ha preso") (I23; quarta prova a freddo, P4-5) | B03, B04, B05 +; B06 "da bacio perugina" −; D03 il conforto |
+| `reazione` | no | `[{parole: "…citate…", verso: + / - / ±}]`; l'iperbole d'entusiasmo, anche quando dice una commozione, è `+` ("mi ha spaccato", "mi ha distrutto", "mi ha colpito tanto"); ± solo per un giudizio che sta tra i due ("ci ha preso") o per una commozione che non è entusiasmo ("ho pianto come un cretino", B12) (I23; quarta prova a freddo, P4-5; quinta, P5-17) | B03, B04, B05 +; B06 "da bacio perugina" −; D03 il conforto |
 | `legami` | sì (anche vuoto) | §4 | |
 | `parole` | no | parole candidate a tema, **sempre una lista** (anche di una sola parola: `[greci]`): un **nome**, non un aggettivo, singolare, minuscolo, dalla tua parola ("padre", non "padri"; "i ragazzi" → `ragazzo`; "motivi culturali" → `cultura`, §13.2); i nomi di popolo restano come li scrivi (`greci`: un popolo è un tema con il tuo nome, §3.4) | D24; CS §2.3; B01 |
 | `link` | no | [S] `[{url, titolo, autore}]`: puliti (`?si=` via, `t=` tenuto), titolo da oEmbed | B13, B14 |
@@ -1155,7 +1155,8 @@ Prima della pipeline, una restituzione vera (CS §4):
 - un ponte si consegna solo se è **forte** e ha un **luogo preciso** da entrambe le parti: la tua frase con la data, e per
   un ○ l'opera e il passo. Un ○ senza luogo non si consegna mai. **Forte** ha una sola definizione, le domande 2 e 3 del
   giudice di R14 nel [banco](./04-banco-di-prova.md) (la riga "Forte" sotto il giudice): il nesso si vede già
-  dalle due frasi, coprendo il perché ◌, e non è forzato. In Specchio lo giudicano, prima della consegna, tre subagent che
+  dalle due frasi, coprendo il perché ◌, e non è forzato (`CLAUDE.md` la riporta in una riga, perché i cicli non leggono
+  il banco). In Specchio lo giudicano, prima della consegna, tre subagent che
   vedono solo le due frasi (`prompt/specchio.md`);
 - il **capo vecchio** di un ponte (in Specchio, nel bilancio del giorno 3, nel ritratto) è un tuo frammento del punto zero o di un giorno prima: una tua frase ✦ alla lettera
   con la data (per un importato la data-tetto), oppure un frammento `altrui` (sotto). **Il seme ✧** (`s01`, `s03`, `s04`)

@@ -72,7 +72,11 @@ Stato:
   Galimberti–Rust). R14 passa con un ponte forte (definito una volta nel banco: sì alla domanda 2, no alla 3) oppure
   con la sola riga «Niente si aggancia ancora.». La porta vera del blocco 6 è la domanda a pancia sui memo veri.
   D02: la domanda 1 del giudice esclude la riga ✧. Aperta, bassa: P4-15 (9 o 8 rese di Claude in 07, vale il file).
-- F5. Quinta prova a freddo: lanciata.
+- F5. Quinta prova a freddo: fatta (session_016XqALyzWuXrKDX9JMULbM4): blocchi 0–6, 14/14 prove, 1 voce alta (P5-1,
+  data sui capi del ritratto del giorno 1). R14 passata 2 a 1 per una causa nel pacchetto (un «sì con riserve»).
+- Giro 10: P5-1…P5-25 chiuse (aperta, bassa, una parte di P5-19 sul §14). «Forte» anche in `CLAUDE.md`; in Specchio
+  un «sì con riserve» conta come no e il perché ◌ non aggiunge ciò che le due frasi non dicono.
+- F6. Sesta prova a freddo (conferma): lanciata.
 - Nome: Mnemosyne (sessione session_016XqALzZG9b2QGQbSqhNrc7, documento `nome.md`).
 - G. Implementazione: dopo F.
 

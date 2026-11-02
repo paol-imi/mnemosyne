@@ -12,14 +12,16 @@ passata delle 3 ore.
    senza messaggio. La passata (senza `--fire`) non cede mai: un memo fresco in `ingresso/` lo elabori tu, senza
    chiederti se lasciarlo. Se il lucchetto è preso, aspetta fino a 45 minuti; se resta preso, termina (la passata delle 3 ore
    raccoglie tutto). La passata cancella i lucchetti orfani (più vecchi di 20 minuti).
-2. `node scripts/smista.mjs prepara`. Sposta tutto `ingresso/` in `frammenti/` tranne le chat aperte; riduce le foto
+2. **Prima** di `prepara`, annota da `contesto/mappa.md` (Stato) l'ultimo giorno attivo e l'intervallo mediano: il
+   silenzio del "mentre eri via" va da quel giorno a oggi (dopo `prepara` e `contesto.mjs` Stato conta già il memo nuovo
+   e direbbe 0 giorni). Poi `node scripts/smista.mjs prepara`. Sposta tutto `ingresso/` in `frammenti/` tranne le chat aperte; riduce le foto
    lasciando l'originale; separa i memo del Progetto (`memo: chat` diventa un frammento `canale: chat` e una
    restituzione con una sezione per domanda: tu ne scrivi solo la lettura; se lo script non li separa ancora e lo dice,
    il memo `memo: chat` resta senza lettura, in coda, e lo dici nel messaggio finale); sigilla le chat di Specchio ferme da prima
-   delle 04:00 di oggi. Ti dà un pacchetto per ogni frammento senza lettura: il frammento, `contesto/recenti.md`, gli
+   delle ultime 04:00 passate (tra le 00:00 e le 04:00, le 04:00 di ieri). Ti dà un pacchetto per ogni frammento senza lettura: il frammento, `contesto/recenti.md`, gli
    alias, i candidati per ogni nome, i vicini (nei primi 3 giorni tutti gli importati ✦), gli scarti, i titoli dei link
    (lo script li chiede all'oEmbed, e l'autore alla pagina: tu non li cerchi). Poi `node scripts/contesto.mjs`, così
-   `mappa.md` (Stato) vede i memo appena spostati: il silenzio del "mentre eri via" si legge lì.
+   `mappa.md` vede i memo appena spostati (il silenzio no: l'hai annotato prima di `prepara`).
 3. Per ogni pacchetto, in ordine di tempo (un subagent per frammento se sono più di 3), le operazioni del piano:
    - **intento**: `salva` di norma; `chiedi` solo per un fatto del mondo o dell'archivio; una domanda dentro un memo che
      dice anche altro (un ricordo, un nesso, un nome) è `[salva, chiedi]`; una domanda su di me ("sono la stessa persona
@@ -69,7 +71,8 @@ passata delle 3 ore.
      `ragazzo`; "motivi culturali" → `cultura`). Un popolo o una tradizione resta come lo scrivo io: "i greci" →
      `greci`.
    - **reazione**: le mie parole copiate esatte e il `verso`: `+`; `-` anche per ironia, sufficienza, "carino ma…",
-     "da bacio perugina"; `±` solo per una commozione o un "ci ha preso".
+     "da bacio perugina"; `±` come dice CLAUDE.md (I quattro tipi), la sola regola: un giudizio a metà ("ci ha preso")
+     o una commozione che non è entusiasmo.
    - `delicato: true` se serve; `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
      per il dove e il come.
    - "la 3" di un album: una ricerca leggera della tracklist, per chiedere "La 3 è X, giusto?".
@@ -91,8 +94,8 @@ passata delle 3 ore.
    `smista: N memo`, push.
 
 ## La risposta (solo se ha contenuto)
-Al più: **un aggancio** dall'archivio (un ponte **forte** a un vicino, come lo definisce il banco, R14, riga "Forte"
-sotto il giudice: `progetto/pacchetto/04-banco-di-prova.md`; con un **luogo preciso** da entrambe le parti: la mia
+Al più: **un aggancio** dall'archivio (un ponte **forte** a un vicino, come lo definisce la riga "Forte" di CLAUDE.md,
+La voce; con un **luogo preciso** da entrambe le parti: la mia
 frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai; il seme ✧ non fa
 da capo vecchio di un ponte, `prompt/specchio.md`), **un fatto del
 mondo ○** verificato che la mia frase chiama, una **correzione di fatto** solo per un errore scritto da me, al più **una**
@@ -109,8 +112,8 @@ Esempio:
 2. Lo spettacolo forse è *Il mondo delle emozioni* ⚠.
 ```
 
-**Il "mentre eri via".** Se `mappa.md` (Stato) dice che questo è il primo memo dopo un silenzio più lungo del doppio del
-mio intervallo mediano tra giorni attivi, e comunque di almeno 14 giorni, e `riserva/ritorno.md` non è vuoto: aggiungi
+**Il "mentre eri via".** Se questo è il primo memo dopo un silenzio (annotato al passo 2, prima di `prepara`) più lungo
+del doppio del mio intervallo mediano tra giorni attivi, e comunque di almeno 14 giorni, e `riserva/ritorno.md` non è vuoto: aggiungi
 **quella riga, così com'è**, in fondo alla stessa risposta (allora la risposta ha contenuto). Mai su un frammento delicato
 o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto: niente.
 
@@ -119,7 +122,7 @@ o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto: niente.
 ## Messaggio finale e notifica
 - Se un frammento ha `intento` con `chiedi`: il messaggio finale è la risposta (fino a 150 parole) e la notifica dice
   solo "La risposta è pronta".
-- Altrimenti: una riga senza contenuto ("2 memo, 1 risposta"), nessuna notifica. Mai una notifica per una correzione.
+- Altrimenti: una riga senza contenuto ("2 memo, 1 risposta"; senza risposte, "2 memo, 0 risposte"), nessuna notifica. Mai una notifica per una correzione.
   La risposta la leggo nel Progetto (`recenti.md`) o in Specchio; "Ci sono." non lascia file e resta nella lettura
   (`risposta: ci-sono`).
 - Frammenti lasciati in coda: "1 memo in coda: ID, piano rifiutato (motivo)".

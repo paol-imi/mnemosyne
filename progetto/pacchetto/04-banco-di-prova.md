@@ -5,7 +5,9 @@
 > [seconda prova a freddo](../v2/prova-a-freddo-2.md) (P2-1, P2-16, P2-19, P2-37, P2-40, P2-41, P2-79, P2-87, P2-88)
 > e dopo la [terza](../v2/prova-a-freddo-3.md) (P3-9, P3-10, P3-17, P3-40, P3-55, P3-56, P3-61, P3-64, P3-69, P3-79);
 > il 2026-11-02, giro 9, dopo la [quarta](../v2/prova-a-freddo-4.md) (P4-1: R14 senza un ponte dovuto; P4-2: il
-> giudice di D02; P4-4, P4-13: la data e la nota di un gruppo di righe).
+> giudice di D02; P4-4, P4-13: la data e la nota di un gruppo di righe); il 2026-11-02, giro 10, dopo la
+> [quinta](../v2/prova-a-freddo-5.md) (P5-4: le attese di R14 fuori dal testo delle domande, "forte" riportata
+> in `CLAUDE.md`; P5-13: l'uscita senza congedo).
 > Proposta di Claude, da validare. Serve a collaudare l'implementazione
 > del [modello v3](./02-modello-v3.md) nel repo nuovo: ogni criterio si controlla sui file del repository
 > (percorsi, campi del frontmatter, legami, conteggi, ricerche esatte), senza giudizio; il giudizio sta solo nelle
@@ -1196,11 +1198,13 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
     frammento con un `ritorna-su` verso di loro; se sono zero, critica-semplicita ha ragione sul ritmo.
 - **Giudice AI (sì/no):** 1. È un nesso che lui non aveva fatto? 2. Coprendo la riga del perché (◌), le due frasi citate,
   una accanto all'altra, bastano già a far vedere il nesso? (Non si chiede se il nesso sia scritto: si chiede se si regge
-  sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea: modello §7.5.) 3. È
-  inventato o forzato? (deve essere no; senza ponte la domanda diventa: accanto alla formula, o al suo posto, c'è un
-  accostamento forzato, anche solo accennato?) **Soglia:** con un ponte, tutte (caso a); senza ponte, solo la 3 (caso b).
-- **Forte** (definizione unica: la richiamano il modello §7.5, `prompt/specchio.md` e il piano, blocco 6): un ponte è
-  **forte** se ha **sì** alla domanda 2 e **no** alla domanda 3 di questo giudice. Vale per ogni ponte verso un capo
+  sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea.) 3. È inventato o
+  forzato? (Senza ponte la domanda diventa: accanto alla formula, o al suo posto, c'è un accostamento forzato, anche
+  solo accennato?) **Attese** (fuori dal testo delle domande: il giudice non le vede, banco §5): sì alla 1 e alla 2, no
+  alla 3. **Soglia:** con un ponte, tutte (caso a); senza ponte, solo la 3 (caso b).
+- **Forte** (definizione unica: la richiamano il modello §7.5, il piano, blocco 6, e `CLAUDE.md`, che la riporta in una
+  riga perché i cicli non leggono il banco; `prompt/specchio.md` ne scrive le due domande per la prova interna, senza ◌
+  né rimandi): un ponte è **forte** se ha **sì** alla domanda 2 e **no** alla domanda 3 di questo giudice. Vale per ogni ponte verso un capo
   vecchio (le sere di Specchio, il bilancio del giorno 3, l'aggancio di una risposta, la convergenza del ritratto); una
   parola in comune non basta, e nemmeno un perché convincente.
 - **Gravità se fallisce:** alta: è la prima restituzione che vede, e decide se ne leggerà una seconda.
@@ -1524,6 +1528,9 @@ sintetici non entrano mai nell'archivio vero.
   vale la maggioranza. Un "non so" conta come esito contrario a quello richiesto.
 - I criteri deterministici si controllano **prima** e senza giudice (ricerca esatta, campi del frontmatter, conteggi,
   `git log`, hash, token); se uno fallisce, il giudice non serve.
+- L'**uscita** di una risposta in chat (Specchio, Progetto) è la risposta alla domanda, così come è stata data, **senza
+  congedo**: il congedo di Specchio ("Chiuso.") è un turno a parte (`prompt/specchio.md`, passo 6) e non entra nei
+  controlli della Forma.
 
 ### Come si registra l'esito
 

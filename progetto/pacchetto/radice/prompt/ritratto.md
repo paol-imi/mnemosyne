@@ -27,18 +27,22 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
      ✦ o ai miei gesti; può stare altrove, in corsivo con ✧ (nella domanda: "nel nucleo l'oltre è *amore e verità* ✧");
    - fuori i delicati; nessuna lode, nessuna etichetta come destino; ogni ○ con opera e passo, o la riga si toglie;
      l'ultima riga è la domanda.
-   **Variante giorno 1**: salta i passi 2 e 3 (ritmo e soglia): il primo ritratto si scrive con 0 frammenti parlanti,
-   prima del primo memo. Sul nucleo e sulle frasi importate, con **una** convergenza nuova ancorata a una mia frase ✦
-   (non al seme ✧); le date come tetto ("entro il 4 ottobre"); le frasi importate sono `forma: riportata`, con la nota
-   della regola 6 una volta sola; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
+   **Variante giorno 1** (giorno 1 = il **primo ritratto**, non il primo del mese): salta i passi 2 e 3 (ritmo e
+   soglia): il primo ritratto si scrive con 0 frammenti parlanti, prima del primo memo. Sul nucleo e sulle frasi
+   importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); le date come tetto ("entro il 4
+   ottobre"), su **ogni** frase ✦ citata, i due capi della convergenza compresi (sulla riga, o una volta in testa al
+   gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota
+   della regola 6 una volta sola, le altre senza nota; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
    senza il numero dei frammenti; nessun conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è
    un prima); la convergenza è ◌; l'ultima riga resta la domanda. Nel piano: **una** voce, la convergenza (`cosa:
-   convergenza`, `voce: proposta`, `[1]` nella prosa), con il suo legame `converge-con` `voce: proposta` e `da: 1`;
-   `aggancio` è la mia frase su cui si regge (`{a: id, passo}`); niente `copre`, che è della raffica.
-   Se `lucchetto.mjs` non esiste ancora, salta i suoi passi; `contesto.mjs` a quel punto scrive di sicuro solo
-   `recenti.md` e Stato, Nodi, Alias di `mappa.md` (usa ciò che c'è in più, come `parole.md`): per il resto leggi
-   `frammenti/` e i nodi (gli importati non contano nei 14 file), e dillo in una riga di servizio **prima** del corpo,
-   nel messaggio finale.
+   convergenza`, `voce: proposta`, `1.` a inizio riga o `[1]` nella prosa: modello §3.5), con il suo legame
+   `converge-con` `voce: proposta` e `da: 1`; `aggancio` è la mia frase su cui si regge (`{a: id}`, con `passo:
+   "nota:riga"` solo per un frammento su più righe; per una frase di una riga `passo` si omette); niente `copre`, che è
+   della raffica.
+   Se `lucchetto.mjs` non esiste ancora, salta i suoi passi. Il ripiego vale per **ogni** sezione di `mappa.md` che
+   manca (al blocco 4 `contesto.mjs` scrive di sicuro solo `recenti.md` e Stato, Nodi, Alias; usa ciò che c'è in più,
+   come `parole.md`): per ciò che manca leggi `frammenti/` e i nodi (gli importati non contano nei 14 file), e dillo in
+   una riga di servizio **prima** del corpo, nel messaggio finale.
 7. `node scripts/applica.mjs PIANO.json`; se `verifica.mjs` rifiuta un ritornello, riscrivi la frase, una volta.
 8. `node scripts/contesto.mjs` (copia il ritratto in `contesto/ritratto.md`), `node scripts/verifica.mjs`,
    `node scripts/lucchetto.mjs lascia`, commit `ritratto: AAAA-MM` (il mese di oggi), push.

@@ -9,29 +9,34 @@
 Il nome del repository è `mnemosyne` (scelto dall'utente il 2026-11-01), sull'account GitHub `paol-imi`. Qui è `MEMO`, nei comandi `OWNER/MEMO`
 (= `paol-imi/mnemosyne`).
 
-**Le prove a freddo e il loro codice.** Quattro sessioni senza contesto hanno eseguito questo piano: la prima fino al
-blocco 5, le altre fino alla porta del blocco 6. Il loro codice sta in `progetto/prova-a-freddo/codice/`,
-`progetto/prova-a-freddo-2/codice/`, `progetto/prova-a-freddo-3/codice/` e `progetto/prova-a-freddo-4/codice/`; i loro
-resoconti sono storia del pacchetto e **non servono** per costruire. Il codice della **quarta** è il punto di partenza più
-recente: script (~3.050 righe con `banco/esegui.mjs`), schemi, 121 test tutti verdi (alcuni leggono
-`progetto/pacchetto/02-modello-v3.md` e `/tmp/atlante`: si lanciano dalla radice di un repo che li ha), le 14 prove JSON
-del banco minimo, `simula-memo.mjs`, `smista.mjs vicini` e `--sigilla`, il lucchetto, e in `importa/` la tabella, le
-citazioni, `correzioni-citazioni.json` e `fonte.json` già rivisti e corretti (i quattro controlli del blocco 2 passano).
-Non contiene i dati del punto zero né `banco/esiti/`. Tutti e quattro sono un **punto di partenza da leggere e riusare a
-giudizio, non normativo**: sono stati scritti contro versioni del pacchetto che le prove stesse hanno corretto. Dove il
+**Le prove a freddo e il loro codice.** Cinque sessioni senza contesto hanno eseguito questo piano: la prima fino al
+blocco 5, le altre fino alla porta del blocco 6 (la quinta con 14 prove su 14). Il loro codice sta in
+`progetto/prova-a-freddo/codice/`, `progetto/prova-a-freddo-2/codice/`, `progetto/prova-a-freddo-3/codice/`,
+`progetto/prova-a-freddo-4/codice/` e `progetto/prova-a-freddo-5/codice/`; i loro resoconti sono storia del pacchetto e
+**non servono** per costruire. Il codice della **quinta** è il punto di partenza più recente: script (~3.060 righe con
+`banco/esegui.mjs`), schemi, 125 test tutti verdi (alcuni leggono `progetto/pacchetto/02-modello-v3.md` e `/tmp/atlante`:
+si lanciano dalla radice di un repo che li ha), le 14 prove JSON del banco minimo, `simula-memo.mjs`, `smista.mjs vicini`
+e `--sigilla`, il lucchetto, e in `importa/` la tabella, le citazioni, `correzioni-citazioni.json` e `fonte.json` già
+rivisti e corretti (i quattro controlli del blocco 2 passano). Non contiene i dati del punto zero; i suoi `banco/esiti/`
+sono storia della prova. Tutti e cinque sono un **punto di partenza da leggere e riusare a giudizio, non normativo**: sono stati scritti contro versioni del pacchetto che le prove stesse hanno corretto. Dove il
 codice e il modello v3 divergono vince sempre il modello; dove diverge da questo piano, vale il piano. **Ogni subagent
 che lavora in parallelo ha il suo clone**: mai `git stash`, `checkout` o `reset` su un clone condiviso (quarta prova).
 
 **Che cosa è superato nel codice delle prove.**
-- Della quarta: `radice/` (vale `progetto/pacchetto/radice/`, che il passo 1 di `prompt-avvio` copia: contiene già le
-  correzioni della quarta, e `specchio.md` vi è riscritto al giro 9); `radice-rispetto-al-pacchetto.diff`, `lacune.md` e `stato.md`
-  (storia della prova); `banco/prove/R14.json`, da riallineare al banco R14 del giro 9 (nessun ponte atteso: passano il
-  ponte forte e la sola formula; la domanda 3 vale anche senza ponte; "forte" è la riga sotto il giudice);
-  `promptGiudice` di `banco/esegui.mjs`, che non mostra al giudice i frammenti della Preparazione (per R14, u19), mentre
-  il banco §5 vuole che li veda.
+- Della quinta: `radice-rispetto-al-pacchetto.diff` (la sua riga di `ritratto.md` è ora in
+  `progetto/pacchetto/radice/`, che il passo 1 di `prompt-avvio` copia, con le altre correzioni del giro 10), `lacune.md`,
+  `stato.md` e `banco/esiti/` (storia della prova). La quinta non ha una `radice/`.
+- Della quarta, se si riusa invece della quinta: tutto ciò che la quinta ha corretto, cioè `radice/` (vale quella del
+  pacchetto); `banco/prove/R14.json`, da riallineare al banco R14 del giro 9 (nessun ponte atteso: passano il ponte forte
+  e la sola formula; la domanda 3 vale anche senza ponte, e le attese stanno fuori dal testo delle domande);
+  `promptGiudice` di `banco/esegui.mjs`, che non mostra al giudice i frammenti della Preparazione (blocco 1);
+  `schema/frontmatter.json`, che ammette in `lapide.in` un `@Nome` (solo slug); `smista.mjs vicini`, che per un importato
+  mette nel campo `data` il `registrato` e la data-tetto in un campo a parte (la `data` è la data-tetto, modello §6.2);
+  `contesto.mjs`, con la data-tetto dei vicini e il "dopo le 22" fuori dall'ora di Roma; `radice-rispetto-al-pacchetto.diff`,
+  `lacune.md` e `stato.md` (storia della prova).
 - Della terza, se si riusa invece della quarta: tutto ciò che la quarta ha corretto, cioè `smista.mjs vicini`, che mette il
   seme ✧ tra i vicini (contro il modello §6.2 e §7.5) e legge la data-tetto solo con `≤` (u22, u23 e u28 risultano del 5
-  ottobre: la data-tetto è il `vissuto` con `≤` o senza, §6.2); `esegui.mjs`, con lo stesso difetto della data-tetto; la
+  ottobre: la data-tetto è il `vissuto` con `≤` o senza, §6.2; il campo `data` l'ha corretto solo la quinta); `esegui.mjs`, con lo stesso difetto della data-tetto; la
   sezione Conti di `contesto.mjs` senza "dopo le 22" (modello §6.1); e in più `radice/`; `banco/prove/D02.json`, che vuole
   la nota "trascritta da Claude" su ogni riga riportata (il banco D02 la vuole una volta in testa al gruppo);
   `banco/prove/R14.json`, che ammette il seme ✧ come capo vecchio del ponte (il banco R14 no); `importa.mjs`, che
@@ -63,11 +68,12 @@ che lavora in parallelo ha il suo clone**: mai `git stash`, `checkout` o `reset`
 5. **Giorni 5–7**: il resto di `contesto.mjs`, la Routine "smista" con il `fire`, il Progetto claude.ai; la prima domenica, "consolida" e "lettera".
 6. **Settimane 2–4**: il banco intero (parti 1 e 2), poi le restituzioni e il tempo (parti 3 e 4).
 7. **1 dicembre**: il primo ritratto mensile; poi sogno, ricordo e confronto quando le soglie lo permettono.
-8. Codice: il modello §2.3 stima ~1.100 righe; la quarta prova a freddo ne ha scritte **~3.050** di script per i blocchi
-   0–6 (con i 666 di `banco/esegui.mjs`; 121 test, tutti verdi; **84 subagent, ~6,2 M token di subagent, ~70 minuti di
-   orologio**, con molte cose in parallelo), con `contesto.mjs` a metà; la terza ne aveva scritte ~2.970 con 51
-   subagent, ~4,5 M token e ~75 minuti, la seconda ~2.000 con 63 subagent, ~5,7 M token e ~1 h 50. La quarta costa di più
-   per le prove rifatte dopo ogni correzione di un prompt (§4) e per i cinque giri di R14. Prompt ~700 righe, già scritti nei
+8. Codice: il modello §2.3 stima ~1.100 righe; la quinta prova a freddo ne ha scritte **~3.060** di script per i blocchi
+   0–6 (con i 673 di `banco/esegui.mjs`; 125 test, tutti verdi; **41 subagent più 6 sessioni `claude -p`, ~3,2 M token
+   di subagent, ~52 minuti di orologio**, con molte cose in parallelo; 14 prove su 14), riusando il codice della quarta
+   (129 righe cambiate, 14 tolte), con `contesto.mjs` a metà; la quarta ne aveva scritte ~3.050 con 84 subagent, ~6,2 M
+   token e ~70 minuti (le prove rifatte dopo ogni correzione di un prompt, §4, e i cinque giri di R14), la terza ~2.970
+   con 51 subagent, ~4,5 M token e ~75 minuti, la seconda ~2.000 con 63 subagent, ~5,7 M token e ~1 h 50. Prompt ~700 righe, già scritti nei
    [prompt v3](./03-prompt-v3.md) e copiati alla radice dal passo 1 di `prompt-avvio`.
 9. Rischio maggiore: le notifiche della Routine (P2). Va provato **prima** del blocco 7, perché ne dipende il richiamo.
 10. Il collaudo blocca: **ogni** fallimento di una prova B o D che un blocco elenca per nome tiene chiusa la porta del blocco
@@ -104,7 +110,7 @@ della seconda porta lo SHA giusto.
 **Le citazioni corrette: otto su nove al checkpoint** ([citazioni §4](./08-citazioni.md)). Le correzioni sulle
 citazioni si fanno sull'Atlante, fuori dallo script (R7 del modello §14), e al checkpoint di `ORIGINE.md` ce ne sono otto su
 nove; **Marco Aurelio no**: `fonti/pensiero/marco-aurelio.md:29` ha ancora la resa di Claude (terza prova, P3-45). La
-traduzione di Moricca non viene dall'Atlante: sta già in `importa/citazioni.json` (della seconda e della quarta prova:
+traduzione di Moricca non viene dall'Atlante: sta già in `importa/citazioni.json` (della seconda, della quarta e della quinta prova:
 lì `correzioni-citazioni.json` la trova già corretta e non cambia niente) e in `importa/correzioni-citazioni.json`, che
 va tenuto (sotto): chi ricomincia senza questi due file importa la resa di Claude. Anche
 `fonti/sacro-e-mito/ermetismo.md:21` porta una resa di Claude: per le 17 citazioni vive fa testo `importa/citazioni.json`,
@@ -120,7 +126,7 @@ dopo il protocollo del blocco 2, non la nota. **Nessun passo a mano** e nessuna 
 
 Al checkpoint otto su nove non cambiano niente, e sette toccano entità che l'importazione non porta (eredità §6). Le due su
 entità vive, **Marco Aurelio** (la traduzione di Moricca al posto della resa di Claude) e **Jung**, stanno in
-`importa/correzioni-citazioni.json` (c'è, uguale, nel codice della seconda, della terza e della quarta prova: chi non lo riusa importa la
+`importa/correzioni-citazioni.json` (c'è, uguale, nel codice della seconda, della terza, della quarta e della quinta prova: chi non lo riusa importa la
 resa di Claude), che `importa.mjs` applica **solo** alle voci
 delle restituzioni `eredita` (mai alle frasi sue, che restano come le ha scritte) e che non fa nulla dove il testo è già
 corretto. Le **17 citazioni vive** passano comunque per il protocollo nel blocco 2, prima di entrare (R7).
@@ -135,7 +141,7 @@ Convenzioni per tutti i blocchi:
   `Europe/Rome`;
 - ogni script ha un test in `test/NOME.test.mjs` (con `node --test`) su dati in `test/fixture/`;
 - "[S]" è uno script, "[AI]" un giudizio dell'AI scritto come piano JSON (modello §2.2);
-- il **tempo** dei blocchi 0–6 è la **misura** della quarta prova a freddo: il tempo dei subagent sul percorso critico (quelli
+- il **tempo** dei blocchi 0–6 è la **misura** della quinta prova a freddo: il tempo dei subagent sul percorso critico (quelli
   in parallelo contati una volta), con tre giudici, ma **senza** i passi a mano U (simulati), la pancia dell'utente e le prove sul campo P, che restano da
   aggiungere; il blocco 6 è misurato sui memo sintetici del banco. Dal blocco 7 in poi è ancora una stima, e la stima
   vecchia dei blocchi 0–5 (12–17 ore) si è rivelata pessimista di un ordine di grandezza sul codice: ciò che pesa davvero
@@ -146,7 +152,7 @@ Convenzioni per tutti i blocchi:
 ### Blocco 0 · Le fondamenta del repository (giorno 0, mattina)
 
 - **Obiettivo:** un repository che sa da sé come lavorare, prima di qualunque dato.
-- **Dipende da:** passi a mano U1–U3 (§3).
+- **Dipende da:** passi a mano U1–U2 (§3); il PAT (U3) serve solo dal blocco 3.
 - **File:**
   - `progetto/` c'è già (il pacchetto, §1); `progetto/pacchetto/ORIGINE.md` dice da dove viene e lo SHA dell'Atlante;
   - `CLAUDE.md` = `progetto/pacchetto/radice/claude-radice.md` (prompt v3 §1), già copiato alla radice, con `prompt/`, dal
@@ -171,8 +177,9 @@ Convenzioni per tutti i blocchi:
 - **Collaudo:** su un clone pulito, `bash ambiente/setup.sh` e poi `npm test` passa; `schema/*.json` si compila con `ajv`;
   i sei esempi di frontmatter del modello §3.3–§3.5 (lettura, persona, citazione all'ingresso e dopo "consolida", lapide,
   restituzione) validano, e una loro copia con un campo sbagliato no.
-- **Tempo:** misurato ~3 minuti (1 subagent, ~107k token; `ora` 38 righe, schemi 496; 24 test verdi; due correzioni al
-  codice riusato: `aggiorna-nodo` in `schema/piano.json` e una fixture del formato).
+- **Tempo:** misurato ~4 minuti (1 subagent di verifica degli schemi, ~94k token; `ora` 38 righe, schemi 496; 121 test
+  verdi del codice riusato, 1 saltato senza tag; una correzione: `lapide.in` solo slug). Nella quarta ~3 minuti, con due
+  correzioni (`aggiorna-nodo` in `schema/piano.json` e una fixture del formato).
   **Rischio:** basso; l'unico punto fine è lo schema del piano, che segue la tabella di `formato-piano.md` (modello §2.2).
 
 ### Blocco 1 · Slug, verifica e banco minimo (giorno 0)
@@ -185,15 +192,16 @@ Convenzioni per tutti i blocchi:
 | `scripts/slug.mjs` | `slug(nome)` → kebab-case senza accenti; `chiave(nome)` → forma di confronto (minuscolo, senza articoli e accenti); `scheletro(nome)` → consonanti per i refusi; `candidati(nome, alias)` → `[{slug, via, debole}]` (modello §3.6): `alias` sono le righe `{chiave, slug, genere, cerchia?}` di `mappa.md` § Alias; `via` è `esatta`, `cognome`, `levenshtein`, `scheletro` o `nome`; `debole: true` per tutte tranne `esatta`, quindi anche `cognome` (modello §3.6; B06); ordinato, prima le esatte (`cerchia: vita` in testa), poi le deboli | ~60 |
 | `scripts/verifica.mjs` | `node scripts/verifica.mjs [--solo schema,hash,…]` → codice 0/1 e righe `ERRORE file: motivo`. Controlla: schema dei frontmatter, hash dei frammenti (in `frammenti/.hash`), immutabilità delle restituzioni (confronto con `git show HEAD:`), slug unici in tutto il repo, riferimenti che esistono, nessun ID esterno in nessun file, chiunque lo scriva (modello §3.7), l'esito all'ingresso con la **regola unica** del modello §7.2 passo 4 (prova a freddo R24/R62): all'ingresso una citazione porta l'attribuzione in `attribuita-a` e **non ha mai** `esito` (⚠: il `prova: memoria` del v2); fanno eccezione solo le citazioni accolte dall'importazione (§14 R7), che hanno sia `esito` sia `riferimento` | ~150 ora, ~200 con Q-nomi e ritornelli (blocco 10) |
 | `banco/esegui.mjs` | `node banco/esegui.mjs --prova B01 [--ramo banco/zero] [--esiti FILE]` → legge `banco/prove/B01.json` (i criteri deterministici: file attesi, ricerche esatte, divieti) e scrive una riga nella tabella di `banco/esiti/AAAAMMGG-COSA.md`; prepara il testo per il giudice | ~670 (quarta prova; la stima era ~120) |
-| `banco/giudice.md` | il prompt del giudice (banco §5): sessione nuova, vede solo la prova, la preparazione **con i suoi frammenti** (per R14, u19) e l'uscita; sì/no + una riga; tre volte, maggioranza | prompt |
+| `banco/giudice.md` | il prompt del giudice (banco §5): sessione nuova, vede solo la prova, la preparazione **con i suoi frammenti** e i capi dei legami dell'uscita (per R14: u19, B01, B02 e il capo vecchio del ponte, che può essere qualunque uNN), e l'uscita; sì/no + una riga; tre volte, maggioranza | prompt |
 
 - **Collaudo:** test di `slug` su "Umberto Galimberti", "galimberti", "chioran", "Kanth", "De André", "de andre" (devono
   cadere sullo stesso candidato i due Galimberti e i due De André; "chioran" trova l'alias `cioran` per `levenshtein`, che
   con distanza 1 è più forte dello scheletro; lo scheletro si prova su "Kanth" → `kant`). Il punto zero non ha Cioran: i
   test usano una tabella degli alias di fixture con `cioran` (B25 sulla parte 1 vuole il nodo nuovo). `verifica` rifiuta un
   frammento con una virgola cambiata (B03, B20) e una restituzione ritoccata.
-- **Tempo:** misurato ~7 minuti (2 subagent in parallelo, ~284k token; `slug` 75 righe, `verifica` 307, `esegui` 666; 14
-  prove JSON; B03 meccanico nei test; D02, R14, R01a e B18 riallineati al banco; due correzioni in `verifica`). **Rischio:** medio
+- **Tempo:** misurato ~5 minuti (1 subagent, ~109k token; `slug` 75 righe, `verifica` 307, `esegui` 673, +7 per i
+  frammenti della Preparazione al giudice; `R14.json` riallineata; 123 test verdi). Nella quarta ~7 minuti (2 subagent,
+  ~284k token; D02, R14, R01a e B18 riallineati al banco; due correzioni in `verifica`). **Rischio:** medio
   sui falsi positivi dei candidati (B06: "marco" non deve diventare `marco-aurelio`):
   `candidati` propone, **non decide**; decide l'AI con il pacchetto, e se è ambiguo chiede.
 
@@ -211,7 +219,7 @@ Convenzioni per tutti i blocchi:
     [eredità](./06-eredita.md), secondo le regole, le precisazioni e la tabella riga per riga del modello §14 e
     §14.1 (gli attriti A1–A31 che il §14 cita vi sono già risolti: non si leggono): quale frase è U01…U31 e
     dove sta, le `forma: riportata`, le date dei passi, le entità A e B, quale convergenza è ◌ o ✧. La tabella del codice
-    della quarta prova è il punto di partenza: è già rivista e passa i quattro controlli che seguono (quella della seconda
+    della quinta prova (la stessa della quarta) è il punto di partenza: è già rivista e passa i quattro controlli che seguono (quella della seconda
     ne falliva tre: quarta prova). Prima di usarla, qualunque sia, si controlla che u19 e u20 abbiano `nomina rust-cohle`
     (§14.1; era la voce R14 della prima prova a freddo, da non confondere con la prova R14 del banco), che nessuna
     citazione senza `esito` abbia `link` (R12), che u22 abbia tutte le sue righe di fonte e che la `fonte` **della lettura**
@@ -224,8 +232,8 @@ Convenzioni per tutti i blocchi:
     §3.5) e, per il corpo della restituzione, l'originale, la traduzione o "resa di Claude", la fonte intermedia e la traccia
     della prova (modello §14 R7). Le 17, per entità: marco-aurelio, divina-commedia, true-detective-s1, camus, eraclito,
     jordan-peterson, jung, kant, maimonide, nietzsche, schopenhauer, stoicismo, tao-te-ching, zapffe, ermetismo, iside,
-    vangelo-matteo (una voce ciascuna, con `rif` uguale allo slug **solo** se l'entità è nell'elenco dei nodi, altrimenti
-    `~Nome`: `~Eraclito`, `~Friedrich Nietzsche`, che il collaudo vieta come nodi; la voce non fa nascere nodi; il formato
+    vangelo-matteo (una voce ciascuna; il `rif` della voce sta nella tabella, non in `citazioni.json`, ed è lo slug **solo** se
+    l'entità è nell'elenco dei nodi, altrimenti `~Nome`: `~Eraclito`, `~Nietzsche`, che il collaudo vieta come nodi; la voce non fa nascere nodi; il formato
     è quello del `citazioni.json` della seconda prova, dove `prova` e `originale` sono nomi del v2 che finiscono nel
     `riferimento` e nel corpo). Se quel file c'è, **si riusa**: i subagent ne riverificano le voci invece di rifare la
     ricerca da capo (con il file della seconda prova ne è bastato uno: terza prova). Gli esiti sono
@@ -234,7 +242,8 @@ Convenzioni per tutti i blocchi:
   - `scripts/importa.mjs` (~250 righe): `node scripts/importa.mjs --da /tmp/atlante [--prova]`. Applica le R1–R13 **del
     modello §14** nel suo ordine (elenco dei nodi → frammenti → nodi → letture → restituzioni → riconciliazione →
     `contesto.mjs` → verifica), scrive con `ATLANTE_ORA` uguale alla data del passo, poi lancia `verifica.mjs`. Con `--prova`
-    stampa i conti e non scrive;
+    stampa i conti e non scrive. Nella `fonte` di ogni frammento aggiunge lui lo SHA dell'Atlante (`file:righe@sha7`,
+    da `importa/fonte.json`): la tabella dà solo `file:righe`;
   - `scripts/contesto.mjs`, **prima parte** (anticipata dal blocco 7: prova a freddo R44 e seconda prova P2-66, P2-54):
     `contesto/recenti.md`, `contesto/parole.md` (modello §6.1, con la finestra mobile e gli importati ✦ marcati con la
     data-tetto), la copia dell'ultimo ritratto in `contesto/ritratto.md` (se c'è: dal blocco 4) e le sezioni 1–3 di
@@ -249,9 +258,10 @@ Convenzioni per tutti i blocchi:
   21:00;
   ricerca esatta di tutte le U nell'Atlante (nessuna parola cambiata); `contesto/mappa.md` ha in Nodi tutti i nodi dell'elenco e
   nessun conto di Stato contiene l'importato (§14, ordine).
-- **Tempo:** misurato ~8 minuti (8 subagent: la tabella, le citazioni, `importa`, 2 risposte di D02 in Specchio, 3
-  giudici; ~685k token; `importa` 497 righe, `contesto` 503; conti 35/52/60/26). La tabella della seconda falliva 3 dei 4
-  controlli obbligatori, ed è stata corretta; D02 "oggi" è passata al secondo giro, dopo una riga nel `CLAUDE.md` (il
+- **Tempo:** misurato ~7 minuti (6 subagent: la tabella, le citazioni, Specchio per D02, 3 giudici; ~473k token;
+  `importa` 497 righe, `contesto` 505, nessun cambio; conti 35/52/60; i 4 controlli della tabella; 17/17 citazioni; D02
+  "oggi" 3 su 3 al primo giro, con il congedo fuori dall'uscita: banco §5). Nella quarta ~8 minuti, 8 subagent, ~685k
+  token. La tabella della seconda falliva 3 dei 4 controlli obbligatori, ed è stata corretta; D02 "oggi" è passata al secondo giro, dopo una riga nel `CLAUDE.md` (il
   corsivo è un tratto di una riga sola), che ora è nei prompt v3; lo stesso nella terza prova, con il seme in corsivo e la
   nota "trascritta". **Rischio:** alto sulla tabella (è il punto dove il giudizio entra nei dati per
   sempre). Mitigazione: la tabella è un file a sé, versionato, e l'importazione si rifà da capo in un minuto.
@@ -269,12 +279,13 @@ Convenzioni per tutti i blocchi:
     sempre una lista: modello §3.2 e §7.1; poi apre il Progetto claude.ai), per il blocco 8.
 - **Script:** `scripts/simula-memo.mjs` (~80 righe), che scrive un memo come la ricetta (sotto, "Tempo"). Un test
   `test/memo.test.mjs` controlla che un file come lo scrive il Comando rapido passi lo schema.
-- **Collaudo:** P3 (§6); B18 ridotta a ciò che c'è al blocco 3 (messaggio vuoto: deve diventare un file comunque, G1 e lo
-  schema del frammento; la scheda intera, con "smista" e `mappa.md`, alla sua data nella parte 1, blocco 7); un memo di
+- **Collaudo:** P3 (§6); B18 ridotta a ciò che c'è al blocco 3 (messaggio senza contenuto: il testo della scheda B18,
+  «boh niente volevo solo scrivere qualcosa», non un corpo vuoto; deve diventare un file comunque, G1 e lo schema del
+  frammento; la scheda intera, con "smista" e `mappa.md`, alla sua data nella parte 1, blocco 7); un memo di
   prova arriva in `ingresso/` con data e ora giuste e senza caratteri rovinati (accenti, emoji, a capo).
-- **Tempo:** misurato ~1 minuto di Claude Code (nessun subagent: ricette e `simula-memo` 83 righe riusati dalla terza
-  prova; B18 ridotta passa; un memo con accenti, emoji e a capo validato), più i 20 di utente. Nessuna delle quattro prove
-  a freddo ha potuto fare U3, U4 e P3 (servono un telefono vero e il PAT): restano da fare con
+- **Tempo:** misurato ~1 minuto di Claude Code (nessun subagent: ricette e `simula-memo` 83 righe riusati; B18 ridotta
+  passa al secondo giro, dopo un primo con un corpo vuoto; un memo con accenti, emoji e a capo validato), più i 20 di
+  utente. Nessuna delle cinque prove a freddo ha potuto fare U3, U4 e P3 (servono un telefono vero e il PAT): restano da fare con
   l'utente, la sera del giorno 0. **P3 non ferma i blocchi 4 e 5**: fino al suo esito i memo del banco si simulano con uno
   script che scrive il file come la ricetta (frontmatter `canale: telefono`, corpo byte per byte) e lo committa con la
   data del caso. **Rischio:** medio sul PUT di foto e audio (limite non documentato).
@@ -306,9 +317,11 @@ Convenzioni per tutti i blocchi:
     ottava, "una cosa segnata ⚠ nell'archivio è detta come certa?" (deve essere no), perché "nessun ⚠ citato come certo" non
     si controlla in modo meccanico. **Soglia:** almeno 7 su 8, con obbligatorie le 1 e 2 di R01, le tre di R14 e l'ottava.
   Poi **la pancia dell'utente**, una domanda sola: "ti ha detto qualcosa che non sapevi?".
-- **Tempo:** misurato ~6 minuti (8 subagent: 2 ritratti, 6 giudici; ~577k token; `applica.mjs` 364 righe). Nella quarta
-  prova il primo giro è caduto sui deterministici perché la data stava in testa al gruppo e il controllo la voleva su ogni
-  riga (ora ammessa); al secondo giro 8 su 8. Nella terza il giudice l'aveva bocciato al primo giro perché leggeva la
+- **Tempo:** misurato ~10 minuti (6 subagent: 3 ritratti, 3 giudici; ~491k token; `applica.mjs` 364 righe). Nella quinta
+  prova R01a è caduta due volte sui deterministici: il ritratto metteva la data alla tensione e la lasciava fuori dai due
+  capi della convergenza; con una riga in più in `ritratto.md` (la data su **ogni** frase ✦ citata, ora nei prompt v3)
+  è passata al terzo giro (giudici 8/8, 8/8, 7/8). Nella quarta (~6 minuti, 8 subagent, ~577k token) il primo giro era
+  caduto perché la data stava in testa al gruppo e il controllo la voleva su ogni riga (ora ammessa). Nella terza il giudice l'aveva bocciato al primo giro perché leggeva la
   domanda 2 di R14 come "il nesso non è scritto", e l'ha promosso sulla stessa uscita con la domanda resa univoca. La pancia dell'utente non si simula e resta da fare. **Rischio:** medio: un ritratto generico ("sei una persona che cerca senso") brucia la prima impressione.
   Se il giudice dice "generico", si riscrive una volta; se fallisce di nuovo, si consegna **solo** la convergenza, in tre righe.
 
@@ -338,15 +351,16 @@ Convenzioni per tutti i blocchi:
   di B06**, 2026-11-20, con `ATLANTE_ORA` di quella sera, 2026-11-20 alle 21:30, perché il Progetto e la separazione dei suoi memo non ci sono
   ancora). Poi, prima di aprire il blocco 6, B03, B11, B12, B14, B22, B25 (le alte che toccano l'ingresso). "Per primi"
   dice la priorità della porta, non l'ordine: si eseguono **in ordine di data** su un ramo solo (banco §5), quindi B03
-  (9 novembre) prima di B06 (20 novembre). Si esegue con `ATLANTE_ORA` uguale alla data del messaggio, sul ramo
+  (9 novembre) prima di B06 (20 novembre), **senza** le domeniche e i primi del mese in mezzo: "consolida", "lettera" e il
+  ritratto mensile non ci sono ancora (blocchi 9 e 10). Delle B elencate hanno un giudice solo B06, B14 e B22; le altre
+  si chiudono sui deterministici. Si esegue con `ATLANTE_ORA` uguale alla data del messaggio, sul ramo
   `banco/zero`, mai su `main`. Sono elencate per nome: ogni loro
   fallimento tiene chiusa la porta (§4).
-- **Tempo:** misurato ~45 minuti, codice e collaudo fino alla porta aperta (45 subagent: 1 di verifica, 19 sessioni di
-  "smista", 3 di Specchio per D02, 24 giudici; ~3,2 M token; `smista` 344 righe, `lucchetto` 172, `contesto` con la
-  seconda parte; 121 test verdi in tutto). 10 prove elencate su 10 con i prompt finali; nel mezzo sono cadute B03 e B01
-  al primo giro e D02 sera, rifatta con la domanda del giudice vecchia, e le correzioni (`reazione`, l'esempio del piano
-  di B01, il giudice di D02) sono ora nei prompt v3 e nel banco. Costa più della terza (24 subagent, ~1,88 M, ~27 minuti,
-  10 su 10 al primo giro) per la regola delle prove rifatte (§4): 9 prove in più, ~1,3 M token, ~25 minuti.
+- **Tempo:** misurato ~37 minuti, codice e collaudo fino alla porta aperta (23 subagent: 1 di verifica, 9 sessioni di
+  "smista", 1 di Specchio per D02 sera, 12 giudici; ~1,71 M token; `smista` 346 righe, `lucchetto` 172, `contesto` 505,
+  con due correzioni: la data-tetto nei vicini e "dopo le 22" nell'ora di Roma; 125 test verdi in tutto). 10 prove
+  elencate su 10 al primo giro. La quarta (45 subagent, ~3,2 M, ~45 minuti) aveva pagato la regola delle prove rifatte
+  (§4): 9 prove in più, ~1,3 M token, ~25 minuti; la terza 24 subagent, ~1,88 M, ~27 minuti.
   **Rischio:** alto sulla prima apertura serale (1–2 minuti d'avvio). Se l'utente non apre Specchio due sere
   su tre, si anticipa il blocco 7 senza aspettare il giorno 5.
 
@@ -380,8 +394,12 @@ Convenzioni per tutti i blocchi:
 - **Nelle prove a freddo:** una sessione Specchio lanciata come subagent non ha lo strumento dei subagent: la prova del ponte
   (tre giudizi separati) la fa con tre sessioni `claude -p`, come dice `specchio.md`; nell'uso vero Specchio è una
   sessione Code e lo ha (quarta prova, P4-26).
-- **Tempo:** misurato ~13 minuti sui memo sintetici del banco, per cinque giri (20 subagent: 5 Specchio, 15 giudici;
-  ~1,35 M token; nessun codice, `specchio.md` cambiato 4 volte). Nella quarta prova R14 è caduta 5 volte su 5 sul giudice,
+- **Tempo:** misurato ~5 minuti sui memo sintetici del banco, per un giro (1 Specchio, più 6 sessioni `claude -p` per la
+  prova del ponte, non contate nei token, e 3 giudici; ~284k token; nessun codice). Nella quinta prova R14 è passata al
+  primo giro nel caso (a), un ponte B01 ↔ u09, ma 2 a 1 tra i giudici, e 2 a 1 già nella prova interna, grazie a un
+  "sì con riserve" contato come sì: da qui il giro 10 (un sì con riserve conta come no, le domande della prova scritte in
+  `specchio.md`, il perché ◌ che non aggiunge ciò che le frasi non dicono). Nella quarta (~13 minuti, cinque giri, 20
+  subagent, ~1,35 M token, `specchio.md` cambiato 4 volte) R14 è caduta 5 volte su 5 sul giudice,
   sempre sulla domanda 2 (15 "no" su 15), perché il pacchetto indicava come atteso un ponte (Galimberti–Rust) che le due
   frasi non reggono: da qui il giro 9 (nessun ponte atteso, "forte" definito una volta, la prova affidata a tre subagent).
   Un giro, con il pacchetto di oggi, è una sessione Specchio, fino a tre subagent per la prova del ponte e tre giudici
@@ -464,13 +482,13 @@ Convenzioni per tutti i blocchi:
 
 | blocco | quando | Claude Code | utente | prove che bloccano |
 |---|---|---|---|---|
-| 0 fondamenta | g. 0 | ~3 min (misura) | U1–U3, 15 min | — |
-| 1 slug, verifica, banco | g. 0 | ~7 min (misura) | — | test di slug, B03 meccanico |
-| 2 importazione | g. 0 | ~8 min (misura) | — | D02 "oggi", conti |
-| 3 cattura | g. 0 sera | ~1 min (misura) | U4, 20 min | B18 ridotta; P3 con l'utente (non ferma i blocchi 4 e 5) |
-| 4 primo ritratto | g. 1 | ~6 min (misura) | leggerlo | R01a: R14.1–3 sulla convergenza, verbatim |
-| 5 smista + Specchio | g. 1–3 | ~45 min con le prove rifatte (misura; ~27 nella terza, al primo giro) | aprire Specchio la sera | B01, B02, B06, D02; poi B03, B11, B12, B14, B22, B25 |
-| 6 prova della meraviglia | g. 3 | ~3 min a giro sul banco (misura; 5 giri, ~13 min, nella quarta) | una risposta a pancia: la porta vera | R14 (un ponte forte, o la formula) |
+| 0 fondamenta | g. 0 | ~4 min (misura) | U1–U2, 10 min | — |
+| 1 slug, verifica, banco | g. 0 | ~5 min (misura) | — | test di slug, B03 meccanico |
+| 2 importazione | g. 0 | ~7 min (misura) | — | D02 "oggi", conti |
+| 3 cattura | g. 0 sera | ~1 min (misura) | U3–U4, 20 min | B18 ridotta; P3 con l'utente (non ferma i blocchi 4 e 5) |
+| 4 primo ritratto | g. 1 | ~10 min con tre giri (misura) | leggerlo | R01a: R14.1–3 sulla convergenza, verbatim |
+| 5 smista + Specchio | g. 1–3 | ~37 min al primo giro (misura; ~45 nella quarta, con le prove rifatte) | aprire Specchio la sera | B01, B02, B06, D02; poi B03, B11, B12, B14, B22, B25 |
+| 6 prova della meraviglia | g. 3 | ~5 min a giro sul banco (misura; 1 giro nella quinta, 5 giri e ~13 min nella quarta) | una risposta a pancia: la porta vera | R14 (un ponte forte, o la formula) |
 | 7 Routine e fire | g. 5–7 | 4–5 h | U5–U7, 30 min | P1, P4, B01–B25 |
 | 8 Progetto | g. 6–7 | 2 h | U8–U9, 10 min | P5, D01–D25 |
 | 9 consolida e lettera | 1ª domenica | 5–6 h | — | R02, R07, T02 |
@@ -478,9 +496,9 @@ Convenzioni per tutti i blocchi:
 | 11 ricordo, sogno, confronto | dicembre | 3 h | — | 10/14 R |
 | 12 tempo e scala | gennaio | 4–5 h | — | T06, T07, T08 |
 
-In tutto: per i blocchi 0–6 la quarta prova a freddo ha misurato **~70 minuti di orologio**, con molte cose in parallelo
-(**84 subagent, ~6,2 M token di subagent**; la terza: 51 subagent, ~4,5 M, ~75 minuti; la seconda: 63 subagent, ~5,7 M,
-~1 h 50), con tre giudici, fino alla porta del blocco 6, ma senza passi a mano (U3, U4 e
+In tutto: per i blocchi 0–6 la quinta prova a freddo ha misurato **~52 minuti di orologio**, con molte cose in parallelo
+(**41 subagent più 6 sessioni `claude -p`, ~3,2 M token di subagent**; la quarta: 84 subagent, ~6,2 M, ~70 minuti; la
+terza: 51 subagent, ~4,5 M, ~75 minuti; la seconda: 63 subagent, ~5,7 M, ~1 h 50), con tre giudici, fino alla porta del blocco 6, ma senza passi a mano (U3, U4 e
 P3 simulati o in attesa) e senza la pancia dell'utente: si aggiungono le sere dell'utente. I blocchi 7–12 restano una stima
 di ~21–26 ore col metro vecchio, che sui blocchi 0–5 ha sbagliato per eccesso. ~1 ora e mezza di mani dell'utente, che le
 prove non hanno misurato.
@@ -556,6 +574,9 @@ sintetici"), un frammento sintetico **non porta campi in più** (lo schema del m
 da `main` (`scripts/`, `schema/`, `prompt/`, `banco/`, `_schema.md`, `CLAUDE.md`, `package.json`, `package-lock.json`,
 `ambiente/`: lo stesso elenco del banco §5) e i **dati** (le cartelle del
 blocco 0) dal tag `punto-zero`, e si rifà così a ogni giro: il tag da solo non ha il codice scritto dopo (prova a freddo R53).
+**I cloni del banco si fanno senza remoto** (`git remote remove origin` subito dopo il clone): così `lucchetto.mjs` e
+Specchio, che a fine lavoro spingono, non scrivono sul ramo del repo d'origine (nella quinta prova il primo Specchio di
+D02 aveva spinto su `banco/zero`, rimesso a mano sul tag).
 
 **Il tempo.** Ogni script legge l'ora da `scripts/ora.mjs`, quindi da `ATLANTE_ORA` (ISO 8601 con fuso, `Europe/Rome`:
 `+01:00` fino al 27 marzo 2027, `+02:00` dopo); i commit del banco portano la stessa data in `GIT_AUTHOR_DATE` e
@@ -566,7 +587,7 @@ interrotto (il ramo si rifà comunque dal tag).
 **L'ordine** (banco §5): deterministici prima, giudice dopo e solo se servono.
 1. `banco/esegui.mjs` controlla File, Mappa, Risposta, Non deve: ricerca esatta, conteggi, `git log`, token.
 2. Se passano, il giudice: una sessione nuova (o un subagent con contesto vuoto) che vede solo la prova, la preparazione con
-   i suoi frammenti e l'uscita; tre giudizi, vale la maggioranza; "non so" è un no.
+   i suoi frammenti e i capi dei legami dell'uscita (blocco 1), e l'uscita; tre giudizi, vale la maggioranza; "non so" è un no.
 3. Una riga per prova in `banco/esiti/AAAAMMGG-COSA.md`, con in testa il modello lettore, il giudice, la versione dello
    schema (`schema: 3`), lo SHA di partenza.
 
@@ -589,10 +610,11 @@ interrotto (il ramo si rifà comunque dal tag).
   si riscrive il ritmo, non si aggiunge funzione.
 
 **Il costo del collaudo.** Parti 1 e 2 ~50 giri di "smista" o domanda, più ~150 giudizi; parte 3 in parallelo; T07 e T08 i soli
-costosi. Si conta il consumo dei primi 10 giri e si stima il resto prima di lanciarlo. La misura che c'è: la quarta prova a
-freddo ha speso ~6,2 M token di subagent per i blocchi 0–6 (84 subagent), di cui ~3,2 M per il blocco 5 (il codice, 10
-prove su 10 e le 9 prove rifatte, con tre giudici) e ~1,35 M per i cinque giri di R14; la terza ~4,5 M (51 subagent), di
-cui ~1,88 M per il blocco 5, al primo giro. Tutte e due hanno fatto meno lavoro del piano al blocco 2, perché riusavano
+costosi. Si conta il consumo dei primi 10 giri e si stima il resto prima di lanciarlo. La misura che c'è: la quinta prova a
+freddo ha speso ~3,2 M token di subagent per i blocchi 0–6 (41 subagent, più 6 sessioni `claude -p` non contate), di cui
+~1,71 M per il blocco 5 (il codice e 10 prove su 10 al primo giro, con tre giudici) e ~284k per R14, al primo giro; la
+quarta ~6,2 M (84 subagent), di cui ~3,2 M per il blocco 5 (con le 9 prove rifatte) e ~1,35 M per i cinque giri di R14;
+la terza ~4,5 M (51 subagent), di cui ~1,88 M per il blocco 5, al primo giro. Tutte hanno fatto meno lavoro del piano al blocco 2, perché riusavano
 tabella e citazioni di una prova precedente: un subagent invece di 4–6 per la tabella, uno invece di 6 per le citazioni.
 
 ---
@@ -656,10 +678,11 @@ dopo, perché nell'Atlante la mappa visiva non è stata usata ([archivio reale](
   [Prompt v3](./03-prompt-v3.md) · [Voce](./10-voce.md) · [Telefono](./11-telefono.md)
 - [Eredità](./06-eredita.md) · [Citazioni](./08-citazioni.md) · [Identità](./09-identita.md) ·
   [Regole dell'importazione](./05-regole-importazione.md) (superate dal §14 del modello)
-- Codice: [della quarta prova](../prova-a-freddo-4/codice/) (il punto di partenza più recente, non normativo) ·
-  [della terza](../prova-a-freddo-3/codice/) · [della seconda](../prova-a-freddo-2/codice/)
+- Codice: [della quinta prova](../prova-a-freddo-5/codice/) (il punto di partenza più recente, non normativo) ·
+  [della quarta](../prova-a-freddo-4/codice/) · [della terza](../prova-a-freddo-3/codice/) · [della seconda](../prova-a-freddo-2/codice/)
 - Storia, non serve per costruire (il pacchetto non li fa leggere, e dove questo piano li nomina dicono solo da dove viene
   una regola): [prompt operativi](../v2/prompt-operativi.md), superati dai prompt v3 ·
   [critica della semplicità](../v2/critica-semplicita.md) · [coordinamento](../v2/coordinamento.md) ·
   [prima](../v2/prova-a-freddo.md), [seconda](../v2/prova-a-freddo-2.md),
-  [terza](../v2/prova-a-freddo-3.md) e [quarta prova a freddo](../v2/prova-a-freddo-4.md)
+  [terza](../v2/prova-a-freddo-3.md), [quarta](../v2/prova-a-freddo-4.md) e
+  [quinta prova a freddo](../v2/prova-a-freddo-5.md)

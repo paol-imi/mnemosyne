@@ -35,10 +35,10 @@ Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione 
 
 | op | campi | chi |
 |---|---|---|
-| `crea-nodo` | `genere`, `nome`, e i campi del genere (`alias`, `cerchia`, `in`, `autore`, `attribuita-a`, `citata-da`, `anno`, `scopo`, `esito`, `riferimento`, `originale`, `traduzione`, `link`), `nato-da` (di default il frammento letto), `corpo` | smista, specchio, consolida |
+| `crea-nodo` | `genere`, `nome`, `alias`, e i campi del genere (`cerchia`, `in`, `autore`, `attribuita-a`, `citata-da`, `anno`, `scopo`, `esito`, `riferimento`, `originale`, `traduzione`, `link`), `nato-da` (di default il frammento letto), `corpo` | smista, specchio, consolida |
 | `alias` | `nodo`, `alias` | smista, specchio, consolida |
 | `aggiorna-nodo` | `nodo`, `campi: {…}` | solo consolida |
-| `lettura` | `frammento`, `versione` (1 all'ingresso; se manca la mette lo script), `intento`, `reazione`, `legami`, `parole`, `trascrizione`, `altrui`, `vissuto`, `delicato`, `nota`, `risposta` (`salvato` · `ci-sono` · id esistente) | smista e specchio (v1), consolida (v ≥ 2) |
+| `lettura` | `frammento`, `versione` (1 all'ingresso; in "consolida" quella dopo l'ultima in vigore; se manca la mette lo script, con la stessa regola), `intento`, `reazione`, `legami`, `parole`, `trascrizione`, `altrui`, `vissuto`, `delicato`, `nota`, `risposta` (`salvato` · `ci-sono` · id esistente) | smista e specchio (v1), consolida (v ≥ 2) |
 | `restituzione` | `forma`, `per`, `copre`, `aggancio`, `testo`, `voci` (`rif`, `voce`, `cosa`, `turno`, `perche`, `esito`, `riferimento`), `legami` (con `da`) | smista, specchio, consolida, ritratto |
 | `riserva` | `file` (`ritorno` · `pronte`), `testo` (il file intero) | solo consolida |
 | `lapide` | `da`, `in`, `perche` (la fusione: lo script chiama `migra/fondi.mjs`) | solo consolida |
@@ -46,21 +46,24 @@ Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione 
 **I tipi dei campi.** Stringa (slug, `@Nome` o `~Nome`): `autore`, `in`, `a`; `nodo` (di `alias`, `aggiorna-nodo` e di
 una correzione) è uno slug o `@Nome`, mai `~Nome`, perché punta a un nodo che c'è o che nasce nel piano (v3 §3.7). Elenco: `alias`,
 `attribuita-a`, `citata-da`, `nato-da`, `copre`, `parole`, `tra`, `intento`. Intero: `anno`, `n`, e `da` di un legame
-di restituzione (la voce da cui parte); nell'operazione `lapide`, `da` e `in` sono slug. Un mito, una tradizione, un
+di restituzione (la voce da cui parte); nell'operazione `lapide`, `da` e `in` sono slug di due temi che esistono già, mai
+`@Nome`. `voce: seme` è ammessa in una voce (la riga ✧ di "le mie frasi"), ma nei `legami` di una restituzione solo
+nelle `eredita` dell'importazione (modello §3.5: lo schema §3.7 ha un solo elenco per tutti e due). Un mito, una tradizione, un
 luogo come voce: `cosa: opera` (il racconto) o `persona` (il protagonista); l'enum non ha altro.
 
 ## Regole
 - **Mai uno slug inventato**: per un nodo nuovo `@Nome`, che lo script risolve anche dentro le altre operazioni dello
   stesso piano; per un nodo esistente lo slug di `mappa.md` (Alias) o dei candidati del pacchetto.
 - **Mai un numero `n`** nelle voci nuove: lo script li assegna nell'ordine in cui compaiono nel `testo`, che li scrive
-  come `1.`, `2.`… **a inizio riga**, anche quando la voce è una sola ("**Salvato.**" sta sulla sua riga, le voci sotto).
+  come `1.`, `2.`… **a inizio riga**, anche quando la voce è una sola ("**Salvato.**" sta sulla sua riga, le voci sotto),
+  oppure come `[1]` dentro la prosa (il ritratto: modello §3.5).
 - Ogni legame ha `p`, `a` oppure `tra`, `voce`, `perche`. `legami` della lettura e `voci` della restituzione ci sono
   sempre, anche vuoti (`[]`).
 - `reazione.parole` è copiata **esatta** dal frammento (lo script controlla che sia una sottostringa).
 - Una citazione creata da "smista" o da Specchio ha solo `nome`, `nato-da`, eventuali `alias`, `attribuita-a` (se la
   attribuisco) e, nel
-  `corpo`, la traccia della verifica rapida: mai `esito`, `riferimento`, `autore`, `originale`, `traduzione`, `citata-da`
-  (li scrive "consolida" con `aggiorna-nodo`). Un'opera invece può nascere con `autore`, se lo dicono le mie parole.
+  `corpo`, la traccia della verifica rapida: mai `esito`, `riferimento`, `autore`, `originale`, `traduzione`, `citata-da`,
+  `link` (li scrive "consolida" con `aggiorna-nodo`; modello §3.4). Un'opera invece può nascere con `autore`, se lo dicono le mie parole.
 - `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`; un popolo resta come
   l'ho scritto).
 - Nella `lettura` niente `link`: lo scrive lo script, dal frammento e dall'oEmbed. Niente nemmeno `prompt`,

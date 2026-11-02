@@ -9,14 +9,17 @@ passata delle 3 ore.
 1. **Lucchetto.** `node scripts/lucchetto.mjs prendi --ciclo smista --fire ID` (senza `--fire` nella passata).
    Lo script aspetta 90 secondi e fa `git pull`; esce con "non tocca a te" (codice 4) solo se in `ingresso/` c'è un memo del
    telefono **più recente** del tuo **e con meno di 4 minuti** (lo elaborerà quella sessione): allora termina subito,
-   senza messaggio. Se il lucchetto è preso, aspetta fino a 45 minuti; se resta preso, termina (la passata delle 3 ore
+   senza messaggio. La passata (senza `--fire`) non cede mai: un memo fresco in `ingresso/` lo elabori tu, senza
+   chiederti se lasciarlo. Se il lucchetto è preso, aspetta fino a 45 minuti; se resta preso, termina (la passata delle 3 ore
    raccoglie tutto). La passata cancella i lucchetti orfani (più vecchi di 20 minuti).
 2. `node scripts/smista.mjs prepara`. Sposta tutto `ingresso/` in `frammenti/` tranne le chat aperte; riduce le foto
    lasciando l'originale; separa i memo del Progetto (`memo: chat` diventa un frammento `canale: chat` e una
-   restituzione con una sezione per domanda: tu ne scrivi solo la lettura); sigilla le chat di Specchio ferme da prima
+   restituzione con una sezione per domanda: tu ne scrivi solo la lettura; se lo script non li separa ancora e lo dice,
+   il memo `memo: chat` resta senza lettura, in coda, e lo dici nel messaggio finale); sigilla le chat di Specchio ferme da prima
    delle 04:00 di oggi. Ti dà un pacchetto per ogni frammento senza lettura: il frammento, `contesto/recenti.md`, gli
    alias, i candidati per ogni nome, i vicini (nei primi 3 giorni tutti gli importati ✦), gli scarti, i titoli dei link
-   (lo script li chiede all'oEmbed, e l'autore alla pagina: tu non li cerchi).
+   (lo script li chiede all'oEmbed, e l'autore alla pagina: tu non li cerchi). Poi `node scripts/contesto.mjs`, così
+   `mappa.md` (Stato) vede i memo appena spostati: il silenzio del "mentre eri via" si legge lì.
 3. Per ogni pacchetto, in ordine di tempo (un subagent per frammento se sono più di 3), le operazioni del piano:
    - **intento**: `salva` di norma; `chiedi` solo per un fatto del mondo o dell'archivio; una domanda dentro un memo che
      dice anche altro (un ricordo, un nesso, un nome) è `[salva, chiedi]`; una domanda su di me ("sono la stessa persona
@@ -31,8 +34,11 @@ passata delle 3 ore.
      `valore` (`@Nome` se la persona giusta non c'è ancora). Non toccare il nodo: lo aggiorna "consolida".
    - **entità**: solo certe. Un nodo nasce se lo nomino (persona, opera, citazione, concetto o immagine con un nome).
      Scegli tra i candidati o `crea-nodo` con `@Nome`; per un nome proprio nudo guarda prima `cerchia: vita` ("Marco"
-     non è Marco Aurelio). Confini: concetto con autore = un tema solo; "X: frase" = citazione con X in
-     `attribuita-a` e **nessun** `nomina` verso la persona X (ce l'ha solo se la nomino fuori dalla frase); parentele
+     non è Marco Aurelio): se lì non c'è e le mie parole lo danno come uno della mia vita ("marco mi ha mandato"), nasce
+     persona `vita` con quel nome, e il candidato debole (`marco-aurelio`) non si sceglie. Lo slug lo calcola
+     `applica.mjs` dal `nome`: per uno slug fisso scegli il nome che lo dà ("papà" → `papa`). Confini: concetto con
+     autore = un tema solo; "X: frase" = citazione con `@X` in `attribuita-a` (X nasce persona, di norma `mondo`, se
+     non c'è) e **nessun** `nomina` verso la persona X (ce l'ha solo se la nomino fuori dalla frase); parentele
      in prima persona = nodo `vita` con slug fisso (`papa`, `mamma`, `nonna-NOME`) e alias solo col possessivo; miti col
      nome del protagonista = persona `finzione`; gruppi = persone `mondo`; link muto e "questa" su una foto = nessun
      nodo subito, il testo in `link`/`trascrizione`. Entità ambigua il cui errore resterebbe: `~Nome` e la domanda 1. Forma nuova di un nodo che c'è: operazione `alias`.
@@ -55,11 +61,13 @@ passata delle 3 ore.
      era verso la fine": `momento` sul `nomina` della citazione, non dello spettacolo). Se il link porta `t=`, il momento
      è **quel** tempo in `mm:ss` (`t=754` → `"12:34"`), anche se a parole dico "dal minuto 12"; `t=` resta nel link. Un
      link senza nome (titolo assente) non fa nascere nodi: il `momento` va su un `nomina` verso un `~Nome` in chiaro preso
-     dalle mie parole, mai un titolo inventato. Un'indicazione va in `nota`. Risposta: "Salvato." con il momento, se serve.
+     dalle mie parole, mai un titolo inventato; se le mie parole non danno un nome, niente `nomina`: il momento resta nel
+     `t=` del link. Un'indicazione va in `nota`. Risposta: `risposta: salvato`; ripetermi il momento non è contenuto.
    - **`parole`** (facoltativo) quando ci sono parole candidate a tema, anche in un seguito o in un `ritorna-su` ("la
      frase dell'ospite era verso la fine, quando parlava dei greci" → `parole: [greci]`): sempre una lista, anche di una
      parola; singolare, minuscolo, un nome e non un aggettivo, dalla mia parola ("padre", non "padri"; "i ragazzi" →
-     `ragazzo`; "motivi culturali" → `cultura`).
+     `ragazzo`; "motivi culturali" → `cultura`). Un popolo o una tradizione resta come lo scrivo io: "i greci" →
+     `greci`.
    - **reazione**: le mie parole copiate esatte e il `verso`: `+`; `-` anche per ironia, sufficienza, "carino ma…",
      "da bacio perugina"; `±` solo per una commozione o un "ci ha preso".
    - `delicato: true` se serve; `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
@@ -84,10 +92,14 @@ passata delle 3 ore.
 
 ## La risposta (solo se ha contenuto)
 Al più: **un aggancio** dall'archivio (un ponte forte a un vicino, con un **luogo preciso** da entrambe le parti: la mia
-frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai), **un fatto del
+frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai; il seme ✧ non fa
+da capo vecchio di un ponte, `prompt/specchio.md`), **un fatto del
 mondo ○** verificato che la mia frase chiama, una **correzione di fatto** solo per un errore scritto da me, al più **una**
 delle 7 domande di CLAUDE.md. Un ponte non forte si tiene per la lettera. Forma: "**Salvato.**" più 0–2 righe, ≤ 40
-parole; ogni voce numerata **a inizio riga** (`1.`, `2.`), anche quando è una sola. Le voci che portano un fatto del mondo
+parole (un memo con `chiedi` ha la lunghezza di una risposta a una domanda, fino a 150); ogni voce numerata **a inizio
+riga** (`1.`, `2.`), anche quando è una sola. La domanda, se c'è, sta in fondo, sulla sua riga, senza numero: non è una
+voce. Una smentita trovata dalla verifica rapida, anche su una scheda secondaria (Quote Investigator), è ○: la sua voce
+ha il `riferimento` della scheda, oppure la riga porta ⚠. Le voci che portano un fatto del mondo
 (un'attribuzione, un titolo probabile) sono `voce: mondo` ○, anche se il nodo l'ho nominato io (lo spettacolo).
 Esempio:
 ```
@@ -116,8 +128,8 @@ o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto: niente.
 quelli che nomino io), mai `contraddice`, mai `riserva/`.
 
 ## Se qualcosa manca
-- `contesto/` assente: `contesto.mjs` prima del passo 3. Nella prima settimana lo script scrive solo `recenti.md` e
-  Stato, Nodi, Alias di `mappa.md` (il resto arriva nei giorni 5–7): per ciò che manca lavora con `frammenti/`, gli
+- `contesto/` assente: `contesto.mjs` prima del passo 3. Nella prima settimana lo script scrive di sicuro solo
+  `recenti.md` e Stato, Nodi, Alias di `mappa.md` (il resto arriva nei giorni 5–7; usa ciò che c'è, come `parole.md`): per ciò che manca lavora con `frammenti/`, gli
   alias dei nodi e le ultime restituzioni, e dillo nel messaggio finale.
 - oEmbed fallito: il link resta senza titolo; nessun titolo né autore dato da te, né in `nota` né nella risposta.
 - Foto illeggibile: `trascrizione` vuota, "Salvato." e basta.

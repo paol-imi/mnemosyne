@@ -2,7 +2,7 @@
 
 Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano JSON** e lo passa a
 `node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano. Lo script lo convalida, calcola slug e numeri,
-pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dello SHA-1 di `CLAUDE.md`,
+pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dell'id blob di git di `CLAUDE.md`,
 `prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila), `registrato`, `schema` e, se manca, `versione`, o rifiuta con il motivo. È
 transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimenti non resta niente.
 
@@ -28,6 +28,8 @@ transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimen
 ```
 
 ## Le sette operazioni
+Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione sono queste.
+
 | op | campi | chi |
 |---|---|---|
 | `crea-nodo` | `genere`, `nome`, e i campi del genere (`alias`, `cerchia`, `in`, `autore`, `attribuita-a`, `citata-da`, `anno`, `scopo`, `esito`, `riferimento`, `originale`, `traduzione`, `link`), `nato-da` (di default il frammento letto), `corpo` | smista, specchio, consolida |
@@ -55,6 +57,12 @@ luogo come voce: `cosa: opera` (il racconto) o `persona` (il protagonista); l'en
   attribuisco) e, nel
   `corpo`, la traccia della verifica rapida: mai `esito`, `riferimento`, `autore`, `originale`, `traduzione`, `citata-da`
   (li scrive "consolida" con `aggiorna-nodo`). Un'opera invece può nascere con `autore`, se lo dicono le mie parole.
-- `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`).
+- `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`; un popolo resta come
+  l'ho scritto).
+- Nella `lettura` niente `link`: lo scrive lo script, dal frammento e dall'oEmbed. Niente nemmeno `prompt`,
+  `registrato`, `schema`.
+- `risposta` della lettura: `salvato`, `ci-sono`, oppure l'id di una risposta che **esiste già** (la raffica tra
+  sessioni). Se la risposta nasce in questo stesso piano (una `restituzione` con `per` o `copre` su questo frammento),
+  non scrivere `risposta`: l'id lo assegna lo script e lo mette lui.
 - Rifiuto: correggi seguendo il messaggio, **al massimo due volte**; poi togli l'operazione colpita (o lascia il
   frammento senza lettura: resta in coda) e scrivilo nel messaggio finale, con l'id e il motivo, senza contenuto.

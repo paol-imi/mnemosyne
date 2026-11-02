@@ -96,7 +96,7 @@ su Android la condivisione verso Claude non è documentata **?**. Quindi per la 
 
 ### Verdetto sulla cattura
 **(b) + (c) insieme, nello stesso Comando rapido.** Prima il `PUT` in `ingresso/` (il messaggio è salvo in un secondo,
-anche se tutto il resto fallisce: principio 1), poi il `fire` con il percorso del file come `text`, per elaborarlo
+anche se tutto il resto fallisce: principio 1), poi il `fire` con l'id del memo come `text` (`{"text": "ID"}`: il nome del file senza estensione), per elaborarlo
 subito. Foto e audio passano solo dal PUT. (a) resta per quando si vuole conversare. (e) è la tappa a regime.
 
 ---
@@ -206,8 +206,8 @@ quando c'è un ponte forte; **nessun sollecito dopo un silenzio** (principio 12)
 
 **Tappa 1, subito (zero infrastruttura, ~1 ora di configurazione a mano)**
 1. Comando rapido **"Memo"** (iOS; su Android HTTP Shortcuts): dal menu Condividi, dal tasto Azione o da Siri.
-   Prende testo, URL, foto o audio → `PUT ingresso/AAAAMMGG-HHMM-xxxx.(md|webp|m4a)` → `fire` della Routine con il
-   percorso → mostra "Salvato". Un tocco, un secondo.
+   Prende testo, URL, foto o audio → `PUT ingresso/AAAAMMGG-HHMM-xxxx.(md|webp|m4a)` → `fire` della Routine con l'id
+   del memo → mostra "Salvato". Un tocco, un secondo.
 2. Routine **"smista"**: fire a ogni memo + passata ogni 3 ore. Elabora `ingresso/`, scrive il frammento, propone i
    legami, rigenera `contesto/`, lancia la verifica, **push su `main`**.
 3. Progetto claude.ai **"Atlante"** con il repo sincronizzato sulla sola cartella `contesto/`: le domande in chat.

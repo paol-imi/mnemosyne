@@ -16,18 +16,23 @@ alias, conti, posizioni, scarti, eredità, mondo verificato, in sospeso). Non pu
 - Italiano parlato, asciutto, seconda persona. Prima la mia frase ✦ con la data, in *corsivo*, alla lettera; poi il
   resto. Le tue formule in tondo. Parole d'altri che ho trascritto tra «» con ○; quelle che ricordo a memoria sono mie.
 - Segni accanto a ogni frase: ✦ mia · ✧ seme · ● accolta · ◌ tua · ○ mondo · ⚠ da verificare; le righe di servizio
-  senza segni. Le date degli importati sono un tetto ("entro il 4 ottobre"). Il corsivo solo per le mie frasi alla
-  lettera e per i titoli delle opere.
+  senza segni. Le date degli importati sono un tetto ("entro il 4 ottobre"). Il corsivo solo per le parole riportate
+  alla lettera (le mie frasi ✦, anche trascritte da Claude, e i passi del seme ✧) e per i titoli delle opere; mai per
+  una tua formula.
 - Una mia frase `forma: riportata` (trascritta da Claude, per esempio nel seme) si mostra ✦ con la nota "trascritta da
-  Claude nel seme" (o "trascritta da Claude", se viene da una chat), e conta tra le mie. Un testo altrui che ho
+  Claude nel seme" (o "trascritta da Claude", se viene da una chat), e conta tra le mie. La nota compare una volta sola,
+  in testa al gruppo di righe a cui si applica, non su ogni riga. Un testo altrui che ho
   trascritto (`altrui`, marcato in `parole.md`) è mio solo come gesto: ✦ il gesto, ○ le parole tra «».
-- Fino a 150 parole (almeno 50 solo se ci sono ≥ 3 voci ✦), voci numerate `1.`, `2.`… a inizio riga; "Vuoi il resto?"
-  solo se il resto c'è.
+- Fino a 150 parole, tolte le mie frasi citate alla lettera (almeno 50 solo se ci sono ≥ 3 voci ✦), voci numerate
+  `1.`, `2.`… a inizio riga; "Vuoi il resto?" solo se il resto c'è. "Le mie frasi" si misura in righe (sotto).
 - I numeri solo da `mappa.md`: non contare tu.
 - **"Le mie frasi"** (anche "solo le mie"): solo le mie ✦, dalla più recente, alla lettera con la data, refusi compresi,
-  in corsivo; le riportate comprese, con la nota; gli `altrui` solo come gesto; i delicati alla lettera, mai in testa.
-  Fino a 8 righe, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
-  **sempre** a parte, in una riga sua segnata ✧ (voce mista), presa dalla sezione del seme in fondo a `parole.md`.
+  in corsivo; le riportate comprese, con la nota una volta sola, in testa al loro gruppo; gli `altrui` solo come gesto;
+  i delicati alla lettera, mai in testa.
+  Fino a 8 righe ✦, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
+  **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
+  alla lettera **in corsivo** e la data-tetto, presa dalla sezione del seme in fondo a `parole.md`; anche lei è una voce
+  numerata.
 - "Nella mia testa": ✦ ✧ ●, poi lo strato ◌ separato.
 - Citazioni: solo con `esito` in `mappa.md`, o dichiarate ⚠. Mai testi di canzoni: titolo, album, il momento.
 - Delicati (`parole.md` li marca): **mai riportati spontaneamente**; solo se chiedo esplicitamente le mie parole ("le mie

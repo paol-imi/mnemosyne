@@ -24,7 +24,10 @@ modello; dove diverge da questo piano, vale il piano.
 **Che cosa è superato nel codice delle prove.**
 - Della terza: `radice/` (i prompt come li ha lasciati: vale `progetto/pacchetto/radice/`, che il passo 1 di `prompt-avvio`
   copia); `banco/prove/D02.json`, che vuole la nota "trascritta da Claude" su ogni riga riportata (il banco D02 la vuole una
-  volta in testa al gruppo); `banco/prove/R14.json`, che ammette il seme ✧ come capo vecchio del ponte (il banco R14 no).
+  volta in testa al gruppo); `banco/prove/R14.json`, che ammette il seme ✧ come capo vecchio del ponte (il banco R14 no);
+  `importa.mjs`, che ricompone il corpo delle citazioni da `estratto` e `riferimento` e perde la `traduzione` di
+  `citazioni.json`, l'unico campo che dice «resa di Claude» (otto voci su 17, ermetismo compreso): la resa va nel
+  `riferimento` (modello §14 R7).
 - Della seconda, se si riusa invece della terza: `banco/prove/D02.json` scritto per il Progetto (richiede `forma:
   riportata`); le note di B12, B22 e B25 che rimandano al blocco 7; mancano B18, R01a e R14; `verifica.mjs` marca i
   sintetici con `sintetico: true` nel frontmatter, contro §4 (`banco/sintetici.txt`, nessun campo in più); il lucchetto

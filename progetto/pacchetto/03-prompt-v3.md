@@ -6,8 +6,9 @@
 > fino alla 78). Sostituisce i [prompt operativi](../v2/prompt-operativi.md), scritti con i nomi del v2, e riassume
 > dentro `CLAUDE.md` le regole di [voce](./10-voce.md), così il nuovo repository non dipende da quel file. Il
 > calendario è quello del [piano](./01-piano.md).
-> Giro 7, 2026-11-02: corrette le voci della [seconda prova a freddo](../v2/prova-a-freddo-2.md) che toccano i
-> prompt (§14); ciò che il v3 non dice e qui si sceglie è nel §13.
+> Giro 7, 2026-11-02: corrette le voci della seconda prova a freddo che toccano i prompt (§14); ciò che il v3 non dice
+> e qui si sceglie è nel §13. Giro 8, 2026-11-02: corrette le voci della terza prova a freddo che toccano i prompt (§14,
+> scelte 19–26 del §13). I resoconti delle prove sono storia: per usare questi file non serve leggerli.
 
 **Come si usa.** Ogni paragrafo qui sotto ha come titolo il percorso del file nel nuovo repository; il blocco di codice è
 il contenuto, da copiare così com'è. Nell'interfaccia di claude.ai il prompt di ogni Routine è una riga sola (v3 §7.4):
@@ -16,7 +17,7 @@ il contenuto, da copiare così com'è. Nell'interfaccia di claude.ai il prompt d
 Leggi ed esegui prompt/NOME.md (NOME = smista, consolida, lettera, ritratto). Il testo che ricevi dal fire è l'id del frammento.
 ```
 
-Così [S] calcola il campo `prompt` delle letture (le restituzioni non lo hanno) dallo SHA-1 di `CLAUDE.md`,
+Così [S] calcola il campo `prompt` delle letture (le restituzioni non lo hanno) dall'id blob di git di `CLAUDE.md`,
 `prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila (v3 §2.2), e la storia dei prompt sta in git. Le istruzioni del Progetto claude.ai stanno in `prompt/progetto.md` come copia versionata: vanno
 incollate nel Progetto, che non legge il repository. Dove il v3 non fissa un dettaglio, il file fa una scelta e la segna
 **[scelta]**; le scelte sono raccolte nel §13.
@@ -97,8 +98,8 @@ Un file, un solo scrittore:
   e `in`; opere `autore`, `in`, `anno`; citazioni `autore`, `attribuita-a`, `citata-da`, `originale`, `traduzione`,
   `riferimento`, `esito` (`verificata` · `simile` · `errata` · `non-trovata`; **senza esito = ⚠**); raccolte `scopo`.
 - **restituzione**: `schema`, `forma` (`risposta` · `lettera` · `ritratto` · `eredita`), `letto-da`, `registrato`,
-  `per`, `copre`, `aggancio`, `voci` (`{n, rif, voce, cosa, turno?, perche?, esito?, riferimento?, estratto?}`),
-  `legami`. `cosa`: frase, tensione, vuoto, correzione, opera, brano, libro, film, citazione, persona, ponte,
+  `per`, `copre`, `aggancio`, `voci` (`{n, rif, voce, cosa, turno?, perche?, esito?, riferimento?}`; `estratto` solo
+  nelle `eredita` dell'importazione, mai in un piano), `legami`. `cosa`: frase, tensione, vuoto, correzione, opera, brano, libro, film, citazione, persona, ponte,
   convergenza, confronto, sogno, ricordo, domanda, assenza, idea.
 
 ## I sei predicati
@@ -132,7 +133,8 @@ calcolati, mai scritti.
 
 ## Regole di provenienza
 1. Le mie parole sono sacre: mai ricopiate a mano dove c'è uno script, mai corrette, mai attribuite a me se non le ho
-   scritte. Un corsivo è sempre una mia frase alla lettera, oppure il titolo di un'opera (*Il mondo delle emozioni* ⚠);
+   scritte. Un corsivo è sempre una frase riportata alla lettera, oppure il titolo di un'opera (*Il mondo delle
+   emozioni* ⚠): una mia frase ✦ (anche `forma: riportata`) o un passo del seme ✧, copiato com'è (*amore e verità* ✧);
    mai una tua formula.
 2. Nessun numero a occhio: conti, giorni attivi, soglie, vicende, ricordabili vengono da `contesto/mappa.md`.
 3. "Parlante" = non importato, intento non solo `niente`, almeno 3 parole mie tolti i link. Tutte le soglie contano
@@ -140,7 +142,9 @@ calcolati, mai scritti.
 4. Le date degli importati sono un tetto: "entro il 4 ottobre, nell'archivio d'origine"; si citano, non si contano.
 5. L'importato e le restituzioni `eredita` sono fuori dai conti, non sbiadiscono, non si rilanciano.
 6. Una frase `forma: riportata` si mostra ✦ con la nota "trascritta da Claude nel seme" (un importato) o "trascritta da
-   Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi.
+   Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi. La nota compare **una volta sola**, in
+   testa al gruppo di righe contigue a cui si applica (in una prosa, una volta per il passo che le cita), con le stesse
+   parole e non ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze.
 7. Un testo altrui che ho **trascritto** (foto, copia: `altrui: true`): ✦ il gesto e il mio commento, ○ le parole, tra
    «», al più una riga. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
    ("a ottobre avevi trascritto il monologo di Rust ✦"), poi le parole ○ tra «», al più una riga, alla lettera nella
@@ -150,8 +154,8 @@ calcolati, mai scritti.
 9. Niente ritornelli: una coppia di 2 parole di contenuto entro 4 parole, fuori dalle «», già in 2 restituzioni e
    assente dai miei ✦, non va in una terza (`verifica.mjs` la rifiuta). Evita le "immagini già usate" di `mappa.md`
    (per lemma); una mia parola è libera solo dentro una mia citazione.
-10. I nomi li do io: un tema prende la mia parola (singolare, minuscolo, un nome: "motivi culturali" → `cultura`). Le
-    forme dotte negli alias.
+10. I nomi li do io: un tema prende la mia parola (singolare, minuscolo, un nome: "motivi culturali" → `cultura`; un
+    popolo resta come lo scrivo: `greci`). Le forme dotte negli alias.
 11. Citazioni e fatti: verificati o dichiarati ⚠. Mai una citazione solo a memoria. Una tua resa di un testo
     verificato è ○ con "resa mia". Mai testi di canzoni: titolo, album, anno, il momento.
 
@@ -185,7 +189,8 @@ calcolati, mai scritti.
 | forma | lunghezza |
 |---|---|
 | risposta a un memo | "**Salvato.**" più 0–2 righe, ≤ 40 parole; "Salvato." da solo è completa e non lascia file |
-| risposta a una domanda | fino a 150 parole (almeno 50 solo se ci sono ≥ 3 voci ✦); "Vuoi il resto?" solo se il resto c'è |
+| risposta a una domanda | fino a 150 parole, tolte le mie frasi citate alla lettera (almeno 50 solo se ci sono ≥ 3 voci ✦); "Vuoi il resto?" solo se il resto c'è. Vale anche per un memo con `intento` che comprende `chiedi`, nel file come nel messaggio finale |
+| "le mie frasi" | si misura in righe: al più 8 righe ✦, più la riga ✧ e "Vuoi il resto?" |
 | lettera | ≤ 250 parole |
 | ricordo | 2–3 righe |
 | sogno | ≤ 120 parole |
@@ -233,16 +238,19 @@ contano, non si nominano.
 ## Gli script (non fare a mano ciò che fanno loro)
 | comando | che cosa |
 |---|---|
-| `node scripts/lucchetto.mjs prendi --ciclo NOME [--fire ID]` | attesa, uscita o attesa del lucchetto, `ingresso/.in-corso` con id, ora e **gettone**, via push; codice 4 = "non tocca a te" (solo con `--fire`) |
-| `node scripts/lucchetto.mjs rinnova` | ogni 10 minuti e tra i passi di "consolida"; controlla il gettone (fencing) |
-| `node scripts/lucchetto.mjs lascia` | alla fine, nello stesso commit del lavoro, con il fencing |
-| `node scripts/smista.mjs prepara [--sigilla ID]` | sposta `ingresso/` in `frammenti/` (tranne le chat aperte), riduce le foto, separa i memo del Progetto, sigilla le chat ferme (con `--sigilla ID` la chat che Specchio chiude, con la sua bozza `.risposte.md`), costruisce i pacchetti con i titoli dei link dall'oEmbed |
+| `node scripts/lucchetto.mjs prendi --ciclo NOME [--fire ID]` | attesa, uscita o attesa del lucchetto, `ingresso/.in-corso` con id, ora e **gettone**, via push; stampa l'id della sessione e il gettone; codice 4 = "non tocca a te" (solo con `--fire`) |
+| `node scripts/lucchetto.mjs rinnova --sessione ID --gettone N` | ogni 10 minuti e tra i passi di "consolida"; controlla il gettone (fencing) |
+| `node scripts/lucchetto.mjs lascia --sessione ID --gettone N` | alla fine, nello stesso commit del lavoro, con il fencing |
+| `node scripts/smista.mjs prepara [--solo ID] [--sigilla ID]` | sposta `ingresso/` in `frammenti/` (tranne le chat aperte), riduce le foto, separa i memo del Progetto, sigilla le chat ferme (con `--sigilla ID` la chat che Specchio chiude, con la sua bozza `.risposte.md`), costruisce i pacchetti con i titoli dei link dall'oEmbed |
 | `node scripts/smista.mjs vicini ID` | in sola lettura, senza lucchetto: i vicini di un frammento già smistato (nei primi 3 giorni anche tutti gli importati ✦) |
 | `node scripts/applica.mjs PIANO.json` | ogni piano diventa file, o è rifiutato con il motivo |
 | `node scripts/migra/fondi.mjs DA IN` | la fusione di due temi (la chiama `applica.mjs` per un'operazione `lapide`) |
 | `node scripts/contesto.mjs` | rigenera `contesto/` |
 | `node scripts/verifica.mjs` | prima di ogni push: schema, hash, immutabilità, link, Q-nomi, ritornelli, tetto |
-Regole: si lavora su `main`. Il clone è pulito: se `node_modules/` manca, prima di ogni script `bash ambiente/setup.sh`
+Regole: si lavora su `main`. L'id della sessione e il gettone che `prendi` stampa li tieni e li passi a `rinnova` e
+`lascia` (anche dove questi file scrivono solo `rinnova` o `lascia`); senza argomenti, i due li rileggono da
+`.git/lucchetto`, dove `prendi` li ha scritti. Ogni tempo del lucchetto è in secondi. Con
+`--solo ID`, `prepara` costruisce il pacchetto del solo frammento ID. Il clone è pulito: se `node_modules/` manca, prima di ogni script `bash ambiente/setup.sh`
 (installa le dipendenze con `npm ci`). Il piano si scrive
 in un file con lo strumento di scrittura dei file, **mai con un heredoc della shell** (perde gli apostrofi).
 `applica.mjs` è transazionale: scrive in una cartella di lavoro, lancia `verifica.mjs` e mette i file al loro posto solo
@@ -262,8 +270,8 @@ il motivo nel messaggio finale. Un frammento senza lettura è la coda: non si pe
   Scarti, Eredità, Ritorni con effetto, Mondo verificato, Nomi senza nodo, Ricordabili (quanti, e 20 id), In sospeso,
   Seme già usato e immagini già usate, Voce.
 Ognuno ha in testa `aggiornato`, `fino-a`, `token-stimati`.
-Il campo `prompt` delle letture (le restituzioni non lo hanno) è lo SHA-1 di `CLAUDE.md`, `prompt/CICLO.md` e `prompt/formato-piano.md`
-messi in fila: cambiare uno di questi file è un cambio di lettore.
+Il campo `prompt` delle letture (le restituzioni non lo hanno) è l'id blob di git (`git hash-object`) di `CLAUDE.md`,
+`prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila: cambiare uno di questi file è un cambio di lettore.
 
 ## Cercare nei file (Specchio)
 La ricerca **espande sempre la domanda**: prima di cercare scegli 6–10 parole d'espansione (sinonimi, parentele: per
@@ -273,10 +281,13 @@ La ricerca **espande sempre la domanda**: prima di cercare scegli 6–10 parole 
 ## Ricette per le domande
 Voci numerate `1.`, `2.`… (le fissa lo script), lunghezze della tabella.
 - **"le mie frasi"** (anche "solo le mie") senza argomento: solo le mie ✦, dalla più recente, alla lettera con la data,
-  refusi compresi, in corsivo; gli importati con la data-tetto; le `forma: riportata` comprese, con la nota (regola 6);
-  gli `altrui` solo come gesto, mai le loro parole come mie; i non parlanti fuori; i delicati alla lettera, mai in testa.
+  refusi compresi, in corsivo; gli importati con la data-tetto; le `forma: riportata` comprese, con la nota (regola 6:
+  una volta sola, in testa al loro gruppo); gli `altrui` solo come gesto, mai le loro parole come mie; i non parlanti
+  fuori; i delicati alla lettera, mai in testa.
   Fino a 8 righe, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
-  **sempre** a parte, in una riga sua segnata ✧ (voce mista). Nessuna formula tua.
+  **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
+  del seme alla lettera **in corsivo** (regola 1) e la data-tetto; anche lei è una voce numerata (`voce: seme`). Nessuna
+  formula tua.
 - **"le mie frasi su X"**: le stesse regole, solo le frasi su X.
 - **"che cosa pensavo a MESE"**: Posizioni (data, frase, dal, messa in discussione il, tensioni) e le mie frasi di quel
   periodo; mai "superato"; se c'è un cambio di lettore in quella data, dillo.
@@ -317,14 +328,15 @@ Ogni subagent ha un compito piccolo e chiuso (un frammento, tre citazioni, una s
 ## 2. `prompt/formato-piano.md`
 
 Il formato unico con cui l'AI scrive (v3 §2.2, registro n. 73): un involucro `{ciclo, letto-da, operazioni}` e sette tipi
-di operazione. Il v3 nomina i tipi; i campi di ciascuno sono **[scelta]**, presi dai campi dello schema §3.7.
+di operazione. Il v3 nomina i tipi e fa della tabella "Le sette operazioni" la norma di `schema/piano.json` (v3 §2.2):
+le chiavi di ciascuno sono scelte qui (§13 n. 1), i valori ammessi vengono dallo schema §3.7.
 
 ````markdown
 # Il piano
 
 Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano JSON** e lo passa a
 `node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano. Lo script lo convalida, calcola slug e numeri,
-pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dello SHA-1 di `CLAUDE.md`,
+pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dell'id blob di git di `CLAUDE.md`,
 `prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila), `registrato`, `schema` e, se manca, `versione`, o rifiuta con il motivo. È
 transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimenti non resta niente.
 
@@ -350,6 +362,8 @@ transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimen
 ```
 
 ## Le sette operazioni
+Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione sono queste.
+
 | op | campi | chi |
 |---|---|---|
 | `crea-nodo` | `genere`, `nome`, e i campi del genere (`alias`, `cerchia`, `in`, `autore`, `attribuita-a`, `citata-da`, `anno`, `scopo`, `esito`, `riferimento`, `originale`, `traduzione`, `link`), `nato-da` (di default il frammento letto), `corpo` | smista, specchio, consolida |
@@ -377,7 +391,13 @@ luogo come voce: `cosa: opera` (il racconto) o `persona` (il protagonista); l'en
   attribuisco) e, nel
   `corpo`, la traccia della verifica rapida: mai `esito`, `riferimento`, `autore`, `originale`, `traduzione`, `citata-da`
   (li scrive "consolida" con `aggiorna-nodo`). Un'opera invece può nascere con `autore`, se lo dicono le mie parole.
-- `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`).
+- `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`; un popolo resta come
+  l'ho scritto).
+- Nella `lettura` niente `link`: lo scrive lo script, dal frammento e dall'oEmbed. Niente nemmeno `prompt`,
+  `registrato`, `schema`.
+- `risposta` della lettura: `salvato`, `ci-sono`, oppure l'id di una risposta che **esiste già** (la raffica tra
+  sessioni). Se la risposta nasce in questo stesso piano (una `restituzione` con `per` o `copre` su questo frammento),
+  non scrivere `risposta`: l'id lo assegna lo script e lo mette lui.
 - Rifiuto: correggi seguendo il messaggio, **al massimo due volte**; poi togli l'operazione colpita (o lascia il
   frammento senza lettura: resta in coda) e scrivilo nel messaggio finale, con l'id e il motivo, senza contenuto.
 ````
@@ -401,14 +421,17 @@ passata delle 3 ore.
 1. **Lucchetto.** `node scripts/lucchetto.mjs prendi --ciclo smista --fire ID` (senza `--fire` nella passata).
    Lo script aspetta 90 secondi e fa `git pull`; esce con "non tocca a te" (codice 4) solo se in `ingresso/` c'è un memo del
    telefono **più recente** del tuo **e con meno di 4 minuti** (lo elaborerà quella sessione): allora termina subito,
-   senza messaggio. Se il lucchetto è preso, aspetta fino a 45 minuti; se resta preso, termina (la passata delle 3 ore
+   senza messaggio. La passata (senza `--fire`) non cede mai: un memo fresco in `ingresso/` lo elabori tu, senza
+   chiederti se lasciarlo. Se il lucchetto è preso, aspetta fino a 45 minuti; se resta preso, termina (la passata delle 3 ore
    raccoglie tutto). La passata cancella i lucchetti orfani (più vecchi di 20 minuti).
 2. `node scripts/smista.mjs prepara`. Sposta tutto `ingresso/` in `frammenti/` tranne le chat aperte; riduce le foto
    lasciando l'originale; separa i memo del Progetto (`memo: chat` diventa un frammento `canale: chat` e una
-   restituzione con una sezione per domanda: tu ne scrivi solo la lettura); sigilla le chat di Specchio ferme da prima
+   restituzione con una sezione per domanda: tu ne scrivi solo la lettura; se lo script non li separa ancora e lo dice,
+   il memo `memo: chat` resta senza lettura, in coda, e lo dici nel messaggio finale); sigilla le chat di Specchio ferme da prima
    delle 04:00 di oggi. Ti dà un pacchetto per ogni frammento senza lettura: il frammento, `contesto/recenti.md`, gli
    alias, i candidati per ogni nome, i vicini (nei primi 3 giorni tutti gli importati ✦), gli scarti, i titoli dei link
-   (lo script li chiede all'oEmbed, e l'autore alla pagina: tu non li cerchi).
+   (lo script li chiede all'oEmbed, e l'autore alla pagina: tu non li cerchi). Poi `node scripts/contesto.mjs`, così
+   `mappa.md` (Stato) vede i memo appena spostati: il silenzio del "mentre eri via" si legge lì.
 3. Per ogni pacchetto, in ordine di tempo (un subagent per frammento se sono più di 3), le operazioni del piano:
    - **intento**: `salva` di norma; `chiedi` solo per un fatto del mondo o dell'archivio; una domanda dentro un memo che
      dice anche altro (un ricordo, un nesso, un nome) è `[salva, chiedi]`; una domanda su di me ("sono la stessa persona
@@ -423,8 +446,11 @@ passata delle 3 ore.
      `valore` (`@Nome` se la persona giusta non c'è ancora). Non toccare il nodo: lo aggiorna "consolida".
    - **entità**: solo certe. Un nodo nasce se lo nomino (persona, opera, citazione, concetto o immagine con un nome).
      Scegli tra i candidati o `crea-nodo` con `@Nome`; per un nome proprio nudo guarda prima `cerchia: vita` ("Marco"
-     non è Marco Aurelio). Confini: concetto con autore = un tema solo; "X: frase" = citazione con X in
-     `attribuita-a` e **nessun** `nomina` verso la persona X (ce l'ha solo se la nomino fuori dalla frase); parentele
+     non è Marco Aurelio): se lì non c'è e le mie parole lo danno come uno della mia vita ("marco mi ha mandato"), nasce
+     persona `vita` con quel nome, e il candidato debole (`marco-aurelio`) non si sceglie. Lo slug lo calcola
+     `applica.mjs` dal `nome`: per uno slug fisso scegli il nome che lo dà ("papà" → `papa`). Confini: concetto con
+     autore = un tema solo; "X: frase" = citazione con `@X` in `attribuita-a` (X nasce persona, di norma `mondo`, se
+     non c'è) e **nessun** `nomina` verso la persona X (ce l'ha solo se la nomino fuori dalla frase); parentele
      in prima persona = nodo `vita` con slug fisso (`papa`, `mamma`, `nonna-NOME`) e alias solo col possessivo; miti col
      nome del protagonista = persona `finzione`; gruppi = persone `mondo`; link muto e "questa" su una foto = nessun
      nodo subito, il testo in `link`/`trascrizione`. Entità ambigua il cui errore resterebbe: `~Nome` e la domanda 1. Forma nuova di un nodo che c'è: operazione `alias`.
@@ -447,11 +473,13 @@ passata delle 3 ore.
      era verso la fine": `momento` sul `nomina` della citazione, non dello spettacolo). Se il link porta `t=`, il momento
      è **quel** tempo in `mm:ss` (`t=754` → `"12:34"`), anche se a parole dico "dal minuto 12"; `t=` resta nel link. Un
      link senza nome (titolo assente) non fa nascere nodi: il `momento` va su un `nomina` verso un `~Nome` in chiaro preso
-     dalle mie parole, mai un titolo inventato. Un'indicazione va in `nota`. Risposta: "Salvato." con il momento, se serve.
+     dalle mie parole, mai un titolo inventato; se le mie parole non danno un nome, niente `nomina`: il momento resta nel
+     `t=` del link. Un'indicazione va in `nota`. Risposta: `risposta: salvato`; ripetermi il momento non è contenuto.
    - **`parole`** (facoltativo) quando ci sono parole candidate a tema, anche in un seguito o in un `ritorna-su` ("la
      frase dell'ospite era verso la fine, quando parlava dei greci" → `parole: [greci]`): sempre una lista, anche di una
      parola; singolare, minuscolo, un nome e non un aggettivo, dalla mia parola ("padre", non "padri"; "i ragazzi" →
-     `ragazzo`; "motivi culturali" → `cultura`).
+     `ragazzo`; "motivi culturali" → `cultura`). Un popolo o una tradizione resta come lo scrivo io: "i greci" →
+     `greci`.
    - **reazione**: le mie parole copiate esatte e il `verso`: `+`; `-` anche per ironia, sufficienza, "carino ma…",
      "da bacio perugina"; `±` solo per una commozione o un "ci ha preso".
    - `delicato: true` se serve; `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
@@ -476,10 +504,14 @@ passata delle 3 ore.
 
 ## La risposta (solo se ha contenuto)
 Al più: **un aggancio** dall'archivio (un ponte forte a un vicino, con un **luogo preciso** da entrambe le parti: la mia
-frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai), **un fatto del
+frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai; il seme ✧ non fa
+da capo vecchio di un ponte, `prompt/specchio.md`), **un fatto del
 mondo ○** verificato che la mia frase chiama, una **correzione di fatto** solo per un errore scritto da me, al più **una**
 delle 7 domande di CLAUDE.md. Un ponte non forte si tiene per la lettera. Forma: "**Salvato.**" più 0–2 righe, ≤ 40
-parole; ogni voce numerata **a inizio riga** (`1.`, `2.`), anche quando è una sola. Le voci che portano un fatto del mondo
+parole (un memo con `chiedi` ha la lunghezza di una risposta a una domanda, fino a 150); ogni voce numerata **a inizio
+riga** (`1.`, `2.`), anche quando è una sola. La domanda, se c'è, sta in fondo, sulla sua riga, senza numero: non è una
+voce. Una smentita trovata dalla verifica rapida, anche su una scheda secondaria (Quote Investigator), è ○: la sua voce
+ha il `riferimento` della scheda, oppure la riga porta ⚠. Le voci che portano un fatto del mondo
 (un'attribuzione, un titolo probabile) sono `voce: mondo` ○, anche se il nodo l'ho nominato io (lo spettacolo).
 Esempio:
 ```
@@ -508,8 +540,8 @@ o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto: niente.
 quelli che nomino io), mai `contraddice`, mai `riserva/`.
 
 ## Se qualcosa manca
-- `contesto/` assente: `contesto.mjs` prima del passo 3. Nella prima settimana lo script scrive solo `recenti.md` e
-  Stato, Nodi, Alias di `mappa.md` (il resto arriva nei giorni 5–7): per ciò che manca lavora con `frammenti/`, gli
+- `contesto/` assente: `contesto.mjs` prima del passo 3. Nella prima settimana lo script scrive di sicuro solo
+  `recenti.md` e Stato, Nodi, Alias di `mappa.md` (il resto arriva nei giorni 5–7; usa ciò che c'è, come `parole.md`): per ciò che manca lavora con `frammenti/`, gli
   alias dei nodi e le ultime restituzioni, e dillo nel messaggio finale.
 - oEmbed fallito: il link resta senza titolo; nessun titolo né autore dato da te, né in `nota` né nella risposta.
 - Foto illeggibile: `trascrizione` vuota, "Salvato." e basta.
@@ -661,18 +693,25 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    - **una domanda** in chiusura, che non ripete una "in sospeso";
    - un testo `altrui` che ho trascritto può essere un capo (della convergenza, della tensione): il gesto ✦ con la data,
      le parole ○ tra «» (CLAUDE.md, regola 7), mai come mia frase;
+   - il seme ✧ non fa da capo di una convergenza: è una sintesi di Claude, e la convergenza si aggancia alle mie parole
+     ✦ o ai miei gesti; può stare altrove, in corsivo con ✧ (nella domanda: "nel nucleo l'oltre è *amore e verità* ✧");
    - fuori i delicati; nessuna lode, nessuna etichetta come destino; ogni ○ con opera e passo, o la riga si toglie;
      l'ultima riga è la domanda.
    **Variante giorno 1**: salta i passi 2 e 3 (ritmo e soglia): il primo ritratto si scrive con 0 frammenti parlanti,
-   prima del primo memo. Sul nucleo e sulle frasi importate, con **una** convergenza nuova ancorata a una mia frase; le
-   date come tetto ("entro il 4 ottobre"); il titolo dice l'archivio d'origine, senza il numero dei frammenti; nessun
-   conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è un prima); la convergenza è ◌; l'ultima
-   riga resta la domanda. Se `lucchetto.mjs` non esiste ancora, salta i suoi passi; `contesto.mjs` a quel punto scrive
-   solo `recenti.md` e Stato, Nodi, Alias di `mappa.md`: per il resto leggi `frammenti/` e i nodi (gli importati non
-   contano nei 14 file), e dillo in una riga di servizio **prima** del corpo, nel messaggio finale.
+   prima del primo memo. Sul nucleo e sulle frasi importate, con **una** convergenza nuova ancorata a una mia frase ✦
+   (non al seme ✧); le date come tetto ("entro il 4 ottobre"); le frasi importate sono `forma: riportata`, con la nota
+   della regola 6 una volta sola; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
+   senza il numero dei frammenti; nessun conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è
+   un prima); la convergenza è ◌; l'ultima riga resta la domanda. Nel piano: **una** voce, la convergenza (`cosa:
+   convergenza`, `voce: proposta`, `[1]` nella prosa), con il suo legame `converge-con` `voce: proposta` e `da: 1`;
+   `aggancio` è la mia frase su cui si regge (`{a: id, passo}`); niente `copre`, che è della raffica.
+   Se `lucchetto.mjs` non esiste ancora, salta i suoi passi; `contesto.mjs` a quel punto scrive di sicuro solo
+   `recenti.md` e Stato, Nodi, Alias di `mappa.md` (usa ciò che c'è in più, come `parole.md`): per il resto leggi
+   `frammenti/` e i nodi (gli importati non contano nei 14 file), e dillo in una riga di servizio **prima** del corpo,
+   nel messaggio finale.
 7. `node scripts/applica.mjs PIANO.json`; se `verifica.mjs` rifiuta un ritornello, riscrivi la frase, una volta.
 8. `node scripts/contesto.mjs` (copia il ritratto in `contesto/ritratto.md`), `node scripts/verifica.mjs`,
-   `node scripts/lucchetto.mjs lascia`, commit `ritratto: AAAA-MM`, push.
+   `node scripts/lucchetto.mjs lascia`, commit `ritratto: AAAA-MM` (il mese di oggi), push.
 
 ## Uscita
 Il messaggio finale è il corpo del ritratto, senza frontmatter. Notifica: "Il ritratto è pronto".
@@ -693,13 +732,19 @@ Si apre con "Leggi ed esegui prompt/specchio.md".
 Leggi CLAUDE.md e prompt/formato-piano.md.
 
 ## All'apertura
-1. `git pull`. Se `ingresso/` ha memo e il lucchetto è libero, fai il lavoro di prompt/smista.md (passi 1–6, con
-   `--ciclo specchio`, senza l'attesa dei 90 secondi e senza uscire per un memo più recente). Se il lucchetto è
-   occupato, dillo e salta.
+1. `git pull`. Se `ingresso/` ha memo e il lucchetto è libero, fai il lavoro di prompt/smista.md (passi 1–6: piano
+   `ciclo: smista`, commit `smista: N memo`; il lucchetto con `--ciclo specchio`, senza l'attesa dei 90 secondi e senza
+   uscire per un memo più recente). Se il lucchetto è occupato, dillo e salta. Con `ingresso/` vuoto non prendi il
+   lucchetto all'apertura: lo prendi solo alla fine (passo 6).
 2. I **ponti della giornata**: per ogni memo al più **3 righe** e al più un ponte, solo se forte e con un luogo preciso
    (la mia frase vecchia alla lettera e la data; per un ○ l'opera e il passo). Formato `HH:MM · **Salvato.** …`.
-   Altrimenti "Nessun ponte oggi." Non inventare. I vicini di un memo vengono dal suo pacchetto o, se il memo è già
-   smistato, da `node scripts/smista.mjs vicini ID` (sola lettura, senza lucchetto): non sceglierli tu.
+   Altrimenti "Nessun ponte oggi." Non inventare. Al giorno 0, prima del primo memo, niente ponti e nessuna formula.
+   I vicini di un memo vengono dal suo pacchetto o, se il memo è già
+   smistato, da `node scripts/smista.mjs vicini ID` (sola lettura, senza lucchetto): non sceglierli tu. Guardali
+   **tutti**, anche quelli che non hanno parole in comune con il memo: il ponte inatteso sta lì (Rust per Galimberti).
+   **I capi del ponte.** Il capo vecchio è una mia frase ✦ oppure un testo `altrui` che ho trascritto (il gesto ✦, le
+   parole ○: passo 3). **Il seme ✧ non vale come capo vecchio** (lo script non lo mette tra i vicini): è una sintesi scritta da
+   Claude, e la meraviglia si aggancia alle mie parole o ai miei gesti.
 3. **Giorni 1–7**: anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
    cerca il ponte, con `smista.mjs vicini ID` per ciascuno (nei primi 3 giorni i vicini sono anche tutti gli importati
    ✦). Gli `altrui` sono vicini come gli altri: un
@@ -709,9 +754,11 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    con "Niente si aggancia ancora." Il bilancio sta in **al più 3 righe**, senza "?": la frase del memo nuovo **alla
    lettera**, in corsivo, con la sua data ✦; il testo vecchio **alla lettera** con la sua data (una mia frase in corsivo
    ✦, gli importati con la data-tetto; per un `altrui` il gesto ✦ e le parole tra «» ○ alla lettera nella lingua in cui
-   le ho trascritte, con l'opera e il passo); il
-   perché ◌, breve. Nella restituzione della sessione il ponte è **un** legame `converge-con` `voce: proposta` con `tra`
-   i due frammenti e il `perche`; al più uno. Se nessun ponte è forte: "Niente si aggancia ancora." e nient'altro, una
+   le ho trascritte, con l'opera e il passo; mai il seme ✧, passo 2); il
+   perché ◌, breve. Rileggi **tutti** i vicini dei memo, anche senza parole in comune (passo 2). Nella restituzione
+   della sessione il ponte è **una** voce numerata (`cosa: ponte`, `voce: proposta`, `rif` il frammento vecchio) e **un**
+   legame `converge-con` `voce: proposta` con `tra` i due frammenti, il `perche` e `da` quella voce; al più uno. Se
+   nessun ponte è forte: "Niente si aggancia ancora." e nient'altro, una
    sola formula (non anche "Nessun ponte oggi.").
 
 ## Poi conversa
@@ -727,9 +774,11 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
 6. Alla fine (quando dico "chiudi" o che ho finito): `node scripts/lucchetto.mjs prendi --ciclo specchio`,
    `node scripts/smista.mjs prepara --sigilla ID` (sigilla il frammento di chat e consuma la bozza `ID.risposte.md`, che
    arriva nel pacchetto: non spostarla a mano), poi **un** piano `ciclo: specchio` con la lettura del
-   frammento (i `ritorna-su` con `turno` e `n`: "salvami la terza", "no la seconda") e **una** `restituzione`
-   `forma: risposta` per la conversazione (il testo delle sezioni, voci con `turno`), `applica.mjs`, `contesto.mjs`,
-   `verifica.mjs`, `lascia`, commit `specchio: N memo, 1 conversazione`, push.
+   frammento (i `ritorna-su` con `turno` e `n`: "salvami la terza", "no la seconda"; l'`intento` con le regole di
+   prompt/smista.md: le mie domande sull'archivio o sul mondo sono `chiedi`, con `salva` se dico anche altro) e **una**
+   `restituzione` `forma: risposta` per la conversazione (il testo delle sezioni, voci con `turno`), `applica.mjs`,
+   `contesto.mjs`, `verifica.mjs`, `lascia`, commit `specchio: 1 conversazione` (i memo dell'apertura hanno già il loro
+   `smista: N memo`), push. Il congedo è una riga di servizio, senza saluti.
    Se la sessione muore prima, il primo "smista" dopo le 04:00 del giorno dopo sigilla dalla bozza.
 
 ## Il primo giorno
@@ -825,18 +874,23 @@ alias, conti, posizioni, scarti, eredità, mondo verificato, in sospeso). Non pu
 - Italiano parlato, asciutto, seconda persona. Prima la mia frase ✦ con la data, in *corsivo*, alla lettera; poi il
   resto. Le tue formule in tondo. Parole d'altri che ho trascritto tra «» con ○; quelle che ricordo a memoria sono mie.
 - Segni accanto a ogni frase: ✦ mia · ✧ seme · ● accolta · ◌ tua · ○ mondo · ⚠ da verificare; le righe di servizio
-  senza segni. Le date degli importati sono un tetto ("entro il 4 ottobre"). Il corsivo solo per le mie frasi alla
-  lettera e per i titoli delle opere.
+  senza segni. Le date degli importati sono un tetto ("entro il 4 ottobre"). Il corsivo solo per le parole riportate
+  alla lettera (le mie frasi ✦, anche trascritte da Claude, e i passi del seme ✧) e per i titoli delle opere; mai per
+  una tua formula.
 - Una mia frase `forma: riportata` (trascritta da Claude, per esempio nel seme) si mostra ✦ con la nota "trascritta da
-  Claude nel seme" (o "trascritta da Claude", se viene da una chat), e conta tra le mie. Un testo altrui che ho
+  Claude nel seme" (o "trascritta da Claude", se viene da una chat), e conta tra le mie. La nota compare una volta sola,
+  in testa al gruppo di righe a cui si applica, non su ogni riga. Un testo altrui che ho
   trascritto (`altrui`, marcato in `parole.md`) è mio solo come gesto: ✦ il gesto, ○ le parole tra «».
-- Fino a 150 parole (almeno 50 solo se ci sono ≥ 3 voci ✦), voci numerate `1.`, `2.`… a inizio riga; "Vuoi il resto?"
-  solo se il resto c'è.
+- Fino a 150 parole, tolte le mie frasi citate alla lettera (almeno 50 solo se ci sono ≥ 3 voci ✦), voci numerate
+  `1.`, `2.`… a inizio riga; "Vuoi il resto?" solo se il resto c'è. "Le mie frasi" si misura in righe (sotto).
 - I numeri solo da `mappa.md`: non contare tu.
 - **"Le mie frasi"** (anche "solo le mie"): solo le mie ✦, dalla più recente, alla lettera con la data, refusi compresi,
-  in corsivo; le riportate comprese, con la nota; gli `altrui` solo come gesto; i delicati alla lettera, mai in testa.
-  Fino a 8 righe, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
-  **sempre** a parte, in una riga sua segnata ✧ (voce mista), presa dalla sezione del seme in fondo a `parole.md`.
+  in corsivo; le riportate comprese, con la nota una volta sola, in testa al loro gruppo; gli `altrui` solo come gesto;
+  i delicati alla lettera, mai in testa.
+  Fino a 8 righe ✦, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
+  **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
+  alla lettera **in corsivo** e la data-tetto, presa dalla sezione del seme in fondo a `parole.md`; anche lei è una voce
+  numerata.
 - "Nella mia testa": ✦ ✧ ●, poi lo strato ◌ separato.
 - Citazioni: solo con `esito` in `mappa.md`, o dichiarate ⚠. Mai testi di canzoni: titolo, album, il momento.
 - Delicati (`parole.md` li marca): **mai riportati spontaneamente**; solo se chiedo esplicitamente le mie parole ("le mie
@@ -924,7 +978,8 @@ senza voci nuove e senza atti. Se non lo rimando, non succede niente: non ricord
 
 ## 13. Scelte fatte qui (da validare)
 
-1. **I campi delle sette operazioni** (§2): il v3 ne dà i nomi, non i campi.
+1. **I campi delle sette operazioni** (§2): il v3 ne dà i nomi, non i campi, e fa della tabella di
+   `prompt/formato-piano.md` la norma di `schema/piano.json` (§2.2).
 2. **La fusione come operazione `lapide`**, che `applica.mjs` esegue chiamando `migra/fondi.mjs`.
 3. **`prompt/formato-piano.md`, `prompt/specchio.md`, `prompt/ti-ricordi.md`, `prompt/sogno.md`, `prompt/confronto.md`,
    `prompt/progetto.md`**: file in più rispetto a quelli che il v3 nomina (`prompt/smista.md`, `prompt/consolida.md`, …).
@@ -933,36 +988,74 @@ senza voci nuove e senza atti. Se non lo rimando, non succede niente: non ricord
    `esito` (solo la traccia nel corpo).
 5. **"Consolida" in due fasi** dentro la stessa sessione, con il giro di "smista" all'apertura.
 6. **Il ripiego delle 09:13** termina se trova il commit di stanotte.
-7. Commit `ritratto: AAAA-MM` e `specchio: N memo, 1 conversazione`; notifiche "La risposta è pronta" e "Il ritratto è pronto".
+7. Commit `ritratto: AAAA-MM` (il mese di oggi) e `specchio: 1 conversazione` (giro 8, P3-80: i memo smistati
+   all'apertura hanno già il loro `smista: N memo`, v3 §7.3); notifiche "La risposta è pronta" e "Il ritratto è pronto".
 
-Dalla [seconda prova a freddo](../v2/prova-a-freddo-2.md) (giro 7). Il v3 non le scrive come regola; vengono da
+Dalla seconda prova a freddo (giro 7). Il v3 non le scrive come regola; vengono da
 un suo esempio o dal banco, e lo si dice:
-8. **"Le mie frasi" fino a 8 righe** (P2-39, P2-78), dalla più recente: il numero è del banco (D02); il v3 dà solo le 150
-   parole e "vuoi il resto?" se il resto c'è (§9.1).
+8. **"Le mie frasi" fino a 8 righe** (P2-39, P2-78), dalla più recente: *non più una scelta*, il v3 §9.1 misura
+   l'elenco in righe (al più 8 ✦, più la riga ✧ e "Vuoi il resto?").
 9. **`t=` diventa il `momento` in `mm:ss`** (P2-81): il v3 tiene `t=` nel link (§3.3) e dà "12:34" come esempio di
    `momento` (§4, con B14), ma non la conversione. Per un link senza nome, il `~Nome` dalle mie parole.
-10. **La nota di una chat riportata**, "trascritta da Claude": il v3 §5 dà solo quella dell'importato, "trascritta da
-    Claude nel seme".
+10. **La nota di una chat riportata**, "trascritta da Claude": *non più una scelta*, il v3 §5 dà le due note.
 11. **`parole` come nome** (P2-72): *non più una scelta*, il v3 §3.3 lo dice ("un nome, non un aggettivo").
 12. **Le voci di un fatto del mondo sono ○ anche su un nodo che ho nominato** (P2-73): dall'esempio del v3 (§2.2, §3.5,
     §13.2: lo spettacolo è `voce: mondo`), non da una regola.
 13. **Il corsivo dei titoli** (P2-77): *non più una scelta*, il v3 §9.1 lo dice (un titolo non porta ✦).
 14. **Il ritratto del giorno 1** (P2-48, P2-49): saltare ritmo e soglia viene dal v3 (§7.5, §9.2); il titolo senza numero,
-    la riga di servizio prima del corpo e gli importati fuori dai 14 file sono scelte.
+    la riga di servizio prima del corpo e gli importati fuori dai 14 file sono scelte. Dal giro 8 (P3-66): nel titolo la
+    data-tetto più recente tra le frasi citate; **una** voce, la convergenza, con il legame `da: 1`; `aggancio` = la mia
+    frase su cui si regge (v3 §3.5, A7); niente `copre`, che il v3 §3.5 riserva alla raffica.
 15. **I vicini di Specchio a memo già smistati** (P2-87): `smista.mjs vicini ID` e `prepara --sigilla ID` (P2-85) sono
     comandi del piano (blocco 5); la regola dei vicini è del v3 (§6.2, §7.5), il nome dei comandi no.
 16. **`versione` facoltativa nel piano** (P2-7): il v3 §2.2 la mette nell'esempio; se manca, la mette lo script.
-17. **Il seme in `parole.md`** (P2-41): una sezione breve in fondo, così D02 si fa anche nel Progetto. È una decisione
-    del giro 7 (piano); il v3 §6.1, finché non la riprende, dice ancora "il seme ✧ no: si legge da `frammenti/`".
+17. **Il seme in `parole.md`** (P2-41): *non più una scelta*, il v3 §6.1 porta la sezione `## Seme ✧` in fondo.
 18. **`_schema.md`** (P2-1): la versione dello schema, il rimando a `schema/frontmatter.json` e la storia delle
     migrazioni, vuota al giorno 0 (piano, blocco 0); il v3 §11 vi mette anche lo schema JSON del §3.7.
+
+Dalla terza prova a freddo (giro 8). Le prime tre sono decisioni del coordinatore sulle voci alte; le altre vengono da un
+esempio del v3, dal banco o dalla scelta fatta nella prova, e lo si dice:
+19. **Il seme ✧ in corsivo** (P3-55, P3-81): il corsivo vale per ogni frase riportata alla lettera, anche un passo del
+    seme (regola 1, ricetta "le mie frasi", `progetto.md`). *Non più una scelta*: il v3 §5 e §9.1 lo dicono (il corsivo
+    dice "alla lettera", il segno ✧ dice di chi è).
+20. **La nota "trascritta da Claude" una volta sola**, in testa al gruppo di righe a cui si applica (P3-56, P3-68:
+    regola 6, ricetta, `progetto.md`, ritratto). *Non più una scelta*: il v3 §5 lo dice; la tabella delle lunghezze
+    segue il v3 §9.1 (la risposta a una domanda si conta tolte le mie frasi citate; "le mie frasi" in righe).
+21. **Il seme ✧ non è il capo vecchio di un ponte** (P3-79): il capo vecchio è una mia frase ✦ o un testo `altrui`
+    (gesto ✦, parole ○), in `specchio.md`, nell'aggancio di `smista.md` e nella convergenza del ritratto. Il v3 §7.5 lo
+    riprende al giro 8, e il §6.2 lo tiene fuori dai vicini. Il bilancio guarda tutti i vicini, anche senza parole in comune: dal v3 §6.2 e §7.5 (Rust).
+22. **Il lucchetto con `--sessione ID --gettone N`** (P3-36): *non più una scelta*, il v3 §8.1 dà le opzioni e, senza
+    argomenti, il ripiego su `.git/lucchetto`; `prepara --solo ID` viene dal piano (blocco 5, P3-39).
+23. **`greci` resta `greci`** (P3-77): *non più una scelta*, il v3 §3.3 eccettua i nomi di popolo dalla regola
+    "singolare" (un popolo è un tema con il tuo nome, §3.4), e il banco B02 lo vuole (regola 10, `smista.md`,
+    `formato-piano.md`).
+24. **"Smista", i punti che il v3 lascia aperti**: `contesto.mjs` dopo `prepara`, perché il "mentre eri via" legga il
+    silenzio da una `mappa.md` fresca (P3-87); un `memo: chat` che lo script non sa ancora separare resta in coda
+    (P3-70); "X: frase" mette `@X` in `attribuita-a` e X nasce persona, di norma `mondo` (P3-78: il v3 §3.4 dice solo
+    "X in `attribuita-a`"); un nome nudo della mia vita senza nodo nasce `vita` (P3-83, dal banco B06 e dal v3 §3.6);
+    per uno slug fisso si sceglie il `nome` (P3-89); B14 ha `risposta: salvato`, perché ripetere il momento non è
+    contenuto (P3-91, v3 C11). Dal v3 e non scelte: la passata non cede mai (§8.1 passo 2, P3-82); una smentita da una
+    scheda secondaria è ○ con `riferimento` oppure ⚠ (§9.1, P3-84); un memo con `chiedi` ha le 150 parole di una
+    domanda (§7.2.1, §9.1, P3-88); `estratto` solo nelle `eredita` (§3.5, P3-85).
+25. **Il piano** (P3-90, P3-92): niente `link` nella lettura (il v3 §3.3 lo dà a [S]); `risposta` della lettura la mette
+    lo script quando la risposta nasce nello stesso piano (l'id lo assegna lui, v3 §3.1); una delle 7 domande sta in
+    fondo alla risposta senza numero e non è una voce (come l'esempio di B22 nel banco).
+26. **Specchio** (P3-57, P3-80, P3-86): al giorno 0 nessuna formula (il v3 §7.5 le dà per i giorni 1–7); con `ingresso/`
+    vuoto il lucchetto solo alla fine (v3 §7.3); il ponte del bilancio è una voce `cosa: ponte`, `voce: proposta`, da cui
+    parte il legame (`da`, v3 §3.5); il congedo senza saluti (v3 §9.1); l'`intento` della chat con le regole di "smista"
+    (v3 §7.2); la riga ✧ di "le mie frasi" è una voce numerata, `voce: seme`.
 
 ---
 
 ## 14. Incoerenze residue (dopo la prova a freddo)
 
-**Seconda prova a freddo (giro 7).** Corrette qui, con le righe del
-[diff della prova](../prova-a-freddo-2/correzioni-ai-prompt.diff) dove il v3 le regge: P2-7, P2-8, P2-9, P2-17,
+**Terza prova a freddo (giro 8).** Corrette qui le voci che toccano i prompt: le alte P3-55, P3-56 e P3-79 con le
+decisioni del coordinatore (scelte 19–21); P3-4 (questo file non rimanda più ai resoconti delle prove), P3-36, P3-39,
+P3-57, P3-65, P3-66, P3-68, P3-70, P3-77, P3-78, P3-80, P3-81, P3-82, P3-83, P3-84, P3-85, P3-86, P3-87, P3-88, P3-89
+(lo slug; la pulizia di `ingresso/.pacchetti/` è dello script), P3-90, P3-91, P3-92 (scelte 22–26). Senza correzione
+proposta: P3-59, P3-67 (blocco 10), P3-75.
+
+**Seconda prova a freddo (giro 7).** Corrette qui, con le righe del diff della prova dove il v3 le regge: P2-7, P2-8, P2-9, P2-17,
 P2-38, P2-39, P2-41, P2-48, P2-49, P2-51 (il testo del piano), P2-52, P2-61 (il lato del prompt), P2-67, P2-71, P2-72,
 P2-73, P2-75, P2-76, P2-77, P2-78, P2-79, P2-81, P2-83, P2-85 e P2-87 (il lato del prompt: i comandi del piano), P2-88;
 P2-55 (il codice 4 dove il prompt lo cita); P2-1 (`_schema.md` rimanda a `schema/frontmatter.json`). In più, per P2-78, la regola dei
@@ -970,7 +1063,7 @@ delicati in `CLAUDE.md` e in `progetto.md` torna al v3 §7.2.1: a una richiesta 
 alla lettera, mai in testa. P2-62: la citazione all'ingresso ammette `alias` (v3 §3.4, elenco unico, come il G4 del banco).
 
 Le dieci del secondo giro sono risolte nel v3 (registro n. 75 e 77) e restano nell'appendice B. Queste cinque, emerse
-dalla [prova a freddo](../v2/prova-a-freddo.md), sono ora **risolte** nel v3 (registro n. 78) e nei file qui
+dalla prima prova a freddo, sono ora **risolte** nel v3 (registro n. 78) e nei file qui
 sopra; restano per memoria:
 
 1. *Risolta.* **`parole`: singolare o forma tua?** v3 §3.3 dice "singolare, minuscolo, la tua forma ("padre", non "padri")", ma

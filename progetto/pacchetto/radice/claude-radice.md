@@ -57,8 +57,8 @@ Un file, un solo scrittore:
   e `in`; opere `autore`, `in`, `anno`; citazioni `autore`, `attribuita-a`, `citata-da`, `originale`, `traduzione`,
   `riferimento`, `esito` (`verificata` · `simile` · `errata` · `non-trovata`; **senza esito = ⚠**); raccolte `scopo`.
 - **restituzione**: `schema`, `forma` (`risposta` · `lettera` · `ritratto` · `eredita`), `letto-da`, `registrato`,
-  `per`, `copre`, `aggancio`, `voci` (`{n, rif, voce, cosa, turno?, perche?, esito?, riferimento?, estratto?}`),
-  `legami`. `cosa`: frase, tensione, vuoto, correzione, opera, brano, libro, film, citazione, persona, ponte,
+  `per`, `copre`, `aggancio`, `voci` (`{n, rif, voce, cosa, turno?, perche?, esito?, riferimento?}`; `estratto` solo
+  nelle `eredita` dell'importazione, mai in un piano), `legami`. `cosa`: frase, tensione, vuoto, correzione, opera, brano, libro, film, citazione, persona, ponte,
   convergenza, confronto, sogno, ricordo, domanda, assenza, idea.
 
 ## I sei predicati
@@ -92,7 +92,8 @@ calcolati, mai scritti.
 
 ## Regole di provenienza
 1. Le mie parole sono sacre: mai ricopiate a mano dove c'è uno script, mai corrette, mai attribuite a me se non le ho
-   scritte. Un corsivo è sempre una mia frase alla lettera, oppure il titolo di un'opera (*Il mondo delle emozioni* ⚠);
+   scritte. Un corsivo è sempre una frase riportata alla lettera, oppure il titolo di un'opera (*Il mondo delle
+   emozioni* ⚠): una mia frase ✦ (anche `forma: riportata`) o un passo del seme ✧, copiato com'è (*amore e verità* ✧);
    mai una tua formula.
 2. Nessun numero a occhio: conti, giorni attivi, soglie, vicende, ricordabili vengono da `contesto/mappa.md`.
 3. "Parlante" = non importato, intento non solo `niente`, almeno 3 parole mie tolti i link. Tutte le soglie contano
@@ -100,7 +101,9 @@ calcolati, mai scritti.
 4. Le date degli importati sono un tetto: "entro il 4 ottobre, nell'archivio d'origine"; si citano, non si contano.
 5. L'importato e le restituzioni `eredita` sono fuori dai conti, non sbiadiscono, non si rilanciano.
 6. Una frase `forma: riportata` si mostra ✦ con la nota "trascritta da Claude nel seme" (un importato) o "trascritta da
-   Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi.
+   Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi. La nota compare **una volta sola**, in
+   testa al gruppo di righe contigue a cui si applica (in una prosa, una volta per il passo che le cita), con le stesse
+   parole e non ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze.
 7. Un testo altrui che ho **trascritto** (foto, copia: `altrui: true`): ✦ il gesto e il mio commento, ○ le parole, tra
    «», al più una riga. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
    ("a ottobre avevi trascritto il monologo di Rust ✦"), poi le parole ○ tra «», al più una riga, alla lettera nella
@@ -110,8 +113,8 @@ calcolati, mai scritti.
 9. Niente ritornelli: una coppia di 2 parole di contenuto entro 4 parole, fuori dalle «», già in 2 restituzioni e
    assente dai miei ✦, non va in una terza (`verifica.mjs` la rifiuta). Evita le "immagini già usate" di `mappa.md`
    (per lemma); una mia parola è libera solo dentro una mia citazione.
-10. I nomi li do io: un tema prende la mia parola (singolare, minuscolo, un nome: "motivi culturali" → `cultura`). Le
-    forme dotte negli alias.
+10. I nomi li do io: un tema prende la mia parola (singolare, minuscolo, un nome: "motivi culturali" → `cultura`; un
+    popolo resta come lo scrivo: `greci`). Le forme dotte negli alias.
 11. Citazioni e fatti: verificati o dichiarati ⚠. Mai una citazione solo a memoria. Una tua resa di un testo
     verificato è ○ con "resa mia". Mai testi di canzoni: titolo, album, anno, il momento.
 
@@ -145,7 +148,8 @@ calcolati, mai scritti.
 | forma | lunghezza |
 |---|---|
 | risposta a un memo | "**Salvato.**" più 0–2 righe, ≤ 40 parole; "Salvato." da solo è completa e non lascia file |
-| risposta a una domanda | fino a 150 parole (almeno 50 solo se ci sono ≥ 3 voci ✦); "Vuoi il resto?" solo se il resto c'è |
+| risposta a una domanda | fino a 150 parole, tolte le mie frasi citate alla lettera (almeno 50 solo se ci sono ≥ 3 voci ✦); "Vuoi il resto?" solo se il resto c'è. Vale anche per un memo con `intento` che comprende `chiedi`, nel file come nel messaggio finale |
+| "le mie frasi" | si misura in righe: al più 8 righe ✦, più la riga ✧ e "Vuoi il resto?" |
 | lettera | ≤ 250 parole |
 | ricordo | 2–3 righe |
 | sogno | ≤ 120 parole |
@@ -193,16 +197,19 @@ contano, non si nominano.
 ## Gli script (non fare a mano ciò che fanno loro)
 | comando | che cosa |
 |---|---|
-| `node scripts/lucchetto.mjs prendi --ciclo NOME [--fire ID]` | attesa, uscita o attesa del lucchetto, `ingresso/.in-corso` con id, ora e **gettone**, via push; codice 4 = "non tocca a te" (solo con `--fire`) |
-| `node scripts/lucchetto.mjs rinnova` | ogni 10 minuti e tra i passi di "consolida"; controlla il gettone (fencing) |
-| `node scripts/lucchetto.mjs lascia` | alla fine, nello stesso commit del lavoro, con il fencing |
-| `node scripts/smista.mjs prepara [--sigilla ID]` | sposta `ingresso/` in `frammenti/` (tranne le chat aperte), riduce le foto, separa i memo del Progetto, sigilla le chat ferme (con `--sigilla ID` la chat che Specchio chiude, con la sua bozza `.risposte.md`), costruisce i pacchetti con i titoli dei link dall'oEmbed |
+| `node scripts/lucchetto.mjs prendi --ciclo NOME [--fire ID]` | attesa, uscita o attesa del lucchetto, `ingresso/.in-corso` con id, ora e **gettone**, via push; stampa l'id della sessione e il gettone; codice 4 = "non tocca a te" (solo con `--fire`) |
+| `node scripts/lucchetto.mjs rinnova --sessione ID --gettone N` | ogni 10 minuti e tra i passi di "consolida"; controlla il gettone (fencing) |
+| `node scripts/lucchetto.mjs lascia --sessione ID --gettone N` | alla fine, nello stesso commit del lavoro, con il fencing |
+| `node scripts/smista.mjs prepara [--solo ID] [--sigilla ID]` | sposta `ingresso/` in `frammenti/` (tranne le chat aperte), riduce le foto, separa i memo del Progetto, sigilla le chat ferme (con `--sigilla ID` la chat che Specchio chiude, con la sua bozza `.risposte.md`), costruisce i pacchetti con i titoli dei link dall'oEmbed |
 | `node scripts/smista.mjs vicini ID` | in sola lettura, senza lucchetto: i vicini di un frammento già smistato (nei primi 3 giorni anche tutti gli importati ✦) |
 | `node scripts/applica.mjs PIANO.json` | ogni piano diventa file, o è rifiutato con il motivo |
 | `node scripts/migra/fondi.mjs DA IN` | la fusione di due temi (la chiama `applica.mjs` per un'operazione `lapide`) |
 | `node scripts/contesto.mjs` | rigenera `contesto/` |
 | `node scripts/verifica.mjs` | prima di ogni push: schema, hash, immutabilità, link, Q-nomi, ritornelli, tetto |
-Regole: si lavora su `main`. Il clone è pulito: se `node_modules/` manca, prima di ogni script `bash ambiente/setup.sh`
+Regole: si lavora su `main`. L'id della sessione e il gettone che `prendi` stampa li tieni e li passi a `rinnova` e
+`lascia` (anche dove questi file scrivono solo `rinnova` o `lascia`); senza argomenti, i due li rileggono da
+`.git/lucchetto`, dove `prendi` li ha scritti. Ogni tempo del lucchetto è in secondi. Con
+`--solo ID`, `prepara` costruisce il pacchetto del solo frammento ID. Il clone è pulito: se `node_modules/` manca, prima di ogni script `bash ambiente/setup.sh`
 (installa le dipendenze con `npm ci`). Il piano si scrive
 in un file con lo strumento di scrittura dei file, **mai con un heredoc della shell** (perde gli apostrofi).
 `applica.mjs` è transazionale: scrive in una cartella di lavoro, lancia `verifica.mjs` e mette i file al loro posto solo
@@ -222,8 +229,8 @@ il motivo nel messaggio finale. Un frammento senza lettura è la coda: non si pe
   Scarti, Eredità, Ritorni con effetto, Mondo verificato, Nomi senza nodo, Ricordabili (quanti, e 20 id), In sospeso,
   Seme già usato e immagini già usate, Voce.
 Ognuno ha in testa `aggiornato`, `fino-a`, `token-stimati`.
-Il campo `prompt` delle letture (le restituzioni non lo hanno) è lo SHA-1 di `CLAUDE.md`, `prompt/CICLO.md` e `prompt/formato-piano.md`
-messi in fila: cambiare uno di questi file è un cambio di lettore.
+Il campo `prompt` delle letture (le restituzioni non lo hanno) è l'id blob di git (`git hash-object`) di `CLAUDE.md`,
+`prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila: cambiare uno di questi file è un cambio di lettore.
 
 ## Cercare nei file (Specchio)
 La ricerca **espande sempre la domanda**: prima di cercare scegli 6–10 parole d'espansione (sinonimi, parentele: per
@@ -233,10 +240,13 @@ La ricerca **espande sempre la domanda**: prima di cercare scegli 6–10 parole 
 ## Ricette per le domande
 Voci numerate `1.`, `2.`… (le fissa lo script), lunghezze della tabella.
 - **"le mie frasi"** (anche "solo le mie") senza argomento: solo le mie ✦, dalla più recente, alla lettera con la data,
-  refusi compresi, in corsivo; gli importati con la data-tetto; le `forma: riportata` comprese, con la nota (regola 6);
-  gli `altrui` solo come gesto, mai le loro parole come mie; i non parlanti fuori; i delicati alla lettera, mai in testa.
+  refusi compresi, in corsivo; gli importati con la data-tetto; le `forma: riportata` comprese, con la nota (regola 6:
+  una volta sola, in testa al loro gruppo); gli `altrui` solo come gesto, mai le loro parole come mie; i non parlanti
+  fuori; i delicati alla lettera, mai in testa.
   Fino a 8 righe, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
-  **sempre** a parte, in una riga sua segnata ✧ (voce mista). Nessuna formula tua.
+  **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
+  del seme alla lettera **in corsivo** (regola 1) e la data-tetto; anche lei è una voce numerata (`voce: seme`). Nessuna
+  formula tua.
 - **"le mie frasi su X"**: le stesse regole, solo le frasi su X.
 - **"che cosa pensavo a MESE"**: Posizioni (data, frase, dal, messa in discussione il, tensioni) e le mie frasi di quel
   periodo; mai "superato"; se c'è un cambio di lettore in quella data, dillo.

@@ -60,7 +60,13 @@ Stato:
   può essere il capo vecchio di un ponte (§7.5), il che rende possibile il ponte Galimberti–Rust di R14; i delicati,
   a una richiesta esplicita delle mie parole, si riportano alla lettera e mai in testa (§7.2.1 Q10); la citazione
   all'ingresso ammette `alias`.
-- F3. Terza prova a freddo: da lanciare sul pacchetto rigenerato.
+- F3. Terza prova a freddo: fatta (session_016XqALyBdruYiG9ctJjfGpt): blocchi 0–6, R14 passa, verdetto «va corretto»
+  (4 alte, nessuna bloccante; 51 subagent, ~4,5 M token). Resoconto `prova-a-freddo-3.md`.
+- Giro 8: correzioni applicate. Decisioni: il seme ✧ va in corsivo come ogni frase alla lettera, esce dai vicini
+  (§6.2) e non è mai capo vecchio di un ponte (§7.5): valgono solo le frasi sue ✦ o un `altrui`; la nota «trascritta
+  da Claude» compare una volta, in testa al gruppo; la domanda 2 del giudice di R14 riscritta; §14 R7: la traduzione
+  (col traduttore o «resa di Claude») va nel riferimento e nel corpo (8 citazioni su 17 la perdevano).
+- F4. Quarta prova a freddo: lanciata sul pacchetto rigenerato.
 - Nome: Mnemosyne (sessione session_016XqALzZG9b2QGQbSqhNrc7, documento `nome.md`).
 - G. Implementazione: dopo F.
 

@@ -17,7 +17,7 @@ il contenuto, da copiare così com'è. Nell'interfaccia di claude.ai il prompt d
 Leggi ed esegui prompt/NOME.md (NOME = smista, consolida, lettera, ritratto). Il testo che ricevi dal fire è l'id del frammento.
 ```
 
-Così [S] calcola il campo `prompt` delle letture (le restituzioni non lo hanno) dallo SHA-1 di `CLAUDE.md`,
+Così [S] calcola il campo `prompt` delle letture (le restituzioni non lo hanno) dall'id blob di git di `CLAUDE.md`,
 `prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila (v3 §2.2), e la storia dei prompt sta in git. Le istruzioni del Progetto claude.ai stanno in `prompt/progetto.md` come copia versionata: vanno
 incollate nel Progetto, che non legge il repository. Dove il v3 non fissa un dettaglio, il file fa una scelta e la segna
 **[scelta]**; le scelte sono raccolte nel §13.
@@ -154,8 +154,8 @@ calcolati, mai scritti.
 9. Niente ritornelli: una coppia di 2 parole di contenuto entro 4 parole, fuori dalle «», già in 2 restituzioni e
    assente dai miei ✦, non va in una terza (`verifica.mjs` la rifiuta). Evita le "immagini già usate" di `mappa.md`
    (per lemma); una mia parola è libera solo dentro una mia citazione.
-10. I nomi li do io: un tema prende la mia parola (singolare, minuscolo, un nome: "motivi culturali" → `cultura`). Le
-    forme dotte negli alias.
+10. I nomi li do io: un tema prende la mia parola (singolare, minuscolo, un nome: "motivi culturali" → `cultura`; un
+    popolo resta come lo scrivo: `greci`). Le forme dotte negli alias.
 11. Citazioni e fatti: verificati o dichiarati ⚠. Mai una citazione solo a memoria. Una tua resa di un testo
     verificato è ○ con "resa mia". Mai testi di canzoni: titolo, album, anno, il momento.
 
@@ -247,8 +247,9 @@ contano, non si nominano.
 | `node scripts/migra/fondi.mjs DA IN` | la fusione di due temi (la chiama `applica.mjs` per un'operazione `lapide`) |
 | `node scripts/contesto.mjs` | rigenera `contesto/` |
 | `node scripts/verifica.mjs` | prima di ogni push: schema, hash, immutabilità, link, Q-nomi, ritornelli, tetto |
-Regole: si lavora su `main`. L'id della sessione e il gettone che `prendi` stampa li tieni: `rinnova` e `lascia` li
-ricevono sempre (anche dove questi file scrivono solo `rinnova` o `lascia`); ogni tempo del lucchetto è in secondi. Con
+Regole: si lavora su `main`. L'id della sessione e il gettone che `prendi` stampa li tieni e li passi a `rinnova` e
+`lascia` (anche dove questi file scrivono solo `rinnova` o `lascia`); senza argomenti, i due li rileggono da
+`.git/lucchetto`, dove `prendi` li ha scritti. Ogni tempo del lucchetto è in secondi. Con
 `--solo ID`, `prepara` costruisce il pacchetto del solo frammento ID. Il clone è pulito: se `node_modules/` manca, prima di ogni script `bash ambiente/setup.sh`
 (installa le dipendenze con `npm ci`). Il piano si scrive
 in un file con lo strumento di scrittura dei file, **mai con un heredoc della shell** (perde gli apostrofi).
@@ -269,8 +270,8 @@ il motivo nel messaggio finale. Un frammento senza lettura è la coda: non si pe
   Scarti, Eredità, Ritorni con effetto, Mondo verificato, Nomi senza nodo, Ricordabili (quanti, e 20 id), In sospeso,
   Seme già usato e immagini già usate, Voce.
 Ognuno ha in testa `aggiornato`, `fino-a`, `token-stimati`.
-Il campo `prompt` delle letture (le restituzioni non lo hanno) è lo SHA-1 di `CLAUDE.md`, `prompt/CICLO.md` e `prompt/formato-piano.md`
-messi in fila: cambiare uno di questi file è un cambio di lettore.
+Il campo `prompt` delle letture (le restituzioni non lo hanno) è l'id blob di git (`git hash-object`) di `CLAUDE.md`,
+`prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila: cambiare uno di questi file è un cambio di lettore.
 
 ## Cercare nei file (Specchio)
 La ricerca **espande sempre la domanda**: prima di cercare scegli 6–10 parole d'espansione (sinonimi, parentele: per
@@ -327,14 +328,15 @@ Ogni subagent ha un compito piccolo e chiuso (un frammento, tre citazioni, una s
 ## 2. `prompt/formato-piano.md`
 
 Il formato unico con cui l'AI scrive (v3 §2.2, registro n. 73): un involucro `{ciclo, letto-da, operazioni}` e sette tipi
-di operazione. Il v3 nomina i tipi; i campi di ciascuno sono **[scelta]**, presi dai campi dello schema §3.7.
+di operazione. Il v3 nomina i tipi e fa della tabella "Le sette operazioni" la norma di `schema/piano.json` (v3 §2.2):
+le chiavi di ciascuno sono scelte qui (§13 n. 1), i valori ammessi vengono dallo schema §3.7.
 
 ````markdown
 # Il piano
 
 Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano JSON** e lo passa a
 `node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano. Lo script lo convalida, calcola slug e numeri,
-pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dello SHA-1 di `CLAUDE.md`,
+pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dell'id blob di git di `CLAUDE.md`,
 `prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila), `registrato`, `schema` e, se manca, `versione`, o rifiuta con il motivo. È
 transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimenti non resta niente.
 
@@ -360,6 +362,8 @@ transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimen
 ```
 
 ## Le sette operazioni
+Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione sono queste.
+
 | op | campi | chi |
 |---|---|---|
 | `crea-nodo` | `genere`, `nome`, e i campi del genere (`alias`, `cerchia`, `in`, `autore`, `attribuita-a`, `citata-da`, `anno`, `scopo`, `esito`, `riferimento`, `originale`, `traduzione`, `link`), `nato-da` (di default il frammento letto), `corpo` | smista, specchio, consolida |
@@ -739,7 +743,7 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    smistato, da `node scripts/smista.mjs vicini ID` (sola lettura, senza lucchetto): non sceglierli tu. Guardali
    **tutti**, anche quelli che non hanno parole in comune con il memo: il ponte inatteso sta lì (Rust per Galimberti).
    **I capi del ponte.** Il capo vecchio è una mia frase ✦ oppure un testo `altrui` che ho trascritto (il gesto ✦, le
-   parole ○: passo 3). **Il seme ✧ non vale come capo vecchio**, anche se compare tra i vicini: è una sintesi scritta da
+   parole ○: passo 3). **Il seme ✧ non vale come capo vecchio** (lo script non lo mette tra i vicini): è una sintesi scritta da
    Claude, e la meraviglia si aggancia alle mie parole o ai miei gesti.
 3. **Giorni 1–7**: anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
    cerca il ponte, con `smista.mjs vicini ID` per ciascuno (nei primi 3 giorni i vicini sono anche tutti gli importati
@@ -974,7 +978,8 @@ senza voci nuove e senza atti. Se non lo rimando, non succede niente: non ricord
 
 ## 13. Scelte fatte qui (da validare)
 
-1. **I campi delle sette operazioni** (§2): il v3 ne dà i nomi, non i campi.
+1. **I campi delle sette operazioni** (§2): il v3 ne dà i nomi, non i campi, e fa della tabella di
+   `prompt/formato-piano.md` la norma di `schema/piano.json` (§2.2).
 2. **La fusione come operazione `lapide`**, che `applica.mjs` esegue chiamando `migra/fondi.mjs`.
 3. **`prompt/formato-piano.md`, `prompt/specchio.md`, `prompt/ti-ricordi.md`, `prompt/sogno.md`, `prompt/confronto.md`,
    `prompt/progetto.md`**: file in più rispetto a quelli che il v3 nomina (`prompt/smista.md`, `prompt/consolida.md`, …).
@@ -1011,18 +1016,19 @@ un suo esempio o dal banco, e lo si dice:
 Dalla terza prova a freddo (giro 8). Le prime tre sono decisioni del coordinatore sulle voci alte; le altre vengono da un
 esempio del v3, dal banco o dalla scelta fatta nella prova, e lo si dice:
 19. **Il seme ✧ in corsivo** (P3-55, P3-81): il corsivo vale per ogni frase riportata alla lettera, anche un passo del
-    seme (regola 1, ricetta "le mie frasi", `progetto.md`). Il v3 §9.1 dice corsivo per "le tue parole" e il suo ritratto
-    di febbraio (§13.7) scrive già *amore e verità* ✧; la regola, finché il v3 non la scrive, sta qui.
+    seme (regola 1, ricetta "le mie frasi", `progetto.md`). *Non più una scelta*: il v3 §5 e §9.1 lo dicono (il corsivo
+    dice "alla lettera", il segno ✧ dice di chi è).
 20. **La nota "trascritta da Claude" una volta sola**, in testa al gruppo di righe a cui si applica (P3-56, P3-68:
-    regola 6, ricetta, `progetto.md`, ritratto). Il v3 §5 dà la nota e non dice quante volte; la tabella delle lunghezze
+    regola 6, ricetta, `progetto.md`, ritratto). *Non più una scelta*: il v3 §5 lo dice; la tabella delle lunghezze
     segue il v3 §9.1 (la risposta a una domanda si conta tolte le mie frasi citate; "le mie frasi" in righe).
 21. **Il seme ✧ non è il capo vecchio di un ponte** (P3-79): il capo vecchio è una mia frase ✦ o un testo `altrui`
     (gesto ✦, parole ○), in `specchio.md`, nell'aggancio di `smista.md` e nella convergenza del ritratto. Il v3 §7.5 lo
-    riprende al giro 8. Il bilancio guarda tutti i vicini, anche senza parole in comune: dal v3 §6.2 e §7.5 (Rust).
-22. **Il lucchetto con `--sessione ID --gettone N`** (P3-36): il v3 §8.1 vuole che `rinnova` e `lascia` ricevano id e
-    gettone; i nomi delle opzioni vengono dalla terza prova, `prepara --solo ID` dal piano (blocco 5, P3-39).
-23. **`greci` resta `greci`** (P3-77): il v3 §3.4 fa di un popolo "un tema con il tuo nome" (principio 9), il suo §3.3 ha
-    l'esempio `[greci]` e il banco B02 lo vuole; la regola "singolare" del v3 §3.3 non lo eccettua ancora.
+    riprende al giro 8, e il §6.2 lo tiene fuori dai vicini. Il bilancio guarda tutti i vicini, anche senza parole in comune: dal v3 §6.2 e §7.5 (Rust).
+22. **Il lucchetto con `--sessione ID --gettone N`** (P3-36): *non più una scelta*, il v3 §8.1 dà le opzioni e, senza
+    argomenti, il ripiego su `.git/lucchetto`; `prepara --solo ID` viene dal piano (blocco 5, P3-39).
+23. **`greci` resta `greci`** (P3-77): *non più una scelta*, il v3 §3.3 eccettua i nomi di popolo dalla regola
+    "singolare" (un popolo è un tema con il tuo nome, §3.4), e il banco B02 lo vuole (regola 10, `smista.md`,
+    `formato-piano.md`).
 24. **"Smista", i punti che il v3 lascia aperti**: `contesto.mjs` dopo `prepara`, perché il "mentre eri via" legga il
     silenzio da una `mappa.md` fresca (P3-87); un `memo: chat` che lo script non sa ancora separare resta in coda
     (P3-70); "X: frase" mette `@X` in `attribuita-a` e X nasce persona, di norma `mondo` (P3-78: il v3 §3.4 dice solo

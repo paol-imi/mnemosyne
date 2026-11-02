@@ -76,7 +76,12 @@ Stato:
   data sui capi del ritratto del giorno 1). R14 passata 2 a 1 per una causa nel pacchetto (un «sì con riserve»).
 - Giro 10: P5-1…P5-25 chiuse (aperta, bassa, una parte di P5-19 sul §14). «Forte» anche in `CLAUDE.md`; in Specchio
   un «sì con riserve» conta come no e il perché ◌ non aggiunge ciò che le due frasi non dicono.
-- F6. Sesta prova a freddo (conferma): lanciata.
+- F6. Sesta prova a freddo: fatta (session_016XqAM1948dqULYKHpKdKWM): blocchi 0–6, 14/14, R14 nel caso (b); una voce
+  alta (P6-1), del banco e non del sistema: un controllo troppo stretto su un'uscita giusta.
+- Giro 11: P6-1…P6-19 chiuse (aperte, basse, P6-7 e P6-16 sul modello). Sei regole portate dal checker al banco.
+  Verifica mirata del checker corretto: uscite giuste accettate 4/4, varianti sbagliate rifiutate 20/20; correzioni
+  applicate anche al codice della sesta. **Verdetto del coordinatore: il pacchetto è pronto** (nessuna voce alta
+  aperta). Prossimo: G, implementazione vera con `progetto/pacchetto/prompt-avvio.md` fino alla porta del blocco 6.
 - Nome: Mnemosyne (sessione session_016XqALzZG9b2QGQbSqhNrc7, documento `nome.md`).
 - G. Implementazione: dopo F.
 

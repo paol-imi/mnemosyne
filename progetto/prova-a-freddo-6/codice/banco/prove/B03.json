@@ -10,7 +10,7 @@
     { "dove": "@lettura", "campo": "reazione", "vale": [ { "parole": "mi ha spaccato", "verso": "+" } ] },
     { "dove": "@lettura", "campo": "parole", "contiene": [ "inconscio", "destino" ] },
     { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$nodo": "citazioni" }, "voce": "sua" } ], "motivo": "manca nomina ✦ della citazione" },
-    { "dove": "citazioni/*.md", "nuovo": true, "filtro": { "campo": "nato-da", "contiene": [ "id(B03)" ] }, "campo": "attribuita-a", "contiene": [ { "$regex": "jung", "$flag": "i" } ], "motivo": "nessuna citazione nuova con Jung in attribuita-a" }
+    { "dove": "citazioni/*.md", "nuovo": true, "filtro": { "campo": "nato-da", "contiene": [ "id(B03)" ] }, "campo": "attribuita-a", "contiene": [ { "$nodo": "persone", "$regex": "jung", "$flag": "i" } ], "motivo": "nessuna citazione nuova con la persona Jung (slug in persone/) in attribuita-a" }
   ],
   "mappa": [
     { "dove": "@mappa", "sezione": "Nodi", "regex": "(?<![\\w-])nuovo(citazioni/*.md) · citazioni\\b.*✦1(?!\\d)", "motivo": "§ Nodi senza la riga della citazione con ✦1" }
@@ -38,7 +38,7 @@
   "note": [
     "La citazione si riconosce da nato-da: [id(B03)], non dallo slug, che la scheda non fissa; nella Mappa dallo slug dell'unico file nuovo in citazioni/.",
     "«Non deve: cambiare il frammento» è G1 (corpo byte per byte) e G7; «G4 violata» è G4: nessuna voce in più.",
-    "«nessun legame nomina verso la persona Jung»: vale verso il nodo (slug in persone/) e verso un ~Nome con Jung, le due forme che la scheda ammette per Jung in attribuita-a.",
+    "attribuita-a: una forma sola, lo slug della persona Jung (prompt smista: «X: frase» → @X, che applica.mjs fa slug; X nasce persona se non c'è). «nessun legame nomina verso Jung»: né verso il nodo né verso un ~Nome con Jung.",
     "«originale non uguale al testo del frammento»: si vieta che contenga «lo chiamerai destino», la forma che circola."
   ]
 }

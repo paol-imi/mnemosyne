@@ -15,7 +15,7 @@
 //   tocca la lettura di Bnn); nel working tree, HEAD.
 // --fase consolida: solo i punti "dopo consolida"; --fase cattura: G1 sul file in ingresso/ e G3, lo schema (blocco 3, B18 ridotta).
 // --per-giudice: stampa il prompt di banco/giudice.md riempito (prova, preparazione, uscita, domande) e non scrive niente.
-// --giudizi: i tre file con le risposte del giudice; vale la maggioranza, "non so" è contrario all'attesa.
+// --giudizi: i tre file con le risposte del giudice; vale la maggioranza, "non so" e "con riserve" sono contrari all'attesa.
 // Esiti: --esiti FILE, altrimenti banco/esiti/AAAAMMGG-COSA.md (la data di scripts/ora.mjs, COSA da --cosa, "banco").
 // Codice d'uscita: 0 passa o in attesa del giudice, 1 fallisce, 2 uso sbagliato.
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync, mkdtempSync, symlinkSync, unlinkSync } from 'node:fs';
@@ -548,13 +548,14 @@ export function promptGiudice(ctx, modello) {
 }
 
 // Tre giudizi, una riga per domanda ("D1: sì — motivo"); per ogni domanda vale la maggioranza; una domanda senza
-// risposta è "non so", e "non so" è contrario all'attesa. Poi la soglia della prova: senza, tutte obbligatorie.
+// risposta è "non so"; "non so" e una risposta "con riserve" sono contrari all'attesa. Poi la soglia della prova: senza, tutte obbligatorie.
 export function maggioranza(domande, testi, soglia = null) {
   const leggi = (t) => {
     const r = {};
     for (const l of t.split('\n')) {
       const m = /^\W*D(\d+)\W*?\s*(sì|si|no|non so)(?=[\s—–\-:.,;*]|$)[\s—–\-:.,;*]*(.*)$/iu.exec(l.trim());
-      if (m) r[m[1]] ??= { v: m[2].toLowerCase() === 'si' ? 'sì' : m[2].toLowerCase(), perche: m[3].trim() };
+      // una risposta «con riserve» (sì con riserve, no con riserve) conta come esito contrario all'attesa (banco §5)
+      if (m) r[m[1]] ??= { v: /^con\s+riserv/iu.test(m[3]) ? 'con riserve' : m[2].toLowerCase() === 'si' ? 'sì' : m[2].toLowerCase(), perche: m[3].trim() };
     }
     return r;
   };

@@ -20,16 +20,17 @@ alias, conti, posizioni, scarti, eredità, mondo verificato, in sospeso). Non pu
   alla lettera (le mie frasi ✦, anche trascritte da Claude, e i passi del seme ✧) e per i titoli delle opere; mai per
   una tua formula.
 - Una mia frase `forma: riportata` (trascritta da Claude, per esempio nel seme) si mostra ✦ con la nota "trascritta da
-  Claude nel seme" (o "trascritta da Claude", se viene da una chat), e conta tra le mie. La nota compare una volta sola,
-  in testa al gruppo di righe a cui si applica, non su ogni riga. Un testo altrui che ho
-  trascritto (`altrui`, marcato in `parole.md`) è mio solo come gesto: ✦ il gesto, ○ le parole tra «».
+  Claude nel seme" (o "trascritta da Claude", se viene da una chat; al plurale per un gruppo), e conta tra le mie. La
+  nota compare una volta sola, in testa al gruppo di righe a cui si applica, non su ogni riga. Un testo altrui che ho
+  trascritto (`altrui`, marcato in `parole.md`) è mio solo come gesto: ✦ il gesto e il mio commento (la mia riga
+  accanto al testo, in corsivo come le mie frasi), ○ le parole tra «».
 - Fino a 150 parole, tolte le mie frasi citate alla lettera (almeno 50 solo se ci sono ≥ 3 voci ✦), voci numerate
   `1.`, `2.`… a inizio riga; "Vuoi il resto?" solo se il resto c'è. "Le mie frasi" si misura in righe (sotto).
 - I numeri solo da `mappa.md`: non contare tu.
 - **"Le mie frasi"** (anche "solo le mie"): solo le mie ✦, dalla più recente, alla lettera con la data, refusi compresi,
   in corsivo (un frammento su più righe: il corsivo è un tratto di una sua riga, mai righe unite con " / "); le riportate
   comprese, con la nota una volta sola, in testa al loro gruppo (e lì, se è comune, la data); gli `altrui` solo come
-  gesto; i delicati alla lettera, mai in testa.
+  gesto, con il mio commento se c'è; i delicati alla lettera, mai in testa; a pari data, l'ordine di `parole.md`.
   Fino a 8 righe ✦, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
   **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
   alla lettera **in corsivo** e la data-tetto, presa dalla sezione del seme in fondo a `parole.md`; anche lei è una voce

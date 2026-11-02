@@ -16,7 +16,7 @@
    repository, mai la scheda con i criteri.
 3. Le tre risposte, così come sono, in tre file; poi
    `node banco/esegui.mjs --prova Bnn [--ramo …] [--uscita FILE] --giudizi g1.md,g2.md,g3.md [--giudice MODELLO]`: per
-   ogni domanda vale la maggioranza dei tre; "non so", una riga mancante o illeggibile contano come esito **contrario** a
+   ogni domanda vale la maggioranza dei tre; "non so", una risposta "con riserve", una riga mancante o illeggibile contano come esito **contrario** a
    quello richiesto. Poi la soglia della prova (campo `soglia` o `soglie`: per R01a almeno 7 su 8 con le obbligatorie,
    per R14 tutte o, senza ponte, la sola 3); senza soglia, una sola domanda sotto maggioranza e la prova fallisce, con la
    riga del giudice nei criteri falliti.
@@ -31,7 +31,8 @@ ciò che credi di sapere del repository o della persona.
 
 Rispondi a ogni domanda con **sì** o **no** e **una sola riga** di motivo che cita l'uscita: il percorso del file e le
 parole esatte, tra «». Se l'uscita non basta per decidere, rispondi **non so**: conta come esito contrario a quello
-richiesto, quindi usalo solo quando l'informazione manca davvero, non per prudenza. Non correggere l'uscita, non proporre
+richiesto, quindi usalo solo quando l'informazione manca davvero, non per prudenza. Lo stesso vale per un sì o un no
+dato **con riserve** (scrivilo così: «D1: sì con riserve — …»): conta come esito contrario a quello richiesto. Non correggere l'uscita, non proporre
 alternative, non commentare altro.
 
 Scrivi soltanto le righe delle risposte, una per domanda, in questa forma esatta, e niente prima o dopo:

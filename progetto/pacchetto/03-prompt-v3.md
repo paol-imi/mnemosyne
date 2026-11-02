@@ -11,7 +11,8 @@
 > scelte 19–26 del §13). Giro 9, 2026-11-02: corrette le voci della quarta prova a freddo che toccano i prompt (§14,
 > scelte 27–33 del §13), con le righe che la prova aveva già scritto nella sua radice. Giro 10, 2026-11-02: corrette le
 > voci della quinta prova a freddo che toccano i prompt (§14, scelte 34–39 del §13), con la riga del ritratto che la
-> prova aveva già provato. I resoconti delle prove sono storia: per usare questi file non serve leggerli.
+> prova aveva già provato. Giro 11, 2026-11-02: corrette le voci della sesta prova a freddo che toccano i prompt (scelte
+> 40–44 del §13). I resoconti delle prove sono storia: per usare questi file non serve leggerli.
 
 **Come si usa.** Ogni paragrafo qui sotto ha come titolo il percorso del file nel nuovo repository; il blocco di codice è
 il contenuto, da copiare così com'è. Nell'interfaccia di claude.ai il prompt di ogni Routine è una riga sola (v3 §7.4):
@@ -153,7 +154,8 @@ calcolati, mai scritti.
 6. Una frase `forma: riportata` si mostra ✦ con la nota "trascritta da Claude nel seme" (un importato) o "trascritta da
    Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi. La nota compare **una volta sola**, in
    testa al gruppo di righe contigue a cui si applica (in una prosa, una volta per il passo che le cita), con le stesse
-   parole e non ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze. Allo stesso modo la data
+   parole, al singolare o al plurale ("trascritte da Claude nel seme" per un gruppo, come nell'esempio sotto), e non
+   ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze. Allo stesso modo la data
    comune di un gruppo di righe consecutive (la data-tetto delle riportate) può stare una volta in testa al gruppo,
    accanto alla nota, invece che su ogni riga. Il gruppo finisce alla prima riga che non è di un frammento riportato.
    La forma da usare: nota e data in una riga senza segni subito prima del gruppo, chiusa dai due punti (per un gruppo di
@@ -162,7 +164,8 @@ calcolati, mai scritti.
    `*accettare di non avere risposte alle grandi domande* ✦`
    `*deve nascere la sensazione che esistano risposte a domande che non ho* ✦`
 7. Un testo altrui che ho **trascritto** (foto, copia: `altrui: true`): ✦ il gesto e il mio commento, ○ le parole, tra
-   «», al più una riga. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
+   «», al più una riga. Il mio commento è la mia riga accanto al testo (su Invictus: *Un candidato se vorrò fare testi
+   lunghi.*): è mia, e si cita come le mie frasi, in corsivo ✦ e alla lettera. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
    ("a ottobre avevi trascritto il monologo di Rust ✦"), poi le parole ○ tra «», al più una riga, alla lettera nella
    lingua in cui le ho trascritte, con l'opera e il passo. Le parole d'altri
    che **ricordo** a memoria in un memo sono mie: ✦ in corsivo, nella mia versione; il testo verificato accanto è ○ tra «».
@@ -306,9 +309,10 @@ Voci numerate `1.`, `2.`… (le fissa lo script), lunghezze della tabella.
   refusi compresi, in corsivo (un frammento su più righe: il corsivo è un tratto di **una** sua riga, mai righe unite
   con " / " o con uno spazio: regola 1); gli importati con la data-tetto; le `forma: riportata` comprese, con la nota
   (regola 6: una volta sola, in testa al loro gruppo, e con lei, se è comune, la data); gli `altrui` solo come gesto,
-  mai le loro parole come mie; fuori i frammenti senza parole mie (un link nudo, meno di 3 parole, "boh"): qui "non
-  parlanti" vuol dire solo questo, e gli importati valgono, anche se nelle soglie non contano; i delicati alla lettera,
-  mai in testa.
+  con il mio commento se c'è (regola 7), mai le loro parole come mie; fuori i frammenti senza parole mie (un link nudo,
+  meno di 3 parole, "boh"): qui "non parlanti" vuol dire solo questo, e gli importati valgono, anche se nelle soglie non
+  contano, anche una richiesta che facevo a Claude (*vai con la mappa*); i delicati alla lettera, mai in testa. A pari
+  data (gli importati con la stessa data-tetto) vale l'ordine di `parole.md`.
   Fino a 8 righe, tra cui una della coda lunga (una mia frase che non compare in nessuna restituzione di `recenti.md`,
   tra le più vecchie), poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
   **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
@@ -361,7 +365,8 @@ le chiavi di ciascuno sono scelte qui (§13 n. 1), i valori ammessi vengono dall
 # Il piano
 
 Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano JSON** e lo passa a
-`node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano. Lo script lo convalida, calcola slug e numeri,
+`node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano: la lettera la scrive "consolida", con
+un'operazione `restituzione` `forma: lettera` nel suo piano (per questo lo schema la ammette), e "lettera" la consegna. Lo script lo convalida, calcola slug e numeri,
 pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dell'id blob di git di `CLAUDE.md`,
 `prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila), `registrato`, `schema` e, se manca, `versione`, o rifiuta con il motivo. È
 transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimenti non resta niente.
@@ -509,7 +514,8 @@ passata delle 3 ore.
      è **quel** tempo in `mm:ss` (`t=754` → `"12:34"`), anche se a parole dico "dal minuto 12"; `t=` resta nel link. Un
      link senza nome (titolo assente) non fa nascere nodi: il `momento` va su un `nomina` verso un `~Nome` in chiaro preso
      dalle mie parole, mai un titolo inventato; se le mie parole non danno un nome, niente `nomina`: il momento resta nel
-     `t=` del link. Un'indicazione va in `nota`. Risposta: `risposta: salvato`; ripetermi il momento non è contenuto.
+     `t=` del link. Un momento detto a parole senza un tempo ("verso la fine") va in `momento` con le mie parole, così
+     come le ho scritte. Un'indicazione va in `nota`. Risposta: `risposta: salvato`; ripetermi il momento non è contenuto.
    - **`parole`** (facoltativo) quando ci sono parole candidate a tema, anche in un seguito o in un `ritorna-su` ("la
      frase dell'ospite era verso la fine, quando parlava dei greci" → `parole: [greci]`): sempre una lista, anche di una
      parola; singolare, minuscolo, un nome e non un aggettivo, dalla mia parola ("padre", non "padri"; "i ragazzi" →
@@ -517,8 +523,9 @@ passata delle 3 ore.
      `greci`.
    - **reazione**: le mie parole copiate esatte e il `verso`: `+`; `-` anche per ironia, sufficienza, "carino ma…",
      "da bacio perugina"; `±` come dice CLAUDE.md (I quattro tipi), la sola regola: un giudizio a metà ("ci ha preso")
-     o una commozione che non è entusiasmo.
-   - `delicato: true` se serve; `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
+     o una commozione che non è entusiasmo. Senza una reazione nelle mie parole, il campo non si scrive.
+   - `delicato: true` se serve, e allora niente `parole` (sono candidate a tema, e sul delicato niente temi: modello
+     §7.2.1, la prudenza); `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
      per il dove e il come.
    - "la 3" di un album: una ricerca leggera della tracklist, per chiedere "La 3 è X, giusto?".
    - **verifica rapida** di ogni citazione **nuova**, dentro il suo `crea-nodo`, prima di applicare: una-due ricerche
@@ -560,7 +567,8 @@ Esempio:
 **Il "mentre eri via".** Se questo è il primo memo dopo un silenzio (annotato al passo 2, prima di `prepara`) più lungo
 del doppio del mio intervallo mediano tra giorni attivi, e comunque di almeno 14 giorni, e `riserva/ritorno.md` non è vuoto: aggiungi
 **quella riga, così com'è**, in fondo alla stessa risposta (allora la risposta ha contenuto). Mai su un frammento delicato
-o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto: niente.
+o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto o mancante (nasce con il primo "consolida"):
+niente.
 
 **Delicato**: "Ci sono." (al più "Tutto bene?"), nessuna proposta, nessun file di risposta.
 
@@ -741,7 +749,9 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota
    della regola 6 una volta sola, le altre senza nota; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
    senza il numero dei frammenti; nessun conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è
-   un prima); la convergenza è ◌; l'ultima riga resta la domanda. Nel piano: **una** voce, la convergenza (`cosa:
+   un prima); "che cosa torna" con i numeri di § Nodi di `mappa.md` (i conti ✦ dei nodi), o senza numeri se non ci
+   sono; i titoletti delle sezioni sono righe di servizio, senza segni; la convergenza è ◌; l'ultima riga resta la
+   domanda. Nel piano: **una** voce, la convergenza (`cosa:
    convergenza`, `voce: proposta`, `1.` a inizio riga o `[1]` nella prosa: modello §3.5), con il suo legame
    `converge-con` `voce: proposta` e `da: 1`; `aggancio` è la mia frase su cui si regge (`{a: id}`, con `passo:
    "nota:riga"` solo per un frammento su più righe; per una frase di una riga `passo` si omette); niente `copre`, che è
@@ -783,14 +793,18 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    **La prova, prima di consegnare un ponte** (non la fai tu, che l'hai trovato): prova i candidati in ordine, dal più
    forte secondo te, fino al primo che passa. Per ciascuno dai a **tre** subagent nuovi e separati **solo** "oggi è …"
    (la data di oggi, perché non leggano l'orologio), le due frasi alla lettera con i loro luoghi, senza il perché, e
-   queste due domande, così come sono:
+   queste due domande, così come sono. I luoghi sono quelli che darei a me: per una mia frase la data (un importato con
+   la data-tetto, "entro il 4 ottobre"); per un testo trascritto l'opera e il passo, e la data in cui l'ho trascritto.
+   Nella forma: «*<la mia frase, alla lettera>* (un mio memo del 3 novembre)» e «"<la riga trascritta, alla lettera>"
+   (<opera>, <stagione ed episodio, o capitolo>: un testo che ho trascritto entro il 4 ottobre)»:
    - A. «Queste due frasi, una accanto all'altra, bastano da sole a far vedere un nesso tra loro? Non chiedo se il nesso
      sia scritto: chiedo se si regge sulle loro parole e sui loro luoghi, senza una spiegazione aggiunta. Rispondi sì o
      no, con una riga di motivo.»
    - B. «Accostarle è inventato o forzato? Rispondi sì o no, con una riga di motivo.»
    Per un subagent il ponte è forte se risponde **sì** alla A e **no** alla B, senza riserve: ogni riserva conta contro
    il ponte, cioè un **sì con riserve** alla A ("sì, ma solo per il nesso minimo") conta come **no**, un no con riserve
-   alla B conta come sì, e un "non so" conta contro. Vale la maggioranza dei tre. Consegni il ponte solo se per la
+   alla B conta come sì, e un "non so" conta contro. Una risposta al condizionale o con una condizione ("sì, se…",
+   "no, se la presenti come ipotesi") è una risposta con riserve. Vale la maggioranza dei tre. Consegni il ponte solo se per la
    maggioranza è forte, anche se ne sei convinto e anche se somiglia a un esempio. Senza lo strumento dei subagent, tre
    sessioni separate (`claude -p`); se non puoi nemmeno quelle, niente ponte, e lo dici nel messaggio finale.
    Senza un ponte che passa la prova: "Nessun ponte oggi." (al giorno 3, il bilancio del passo 3). Non inventare.
@@ -802,7 +816,8 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    **I capi del ponte.** Il capo vecchio è una mia frase ✦ oppure un testo `altrui` che ho trascritto (il gesto ✦, le
    parole ○: passo 3). **Il seme ✧ non vale come capo vecchio** (lo script non lo mette tra i vicini): è una sintesi scritta da
    Claude, e la meraviglia si aggancia alle mie parole o ai miei gesti.
-3. **Giorni 1–7**: anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
+3. **Giorni 1–7** (di calendario in `Europe/Rome`, contati dal giorno del primo frammento non importato, come i primi
+   3 giorni dei vicini: modello §6.2): anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
    cerca il ponte, con `smista.mjs vicini ID` per ciascuno (nei primi 3 giorni i vicini sono anche tutti gli importati
    ✦). Gli `altrui` sono vicini come gli altri: un
    testo che ho trascritto (il monologo di Rust) può fare da capo vecchio con il mio gesto ✦ e le sue parole ○ (CLAUDE.md,
@@ -947,16 +962,17 @@ alias, conti, posizioni, scarti, eredità, mondo verificato, in sospeso). Non pu
   alla lettera (le mie frasi ✦, anche trascritte da Claude, e i passi del seme ✧) e per i titoli delle opere; mai per
   una tua formula.
 - Una mia frase `forma: riportata` (trascritta da Claude, per esempio nel seme) si mostra ✦ con la nota "trascritta da
-  Claude nel seme" (o "trascritta da Claude", se viene da una chat), e conta tra le mie. La nota compare una volta sola,
-  in testa al gruppo di righe a cui si applica, non su ogni riga. Un testo altrui che ho
-  trascritto (`altrui`, marcato in `parole.md`) è mio solo come gesto: ✦ il gesto, ○ le parole tra «».
+  Claude nel seme" (o "trascritta da Claude", se viene da una chat; al plurale per un gruppo), e conta tra le mie. La
+  nota compare una volta sola, in testa al gruppo di righe a cui si applica, non su ogni riga. Un testo altrui che ho
+  trascritto (`altrui`, marcato in `parole.md`) è mio solo come gesto: ✦ il gesto e il mio commento (la mia riga
+  accanto al testo, in corsivo come le mie frasi), ○ le parole tra «».
 - Fino a 150 parole, tolte le mie frasi citate alla lettera (almeno 50 solo se ci sono ≥ 3 voci ✦), voci numerate
   `1.`, `2.`… a inizio riga; "Vuoi il resto?" solo se il resto c'è. "Le mie frasi" si misura in righe (sotto).
 - I numeri solo da `mappa.md`: non contare tu.
 - **"Le mie frasi"** (anche "solo le mie"): solo le mie ✦, dalla più recente, alla lettera con la data, refusi compresi,
   in corsivo (un frammento su più righe: il corsivo è un tratto di una sua riga, mai righe unite con " / "); le riportate
   comprese, con la nota una volta sola, in testa al loro gruppo (e lì, se è comune, la data); gli `altrui` solo come
-  gesto; i delicati alla lettera, mai in testa.
+  gesto, con il mio commento se c'è; i delicati alla lettera, mai in testa; a pari data, l'ordine di `parole.md`.
   Fino a 8 righe ✦, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
   **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
   alla lettera **in corsivo** e la data-tetto, presa dalla sezione del seme in fondo a `parole.md`; anche lei è una voce
@@ -1157,6 +1173,19 @@ altre vengono dal suo registro:
     formato di `ID.risposte.md`.
 39. **`formato-piano.md`** (P5-8, P5-20): `link` tra i campi vietati a una citazione all'ingresso (v3 §3.4); `alias` non
     è un campo del genere; la `versione` di "consolida"; `lapide` tra slug; `voce: seme` nelle voci e nei legami.
+
+Dalla sesta prova a freddo (giro 11), dal suo registro:
+40. **`CLAUDE.md`** (P6-1, P6-2, P6-17): il commento mio a un testo trascritto (la riga su Invictus) è mio, in corsivo
+    ✦, come la regola 7 già diceva ("il gesto e il mio commento"): il banco D02 lo ammette; la nota della regola 6 al
+    singolare o al plurale, come il suo esempio; in "le mie frasi", a pari data l'ordine di `parole.md`, e una mia
+    richiesta a Claude di almeno 3 parole è una mia frase. Le stesse righe nelle istruzioni del Progetto.
+41. **`smista.md`** (P6-11, P6-18): `riserva/ritorno.md` mancante vale come vuoto; senza reazione il campo non si scrive;
+    un momento detto a parole va in `momento` con le mie parole; un delicato senza `parole` (v3 §7.2.1).
+42. **`specchio.md`** (P6-12, P6-15): i luoghi da dare ai tre subagent, nella forma; una risposta al condizionale è con
+    riserve; i giorni 1–7 di calendario, contati come i primi 3 dei vicini (v3 §6.2).
+43. **`ritratto.md`, giorno 1** (P6-14): "che cosa torna" con i numeri di § Nodi, o senza; i titoletti senza segni.
+44. **`formato-piano.md`** (P6-8): la lettera la scrive "consolida" nel suo piano (per questo lo schema ammette `forma:
+    lettera`); "lettera" non scrive.
 
 ---
 

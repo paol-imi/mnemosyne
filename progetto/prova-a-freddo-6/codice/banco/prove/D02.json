@@ -93,6 +93,7 @@
         "campo": "forma",
         "vale": "riportata"
       },
+      "parole_min": 4,
       "gruppi": "trascritt[ae] da Claude"
     },
     {
@@ -198,7 +199,7 @@
       "attesa": "no"
     },
     {
-      "domanda": "Le parole di U18, U19 o U20 (il monologo di Rust e le altre parole d'altri) sono date come tue, invece che solo come il gesto di averle riportate (✦ il gesto, le parole tra «» con ○)?",
+      "domanda": "Le parole di U18, U19 o U20 (il monologo di Rust e le altre parole d'altri) sono date come tue, invece che solo come il gesto di averle riportate (✦ il gesto, le parole tra «» con ○)? (La riga sua di U18, «Un candidato se vorrò fare testi lunghi.», è il suo commento: è sua, e può stare in corsivo ✦ accanto al gesto.)",
       "attesa": "no"
     }
   ],
@@ -210,7 +211,7 @@
     "«muti e delicati» (B12, B13, B18, B21, B25) non si controllano: alle date di questa prova (20 novembre o punto zero) quei frammenti non esistono ancora. Nella D02 dopo B25 (blocco 8) servono criteri in più.",
     "Non deve (scritto come criterio di Forma in positivo): ogni corsivo fuori dalla riga ✧ si ritrova esatto in un frammento ✦ (anche sotto le 4 parole: qui conta la ricerca esatta, non la lunghezza); la riga ✧ è controllata in Forma (seme alla lettera). G3 e G7 valgono; G1, G2, G4, G5, G6 sono dell'ingresso.",
     "Riportate (scheda attuale): le righe ✦ con un tratto di un frammento forma: riportata che si toccano fanno un gruppo; «trascritta da Claude» compare una volta sola per gruppo, sulla sua prima riga o in una riga senza segni subito prima, e in nessun'altra riga (quindi mai su una riga di un frammento non riportato). Non più su ogni riga, come voleva la versione vecchia del banco.",
-    "Altrui: «una loro riga dice il gesto con ✦ e le parole tra «» con ○»; si controlla che ogni riga con parole di U18–U20 tra «» porti ○; che il gesto con ✦ ci sia lo vede il giudice (domanda 2).",
+    "Altrui (scheda, regola 7 di CLAUDE.md): nessun tratto in corsivo viene dalle parole d'altri di U18–U20; la riga sua di U18 («Un candidato se vorrò fare testi lunghi.») è sua, e un suo corsivo non conta (tranne). Riportate: un tratto è di almeno 4 parole o il frammento intero (banco parte 2), così un titolo in corsivo (True Detective) non fa di una riga una riportata. «una loro riga dice il gesto con ✦ e le parole tra «» con ○»; si controlla che ogni riga con parole di U18–U20 tra «» porti ○; che il gesto con ✦ ci sia lo vede il giudice (domanda 2).",
     "X3 non è nella scheda D02: non si controlla qui."
   ]
 }

@@ -109,7 +109,8 @@ calcolati, mai scritti.
 6. Una frase `forma: riportata` si mostra ✦ con la nota "trascritta da Claude nel seme" (un importato) o "trascritta da
    Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi. La nota compare **una volta sola**, in
    testa al gruppo di righe contigue a cui si applica (in una prosa, una volta per il passo che le cita), con le stesse
-   parole e non ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze. Allo stesso modo la data
+   parole, al singolare o al plurale ("trascritte da Claude nel seme" per un gruppo, come nell'esempio sotto), e non
+   ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze. Allo stesso modo la data
    comune di un gruppo di righe consecutive (la data-tetto delle riportate) può stare una volta in testa al gruppo,
    accanto alla nota, invece che su ogni riga. Il gruppo finisce alla prima riga che non è di un frammento riportato.
    La forma da usare: nota e data in una riga senza segni subito prima del gruppo, chiusa dai due punti (per un gruppo di
@@ -118,7 +119,8 @@ calcolati, mai scritti.
    `*accettare di non avere risposte alle grandi domande* ✦`
    `*deve nascere la sensazione che esistano risposte a domande che non ho* ✦`
 7. Un testo altrui che ho **trascritto** (foto, copia: `altrui: true`): ✦ il gesto e il mio commento, ○ le parole, tra
-   «», al più una riga. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
+   «», al più una riga. Il mio commento è la mia riga accanto al testo (su Invictus: *Un candidato se vorrò fare testi
+   lunghi.*): è mia, e si cita come le mie frasi, in corsivo ✦ e alla lettera. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
    ("a ottobre avevi trascritto il monologo di Rust ✦"), poi le parole ○ tra «», al più una riga, alla lettera nella
    lingua in cui le ho trascritte, con l'opera e il passo. Le parole d'altri
    che **ricordo** a memoria in un memo sono mie: ✦ in corsivo, nella mia versione; il testo verificato accanto è ○ tra «».
@@ -262,9 +264,10 @@ Voci numerate `1.`, `2.`… (le fissa lo script), lunghezze della tabella.
   refusi compresi, in corsivo (un frammento su più righe: il corsivo è un tratto di **una** sua riga, mai righe unite
   con " / " o con uno spazio: regola 1); gli importati con la data-tetto; le `forma: riportata` comprese, con la nota
   (regola 6: una volta sola, in testa al loro gruppo, e con lei, se è comune, la data); gli `altrui` solo come gesto,
-  mai le loro parole come mie; fuori i frammenti senza parole mie (un link nudo, meno di 3 parole, "boh"): qui "non
-  parlanti" vuol dire solo questo, e gli importati valgono, anche se nelle soglie non contano; i delicati alla lettera,
-  mai in testa.
+  con il mio commento se c'è (regola 7), mai le loro parole come mie; fuori i frammenti senza parole mie (un link nudo,
+  meno di 3 parole, "boh"): qui "non parlanti" vuol dire solo questo, e gli importati valgono, anche se nelle soglie non
+  contano, anche una richiesta che facevo a Claude (*vai con la mappa*); i delicati alla lettera, mai in testa. A pari
+  data (gli importati con la stessa data-tetto) vale l'ordine di `parole.md`.
   Fino a 8 righe, tra cui una della coda lunga (una mia frase che non compare in nessuna restituzione di `recenti.md`,
   tra le più vecchie), poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
   **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo

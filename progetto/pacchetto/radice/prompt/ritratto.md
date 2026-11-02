@@ -34,7 +34,9 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota
    della regola 6 una volta sola, le altre senza nota; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
    senza il numero dei frammenti; nessun conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è
-   un prima); la convergenza è ◌; l'ultima riga resta la domanda. Nel piano: **una** voce, la convergenza (`cosa:
+   un prima); "che cosa torna" con i numeri di § Nodi di `mappa.md` (i conti ✦ dei nodi), o senza numeri se non ci
+   sono; i titoletti delle sezioni sono righe di servizio, senza segni; la convergenza è ◌; l'ultima riga resta la
+   domanda. Nel piano: **una** voce, la convergenza (`cosa:
    convergenza`, `voce: proposta`, `1.` a inizio riga o `[1]` nella prosa: modello §3.5), con il suo legame
    `converge-con` `voce: proposta` e `da: 1`; `aggancio` è la mia frase su cui si regge (`{a: id}`, con `passo:
    "nota:riga"` solo per un frammento su più righe; per una frase di una riga `passo` si omette); niente `copre`, che è

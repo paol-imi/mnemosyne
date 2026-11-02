@@ -7,11 +7,15 @@
 > il 2026-11-02, giro 9, dopo la [quarta](../v2/prova-a-freddo-4.md) (P4-1: R14 senza un ponte dovuto; P4-2: il
 > giudice di D02; P4-4, P4-13: la data e la nota di un gruppo di righe); il 2026-11-02, giro 10, dopo la
 > [quinta](../v2/prova-a-freddo-5.md) (P5-4: le attese di R14 fuori dal testo delle domande, "forte" riportata
-> in `CLAUDE.md`; P5-13: l'uscita senza congedo).
+> in `CLAUDE.md`; P5-13: l'uscita senza congedo); il 2026-11-02, giro 11, dopo la
+> [sesta](../v2/prova-a-freddo-6.md) (P6-1: la riga sua di U18 in D02, che la regola 7 di `CLAUDE.md` ammette;
+> P6-2: la nota al plurale; P6-4: una risposta del giudice con riserve; P6-5: le B con un giudice; P6-6: B03; P6-13: gli
+> esiti; e le regole che il checker corretto della sesta controllava e il banco non diceva: i titoli in corsivo dopo ○,
+> i capi dei legami davanti al giudice, il file di R01a).
 > Proposta di Claude, da validare. Serve a collaudare l'implementazione
 > del [modello v3](./02-modello-v3.md) nel repo nuovo: ogni criterio si controlla sui file del repository
 > (percorsi, campi del frontmatter, legami, conteggi, ricerche esatte), senza giudizio; il giudizio sta solo nelle
-> domande del giudice (parti 3 e 4). Parti: 1 messaggi, 2 domande, 3 restituzione, 4 tempo e uso, 5 come si esegue.
+> domande del giudice (parti 3 e 4, le D che le hanno, e B06 e B14 per il punto che nessun controllo vede: §5). Parti: 1 messaggi, 2 domande, 3 restituzione, 4 tempo e uso, 5 come si esegue.
 > Nomi, campi, segni e percorsi sono quelli del modello v3 (§3, §4, §5, §6.1): dove il banco e il modello divergono vince
 > il modello, e il banco è già allineato. Messaggi e attese vengono da [esempi in ingresso](../v2/esempi-ingresso.md)
 > e [esempi di domande](../v2/esempi-domande.md), con gli attriti della
@@ -28,9 +32,11 @@ sola, nel commit `importa: punto zero` con data **2026-10-31** (la data dell'ult
 blocco 2); i frammenti dentro portano ciascuno la sua data, dal 4 al 31 ottobre 2026.
 - **35 frammenti** `canale: importato`, con `registrato` di sola data (le viste orarie non li contano):
   - 32 frasi tue, `20261004-0000-u01` … `20261031-0000-u31` (`u26a`, `u26b`), `voce: sua`; quelle messe per iscritto da
-    Claude anche `forma: riportata` (si mostrano ✦ con la nota "trascritta da Claude nel seme", **una volta** per gruppo di
-    righe, non su ogni frase: D02, Forma); U18, U19 (il monologo di
-    Rust) e U20 hanno nella lettura `altrui: true`: ✦ il gesto, ○ le parole;
+    Claude anche `forma: riportata` (si mostrano ✦ con la nota "trascritta da Claude nel seme", o "trascritte" per un
+    gruppo, **una volta** per gruppo di righe, non su ogni frase: D02, Forma); U18, U19 (il monologo di
+    Rust) e U20 hanno nella lettura `altrui: true`: ✦ il gesto e il suo commento, ○ le parole. Il commento c'è solo in
+    U18, la sua prima riga, «Un candidato se vorrò fare testi lunghi.» (la lettura: "sua la riga e il gesto"): è sua, e
+    si cita come le sue frasi (`CLAUDE.md`, regola 7);
   - tre sguardi `voce: seme` (✧): `20261005-0000-s01` (il nucleo, `intento: [sguardo]`, passi citabili come
     `passo: nucleo:19`), `20261005-0000-s04` (tensioni, virtù e fortuna, evoluzione), `20261004-0000-s03` (il racconto
     d'origine, `intento: [niente]`, non fa nascere nodi, salvo `raccolte/tatuaggi.md`). **Nessun `s02`**: il brief dei tatuaggi è la vista dei frammenti
@@ -141,7 +147,8 @@ frammento è la prova T03.
 
 - **File:** lettura con `reazione: [{parole: "mi ha spaccato", verso: "+"}]`, `parole` che contiene `inconscio` e
   `destino`, `nomina` ✦ della citazione. "X: frase" (modello §3.4): un file nuovo in `citazioni/` il cui `attribuita-a`
-  contiene `slug("jung")` o un `~Nome` con "Jung"; nessun legame `nomina` verso la persona Jung. Dopo "consolida": nella
+  contiene `slug("jung")`, la persona Jung: una forma sola, perché `prompt/smista.md` vuole `@X`, e X nasce persona se
+  non c'è (sesta prova, P6-6); nessun legame `nomina` verso Jung, né verso il nodo né verso un `~Nome` con "Jung". Dopo "consolida": nella
   citazione `esito: simile`, `riferimento` con "Aion" e "126", `originale` e `traduzione`, `autore` uguale a Jung (slug o
   `~Carl Gustav Jung`).
 - **Mappa:** § Nodi ha la riga della citazione con ✦1.
@@ -467,7 +474,10 @@ sigilla lo stesso frammento e la stessa restituzione, senza `forma: riportata`.
 - **Forma**: criteri sulla sezione della risposta: righe, parole, "?", segni, frasi alla lettera (una frase ✦ si ritrova
   con una ricerca esatta in `frammenti/`, una ✧ in `s01`, `s03` o `s04`). Un tratto "alla lettera" è una sequenza di almeno 4
   parole (o il frammento intero, se è più corto) che si ritrova con una ricerca esatta; il "?" si conta come in G6 (un "?" dentro una tua frase citata o tra «» non
-  conta). Ogni numero detto è uguale a quello di `mappa.md` (l'AI
+  conta). **Un corsivo dopo il primo ○ di una riga** è il titolo di un'opera (`CLAUDE.md`, regola 1: ○ *True
+  Detective*, s1e1, *The Long Bright Dark*): non è una frase ✦ né ✧, non si cerca nei frammenti e non fa di una riga una
+  riga "di" un frammento; se non è un titolo, lo vede il giudice. Le parole d'altri (U18–U20) invece non stanno in
+  corsivo in nessun punto della riga, nemmeno dopo ○ (D02, "altrui"). Ogni numero detto è uguale a quello di `mappa.md` (l'AI
   non conta: §7.3). **Nessun "?"** salvo "Vuoi il resto?", che è una riga di servizio: fuori da ingresso, confronto e
   ritratto il modello non ammette domande (§9.1).
 - **Scrive**: che cosa compare nei file, oltre al turno nel frammento di chat e alla sua sezione nella restituzione, che
@@ -497,25 +507,31 @@ Il giudizio sulle risposte si dà come nella parte 3 (§5, "Il giudice AI"); una
 > le mie frasi, solo le mie
 
 - **Dati:** `parole.md`: i frammenti ✦ (telefono, chat) e gli importati `voce: sua`, con la data-tetto; quelli
-  `forma: riportata` con la nota "trascritta da Claude" (una volta per gruppo di righe, come dice la Forma, non su ogni
-  frase); U18, U19 e U20 (`altrui: true`) solo come gesto. Il seme ✧ (`s01`,
+  `forma: riportata` con la nota "trascritta da Claude" (o "trascritte", al plurale; una volta per gruppo di righe, come
+  dice la Forma, non su ogni frase); U18, U19 e U20 (`altrui: true`) solo come gesto, più il commento suo dove c'è (la
+  prima riga di U18: `CLAUDE.md`, regola 7). Il seme ✧ (`s01`,
   `s03`, `s04`) dalla sezione `## Seme ✧` in fondo a `parole.md` (modello §6.1), a parte. Il seme c'è **sempre**, anche
   **oggi**. **Oggi:** le frasi tue importate, il seme a parte.
 - **Forma** (ogni punto è un controllo sulle righe non vuote della sezione):
   - **righe ✦**: al più **8** righe con ✦, ognuna con un tratto in corsivo alla lettera (refusi compresi) di un frammento ✦
     e la sua data (per gli importati la data-tetto, "entro il …"): sulla riga, oppure **una volta** in testa a un gruppo di
     righe consecutive che hanno la stessa data, come la nota delle riportate (sulla prima riga o in una riga senza segni
-    subito prima); fanno eccezione la riga di un gesto altrui e quella di un
-    muto, che non hanno corsivo (sotto); se i frammenti ✦ citabili sono più di 8, l'ultima riga della sezione è "Vuoi il
+    subito prima); fanno eccezione la riga di un gesto altrui (quella con ○) e quella di un
+    muto, che non chiedono un corsivo né la data (sotto); se i frammenti ✦ citabili sono più di 8, l'ultima riga della sezione è "Vuoi il
     resto?"; nessun altro "?";
-  - **riportate**: le righe ✦ i cui tratti vengono da frammenti `forma: riportata` stanno in gruppi di righe consecutive, e
-    la nota "trascritta da Claude" compare **una volta sola** per gruppo, in testa al gruppo a cui si applica (sulla sua
+  - **riportate**: le righe ✦ i cui tratti (almeno 4 parole o il frammento intero, come sopra: un titolo in corsivo non
+    basta) vengono da frammenti `forma: riportata` stanno in gruppi di righe consecutive, e
+    la nota "trascritta da Claude" (al singolare o al plurale, "trascritte da Claude nel seme", come l'esempio della
+    regola 6 di `CLAUDE.md`) compare **una volta sola** per gruppo, in testa al gruppo a cui si applica (sulla sua
     prima riga o in una riga senza segni subito prima); nessuna riga di un frammento non riportato sta in un gruppo con la
     nota, e la nota non compare altrove (modello §5). Un gruppo finisce alla prima riga che non è di un frammento
     riportato: un'altra riga ✦, il gesto di un `altrui`, la riga ✧, una riga senza segni che non sia la nota del gruppo
     dopo;
-  - **altrui**: nessun tratto in corsivo si ritrova in `u18`, `u19` o `u20`; una loro riga dice il gesto con ✦ e le parole,
-    se ci sono, tra «» con ○;
+  - **altrui**: nessun tratto in corsivo, in nessun punto della riga (anche dopo ○), si ritrova nelle **parole d'altri** di
+    `u18`, `u19` o `u20` (la poesia di Henley, il monologo di Rust, la sua frase); la riga sua di `u18`, «Un candidato se
+    vorrò fare testi lunghi.», è il suo commento (`CLAUDE.md`, regola 7: "✦ il gesto e il mio commento") e può stare in
+    corsivo ✦, alla lettera, accanto al gesto; una loro riga dice il gesto con ✦ e le parole d'altri, se ci sono, tra «»
+    con ○;
   - **muti e delicati**: nessun tratto in corsivo di B13, B18, B21 (non parlanti), oppure la loro riga dice "muto"; un
     tratto di B12 o B25, se c'è, non sta nella prima riga ✦ (modello §7.2.1, Q10: a una richiesta esplicita delle tue
     parole i delicati si riportano alla lettera, mai in testa). Vale solo per i casi già accaduti alla data della prova:
@@ -523,15 +539,18 @@ Il giudizio sulle risposte si dà come nella parte 3 (§5, "Il giudice AI"); una
   - **seme**: **esattamente una** riga con ✧, dopo l'ultima riga ✦ (prima di "Vuoi il resto?", se c'è), con un passo
     alla lettera di `s01`, `s03` o `s04` **in corsivo**, come ogni passo citato alla lettera (modello §5, §9.1); nessuna riga porta insieme ✦ e ✧, nessuna riga porta ●.
 - **Scrive:** niente.
-- **Non deve:** un testo in corsivo che non si ritrova con una ricerca esatta nei frammenti ✦ o, sulla riga ✧, nel seme (il
-  passo vero di Jung, una sintesi, una lettura); una riga ✧ o ● tra le righe ✦; più di una riga ✧ o nessuna; le parole di
-  U18–U20 date come tue.
+- **Non deve:** un testo in corsivo prima del primo ○ della riga (dopo, è un titolo) che non si ritrova con una ricerca
+  esatta nei frammenti ✦ o, sulla riga ✧, nel seme (il passo vero di Jung, una sintesi, una lettura); una riga ✧ o ● tra
+  le righe ✦; più di una riga ✧ o nessuna; le parole d'altri di U18–U20 date come tue (la riga sua di U18 non lo è).
 - **Giudice AI (sì/no):** 1. Tra le righe date come tue (le righe ✦; **non** la riga ✧ del seme, che la Forma richiede a
   parte e che è segnata come seme), c'è una sintesi, una parafrasi, una lettura o un testo del mondo (per esempio il passo
   vero di una citazione) invece delle parole di un frammento? (deve essere no) 2. Le parole di U18, U19 o U20 (il monologo
   di Rust e le altre parole d'altri) sono date come tue, invece che solo come il gesto di averle riportate (✦ il gesto, le
-  parole tra «» con ○)? (deve essere no) **Soglia:** tutte. (Quarta prova a freddo, P4-2: senza l'esclusione della riga ✧,
-  che la Forma vuole, i giudici la contavano come sintesi, e la stessa uscita passava o cadeva a caso.)
+  parole tra «» con ○)? (La riga sua di U18, «Un candidato se vorrò fare testi lunghi.», è il suo commento: è sua, e può
+  stare in corsivo ✦ accanto al gesto.) (deve essere no) **Soglia:** tutte. (Quarta prova a freddo, P4-2: senza l'esclusione della riga ✧,
+  che la Forma vuole, i giudici la contavano come sintesi, e la stessa uscita passava o cadeva a caso. Sesta, P6-1: la
+  Forma vietava ogni corsivo di U18, e D02 «oggi» è caduta su un'uscita che citava la riga sua di U18 come vuole la
+  regola 7.)
 
 ### Catena C: lo stato d'animo (n.48 → 50 → 51)
 
@@ -821,7 +840,8 @@ memo come nella parte 2.
 Valgono sempre sei criteri trasversali (uno violato = prova fallita):
 - **X1** Le sue parole sono citate alla lettera, refusi compresi, con la data, in corsivo: ogni citazione ✦ si ritrova con
   una ricerca esatta in `frammenti/`, ogni ✧ in `20261005-0000-s01` o `20261005-0000-s04`. Gli importati portano la
-  data-tetto ("entro il 4 ottobre, nell'archivio d'origine").
+  data-tetto ("entro il 4 ottobre, nell'archivio d'origine"). Un corsivo dopo il primo ○ di una riga è il titolo di
+  un'opera, non una citazione (parte 2, "Come si leggono i criteri").
 - **X2** Ogni riga porta la sua voce (✦ ✧ ● ◌ ○, ⚠), salvo le righe di servizio; ogni ○ rimanda a una voce numerata con
   un `riferimento` che ha l'opera e il luogo (capitolo, §, anno, traccia). In una lettera o in un ritratto un ○ senza luogo
   non passa e non c'è ⚠ nel confronto (modello §9.1); in una risposta, ⚠ sulla stessa riga. Nessun testo di canzone:
@@ -1186,7 +1206,8 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
     `20261004-0000-u19`. Se mancano, la prova fallisce: un "nessun ponte" senza vicini non prova niente.
   - D1 Se c'è un ponte, il bilancio contiene un tratto alla lettera (≥ 4 parole consecutive) di B01 o B02 e un tratto
     alla lettera di un frammento `voce: sua` del punto zero, cioè di un `2026MMGG-0000-uNN` (`u01` … `u31`, `u26a`, `u26b`) e mai di
-    `s01`, `s03`, `s04` (per U18–U20, tra «», nella lingua del frammento), con le due date: "3 novembre" o "4 novembre", e
+    `s01`, `s03`, `s04` (per U18–U20, tra «», nella lingua del frammento; la riga sua di U18 in corsivo, come le sue
+    frasi), con le due date: "3 novembre" o "4 novembre", e
     il giorno e il mese della data-tetto del frammento del punto zero.
   - D2 Il ponte è **un** legame `{p: converge-con, tra: [id(B01) o id(B02), <id di un frammento voce: sua del punto zero,
     …-uNN>], voce: proposta, perche}` nella restituzione della sessione; al massimo uno. Un `tra` con `s01`, `s03` o `s04`
@@ -1522,10 +1543,21 @@ sintetici non entrano mai nell'archivio vero.
 
 ### Il giudice AI
 
-- È un modello **diverso** da quello che ha scritto l'uscita, o almeno una sessione nuova che vede solo la prova, i
-  frammenti della Preparazione e l'uscita, e non la conversazione che l'ha prodotta.
+- È un modello **diverso** da quello che ha scritto l'uscita, o almeno una sessione nuova che vede solo la prova, la
+  Preparazione con i suoi frammenti, i **capi dei legami dell'uscita** (i frammenti che c'erano già alla base e che un
+  legame di un file dell'uscita nomina nel `tra` o in `a`: per R14 il capo vecchio del ponte, qualunque `uNN` sia) e
+  l'uscita, e non la conversazione che l'ha prodotta né la risposta attesa.
 - Risponde a ogni domanda con **sì/no** più una riga di motivo che cita l'uscita. Ogni prova si giudica tre volte e
-  vale la maggioranza. Un "non so" conta come esito contrario a quello richiesto.
+  vale la maggioranza. Un "non so" conta come esito contrario a quello richiesto, e così una risposta **con riserve**
+  ("sì con riserve", "no, ma…", un sì "se la presenti come ipotesi"): un sì con riserve dove l'attesa è sì conta come
+  no, un no con riserve dove l'attesa è no conta come sì. È la regola della prova del ponte di `prompt/specchio.md`
+  (passo 2) e del piano, blocco 6; la sesta prova (P6-4) l'ha estesa al giudice del banco, dove nella quinta un "sì
+  con riserve" contato come sì aveva fatto passare R14 per 2 a 1.
+- **Quali prove hanno un giudice.** Le R e le T con la riga **Giudice AI**, e le D che l'hanno (D02, …). Delle B, solo
+  quelle con un punto della scheda che nessun controllo meccanico vede, con una domanda sì/no su quel punto e nessun
+  altro: B06 («nessuna ripresa della reazione», R67) e B14 («nessun titolo né canale» nel corpo della risposta). Le altre
+  B, B22 compresa, si chiudono sui deterministici: la colonna "perché" della tabella sotto ("frase inventata") dice
+  perché il caso pesa e non è un criterio (sesta prova, P6-5).
 - I criteri deterministici si controllano **prima** e senza giudice (ricerca esatta, campi del frontmatter, conteggi,
   `git log`, hash, token); se uno fallisce, il giudice non serve.
 - L'**uscita** di una risposta in chat (Specchio, Progetto) è la risposta alla domanda, così come è stata data, **senza
@@ -1534,7 +1566,8 @@ sintetici non entrano mai nell'archivio vero.
 
 ### Come si registra l'esito
 
-Un file per giro, `banco/esiti/AAAAMMGG-<cosa-si-collauda>.md` sul branch di prova, con in testa il modello lettore,
+Un file per giro, `banco/esiti/AAAAMMGG-<cosa-si-collauda>.md`, **su `main`**, accanto al codice (il ramo di prova si
+rifà dal tag a ogni giro: se `esegui.mjs` lo scrive lì, si copia su `main`; sesta prova, P6-13), con in testa il modello lettore,
 quello giudice, la versione dello schema (`schema: 3`) e il commit di partenza; poi una riga per prova:
 
 | prova | esito | criteri falliti | gravità | nota |

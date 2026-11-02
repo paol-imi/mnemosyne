@@ -456,5 +456,7 @@ test('maggioranza: soglie e "non so"', () => {
   const d = [{ attesa: 'sì' }, { attesa: 'no' }];
   assert.deepEqual(maggioranza(d, ['D1: sì\nD2: no', 'D1: sì\nD2: no', 'D2: sì']), []);
   assert.equal(maggioranza(d, ['D1: non so\nD2: no', 'D1: sì\nD2: no', 'D2: no']).length, 1);
+  assert.equal(maggioranza(d, ['D1: sì con riserve — forse\nD2: no', 'D1: sì\nD2: no', 'D1: no\nD2: no']).length, 1, 'un sì con riserve conta come no');
+  assert.deepEqual(maggioranza(d, ['D1: sì\nD2: no con riserve — x', 'D1: sì\nD2: no', 'D1: sì\nD2: no']), []);
   assert.deepEqual(maggioranza(d, ['D1: no\nD2: no', 'D1: no\nD2: no', 'D2: no'], { obbligatorie: [2] }), []);
 });

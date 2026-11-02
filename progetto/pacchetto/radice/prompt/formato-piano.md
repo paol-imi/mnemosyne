@@ -1,7 +1,8 @@
 # Il piano
 
 Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano JSON** e lo passa a
-`node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano. Lo script lo convalida, calcola slug e numeri,
+`node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano: la lettera la scrive "consolida", con
+un'operazione `restituzione` `forma: lettera` nel suo piano (per questo lo schema la ammette), e "lettera" la consegna. Lo script lo convalida, calcola slug e numeri,
 pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dell'id blob di git di `CLAUDE.md`,
 `prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila), `registrato`, `schema` e, se manca, `versione`, o rifiuta con il motivo. È
 transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimenti non resta niente.

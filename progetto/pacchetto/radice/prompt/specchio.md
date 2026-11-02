@@ -13,14 +13,18 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    **La prova, prima di consegnare un ponte** (non la fai tu, che l'hai trovato): prova i candidati in ordine, dal più
    forte secondo te, fino al primo che passa. Per ciascuno dai a **tre** subagent nuovi e separati **solo** "oggi è …"
    (la data di oggi, perché non leggano l'orologio), le due frasi alla lettera con i loro luoghi, senza il perché, e
-   queste due domande, così come sono:
+   queste due domande, così come sono. I luoghi sono quelli che darei a me: per una mia frase la data (un importato con
+   la data-tetto, "entro il 4 ottobre"); per un testo trascritto l'opera e il passo, e la data in cui l'ho trascritto.
+   Nella forma: «*<la mia frase, alla lettera>* (un mio memo del 3 novembre)» e «"<la riga trascritta, alla lettera>"
+   (<opera>, <stagione ed episodio, o capitolo>: un testo che ho trascritto entro il 4 ottobre)»:
    - A. «Queste due frasi, una accanto all'altra, bastano da sole a far vedere un nesso tra loro? Non chiedo se il nesso
      sia scritto: chiedo se si regge sulle loro parole e sui loro luoghi, senza una spiegazione aggiunta. Rispondi sì o
      no, con una riga di motivo.»
    - B. «Accostarle è inventato o forzato? Rispondi sì o no, con una riga di motivo.»
    Per un subagent il ponte è forte se risponde **sì** alla A e **no** alla B, senza riserve: ogni riserva conta contro
    il ponte, cioè un **sì con riserve** alla A ("sì, ma solo per il nesso minimo") conta come **no**, un no con riserve
-   alla B conta come sì, e un "non so" conta contro. Vale la maggioranza dei tre. Consegni il ponte solo se per la
+   alla B conta come sì, e un "non so" conta contro. Una risposta al condizionale o con una condizione ("sì, se…",
+   "no, se la presenti come ipotesi") è una risposta con riserve. Vale la maggioranza dei tre. Consegni il ponte solo se per la
    maggioranza è forte, anche se ne sei convinto e anche se somiglia a un esempio. Senza lo strumento dei subagent, tre
    sessioni separate (`claude -p`); se non puoi nemmeno quelle, niente ponte, e lo dici nel messaggio finale.
    Senza un ponte che passa la prova: "Nessun ponte oggi." (al giorno 3, il bilancio del passo 3). Non inventare.
@@ -32,7 +36,8 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    **I capi del ponte.** Il capo vecchio è una mia frase ✦ oppure un testo `altrui` che ho trascritto (il gesto ✦, le
    parole ○: passo 3). **Il seme ✧ non vale come capo vecchio** (lo script non lo mette tra i vicini): è una sintesi scritta da
    Claude, e la meraviglia si aggancia alle mie parole o ai miei gesti.
-3. **Giorni 1–7**: anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
+3. **Giorni 1–7** (di calendario in `Europe/Rome`, contati dal giorno del primo frammento non importato, come i primi
+   3 giorni dei vicini: modello §6.2): anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
    cerca il ponte, con `smista.mjs vicini ID` per ciascuno (nei primi 3 giorni i vicini sono anche tutti gli importati
    ✦). Gli `altrui` sono vicini come gli altri: un
    testo che ho trascritto (il monologo di Rust) può fare da capo vecchio con il mio gesto ✦ e le sue parole ○ (CLAUDE.md,

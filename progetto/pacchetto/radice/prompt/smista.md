@@ -64,7 +64,8 @@ passata delle 3 ore.
      è **quel** tempo in `mm:ss` (`t=754` → `"12:34"`), anche se a parole dico "dal minuto 12"; `t=` resta nel link. Un
      link senza nome (titolo assente) non fa nascere nodi: il `momento` va su un `nomina` verso un `~Nome` in chiaro preso
      dalle mie parole, mai un titolo inventato; se le mie parole non danno un nome, niente `nomina`: il momento resta nel
-     `t=` del link. Un'indicazione va in `nota`. Risposta: `risposta: salvato`; ripetermi il momento non è contenuto.
+     `t=` del link. Un momento detto a parole senza un tempo ("verso la fine") va in `momento` con le mie parole, così
+     come le ho scritte. Un'indicazione va in `nota`. Risposta: `risposta: salvato`; ripetermi il momento non è contenuto.
    - **`parole`** (facoltativo) quando ci sono parole candidate a tema, anche in un seguito o in un `ritorna-su` ("la
      frase dell'ospite era verso la fine, quando parlava dei greci" → `parole: [greci]`): sempre una lista, anche di una
      parola; singolare, minuscolo, un nome e non un aggettivo, dalla mia parola ("padre", non "padri"; "i ragazzi" →
@@ -72,8 +73,9 @@ passata delle 3 ore.
      `greci`.
    - **reazione**: le mie parole copiate esatte e il `verso`: `+`; `-` anche per ironia, sufficienza, "carino ma…",
      "da bacio perugina"; `±` come dice CLAUDE.md (I quattro tipi), la sola regola: un giudizio a metà ("ci ha preso")
-     o una commozione che non è entusiasmo.
-   - `delicato: true` se serve; `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
+     o una commozione che non è entusiasmo. Senza una reazione nelle mie parole, il campo non si scrive.
+   - `delicato: true` se serve, e allora niente `parole` (sono candidate a tema, e sul delicato niente temi: modello
+     §7.2.1, la prudenza); `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
      per il dove e il come.
    - "la 3" di un album: una ricerca leggera della tracklist, per chiedere "La 3 è X, giusto?".
    - **verifica rapida** di ogni citazione **nuova**, dentro il suo `crea-nodo`, prima di applicare: una-due ricerche
@@ -115,7 +117,8 @@ Esempio:
 **Il "mentre eri via".** Se questo è il primo memo dopo un silenzio (annotato al passo 2, prima di `prepara`) più lungo
 del doppio del mio intervallo mediano tra giorni attivi, e comunque di almeno 14 giorni, e `riserva/ritorno.md` non è vuoto: aggiungi
 **quella riga, così com'è**, in fondo alla stessa risposta (allora la risposta ha contenuto). Mai su un frammento delicato
-o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto: niente.
+o con una reazione `-`; mai "bentornato", mai un arretrato. File vuoto o mancante (nasce con il primo "consolida"):
+niente.
 
 **Delicato**: "Ci sono." (al più "Tutto bene?"), nessuna proposta, nessun file di risposta.
 

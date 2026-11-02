@@ -20,7 +20,8 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
      ancora vuota si dice), **una tensione** (due mie frasi datate);
    - la riga sulla **voce**, dagli indicatori di `mappa.md` ("il 41% di queste righe sono parole tue; hai preso da me
      *ospite* e *soglia*"), **prima** della domanda;
-   - **una domanda** in chiusura, che non ripete una "in sospeso";
+   - **una domanda** in chiusura, che non ripete una "in sospeso", a cui non saprei rispondere subito: non una scelta
+     tra due parti di cui una è già una mia frase;
    - un testo `altrui` che ho trascritto può essere un capo (della convergenza, della tensione): il gesto ✦ con la data,
      le parole ○ tra «» (CLAUDE.md, regola 7), mai come mia frase;
    - il seme ✧ non fa da capo di una convergenza: è una sintesi di Claude, e la convergenza si aggancia alle mie parole
@@ -34,7 +35,8 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota
    della regola 6 una volta sola, le altre senza nota; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
    senza il numero dei frammenti; nessun conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è
-   un prima); "che cosa torna" con i numeri di § Nodi di `mappa.md` (i conti ✦ dei nodi), o senza numeri se non ci
+   un prima); in "che cosa manca" non la serie dei memo, vuota per forza prima del primo memo (è una riga che starebbe
+   nel ritratto di chiunque); "che cosa torna" con i numeri di § Nodi di `mappa.md` (i conti ✦ dei nodi), o senza numeri se non ci
    sono; i titoletti delle sezioni sono righe di servizio, senza segni; la convergenza è ◌; l'ultima riga resta la
    domanda. Nel piano: **una** voce, la convergenza (`cosa:
    convergenza`, `voce: proposta`, `1.` a inizio riga o `[1]` nella prosa: modello §3.5), con il suo legame

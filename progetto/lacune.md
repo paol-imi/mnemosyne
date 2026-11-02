@@ -12,3 +12,8 @@ Le lacune del pacchetto (il modello non dice) con la scelta fatta.
 - D02, la nota delle riportate con la maiuscola a inizio riga («Trascritte da Claude nel seme, …:»): `CLAUDE.md` regola 6
   vuole "le stesse parole", non la minuscola; il checker cercava solo `trascritt[ae] da Claude`. Scelta: `D02.json`
   accetta `[Tt]rascritt[ae] da Claude` (e `esegui.mjs` stampa la nota in minuscolo). Primo giro di D02 «oggi» caduto lì.
+- R01a, primo giro (6 su 8): due giudici su tre trovano generica la riga «Dal telefono, zero frammenti: la serie dei memo
+  è vuota.» (che `ritratto.md` chiedeva: "una serie ancora vuota si dice"), tre su tre una domanda a cui si risponde
+  subito (una scelta tra Rust e la sua frase). Scelta: due righe in `prompt/ritratto.md` (la serie dei memo non si dice
+  nella variante giorno 1; la domanda non è una scelta tra due parti di cui una è già sua). Il pacchetto
+  (`radice/prompt/ritratto.md`, prompt v3) resta com'è: la correzione vive in `prompt/`.

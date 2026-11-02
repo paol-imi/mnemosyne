@@ -1,6 +1,7 @@
 # Il modello v3
 
-> Progettazione v3, 2026-10-31. Proposta di Claude, da validare. Non tocca note né script.
+> Progettazione v3, 2026-10-31; ritoccato il 2026-11-02 dopo la [seconda prova a freddo](/progetto/v2/prova-a-freddo-2.md)
+> (§15, riga 79). Proposta di Claude, da validare. Non tocca note né script.
 > È il modello **definitivo e autosufficiente**: chi lo legge non ha bisogno del [modello v2](/progetto/v2/modello.md).
 > Integra le prove sul v2: [critica del tempo](/progetto/v2/critica-tempo.md) (crolli **C1–C15**),
 > [critica della semplicità](/progetto/v2/critica-semplicita.md) (**CS §n**), gli
@@ -83,8 +84,10 @@ lo segnala).
 
 **Ogni ciclo scrive un piano** ("smista", "consolida", "ritratto", Specchio), sempre con lo stesso involucro
 `{ciclo, letto-da, operazioni: [...]}`. Le operazioni sono di sette tipi: `crea-nodo`, `aggiorna-nodo` (solo "consolida"
-e migrazioni), `alias`, `lettura` (con la versione), `restituzione`, `riserva`, `lapide`. Il piano di "smista" per il
-memo di Galimberti:
+e migrazioni: qualunque campo di un nodo esistente tranne `schema`, `_genere`, che viene dalla cartella, e `fuso-in`, che
+scrive solo `lapide`; lo slug mai), `alias`, `lettura`, `restituzione`, `riserva`, `lapide`. Nella `lettura` la `versione`
+è **facoltativa**: se c'è, [S] controlla che sia 1 per "smista" e la precedente + 1 per "consolida" o una migrazione; se
+manca, la scrive [S]. Il piano di "smista" per il memo di Galimberti:
 
 ```json
 {
@@ -115,9 +118,13 @@ uno slug, e due piani con lo stesso nome producono lo stesso file. La **verifica
 avviene prima di `applica`, ed è ancora la creazione.
 
 **Chi è il lettore.** `letto-da` lo dichiara l'AI nel piano (il modello che sta girando). `prompt` lo calcola [S]: le prime 7
-cifre dell'hash di `CLAUDE.md` + `prompt/<ciclo>.md` + `prompt/formato-piano.md` messi in fila, perché il lettore dipende da
-tutti e tre (cambiarne uno è un cambio di lettore, C13). I cicli sono `smista`, `consolida`, `lettera`, `ritratto` e
-`specchio`, ognuno con il suo file in `prompt/`.
+cifre esadecimali dello **SHA-1** di `CLAUDE.md`, `prompt/<ciclo>.md` e `prompt/formato-piano.md` messi in fila byte per
+byte, in quest'ordine (lo stesso numero di `cat CLAUDE.md prompt/<ciclo>.md prompt/formato-piano.md | git hash-object
+--stdin`), perché il lettore dipende da tutti e tre (cambiarne uno è un cambio di lettore, C13). `<ciclo>` è il `ciclo` del
+piano: Specchio che fa il lavoro di "smista" scrive un piano `ciclo: smista`. Solo le **letture** portano `prompt`: una
+restituzione dice il suo lettore con `letto-da` e `registrato` (§3.5). I prompt sono cinque, `smista`, `consolida`,
+`lettera`, `ritratto` e `specchio`, ognuno con il suo file in `prompt/`; il `ciclo` di un piano è uno di `smista`,
+`consolida`, `ritratto`, `specchio`, perché "lettera" non scrive niente (§7.4).
 
 [S] controlla il piano con uno schema suo, piccolo (l'involucro, le chiavi di ogni operazione, gli stessi `legame` e `voce`
 del §3.7, `@Nome` ammesso dove il §3.7 vuole uno slug), e poi i file prodotti con lo schema del §3.7.
@@ -146,10 +153,10 @@ Circa **1.100 righe**, contro le ~2.000–2.300 del v2 pieno. I prompt sono file
 
 | cosa | id | percorso |
 |---|---|---|
-| frammento | `AAAAMMGG-HHMM-xxxx` (ora locale del messaggio; `xxxx` = 4 caratteri `[a-z0-9]` casuali del Comando rapido) | `frammenti/AAAA/MM/<id>.md`, allegati accanto: `<id>.webp`, `<id>.m4a` |
+| frammento | `AAAAMMGG-HHMM-xxxx` (ora locale del messaggio: l'ora e il fuso del telefono, gli stessi di `registrato`; `xxxx` = 4 caratteri `[a-z0-9]` casuali del Comando rapido) | `frammenti/AAAA/MM/<id>.md`, allegati accanto nel formato originale (`<id>.jpg`, `<id>.heic`, `<id>.m4a`…), più la copia ridotta `<id>.webp` di una foto (§3.2) |
 | frammento importato | `AAAAMMGG-0000-<sigla>`, sigla `u01`…`u31`, `u26a`, `s01`, `s03`, `s04` | come sopra |
 | lettura | lo stesso id del frammento | `letture/AAAA/MM/<id>.md` |
-| restituzione | `r-AAAAMMGG-HHMM-<forma>` (+ `-2`, `-3` se collide) | `restituzioni/AAAA/MM/<id>.md` |
+| restituzione | `r-AAAAMMGG-HHMM-<forma>` (+ `-2`, `-3` se collide): data e ora in cui [S] la scrive (`applica`), le stesse di `registrato`; per una lettera o un ritratto, l'ora della sessione che la scrive, non quella della consegna | `restituzioni/AAAA/MM/<id>.md` |
 | restituzione importata | `r-AAAAMMGG-0000-eredita-<slug dell'idea o convergenza>` (A5) | come sopra |
 | nodo | `<slug>`, unico in **tutto** il repository | `persone/ opere/ citazioni/ temi/ raccolte/<slug>.md` |
 | voce di una restituzione | `r-…#n` (n da 1) | — |
@@ -157,9 +164,15 @@ Circa **1.100 righe**, contro le ~2.000–2.300 del v2 pieno. I prompt sono file
 Tutti i riferimenti nei frontmatter sono uno di questi id, uno slug, oppure `~Nome in chiaro` (tilde) per ciò che non è
 un nodo (CS §2.3). Mai link markdown nel frontmatter.
 
+**Fusi.** Il **giorno** di un frammento è la data del suo `registrato` nel fuso che porta (un memo delle 23:40 scritto in
+viaggio resta di quel giorno). Ciò che scrive [S] (restituzioni, lucchetto, commit, testate di `contesto/`) usa
+`Europe/Rome`, o l'ora simulata del banco (`ATLANTE_ORA`).
+
 ### 3.2 `frammento`: ciò che hai detto
 
-Lo scrive il Comando rapido, già completo, in `ingresso/`; [S] lo sposta con `git mv` e ne registra l'hash.
+Lo scrive il Comando rapido, già completo, in `ingresso/`; [S] lo sposta con `git mv` e ne registra l'hash in
+`frammenti/.hash`: una riga per file (il frammento e i suoi allegati originali) nel formato di `sha256sum`
+(`<sha256>  frammenti/AAAA/MM/<file>`), in ordine di percorso.
 
 | campo | obbligatorio | valori | senza, che cosa fallisce |
 |---|---|---|---|
@@ -167,7 +180,7 @@ Lo scrive il Comando rapido, già completo, in `ingresso/`; [S] lo sposta con `g
 | `canale` | sì | `telefono` · `chat` · `importato` | D01, D23: l'importato fuori dai conti |
 | `voce` | solo importato | `sua` · `seme` | D02 conterebbe il nucleo come tuo |
 | `forma` | importato o chat | `riportata`: frase tua messa per iscritto da Claude (A2), o ricopiata dalla chat del Progetto nel memo (§7.3) | D02 la mostrerebbe come scritta da te |
-| `allegati` | se ci sono | nomi di file accanto, nel formato originale (`<id>.jpg`, `.heic`, `.webp`, `.m4a`); la copia ridotta `<id>.webp` la ricava [S] (I14) | B21 la foto della pagina |
+| `allegati` | se ci sono | nomi di file accanto, nel formato originale (`<id>.jpg`, `.heic`, `.webp`, `.m4a`); la copia ridotta `<id>.webp` la ricava [S] accanto e **non** entra in `allegati`, perché il frammento non cambia (I14) | B21 la foto della pagina |
 | `intento` | no (lo scrive solo "Chiedi") | facoltativo; una lista dallo stesso elenco della lettura, e "Chiedi" (§7.1) scrive il predefinito `[chiedi]`; "Memo" non lo scrive. È un gesto tuo, non una lettura: la lettura contiene sempre i valori del frammento (e può aggiungerne, `[salva, chiedi]`) | C15e; prova a freddo R33 |
 
 Il corpo è il testo **esatto**, link, refusi e a capo compresi ("chioran", "nn", `?si=`). Niente titolo, niente sezioni.
@@ -217,7 +230,7 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 | `intento` | sì | uno o più tra `salva` · `chiedi` · `sguardo` · `niente` | B11 salva **e** chiedi; B18 niente |
 | `reazione` | no | `[{parole: "…citate…", verso: + / - / ±}]`; ± per una commozione o un "ci ha preso" che sta tra i due (I23) | B06 "da bacio perugina" −; D03 il conforto |
 | `legami` | sì (anche vuoto) | §4 | |
-| `parole` | no | parole candidate a tema, **sempre una lista** (anche di una sola parola: `[greci]`): singolare, minuscolo, la tua forma ("padre", non "padri") | D24; CS §2.3 |
+| `parole` | no | parole candidate a tema, **sempre una lista** (anche di una sola parola: `[greci]`): un **nome**, non un aggettivo, singolare, minuscolo, dalla tua parola ("padre", non "padri"; "i ragazzi" → `ragazzo`; "motivi culturali" → `cultura`, §13.2) | D24; CS §2.3; B01 |
 | `link` | no | [S] `[{url, titolo, autore}]`: puliti (`?si=` via, `t=` tenuto), titolo da oEmbed | B13, B14 |
 | `trascrizione` | no | il testo letto da una foto o da un vocale; **non** è voce tua | B21 |
 | `altrui` | no | `true`: il corpo è in gran parte parole d'altri che hai trascritto (un monologo, una citazione lunga); ✦ il gesto, ○ le parole | [voce §5](/progetto/v2/voce.md); U19 |
@@ -225,12 +238,13 @@ di un altro frammento: sta nella lettura del frammento che lo compie, e lo appli
 | `delicato` | no | `true`: fuori da lettera, ricordo, sogno, ritratto finché non ci torni tu | B12, B25; CS §2.3 |
 | `nota` | no | una riga (≤ 200 caratteri): il dove e il come ("in macchina"), o la cornice breve di Claude per un importato. Le cornici e le descrizioni lunghe (§14.1) vanno nel **corpo della lettura**, che per il resto è vuoto (R41) | B04; A2, A19 |
 | `fonte` | solo importato | `file:riga@commit` dell'Atlante | A20 |
-| `risposta` | no | id della restituzione, oppure `salvato` / `ci-sono` se non c'è file | C11 |
+| `risposta` | sì, tranne gli importati (con `fonte`) | id della restituzione, oppure `salvato` / `ci-sono` se non c'è file | C11; B11 |
 
 Un frammento è **parlante** [S] se non è importato, l'intento non è solo `niente` e, tolti i link, restano almeno 3
 parole sue. Tutte le soglie (lettera, sogno, ritratto, giorni attivi) contano solo i parlanti così definiti: i ~32
 importati ✦ non ci entrano ([prompt v3](/progetto/v2/prompt-v3.md), appendice A n. 8). I non
-parlanti (link nudi, "boh", "sì", "ok") restano nei dati ma non contano (§6.2).
+parlanti (link nudi, "boh", "sì", "ok") restano nei dati ma non contano (§6.2). Gli importati `voce: sua` non sono
+parlanti ma sono parole tue: stanno in `parole.md`, marcati con la data-tetto (§6.1, §6.2).
 
 ```yaml
 # letture/2026/11/20261103-2340-k7q2.md
@@ -281,8 +295,10 @@ Mai per copertura, mai per riempire un campo. La scheda è un documento d'identi
   con il tuo nome (principio 9). "Mia cugina" è una parentela: slug `cugina`, alias "mia cugina" (R62). Un tema nato da una negazione ("non nichilismo") lo dice
   nel `perche`.
 
-**Chi la scrive.** La crea "smista" (file nuovo; per una citazione solo `nome`, `attribuita-a` e `nato-da`, senza
-`esito`, cioè ⚠, con la traccia della verifica rapida nel corpo: è ancora la creazione). Dopo, "smista" può solo **aggiungere un alias**; ogni altra modifica la fa il
+**Chi la scrive.** La crea "smista" (file nuovo; per una citazione l'**elenco unico dell'ingresso**: solo `schema`, `nome`,
+`nato-da` e, se ci sono, `alias` e `attribuita-a`; mai `esito`, cioè ⚠, `autore`, `riferimento`, `originale`, `traduzione`,
+`citata-da`, `link`; la traccia della verifica rapida nel corpo: è ancora la creazione. Vale per le citazioni: un'opera
+nasce già con il suo `autore`, §2.2, B01). Dopo, "smista" può solo **aggiungere un alias**; ogni altra modifica la fa il
 consolidamento (§8.3).
 
 | campo | generi | che cosa |
@@ -362,7 +378,7 @@ Scritta una volta, mai cambiata ([S] confronta l'hash a ogni verifica).
 
 | campo | obbl. | che cosa |
 |---|---|---|
-| `schema`, `letto-da` | sì | come nella lettura (C13d: è un fatto che *quel* modello te l'ha detto) |
+| `schema`, `letto-da` | sì | come nella lettura (C13d: è un fatto che *quel* modello te l'ha detto); **nessun** `prompt`, che portano solo le letture (§2.2) |
 | `registrato` | sì | quando è stata scritta ([S]); per `eredita` la sola data del passo (A5) |
 | `forma` | sì | `risposta` · `lettera` · `ritratto` · `eredita` (le importate dall'Atlante). Il "mentre eri via" è una riga di una `risposta` (I4) |
 | `per` | per `risposta` | il frammento che l'ha chiesta (per una chat, il frammento della conversazione) |
@@ -420,25 +436,28 @@ restituzioni `eredita`: fuori dai conti, mai rilanciate, mai sbiadite, trovabili
 | persone `vita` | il nome come lo scrivi tu; per le parentele in prima persona uno slug fisso (`papa`, `mamma`, `nonna-<nome>`), mai `mio-padre` | `marco`, `papa`, `nonna-lina` |
 | persone `finzione` | il nome del personaggio | `telemaco`, `rust-cohle` |
 | opere | il titolo come lo dici tu; quello vero va in `alias` e nella risposta | `spettacolo-sulle-emozioni` |
-| citazioni | le prime **6 parole** della forma che circola (dal tuo frammento, o dalla `trascrizione` se dici solo "questa", B21) | `cio-a-cui-resisti-persiste` |
+| citazioni | le prime **6 parole** del `nome`, cioè della forma che circola (dal tuo frammento, o dalla `trascrizione` se dici solo "questa", B21); una parola è un tratto tra due spazi del `nome`, prima di `slug()` ("l'ospite" è una parola) | `cio-a-cui-resisti-persiste`, `il-nichilismo-e-l-ospite-inquietante` |
 | temi, raccolte | la tua parola | `padre`, `tatuaggi` |
 
-**Collisioni.** Se lo slug esiste ed è un'altra cosa [AI decide "è lo stesso?"], [S] aggiunge il genere al singolare
-(`sisifo-opera`), poi `-2`, `-3`. Per due persone della vita con lo stesso nome, l'AI propone un qualificatore tuo
+**Collisioni.** Se lo slug esiste in un **altro genere**, è un'altra cosa per definizione: [S] aggiunge il genere al
+singolare senza chiedere (`-persona`, `-opera`, `-citazione`, `-tema`, `-raccolta`: `sisifo-opera`), poi `-2`, `-3`. Se
+esiste nello **stesso genere**, [AI] decide nel piano "è lo stesso?" (alias, o nodo nuovo con `-2`, `-3`). Per due persone della vita con lo stesso nome, l'AI propone un qualificatore tuo
 (`marco-palestra`).
 
-**Slug ereditati.** I nodi importati tengono lo slug dell'Atlante (`camus`, `rust-cohle`): uno slug non cambia mai, e la
-tabella degli alias assorbe la differenza (A16). Uno slug fuso resta come lapide (§3.4).
+**Slug ereditati.** I nodi importati tengono lo slug dell'Atlante (`camus`, `marco-aurelio`): uno slug non cambia mai, e
+la tabella degli alias assorbe la differenza (A16). `rust-cohle` non ha una scheda nell'Atlante: nasce all'importazione da
+u19 (il monologo che hai trascritto è suo) e u20, con la regola delle persone `finzione` qui sopra. Uno slug fuso resta come lapide (§3.4).
 
 **La tabella degli alias** [S] sta in `contesto/mappa.md` (§6.1): una riga per ogni `nome` e `alias` di ogni nodo vivo,
 nella forma `chiave → slug (genere, cerchia)`. `chiave(s)` = i passi 1–3 di `slug()` con lo spazio al posto del trattino,
-senza gli articoli in testa (il, lo, la, i, gli, le, l', un, una, the) (R11).
+senza gli articoli in testa (R11). L'elenco degli articoli è chiuso: il, lo, la, i, gli, le, l', un, una, the (non "uno"
+né altro).
 
 **La risoluzione di un nome** (in "smista"):
 1. [S] cerca la `chiave` esatta tra nomi e alias; per i nomi propri nudi guarda **prima** `cerchia: vita` (B06 Marco);
-2. [S] propone i candidati vicini: distanza di Levenshtein ≤ 2 sulle chiavi di almeno 5 lettere, oppure lo stesso
+2. [S] propone i candidati vicini: distanza di Levenshtein ≤ 2 tra due chiavi di almeno 5 lettere ciascuna, oppure lo stesso
    **scheletro** (`scheletro(s)` = chiave senza vocali, senza `h`, doppie ridotte: "chioran" e "cioran" danno entrambe `crn`);
-   e due regole per le persone (R10): **cognome**, la chiave detta coincide con le ultime parole intere di un nome
+   e due regole che valgono **solo per i nodi di `persone/`** (R10): **cognome**, la chiave detta coincide con le ultime parole intere di un nome
    ("galimberti" → `umberto-galimberti`, "de andre" → `fabrizio-de-andre`); **nome**, coincide con le prime parole
    ("marco" → `marco-aurelio`). Sono candidati **deboli**: li mostra all'AI, mai una scelta automatica, e un nome nudo
    in prima persona va prima alla `cerchia: vita` (B06);
@@ -446,15 +465,35 @@ senza gli articoli in testa (il, lo, la, i, gli, le, l', un, una, the) (R11).
    **una** domanda nella risposta e intanto scrive `~Nome`;
 4. [S] se la forma usata è nuova, la aggiunge agli `alias` del nodo (unica modifica di un nodo concessa a "smista").
 
+**La firma** [S] (come nel codice della seconda prova e nel piano, blocco 1): `candidati(nome, alias)` → `[{slug, via,
+debole}]`. `alias` sono le righe `{chiave, slug, genere, cerchia?}` della tabella (o i nodi, `{slug, nome, alias, genere,
+cerchia?}`); `via` è una di `esatta`, `cognome`, `levenshtein`, `scheletro`, `nome`, in quest'ordine di forza; `debole` è
+`false` solo per `esatta`. Per slug resta la via più forte; l'elenco è ordinato per forza, a pari forza `cerchia: vita` in
+testa (B06), poi per slug. Propone, non decide.
+
+**I nomi del testo** [S] (a chi `prepara` chiede i candidati): ogni sequenza di 1–4 parole consecutive dentro una frase
+del frammento, tolti i link e le ore dei turni. Una corrispondenza `esatta` conta sempre; le deboli solo per una sequenza
+che non comincia né finisce con una parola vuota (articoli, preposizioni, congiunzioni) e, se è di una parola, di almeno 4
+lettere. Ogni slug resta sotto la sua forma migliore; una forma contenuta in una corrispondenza esatta più lunga cade.
+
 ### 3.7 La grammatica: lo schema JSON dei frontmatter
 
 [S] `verifica.mjs` converte il frontmatter YAML in JSON, aggiunge `_genere` (dalla cartella, per i nodi) e lo valida con
-questo schema prima di ogni push. Un piano che non passa non diventa file.
+questo schema prima di ogni push. Un piano che non passa non diventa file. Il tipo lo dice la cartella (`frammenti/` →
+`frammento`, `letture/` → `lettura`, i cinque generi → `nodo`, `restituzioni/` → `restituzione`: si valida
+`memo/schema-3#/$defs/<tipo>`); chi valida senza la cartella usa la radice, che sceglie il tipo dalle chiavi (`canale` →
+frammento, `_genere` → nodo, `versione` → lettura, `voci` → restituzione) e rifiuta tutto il resto. Il file è
+`schema/frontmatter.json` (§11).
 
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "memo/schema-3",
+  "type": "object",
+  "if": {"required": ["canale"]}, "then": {"$ref": "#/$defs/frammento"},
+  "else": {"if": {"required": ["_genere"]}, "then": {"$ref": "#/$defs/nodo"},
+    "else": {"if": {"required": ["versione"]}, "then": {"$ref": "#/$defs/lettura"},
+      "else": {"if": {"required": ["voci"]}, "then": {"$ref": "#/$defs/restituzione"}, "else": false}}},
   "$defs": {
     "idF": {"type": "string", "pattern": "^\\d{8}-\\d{4}-[a-z0-9]{3,4}$"},
     "idR": {"type": "string", "pattern": "^r-\\d{8}-\\d{4}-[a-z0-9-]+$"},
@@ -563,7 +602,8 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
         "nota": {"type": "string", "maxLength": 200},
         "fonte": {"$ref": "#/$defs/fonte"},
         "risposta": {"anyOf": [{"enum": ["salvato", "ci-sono"]}, {"$ref": "#/$defs/idR"}]}
-      }
+      },
+      "if": {"not": {"required": ["fonte"]}}, "then": {"required": ["risposta"]}
     },
 
     "nodo": {
@@ -645,6 +685,11 @@ questo schema prima di ogni push. Un piano che non passa non diventa file.
 }
 ```
 
+**ID esterno** (G3, B24; tolti dalla tappa 1, §15 riga 19): un campo che porti l'identificativo di un registro esterno
+(`wikidata`, `qid`, `musicbrainz`, `mbid`, `isbn`, `imdb`, `discogs`, `viaf`, `goodreads`, `openlibrary`), che lo schema
+rifiuta già (`additionalProperties: false`), o un `link` verso uno di quei registri (`wikidata.org`, `musicbrainz.org`,
+`isbnsearch.org`, `imdb.com`, `discogs.com`, `viaf.org`, `goodreads.com`, `openlibrary.org`), che [S] rifiuta.
+
 **Che cosa lo schema non vede, e controlla [S] a parte:** che ogni slug citato esista (o sia una lapide, che si segue);
 che `n` esista nella restituzione puntata; che `ritorna-su … come: accoglie|rifiuta` punti a una restituzione o a un
 legame proposto; che la `voce: sua` di un legame stia solo nella lettura di un frammento non importato o importato con
@@ -677,7 +722,7 @@ Un legame è un oggetto dell'elenco `legami:` di una lettura (o di una restituzi
 # "no aspetta quella di ieri non era jung era peterson" (B22)
 - {p: ritorna-su, a: 20270311-2110-p0x4, come: corregge, nodo: metti-in-ordine-la-tua-casa, campo: attribuita-a, vecchio: carl-gustav-jung, valore: jordan-peterson, voce: sua, perche: "«non era jung era peterson»"}
 # "sì, Rust è l'ospite" sulla lettera dell'8 novembre
-- {p: ritorna-su, a: r-20261108-2100-lettera, n: 1, come: accoglie, voce: sua, perche: "«sì, rust è l'ospite»"}
+- {p: ritorna-su, a: r-20261108-0313-lettera, n: 1, come: accoglie, voce: sua, perche: "«sì, rust è l'ospite»"}
 ```
 
 **Regole di confine.**
@@ -733,7 +778,8 @@ Un legame è un oggetto dell'elenco `legami:` di una lettura (o di una restituzi
 | *accolta* | ● | proposta e poi ripresa o confermata da te | **calcolata** [S] dai `ritorna-su` successivi; mai scritta |
 
 Segni delle risposte, sempre gli stessi: ✦ ✧ ● ◌ ○ e ⚠ (da verificare). Una frase `forma: riportata` (A2) si mostra ✦
-con la nota "trascritta da Claude nel seme". Un **testo altrui che hai trascritto** (lettura `altrui: true`) è ✦ per il
+con la nota "trascritta da Claude" (per gli importati "trascritta da Claude nel seme"; ogni controllo cerca le prime tre
+parole). Un **testo altrui che hai trascritto** (lettura `altrui: true`) è ✦ per il
 gesto e per il tuo commento, ○ per le parole, che vanno tra «» (§9.1): "le mie frasi" non le contano come tue.
 
 **Gli stati** [S], calcolati e mai scritti:
@@ -765,22 +811,26 @@ token-stimati: 18400            # caratteri / 3,5
 
 | file | che cosa | chi lo legge |
 |---|---|---|
-| `contesto/parole.md` | solo i frammenti **✦ parlanti** (C7, T08), in ordine di tempo, parola per parola, con data e id; gli importati ✦ marcati con la data-tetto; i turni di chat senza contenuto tolti; i `delicato` e gli `altrui` marcati. Il seme ✧ no: si legge da `frammenti/` | Progetto, Specchio, "consolida" |
+| `contesto/parole.md` | i frammenti **✦ parlanti** (C7, T08), in ordine di tempo, parola per parola, con data e id; gli importati `voce: sua` (non parlanti, ma parole tue) marcati con la data-tetto (§6.2); i turni di chat senza contenuto tolti; i `delicato` e gli `altrui` marcati. **In fondo**, in una sezione breve `## Seme ✧` e mai mescolato alle righe ✦, il seme: i passi di `s01`, `s03` e `s04` alla lettera, con `passo` e data-tetto (così il Progetto può dare la riga ✧ di D02 senza leggere `frammenti/`) | Progetto, Specchio, "consolida" |
 | `contesto/recenti.md` | gli ultimi **30** frammenti del telefono, anche non parlanti e di qualunque età (T02: dopo un silenzio servono quelli di prima), ciascuno con la sua risposta; **a parte**, le ultime 5 conversazioni di chat; le ultime 10 restituzioni **intere**, con le voci numerate (così le domande non scacciano i messaggi: Q5) | "smista" (per "quella di ieri", "la terza"), Progetto, Specchio |
 | `contesto/ritratto.md` | la copia dell'ultimo ritratto, senza frontmatter ([S] la copia, non la riscrive) | Progetto |
 | `contesto/mappa.md` | tutto il resto, per nodo e non per frammento (C7): sotto | tutti |
 
 `mappa.md` contiene, in quest'ordine, una sezione `##` ciascuno:
-1. **Stato**: giorni attivi totali, frammenti parlanti totali e della settimana, soglie (lettera sì/no, sogno acceso/spento, ritratto);
+1. **Stato**: giorni attivi totali, frammenti parlanti totali e della settimana, soglie (lettera sì/no, sogno acceso/spento, ritratto),
+   la data dell'ultimo "consolida" riuscito (§6.2);
 2. **Nodi**: una riga ciascuno, `slug · genere · nome · ✦n ◌n ●n · prima–ultima data · vicenda?`; la voce è quella **del
    legame**, non dell'origine della nota (Q33); lapidi con la freccia. Per le citazioni anche `esito`, l'originale breve e
-   la traduzione o "resa di Claude" (Q20); la `nota` della lettura quando c'è ("esempio", "citata da Claude": Q19);
-3. **Alias**: `chiave → slug (genere)`;
-4. **Parole candidate**: parola, date, giorni distinti (D24);
+   la traduzione o "resa di Claude" (Q20); la `nota` della lettura quando c'è ("esempio", "citata da Claude": Q19).
+   Es.: `- umberto-galimberti · persone · Umberto Galimberti · ✦1 ◌0 ●0 · 2026-11-03–2026-11-03`;
+3. **Alias**: `chiave → slug (genere, cerchia)`, la cerchia solo per le persone (§3.6). Es.: `- galimberti → umberto-galimberti
+   (persone, mondo)`;
+4. **Parole candidate**: parola · date · giorni distinti (D24). Es.: `- mare · 2026-11-16, 2027-02-03 · 2`;
 5. **Conti** per mese, per tema, per voce, importati esclusi; i delicati contati ma non nominati; le domande a parte (C15d, Q22);
 6. **Posizioni**: per passo, data · frase · voce · dal · messa in discussione il · tensioni (§4, Q6, Q12);
 7. **Fruizioni**: da fare, in corso, fatte;
-8. **Correzioni** applicate;
+8. **Correzioni**: quelle in attesa di "consolida" (`attribuita-a → jordan-peterson (corregge <id>, in attesa)`, §4) e quelle
+   applicate, con la data;
 9. **Scarti**: chiave · contesto · portata · data · parole tue (§4, Q4, Q17);
 10. **Eredità**: per ogni restituzione `eredita`, una riga con le voci (rif, voce, esito) e, se ha `serve-a` o `converge-con`
     verso un nodo, il suo `estratto` (≤ 25 parole). Così il Progetto non ripropone come nuovo ciò che ottobre aveva già
@@ -824,8 +874,19 @@ arriva a ~224.000 token in un anno, per l'85% `parole.md`. Quindi:
 - **Ricordabili**: i frammenti ✦ nuovi più vecchi di **60 giorni di calendario** con almeno **10 giorni attivi** in mezzo, e gli **importati ✦ da subito**, con la data-tetto (§9.3). In ordine (I18): prima quelli con una reazione, un `serve-a` o un ritorno spontaneo; mai i delicati.
 - **Serie vuote** (I18): se una serie che il ritratto mostrerebbe (gli stati d'animo, una vicenda) è ancora vuota, il
   ritratto lo dice invece di tacere.
-- **Vicini** di un frammento (per il pacchetto di "smista"): fino a 10 frammenti ✦ o ✧ che condividono un nodo o una
-  parola candidata, più vecchi di 7 giorni. È da qui che nasce il ponte inatteso.
+- **Vicini** di un frammento: fino a **10** frammenti ✦ o ✧ con lettura, non delicati, più vecchi di 7 giorni, che
+  condividono con il frammento un nodo (i suoi candidati, tranne la sola via `nome`: B06) o una parola candidata; prima
+  quelli con più cose in comune, a pari merito i più vecchi. **Nei primi 3 giorni** (contati dal primo frammento non
+  importato, §7.5) in più **tutti** gli importati `voce: sua` non delicati, **oltre** il tetto di 10. [S] li dà nel pacchetto
+  di "smista" e, con la stessa regola, a Specchio per un memo **già smistato** (i nodi dalla sua lettura): senza, a memo
+  smistati nessuno vede i vicini. È da qui che nasce il ponte inatteso.
+- **Data-tetto** di un importato: il `vissuto` della lettura se comincia con `≤` (`≤2026-10-04`), altrimenti il
+  `registrato`; si dice sempre come limite: "entro il 4 ottobre, nell'archivio d'origine" (A4).
+- **Ultimo consolida**: la data dell'ultimo commit il cui messaggio comincia con `consolida:`
+  (`git log -1 --grep='^consolida:' --format=%cI`); senza, la data dell'importazione. [S] la scrive in `mappa.md`, Stato.
+- **Il pacchetto di "smista"** (§2.2, §7.2): il frammento, `recenti.md`, la tabella degli alias, per ogni nome del testo
+  (§3.6) i suoi `candidati`, i vicini, gli **scarti** (tutte le righe di `mappa.md` § Scarti) e, per ogni link, titolo e
+  autore.
 - **Cammini** tra due nodi (D19 "che cosa collega…"): un frammento che nomina più di 8 nodi (lo sguardo, una lista) vale
   come "stessa lista" e **non** si attraversa (Q9); un frammento che nomina una persona `cerchia: vita` non fa da ponte,
   salvo che la domanda la nomini (Q24).
@@ -878,10 +939,12 @@ citati **I1–I25** sono quelli della [simulazione dell'ingresso](/progetto/v2/s
    - la **risposta** (§7.2.1), **solo se ha contenuto** (C11), **una sola** per una raffica (T01). Altrimenti
      `risposta: salvato` (o `ci-sono` per "boh" e per il delicato);
 4. [AI] **la verifica rapida** di una citazione **nuova**, dentro il suo `crea-nodo`, prima di `applica` (I8, V16): una-due ricerche sulla frase così come l'hai scritta. All'ingresso il
-   nodo nasce **senza `esito`** (⚠, l'ex `prova: memoria`), senza `riferimento` né `autore`, qualunque cosa trovino: ciò
+   nodo ha solo l'**elenco unico** del §3.4 (`schema`, `nome`, `nato-da`, ed eventuali `alias` e `attribuita-a`): nasce
+   **senza `esito`** (⚠, l'ex `prova: memoria`), senza `autore`, `riferimento`, `originale`, `traduzione`, `citata-da` né
+   `link`, qualunque cosa trovino: ciò
    che trovano (una scheda di Quote Investigator o Wikiquote, un apocrifo noto) va come traccia nel corpo del nodo e, se
-   conta, in una riga della risposta con ⚠; `esito`, `riferimento`, `autore` e `originale` li scrive solo "consolida"
-   (§7.4 passo 3). L'attribuzione tua va **sempre** in `attribuita-a` (anche un'opera: `~La peste`). Questa è la **regola
+   conta, in una riga della risposta con ⚠; quei campi li scrive solo "consolida"
+   (§7.4 passo 3), e sulla citazione soltanto: un'opera nasce già con il suo `autore` (§2.2). L'attribuzione tua va **sempre** in `attribuita-a` (anche un'opera: `~La peste`). Questa è la **regola
    unica** sull'esito all'ingresso (prova a freddo R24/R62): vale per modello, prompt, piano e banco, e `verifica.mjs` la
    accetta. Unica eccezione voluta: una citazione dell'Atlante che accogli nasce già con `esito` e `riferimento`, perché
    l'importazione fa le veci di "consolida" e quelle citazioni sono già verificate ([correzioni](/progetto/v2/correzioni-citazioni.md); §14 R7). La verifica **non fa nascere nodi**: l'autore vero o l'opera vera che trova (Hemingway, *Addio alle armi*)
@@ -977,7 +1040,7 @@ risposte:
 4. il periodo chiesto è uscito da `contesto/` (§6.1, il tetto).
 
 All'apertura, se `ingresso/` ha memo e il lucchetto è libero, Specchio **fa il lavoro di "smista"** (§7.2, con il
-lucchetto) e ti dice i ponti della giornata (≤ 3 righe per memo): nei giorni 1–7, finché le Routine non sono attive, è l'unico modo in
+lucchetto, un piano `ciclo: smista` e lo stesso commit `smista: N memo`) e ti dice i ponti della giornata (≤ 3 righe per memo): nei giorni 1–7, finché le Routine non sono attive, è l'unico modo in
 cui i memo vengono letti. Poi conversa: il frammento di chat cresce in `ingresso/` turno per turno, le risposte in una
 bozza accanto (`ingresso/<id>.risposte.md`). Alla fine, con il lucchetto, sigilla **un** frammento e **una** restituzione
 per la conversazione. Usa `contesto/` e, per il resto, la ricerca nei file. **I numeri vengono da `mappa.md`: l'AI non
@@ -997,7 +1060,7 @@ Quattro Routine in tutto: "smista" (§7.2),
 "consolida", "lettera", "ritratto". Gli orari hanno minuti sfalsati, come vuole il servizio, e tutti i cron portano
 `CRON_TZ=Europe/Rome` (senza, il servizio li legge in UTC). Il prompt di ogni Routine, nell'interfaccia di claude.ai, è
 una riga sola: "leggi ed esegui `prompt/<nome>.md`". I prompt veri sono **file del repository** (`prompt/smista.md`,
-`prompt/consolida.md`, …): così [S] ne calcola l'hash (`prompt` delle letture e delle restituzioni) e la loro storia sta in
+`prompt/consolida.md`, …): così [S] ne calcola l'hash (`prompt` delle letture, §2.2) e la loro storia sta in
 git.
 
 **"Consolida"**, domenica notte (`CRON_TZ=Europe/Rome 13 3 * * 0`). Copre **tutti i frammenti dopo l'ultimo consolidamento riuscito** (la data
@@ -1054,15 +1117,20 @@ Prima della pipeline, una restituzione vera (CS §4):
 | 0 | Claude Code: repository privato, importazione (§14), `smista.mjs`, `verifica.mjs`, `CLAUDE.md`. Tu: repo, App GitHub, PAT, Comando rapido **solo PUT** (~20 minuti) |
 | 1 | **il primo ritratto**, sul nucleo e sulle 31 frasi tue, con **una** convergenza nuova ancorata a una tua frase |
 | 1–3 | cattura cieca; **ogni sera** (e così fino al giorno 7) apri Specchio, che fa "smista" e ti dice i ponti della giornata (al massimo uno per memo, solo se forte). Anche se i memo sono già stati smistati, Specchio non risponde "nessun memo nuovo": rilegge i memo dal giorno 1 e cerca il ponte |
-| 3 | **il bilancio dei ponti**: Specchio rilegge **tutti** i memo dei giorni 1–3 e chiude con il ponte più forte, oppure con "Niente si aggancia ancora." È la prova della meraviglia: almeno un ponte inatteso, con la tua frase vecchia alla lettera e la data |
+| 3 | **il bilancio dei ponti**: Specchio rilegge **tutti** i memo dei giorni 1–3, con i loro vicini dati da [S] (§6.2), e chiude con il ponte più forte, oppure con "Niente si aggancia ancora." e nient'altro. È la prova della meraviglia: almeno un ponte inatteso, con il tuo frammento vecchio e la data (la frase alla lettera, o per un testo trascritto il gesto e le parole ○: sotto) |
 | 4–7 | Specchio ogni sera, come nei giorni 1–3, finché le Routine non sono attive; al giorno 7 (o prima, se l'apertura serale pesa) si attivano il `fire` e le Routine, e la domenica parte la prima lettera |
 
 **Il ponte dei primi giorni** (decisione del coordinatore, [prova di restituzione](/progetto/v2/simulazione/attriti-restituzione.md) A2):
 - nei primi 3 giorni i **vicini** di un memo (§6.2) comprendono **tutti** gli importati ✦, non solo quelli che condividono
-  un nodo: Rust (u19) deve poter rispondere a Galimberti;
+  un nodo, e li dà [S] anche a memo già smistati: Rust (u19) deve poter rispondere a Galimberti;
 - un ponte si consegna solo se ha un **luogo preciso** da entrambe le parti: la tua frase con la data, e per un ○ l'opera e
   il passo. Un ○ senza luogo non si consegna mai;
-- meglio "Nessun ponte oggi." che un ponte forzato.
+- **un testo altrui che hai trascritto** (`altrui: true`, u18–u20) può essere il capo vecchio di un ponte: il capo ✦ è il
+  **gesto** ("hai trascritto il monologo di Rust", con la data-tetto), le parole stanno tra «» con ○, al più una riga,
+  **alla lettera nella lingua in cui le hai trascritte**, con l'opera e il passo (*True Detective*, st. 1, ep. 1). Non si
+  scarta perché non ha una frase tua;
+- meglio una formula che un ponte forzato: "Nessun ponte oggi." la sera dei giorni 1–2 e 4–7, "Niente si aggancia
+  ancora." al bilancio del giorno 3; una sola, mai le due insieme.
 
 Le prove del banco da far passare per prime: **B01–B02** (Galimberti), **B06** (Marco non è Marco Aurelio), **D02** (solo
 le mie).
@@ -1088,15 +1156,19 @@ le mie).
 Le raffiche sono il modo naturale in cui scrivi (Galimberti alle 23:40, "ah e…" tre minuti dopo): due `fire` aprono due
 sessioni in parallelo (C6). La regola: **l'ultima sessione vince, e una sola lavora**.
 
-1. [S] La sessione aspetta **90 secondi**, poi `git pull`.
+1. [S] Una sessione nata da un `fire` aspetta **90 secondi**, poi `git pull`. La passata delle 3 ore, Specchio e le
+   Routine a orario non aspettano: fanno subito il `pull`.
 2. [S] Se in `ingresso/` c'è un memo **più recente** di quello del suo `fire` (contano solo i file `canale: telefono`; non
    le chat aperte, le bozze o `.in-corso`) **e con meno di 4 minuti**, esce: lo elaborerà la sessione di quel file. Se
    quel memo è più vecchio (il suo `fire` è fallito), procede lei (V1). Il Comando rapido ripete il `fire` su un errore
    HTTP. (La passata delle 3 ore, Specchio e le Routine a orario non escono mai per questo motivo.)
 3. [S] `lucchetto.mjs prendi`: se `ingresso/.in-corso` esiste ed è più giovane di **20 minuti**, **aspetta**: "smista" fino
    a 45 minuti, con un `pull` al minuto (V10, da verificare sui limiti delle Routine); "consolida" e "ritratto" fino a 30.
-   Altrimenti scrive `ingresso/.in-corso` con l'id della sessione, l'ora e un **gettone** (un numero che cresce: il
-   precedente + 1) e fa **commit e push**. Il push è l'arbitro: se fallisce perché un altro ha spinto prima, `pull`,
+   Altrimenti scrive `ingresso/.in-corso` con il ciclo, l'id della sessione, l'ora e un **gettone** (un numero che cresce:
+   l'ultimo che compare nella storia git di `ingresso/.in-corso`, anche dopo un `lascia` che l'ha cancellato, + 1; senza
+   storia, 1) e fa **commit e push**. L'id della sessione sono 8 caratteri `[a-z0-9]` casuali che `prendi` sceglie e
+   stampa con il gettone; `rinnova` e `lascia` li ricevono come argomenti. Ogni tempo del lucchetto, negli script e nelle
+   loro opzioni (`--aspetta`), si scrive in **secondi** (45 minuti = `2700`). Il push è l'arbitro: se fallisce perché un altro ha spinto prima, `pull`,
    rilegge il lucchetto e aspetta.
 4. Lavora. [S] Ogni 10 minuti, e tra un passo e l'altro di "consolida", **rinnova** il lucchetto. **Fencing** (V12): al
    rinnovo e prima di ogni push, dopo il `pull`, `.in-corso` deve portare ancora il **proprio** id e gettone; se no, un
@@ -1159,6 +1231,9 @@ Dalle prove di [restituzione](/progetto/v2/restituzione.md) e da [voce](/progett
   corsivo, al più una riga, con ○: il **gesto** di trascriverle e il tuo commento sono ✦, le parole no (B21; lettura
   `altrui: true`, §3.3);
 - le formule dell'AI sono in tondo, anche quando le hai accolte (●): mai in corsivo, mai tra «»;
+- i **titoli** di opere (libri, film, album, brani) vanno in corsivo, come nell'uso editoriale (*Il mondo delle emozioni*,
+  B01): un titolo non porta ✦ e non è una frase tua; i controlli sulle tue frasi guardano i tratti in corsivo segnati ✦ o
+  che si ritrovano nei frammenti;
 - il segno sta accanto alla frase; la legenda, in una riga, solo nelle forme lunghe (lettera, ritratto);
 - il vuoto è un dato ("nessuna canzone tua", "nessun perché");
 - una convergenza ha una **direzione**: le fonti dicono cose diverse sullo stesso legame, non la stessa cosa tre volte;
@@ -1173,7 +1248,9 @@ Dalle prove di [restituzione](/progetto/v2/restituzione.md) e da [voce](/progett
 - al più **un ◌ per lettera**: una sola proposta forte.
 
 **Le lunghezze** ([voce §3](/progetto/v2/voce.md)): risposta a un memo "Salvato." più 0–2 righe (≤ 40 parole; "Salvato."
-da solo è una risposta completa, e non lascia file: C11); risposta a una domanda fino a 150 parole (il minimo di 50 solo con ≥ 3 voci ✦; "vuoi il resto?" solo se il resto c'è);
+da solo è una risposta completa, e non lascia file: C11); risposta a una domanda fino a 150 parole, tolte le tue frasi citate alla lettera (il minimo di 50 solo con ≥ 3 voci ✦;
+"vuoi il resto?" solo se il resto c'è); un elenco delle tue frasi (D02) si misura in righe: al più 8 righe ✦, più la riga
+✧ e "Vuoi il resto?";
 lettera ≤ 250; ricordo 2–3 righe; sogno ≤ 120; confronto ≤ 150; ritratto ≤ 400; "mentre eri via" una riga; Specchio ≤ 3 righe per
 memo; notifica 5–7 parole.
 
@@ -1267,7 +1344,9 @@ La voce dell'AI entra da tre porte (C14). Le chiusure:
 
 ## 11. Migrazioni ed evoluzione dello schema
 
-- **`_schema.md`** alla radice, creato al giorno 0 (R9): il numero di versione (oggi **3**), lo schema JSON del §3.7, la storia delle migrazioni.
+- **`_schema.md`** alla radice, creato al giorno 0 (R9): il numero di versione (oggi **3**), un rimando a
+  `schema/frontmatter.json`, che contiene lo schema JSON del §3.7 per esteso (e accanto `schema/piano.json`, §2.2), e la
+  storia delle migrazioni, vuota al giorno 0. Lo schema non si copia in `_schema.md`: una sola fonte.
   Il campo `schema: 3` sta in ogni lettura, nodo e restituzione (C12a).
 - **Il frammento non ha `schema`**: il suo formato è congelato per sempre (`registrato`, `canale`, testo; per l'importato
   `voce` e `forma`). È la scelta che regge cinque anni.
@@ -1319,8 +1398,8 @@ La voce dell'AI entra da tre porte (C14). Le chiusure:
 ### 13.1 Prima: il punto zero
 
 Dall'importazione (§14) esistono già: il frammento-sguardo `20261005-0000-s01` (il nucleo, ✧), che fa nascere il tema
-`nichilismo` ("non nichilismo: accettare il peso"); il frammento `20261004-0000-u19` (il monologo di Rust trascritto da te, ✦) con
-il nodo `rust-cohle`. Nessun nodo Galimberti, nessun Nietzsche se lo sguardo non lo nomina (da verificare nell'eredità):
+`nichilismo` ("non nichilismo: accettare il peso"); il frammento `20261004-0000-u19` (il monologo di Rust trascritto da te: ✦ il gesto, ○ le parole, in
+inglese) con il nodo `rust-cohle` e `true-detective-s1` (`momento: "episodio 1"`, il luogo del ○: §14.1). Nessun nodo Galimberti, nessun Nietzsche se lo sguardo non lo nomina (da verificare nell'eredità):
 nei campi si scrive allora `~Friedrich Nietzsche`.
 
 ### 13.2 Martedì 3 novembre, 23:40: la cattura
@@ -1331,8 +1410,8 @@ nei campi si scrive allora `~Friedrich Nietzsche`.
 1. Il Comando rapido scrive `ingresso/20261103-2340-k7q2.md` (il frammento del §3.2) e fa il `fire`. "Salvato" in un secondo.
 2. 23:40 + 90 s: la sessione fa `pull`; nessun file più recente; prende il lucchetto (push di `ingresso/.in-corso`).
 3. `prepara`: `git mv` in `frammenti/2026/11/`; il pacchetto: i candidati per "galimberti" (nessuno: nuovo), per "spettacolo
-   sulle emozioni" (nessuno), per "nichilismo" (`nichilismo`, esatto); i vicini (`s01` e `u19`, che condividono
-   `nichilismo`).
+   sulle emozioni" (nessuno), per "nichilismo" (`nichilismo`, esatto); i vicini (`s01`, che condivide
+   `nichilismo`, e, perché è il giorno 1, tutti gli importati ✦, fra cui `u19`: §6.2, §7.5).
 4. Il piano dell'AI (§2.2): tre nodi nuovi (lo spettacolo nasce con il nome che gli dai tu: l'identità è certa, è il
    titolo vero a essere incerto, e va negli alias quando lo confermi), quattro legami ✦, la reazione, le parole `ragazzo` e `cultura`, la risposta.
    Dentro il `crea-nodo` della citazione, la verifica rapida (§7.2 passo 4): nessun apocrifo noto, la traccia va nel
@@ -1353,7 +1432,8 @@ voci:
   - {n: 1, rif: il-nichilismo-e-l-ospite-inquietante, voce: mondo, cosa: citazione, riferimento: "Frammenti postumi, 2[127] (da verificare)"}
   - {n: 2, rif: spettacolo-sulle-emozioni, voce: mondo, cosa: opera}
 ---
-**Salvato.** 1. "L'ospite inquietante" è un'immagine di Nietzsche ○, che Galimberti ha ripreso in un libro ⚠.
+**Salvato.**
+1. "L'ospite inquietante" è un'immagine di Nietzsche ○, che Galimberti ha ripreso in un libro ⚠.
 2. Lo spettacolo forse è *Il mondo delle emozioni* ⚠.
 ```
 
@@ -1391,8 +1471,8 @@ spento (meno di 50). Ricordabili: solo gli importati ✦, e la lettera non ne us
 Nietzsche), scrive la lettera e riscrive `riserva/ritorno.md`. Alle 17:37 "lettera" la consegna:
 
 > **La settimana.** Martedì, salvando Galimberti, ho visto Rust. Tu hai scritto *diceva che il nichilismo è l'ospite
-> inquietante* ✦ (l'immagine è di Nietzsche ○); a ottobre avevi trascritto il monologo di Rust ✦, «la coscienza umana è un
-> tragico passo falso dell'evoluzione» ○. Nel tuo nucleo c'è *non nichilismo: accettare il peso, non nascondermi* ✧.
+> inquietante* ✦ (l'immagine è di Nietzsche ○); entro il 4 ottobre avevi trascritto il monologo di Rust ✦, «I think human
+> consciousness is a tragic misstep in human evolution» ○ (*True Detective*, st. 1, ep. 1). Nel tuo nucleo c'è *non nichilismo: accettare il peso, non nascondermi* ✧.
 > Giovedì, con Sisifo: *stasera sto bene* ✦.
 > 1. Chi apre la porta all'ospite, chi la chiude, chi lo guarda sedersi ◌.
 >
@@ -1400,8 +1480,8 @@ Nietzsche), scrive la lettera e riscrive `riserva/ritorno.md`. Alle 17:37 "lette
 
 La notifica dice solo "La lettera è pronta". `mappa.md` registra: seme usato su `nichilismo` (la prossima lettera non potrà
 appoggiarsi di nuovo al nucleo per questo nodo); "porta" e "chi apre la porta" entrano tra le immagini già usate, e la
-formula non potrà tornare in un'altra restituzione se non la scrivi tu. (La riga di Rust è da verificare sul testo della
-serie prima di consegnarla.)
+formula non potrà tornare in un'altra restituzione se non la scrivi tu. (La riga di Rust è citata come l'hai trascritta, in u19; il confronto
+con il testo della serie, che secondo l'Atlante dice "in evolution" senza "human", va fatto prima di consegnarla.)
 
 Se rispondi "sì, Rust è l'ospite" (nel Progetto, rimandando il memo, o in Specchio), il frammento di chat accoglie la voce 1 (§4) e il legame diventa ●, con la
 formula ancora mia, in tondo.
@@ -1457,7 +1537,7 @@ usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo
 
 | regola | che cosa |
 |---|---|
-| **R1 frasi sue** | U1–U31 → `frammenti/2026/10/2026MMGG-0000-uNN.md`, `canale: importato`, `voce: sua`, `registrato` solo data; corpo = **testo grezzo senza markup**, link interni resi in testo, a capo conservati (A19); la cornice di Claude va in `nota`; `forma: riportata` per le frasi scritte da Claude dalle tue parole (A2); `fonte` nella lettura (A20); `intento: [salva]` di default (A22). U26 si divide in `u26a` e `u26b` (A25) |
+| **R1 frasi sue** | U1–U31 → `frammenti/2026/10/2026MMGG-0000-uNN.md`, `canale: importato`, `voce: sua`, `registrato` solo data; corpo = **testo grezzo senza markup**, link interni resi in testo, a capo conservati (A19); la cornice di Claude va in `nota`; `forma: riportata` per le frasi scritte da Claude dalle tue parole (A2); `fonte` nella lettura (A20), con il commit del checkpoint (`@3a7ea79`); `intento: [salva]` di default (A22). U26 si divide in `u26a` e `u26b` (A25). Le letture importate hanno `letto-da` = il modello della sessione d'importazione e `prompt` = `3a7ea79`, le prime 7 cifre dello SHA del checkpoint dell'Atlante (non c'è un prompt da cui calcolarlo) |
 | **R2 lo sguardo** | il nucleo → `20261005-0000-s01`, `voce: seme`, `intento: [sguardo]`, senza i blocchi proposta (A24). Le tensioni, virtù e fortuna, evoluzione → `s04`, `voce: seme` (A15). Lo sguardo fa nascere nodi (A16); i passi si citano con `passo: nucleo:19` (A7). Il racconto della chat d'origine → `s03`, `intento: [niente]`, non fa nascere nodi |
 | **R3 frasi sul sistema** | U27–U31 sono frammenti (R1) e regole nel `CLAUDE.md` con id e data. U28 ("dimmi tu") non ha un referente importato: `intento: [salva]` e una `nota` su che cosa accolse, nessun atto. U30 sì: vedi R13 (A6) |
 | **R4 convergenze** | C1–C25 → restituzioni `eredita`, `r-AAAAMMGG-0000-eredita-<slug>`, data del passo (riga di `## Evoluzione` o commit: A5), `aggancio: {a, passo}`, voci numerate con `rif` a un nodo o `~Nome`; `converge-con` con `tra` che ammette voci e `~Nome` (A1); voce ✧ solo se tutto il passo è del seme validato, altrimenti ◌ (A23) |
@@ -1468,25 +1548,29 @@ usano nomi del v2 (`ritratto-cNN`, `per`, `importata`, `correggi`); valgono solo
 | **R9 ricerche** | la tua frase è il frammento; la pista è `nomina` con `fruizione: da-fare`; lo stato della ricerca nell'Atlante va in `nota` (A12) |
 | **R10 pin** | link nel frammento; le descrizioni di Claude in `nota` |
 | **R11 emozioni** | le 10 parole di U1 → temi; `parla-di` per le tappe, `come: stato` solo per lo stato d'arrivo, con `vissuto` (A21); le 4 di Claude non entrano |
-| **R12 il resto** | un `link` alla scheda dell'Atlante |
+| **R12 il resto** | un `link` alla scheda dell'Atlante, tranne sulle citazioni senza `esito` (l'elenco unico del §3.4 non ha `link`) e sulle persone `cerchia: vita` |
 | **R13 le 8 domande** | `r-20261007-0000-eredita-domande` con 8 voci; la lettura di U30 ("vai con la mappa") le **accoglie**: nascono 8 temi ● (A14) |
-| **ordine** | **0. l'elenco dei nodi** (slug, nome, genere), fissato per primo da una sola sessione; poi frammenti → nodi → letture → restituzioni → **riconciliazione** → `contesto.mjs` → verifica che nessun conto contenga l'importato |
+| **ordine** | **0. l'elenco dei nodi** (slug, nome, genere), fissato per primo da una sola sessione; poi, **in memoria**, frammenti → nodi → letture → restituzioni → **riconciliazione**; solo dopo la riconciliazione si scrivono i file (le restituzioni sono immutabili dal loro primo commit) → `contesto.mjs` → verifica che nessun conto contenga l'importato |
 | **riconciliazione** (R27) | se le parti sono scritte da subagent diversi, divergono negli slug (7 casi nella prova a freddo): un passo [S] unisce le parti, sostituisce ogni slug e ogni `~Nome` con quello dell'elenco 0 (per `chiave` e alias), e fallisce se resta uno slug fuori elenco |
 
 **Precisazioni della prova a freddo:** le convergenze C5, C8, C10 e C16 sono ◌, non ✧, perché contengono idee del seme non
 validate (R36, A23); `s04` fa nascere solo `divina-commedia` (Machiavelli, i lamed-vav e le tre metamorfosi restano testo,
 R17); U31 non fa nascere Galimberti, che al punto zero non esiste (B01, R18); U20 ha `altrui: true` (R48); le etichette e
-i numeri d'elenco di Claude dentro il seme si tolgono dal corpo (R28).
+i numeri d'elenco di Claude dentro il seme si tolgono dal corpo (R28). C1 resta ✧ anche con la riga ritoccata da Claude il
+7 ottobre: un ritocco su un passo del seme validato non lo rende ◌ (A23 vale per le idee non validate).
 
-Numeri attesi: ~35 frammenti, ~52 nodi, ~60 restituzioni `eredita`. Al giorno 1, 20 domande del banco su 25 hanno il
+Numeri attesi: ~35 frammenti, ~52 nodi, ~60 restituzioni `eredita`, di cui **26** con un legame `converge-con` (non 25: le
+convergenze C1–C25 non coincidono una a una con le restituzioni che ne portano uno; fa testo la tabella dell'importazione). Al giorno 1, 20 domande del banco su 25 hanno il
 materiale per rispondere; D21 (tatuaggi da Sisifo) si chiude con A1 (voci indicizzate per nome).
 
 
 ### 14.1 La tabella riga per riga (I2)
 
-Righe al commit `4c9fdce`; "seme" = `diario/2026-10-04-seed.md` (commit `030c29a`). `registrato` è la data del commit che
+Righe scritte al commit `4c9fdce` e verificate al checkpoint `3a7ea79` (tornano uguali: seconda prova a freddo); "seme" =
+`diario/2026-10-04-seed.md` (commit `030c29a`). `registrato` è la data del commit che
 crea il file fonte (sola data); il momento vero, se diverso o solo come limite, va in `vissuto`. Un frammento può unire più
-righe di una nota (la `fonte` le elenca). Gli alias importati vengono solo da parole tue nell'Atlante; i `simboli/`
+righe di una nota (la `fonte` le elenca). Gli alias importati vengono solo da parole tue nell'Atlante o dallo sguardo (Napoleone, da M9, è alias di
+`resilienza-napoleonica`: A31); i `simboli/`
 dell'Atlante non entrano, se non come nodi che nomini tu.
 
 | riga | fonte (file:riga dell'Atlante) | frammento | `voce` | `forma` | note |
@@ -1509,8 +1593,8 @@ dell'Atlante non entrano, se non come nodi che nomini tu.
 | U16 | seme:259 | `20261004-0000-u16` | sua | riportata | patchwork sleeve; `vissuto: "≤2026-10-04"`; copie seme:469, 634, `nucleo.md:62`, `stile/patchwork.md:11` |
 | U17 | seme:455 | `20261004-0000-u17` | sua | riportata | incisione e xilografia; reazione in coda al catalogo di Claude; `vissuto: "≤2026-10-04"`; copia `stile/incisione-xilografia.md:11` |
 | U18 | `spunti/capitano-della-mia-anima/index.md:25` (testo 27–45) | `20261004-0000-u18` | sua | — | Invictus intero + la sua riga; `altrui: true`; più righe in un frammento (A2); cornice in `nota` (A19); file `c8ad322` |
-| U19 | `spunti/true-detective-coscienza/index.md:28` | `20261004-0000-u19` | sua | — | monologo di Rust trascritto da lui; `altrui: true`; file `e600282` |
-| U20 | `spunti/true-detective-sogno/index.md:23` | `20261004-0000-u20` | sua | — | "I don't sleep, I just dream."; copia `idee/sognatore-insonne/index.md:27`; file `c8ad322` |
+| U19 | `spunti/true-detective-coscienza/index.md:28` | `20261004-0000-u19` | sua | — | monologo di Rust trascritto da lui, in inglese; `altrui: true`; legami `nomina rust-cohle` e `nomina true-detective-s1` con `momento: "episodio 1"` (il luogo del ○ per un ponte, §7.5), più la citazione; file `e600282` |
+| U20 | `spunti/true-detective-sogno/index.md:23` | `20261004-0000-u20` | sua | — | "I don't sleep, I just dream" (senza punto, come nell'Atlante); copia `idee/sognatore-insonne/index.md:27`; file `c8ad322` |
 | U21 | `idee/sognatore-insonne/index.md:38, 41, 42` | `20261004-0000-u21` | sua | riportata | sagoma, fumo, frase + due domande; virgolettati nella prosa di Claude (A2); `serve-a: tatuaggi`; file `c8ad322` |
 | U22 | `idee/monologo-di-rust/index.md:33`; `diario/2026-10-05-revisione-seme.md:30` | `20261005-0000-u22` | sua | riportata | "quanto tenere del testo?"; file `20b6850` (2026-10-05), eredità dice 2026-10-04 → `vissuto: "2026-10-04"`; copia `_archivio/corona-cieca/index.md:32` |
 | U23 | `diario/2026-10-05-revisione-seme.md:30` | `20261005-0000-u23` | sua | riportata | "due idee, entrambe legate a true detective"; commit 2026-10-05, eredità 2026-10-04 → `vissuto: "2026-10-04"` |
@@ -1631,6 +1715,7 @@ Totale: 32 frammenti U più `s01`, `s03`, `s04` = **35**. Nel nucleo U1, U3, U10
 | 76 | ricordo dopo 60 giorni attivi, importati solo "nei primi mesi" | regola unica: importati ✦ da subito, nuovi dopo 60 giorni di calendario e ≥ 10 attivi; domenica senza parlanti muta; proposte pronte solo da una notte precedente; nessun ○ senza opera e passo | [seconda prova di restituzione](/progetto/v2/simulazione/attriti-restituzione.md) S2, S7, S8; coordinatore |
 | 77 | due memo della stessa chat senza regola | il successivo sostituisce solo se contiene il precedente come prefisso (crescita in coda, `n` continui); altrimenti conflitto per Specchio | [prompt v3](/progetto/v2/prompt-v3.md), appendice B n. 10; coordinatore |
 | 78 | schema con `if` su `cerchia: vita` senza `required`; nessun esempio in §3.5; "Chiedi" fuori schema; `nota` stretta; "galimberti" non trova `umberto-galimberti` | `required: [cerchia]` (verificato con ajv: 34 casi validi e non validi); esempio di restituzione; `intento` facoltativo nel frammento (predefinito `[chiedi]` da "Chiedi"); corpo della lettura per le cornici; regole cognome e nome; riconciliazione degli slug nell'importazione; 05 dichiarato superato; esito all'ingresso con regola unica (solo `attribuita-a`, senza `esito`); `applica.mjs` transazionale; `parole` sempre lista; §8.3: temi nominati ✦ subito, dedotti ◌ a una vicenda | [prova a freddo](/progetto/v2/prova-a-freddo.md) R7, R10, R12, R13, R23, R24, R27, R33, R36, R41, R43, R44, R51, R56, R60–R62, R67, R69 |
+| 79 | buchi e contraddizioni della seconda prova: hash `prompt` senza algoritmo e anche sulle restituzioni; `versione` nel piano sì e no; tre elenchi dei campi vietati alla citazione; allegati `.webp`; nessuna radice dello schema; vicini "fino a 10" contro "tutti gli importati", e nessuno per Specchio a memo smistati; u19 scartato perché `altrui`; il seme fuori da `contesto/`; `parole` "la tua forma" contro `cultura`; due formule senza ponte | SHA-1 dei tre file (`git hash-object`), solo nelle letture; `versione` facoltativa e controllata; un elenco unico (§3.4, uguale al G4 del banco); originale + copia fuori da `allegati`; radice per chiavi; vicini oltre il tetto nei primi 3 giorni, anche per Specchio; l'altrui come capo di un ponte (gesto ✦, parole ○ alla lettera con il passo); sezione `## Seme ✧` in fondo a `parole.md`; `parole` come nomi; una formula per giorno; firma di `candidati`, nomi del testo, collisioni per genere, articoli, lucchetto (gettone, id, secondi), `risposta` obbligatoria, ID esterni elencati, §14 (ordine in memoria, `prompt` importato, 26 `converge-con`, U20, C1) (verificato con ajv: 9 esempi del modello validi, 7 casi attesi) | [seconda prova a freddo](/progetto/v2/prova-a-freddo-2.md) P2-4–P2-8, P2-11, P2-13, P2-15, P2-17, P2-18, P2-20, P2-27–P2-35, P2-39, P2-42, P2-45, P2-50–P2-53, P2-56–P2-59, P2-63–P2-65, P2-69, P2-70, P2-72, P2-77, P2-87, P2-88 |
 
 **Scartati, con il motivo:**
 - *Togliere sogno, "ti ricordi?" e ritratto* (CS §1.2): restano. Il banco non li collaudava, ma la ricerca dice che la

@@ -32,8 +32,10 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    soglia): il primo ritratto si scrive con 0 frammenti parlanti, prima del primo memo. Sul nucleo e sulle frasi
    importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); prima di scriverla, la **prova del ponte** di
    `prompt/specchio.md` (passo 2: tre subagent nuovi, o tre `claude -p`, con le due frasi intere alla lettera, mai
-   tagliate, e le domande A e B così come sono), più una terza domanda, C: «Una delle due frasi dice già da sola questo
-   nesso? Rispondi sì o no, con una riga di motivo.» (conta a favore solo un no senza riserve); prova le coppie in ordine
+   tagliate, e le domande A e B così come sono), più una terza domanda, C: «Questo nesso l'aveva già fatto lui, cioè una
+   delle due frasi è già la forma generale o un caso dell'altra? Rispondi sì o no, con una riga di motivo.» (conta a
+   favore solo un no senza riserve); il perché ◌ nomina il nesso tra quelle due frasi, non è una massima che varrebbe
+   per chiunque; prova le coppie in ordine
    fino alla prima forte per la maggioranza; se nessuna passa, nessuna convergenza (il ritratto lo dice in una riga); le date come tetto ("entro il 4
    ottobre"), su **ogni** frase ✦ citata, i due capi della convergenza compresi (sulla riga, o una volta in testa al
    gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota

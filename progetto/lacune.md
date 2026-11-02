@@ -28,3 +28,6 @@ Le lacune del pacchetto (il modello non dice) con la scelta fatta.
   con giudizi indipendenti che `specchio.md` ha. Scelta: `prompt/ritratto.md` (variante giorno 1) rimanda alla prova del
   passo 2 di `specchio.md`, frasi intere, più una domanda C ("una delle due dice già il nesso?"); se nessuna coppia
   passa, nessuna convergenza. Rende la prova più severa, non spinge verso un ponte.
+- R01a, quinto giro (D5 no 3 su 3, D2 sì 2 su 3): la prova interna aveva lasciato passare u01–u09 perché la domanda C
+  chiedeva altro dalla domanda 5 del giudice. Scelta: C riformulata ("l'aveva già fatto lui? una è la forma generale o un
+  caso dell'altra?") e il perché ◌ non è una massima.

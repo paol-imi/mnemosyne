@@ -1,0 +1,325 @@
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/esegui.mjs prova-a-freddo-6/codice/banco/esegui.mjs
+--- prova-a-freddo-5/codice/banco/esegui.mjs	2026-11-02 03:49:00.600172910 +0000
++++ prova-a-freddo-6/codice/banco/esegui.mjs	2026-11-02 04:00:10.000000000 +0000
+@@ -294,12 +294,13 @@
+     let ks = ls.map((r, i) => ({ r, i, f })).filter((k) => !re || re.test(k.r));
+     if (c.corsivo_da) {
+       fonteDi = fonti(ctx, c.corsivo_da, c.fonte);
+-      ks = ks.filter((k) => tratti(k.r, c.tratti).some((x) => { const t = dove(x, fonteDi, c.parole_min); return t.length && conData(k.r, tutto, t, ls, k.i); }));
++      ks = ks.filter((k) => tratti(k.r, c.tratti).filter((x) => !(c.tranne ?? []).some((t) => t.includes(String(x).trim()))).some((x) => { const t = dove(x, fonteDi, c.parole_min); return t.length && conData(k.r, tutto, t, ls, k.i); }));
+     }
+     if (c.alla_lettera) {
+       const fo = fonti(ctx, c.alla_lettera, c.fonte);
+       for (const k of ks) {
+-        const ts = tratti(k.r, c.tratti);
++        // dopo ○ è il mondo: un corsivo lì è il titolo di un'opera (CLAUDE.md regola 1), non una frase ✦
++        const ts = tratti(k.r.split('○')[0], c.tratti);
+         if (!ts.length && c.serve_tratto) { fuori.push(`«${k.r}» senza tratto in corsivo`); continue; }
+         for (const x of ts) {
+           const t = dove(x, fo, c.parole_min);
+@@ -319,16 +320,16 @@
+     // gruppi (D02 «riportate»): le righe scelte che si toccano formano un gruppo; la nota sta una volta sola per gruppo, in
+     // testa (sulla prima riga o in una riga senza segni subito prima), e in nessun'altra riga.
+     if (c.gruppi !== undefined) {
+-      const mie = new Set(ks.map((k) => k.i)), ha = (i) => ls[i].includes(c.gruppi), capi = new Set();
++      const mie = new Set(ks.map((k) => k.i)), ha = (i) => new RegExp(c.gruppi, 'u').test(ls[i]), nota = c.gruppi.replace('[ae]', 'a'), capi = new Set();
+       for (const i of [...mie].sort((x, y) => x - y)) {
+         if (mie.has(i - 1)) continue;
+         const sopra = i > 0 && !/[✦✧◌○●⚠]/u.test(ls[i - 1]) && ha(i - 1);
+         if (sopra) capi.add(i - 1);
+         if (ha(i)) capi.add(i);
+-        if (sopra && ha(i)) fuori.push(`«${ls[i]}»: «${c.gruppi}» due volte in testa al gruppo`);
+-        else if (!sopra && !ha(i)) fuori.push(`«${ls[i]}» apre un gruppo senza «${c.gruppi}» in testa`);
++        if (sopra && ha(i)) fuori.push(`«${ls[i]}»: «${nota}» due volte in testa al gruppo`);
++        else if (!sopra && !ha(i)) fuori.push(`«${ls[i]}» apre un gruppo senza «${nota}» in testa`);
+       }
+-      ls.forEach((r, i) => { if (ha(i) && !capi.has(i)) fuori.push(`«${r}»: «${c.gruppi}» fuori dalla testa di un gruppo`); });
++      ls.forEach((r, i) => { if (ha(i) && !capi.has(i)) fuori.push(`«${r}»: «${nota}» fuori dalla testa di un gruppo`); });
+     }
+     if (c.ogni && (c.testo !== undefined || c.regex !== undefined))
+       for (const k of ks) if (!conta(k.r, c)) fuori.push(`«${k.r}» senza «${c.testo ?? c.regex}»`);
+@@ -521,8 +522,8 @@
+ }
+ 
+ // Il prompt del giudice: solo la prova, la preparazione con i suoi frammenti (banco §5: il campo `frammenti` della prova,
+-// glob o id(Bnn), più i frammenti che c'erano alla base e che un legame dell'uscita nomina nel `tra`: per R14 u19, B01,
+-// B02) e l'uscita (i file di dati nuovi o cambiati dalla base, senza contesto/, e l'uscita testuale).
++// glob o id(Bnn), più i capi dei legami dell'uscita, piano blocco 1: i frammenti che c'erano alla base e che un legame
++// di un file dell'uscita nomina nel `tra` o in `a`; per R14 u19, B01, B02 e il capo vecchio del ponte) e l'uscita (i file di dati nuovi o cambiati dalla base, senza contesto/, e l'uscita testuale).
+ const DATI = /^(ingresso|frammenti|letture|persone|opere|citazioni|temi|raccolte|restituzioni|riserva)\/.*\.md$/;
+ export function promptGiudice(ctx, modello) {
+   const p = ctx.prova, a = ctx.arch;
+@@ -534,8 +535,8 @@
+   if (ctx.uscita) parti.unshift(blocco('la risposta in chat, così come è stata data', ctx.uscita.testo));
+   const uscita = parti.join('\n\n') || '(nessun file nuovo o cambiato)';
+   const perId = (i) => a.elenco.filter((f) => f.startsWith('frammenti/') && basename(f, '.md') === i);
+-  const capi = fs.filter((f) => f.startsWith('restituzioni/')).flatMap((f) => [].concat(a.fm(f).legami ?? []))
+-    .flatMap((l) => [].concat(l?.tra ?? [])).filter((i) => typeof i === 'string' && ctx.allaBase(i));
++  const capi = fs.flatMap((f) => [].concat(a.fm(f)?.legami ?? []))
++    .flatMap((l) => [].concat(l?.tra ?? [], l?.a ?? [])).filter((i) => typeof i === 'string' && ctx.allaBase(i));
+   const dati = [...new Set([...(p.frammenti ?? []).flatMap((g) => { const v = sostituisci(ctx, g);
+     return v.includes('/') ? a.trova(v) : perId(v); }), ...capi.flatMap(perId)])].filter((f) => !fs.includes(f)).sort();
+   const testoPrep = p.preparazione ?? `Il ${p.data} arriva dal telefono questo messaggio:\n\n> ${p.messaggio.split('\n').join('\n> ')}`;
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/giudice.md prova-a-freddo-6/codice/banco/giudice.md
+--- prova-a-freddo-5/codice/banco/giudice.md	2026-11-02 03:49:00.601693419 +0000
++++ prova-a-freddo-6/codice/banco/giudice.md	2026-11-02 03:54:26.000000000 +0000
+@@ -6,8 +6,9 @@
+ ## Come si usa (per il coordinatore, non per il giudice)
+ 
+ 1. `node banco/esegui.mjs --prova Bnn [--ramo …] [--uscita FILE] --per-giudice > giudice-Bnn.md` riempie il prompt qui
+-   sotto con la prova, la preparazione con i suoi frammenti (il campo `frammenti` della prova, più i frammenti della
+-   base che un legame dell'uscita nomina: per R14 u19, B01 e B02), l'uscita (i file di dati nuovi o cambiati dalla base, senza `contesto/`, e, con
++   sotto con la prova, la preparazione con i suoi frammenti (il campo `frammenti` della prova, più i capi dei legami
++   dell'uscita, cioè i frammenti della base che un legame di un file dell'uscita nomina nel `tra` o in `a`: per R14 u19,
++   B01, B02 e il capo vecchio del ponte), l'uscita (i file di dati nuovi o cambiati dalla base, senza `contesto/`, e, con
+    `--uscita`, la risposta in chat di Specchio o del Progetto così come è stata data) e le domande del campo `giudice`
+    della prova. La risposta attesa **non** c'è: il giudice non la vede.
+ 2. Lo si dà **tre volte**, ogni volta a una **sessione nuova** (o a un subagent con il contesto vuoto), con un modello
+@@ -25,7 +26,7 @@
+ <!-- prompt -->
+ Sei il giudice di una prova del banco di Memo, un archivio personale di frammenti di pensiero con uno "specchio" che
+ glieli restituisce. Non hai scritto tu l'uscita e non conosci la conversazione che l'ha prodotta: vedi solo la prova, la
+-sua preparazione con i suoi frammenti e l'uscita, qui sotto. Giudica soltanto su questo: non leggere altri file, non cercare sul web, non usare
++sua preparazione con i suoi frammenti (e quelli che i legami dell'uscita nominano) e l'uscita, qui sotto. Giudica soltanto su questo: non leggere altri file, non cercare sul web, non usare
+ ciò che credi di sapere del repository o della persona.
+ 
+ Rispondi a ogni domanda con **sì** o **no** e **una sola riga** di motivo che cita l'uscita: il percorso del file e le
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/prove/B03.json prova-a-freddo-6/codice/banco/prove/B03.json
+--- prova-a-freddo-5/codice/banco/prove/B03.json	2026-11-02 03:49:00.601972535 +0000
++++ prova-a-freddo-6/codice/banco/prove/B03.json	2026-11-02 03:54:26.000000000 +0000
+@@ -22,7 +22,8 @@
+     { "dove": "@risposta", "conta": "domande", "max": 0, "motivo": "un \"?\" nella risposta (contato come G6)" }
+   ],
+   "non_deve": [
+-    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$nodo": "persone", "$regex": "jung", "$flag": "i" } } ], "motivo": "nomina verso la persona Jung («X: frase» è solo attribuzione)" }
++    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$nodo": "persone", "$regex": "jung", "$flag": "i" } } ], "motivo": "nomina verso la persona Jung («X: frase» è solo attribuzione)" },
++    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$regex": "^~.*jung", "$flag": "i" } } ], "motivo": "nomina verso la persona Jung come ~Nome («X: frase» è solo attribuzione)" }
+   ],
+   "dopo_consolida": [
+     { "dove": "citazioni/*.md", "filtro": { "campo": "nato-da", "contiene": [ "id(B03)" ] }, "campo": "esito", "vale": "simile" },
+@@ -37,6 +38,7 @@
+   "note": [
+     "La citazione si riconosce da nato-da: [id(B03)], non dallo slug, che la scheda non fissa; nella Mappa dallo slug dell'unico file nuovo in citazioni/.",
+     "«Non deve: cambiare il frammento» è G1 (corpo byte per byte) e G7; «G4 violata» è G4: nessuna voce in più.",
++    "«nessun legame nomina verso la persona Jung»: vale verso il nodo (slug in persone/) e verso un ~Nome con Jung, le due forme che la scheda ammette per Jung in attribuita-a.",
+     "«originale non uguale al testo del frammento»: si vieta che contenga «lo chiamerai destino», la forma che circola."
+   ]
+ }
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/prove/B22.json prova-a-freddo-6/codice/banco/prove/B22.json
+--- prova-a-freddo-5/codice/banco/prove/B22.json	2026-11-02 03:49:00.601972535 +0000
++++ prova-a-freddo-6/codice/banco/prove/B22.json	2026-11-02 03:54:26.000000000 +0000
+@@ -23,13 +23,11 @@
+     { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "ritorna-su", "come": "corregge" } ], "motivo": "un ritorna-su come: corregge senza bersaglio" },
+     { "dove": "{citazioni,persone}/*.md", "nuovo": true, "min": 1, "motivo": "un file nuovo in citazioni/ o persone/" }
+   ],
+-  "giudice": [
+-    { "domanda": "La risposta riporta, ricostruisce o indovina la frase di ieri sulla casa in ordine, o dice di averla corretta?", "attesa": "no" }
+-  ],
++  "giudice": [],
+   "note": [
+     "Presuppone B20 e B21 (gli ultimi 3 giorni di calendario più oggi) e B03 (la citazione di Jung di novembre), e l'assenza del frammento dell'11 marzo (R54). Nessun criterio usa id(B20) o id(B21): il divieto di corregge vale verso qualunque bersaglio, quindi anche verso la citazione di B03 e verso B21.",
+     "«il corpo contiene riscrivi»: si cerca «riscrivi» senza distinguere le maiuscole (anche «Riscrivi» in testa).",
+     "«§ Correzioni senza righe nuove»: il criterio non confronta con la mappa di prima; vieta in § Correzioni l'id di B22, Peterson e «casa in ordine». § Correzioni la scrive la seconda parte di contesto.mjs, anticipata al blocco 5 (piano, blocco 5): il criterio vale dalla porta del blocco 5; se la sezione manca, il criterio passa da sé (vieta righe, non ne chiede).",
+-    "«frase inventata» (la colonna della gravità) va al giudice: il deterministico vede solo che non c'è l'atto."
++    "Nessuna domanda al giudice: la scheda non ha punti di giudizio. «frase inventata» sta solo nella colonna «perché» della tabella (banco §5, Gravità e porte), che dice perché il caso pesa e non è un criterio; il piano (blocco 5) che conta B22 tra le B con un giudice cede al banco."
+   ]
+ }
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/prove/D02.json prova-a-freddo-6/codice/banco/prove/D02.json
+--- prova-a-freddo-5/codice/banco/prove/D02.json	2026-11-02 03:49:00.601972535 +0000
++++ prova-a-freddo-6/codice/banco/prove/D02.json	2026-11-02 03:58:19.000000000 +0000
+@@ -93,13 +93,14 @@
+         "campo": "forma",
+         "vale": "riportata"
+       },
+-      "gruppi": "trascritta da Claude"
++      "gruppi": "trascritt[ae] da Claude"
+     },
+     {
+       "nome": "Forma altrui",
+       "dove": "@uscita",
+       "riga": "",
+       "corsivo_da": "frammenti/**/*-{u18,u19,u20}.md",
++      "tranne": ["Un candidato se vorrò fare testi lunghi."],
+       "max": 0,
+       "min": 0,
+       "motivo": "un corsivo dalle parole d'altri di U18, U19 o U20"
+@@ -193,7 +194,7 @@
+   ],
+   "giudice": [
+     {
+-      "domanda": "Tra le righe date come tue (le righe ✦; non la riga ✧ del seme, che la Forma richiede a parte e segnata come seme), c'è una sintesi, una parafrasi, una lettura o un testo del mondo (per esempio il passo vero di una citazione) invece delle parole di un frammento?",
++      "domanda": "Tra le righe date come tue (le righe ✦; non la riga ✧ del seme, che la Forma richiede a parte e che è segnata come seme), c'è una sintesi, una parafrasi, una lettura o un testo del mondo (per esempio il passo vero di una citazione) invece delle parole di un frammento?",
+       "attesa": "no"
+     },
+     {
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/prove/R01a.json prova-a-freddo-6/codice/banco/prove/R01a.json
+--- prova-a-freddo-5/codice/banco/prove/R01a.json	2026-11-02 03:49:00.601972535 +0000
++++ prova-a-freddo-6/codice/banco/prove/R01a.json	2026-11-02 03:54:26.000000000 +0000
+@@ -15,20 +15,20 @@
+   "deterministici": [
+     {
+       "nome": "D1",
+-      "esiste": "restituzioni/**/r-*-ritratto.md",
++      "esiste": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+-      "motivo": "nessun file nuovo restituzioni/AAAA/MM/r-…-ritratto.md"
++      "motivo": "nessun file nuovo restituzioni/2026/11/r-20261103-…-ritratto.md"
+     },
+     {
+       "nome": "D1",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "campo": "forma",
+       "vale": "ritratto"
+     },
+     {
+       "nome": "D1",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "parte": "corpo",
+       "copia_in": "contesto/ritratto.md",
+@@ -36,7 +36,7 @@
+     },
+     {
+       "nome": "✦ alla lettera",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "parte": "corpo",
+       "riga": "✦",
+@@ -49,7 +49,7 @@
+     },
+     {
+       "nome": "convergenza ancorata",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "parte": "corpo",
+       "riga": "✦",
+@@ -64,7 +64,7 @@
+     },
+     {
+       "nome": "capo della convergenza",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "campo": "legami",
+       "elementi": {
+@@ -80,7 +80,7 @@
+     },
+     {
+       "nome": "capo della convergenza",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "campo": "legami",
+       "elementi": {
+@@ -96,7 +96,7 @@
+     },
+     {
+       "nome": "convergenza nuova",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "legame_nuovo": "converge-con",
+       "confronta": "restituzioni/**/*.md",
+@@ -108,7 +108,7 @@
+     },
+     {
+       "nome": "≤ 400 parole",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "parte": "corpo",
+       "conta": "parole",
+@@ -118,7 +118,7 @@
+   "non_deve": [
+     {
+       "nome": "X3",
+-      "dove": "restituzioni/**/r-*-ritratto.md",
++      "dove": "restituzioni/2026/11/r-20261103-*-ritratto.md",
+       "nuovo": true,
+       "parte": "corpo",
+       "regex": "(?<!\\p{L})(?:brav[oaie]|coraggi|profond|straordinari|sensibil|ammirevol|sei fort[ei]|depress|ansia|ansie|traum|sintom|terapi|dovresti|ti consiglio)",
+@@ -140,7 +140,7 @@
+       "attesa": "sì"
+     },
+     {
+-      "domanda": "La domanda finale è una a cui non saprebbe rispondere subito?",
++      "domanda": "La domanda è una a cui non saprebbe rispondere subito?",
+       "attesa": "sì"
+     },
+     {
+@@ -172,11 +172,11 @@
+     "min": 7
+   },
+   "note": [
+-    "Il collaudo del blocco 4 (piano, «Collaudo (adattato da R01 e R14, sul punto zero)»): deterministici ogni frase in corsivo segnata ✦ alla lettera in un frammento ✦ con la data giusta, la convergenza nuova che non è una delle C1–C25, ≤ 400 parole; più D1 di R01 per trovare il file. Si esegue sul ramo della prova dopo la Routine «ritratto»; la base è il tag punto-zero (o banco-zero).",
++    "Il collaudo del blocco 4 (piano, «Collaudo (adattato da R01 e R14, sul punto zero)»): deterministici ogni frase in corsivo segnata ✦ alla lettera in un frammento ✦ con la data giusta, il capo della convergenza una frase ✦ o un frammento altrui, mai il seme ✧, la convergenza nuova che non è una delle C1–C25, ≤ 400 parole; e D1 di R01: il file restituzioni/2026/11/r-20261103-…-ritratto.md e la sua copia in contesto/ritratto.md. Si esegue sul ramo della prova dopo la Routine «ritratto»; la base è il tag punto-zero (o banco-zero).",
+     "«con la data giusta»: la riga del corsivo dice la data del suo frammento (id, registrato o data-tetto vissuto ≤…), come «4 ottobre», «4/10» o «2026-10-04». Le fonti sono i frammenti voce: sua (gli importati del punto zero).",
+     "«la convergenza nuova non è una delle C1–C25 importate»: le C1–C25 sono i converge-con delle restituzioni forma: eredita (modello §14, R4); il ritratto deve avere un converge-con il cui tra, come insieme, non è il tra di nessuna di quelle.",
+     "«il capo della convergenza è una frase ✦ o un frammento altrui, mai il seme ✧» (piano blocco 4): almeno un converge-con del ritratto ha nel tra un uNN del punto zero (U18–U20, altrui, compresi), e nessun converge-con del ritratto ha nel tra s01, s03, s04 o una r-…-eredita-…. Che la convergenza nuova e quella col capo uNN siano la stessa non si controlla: il piano non dice quale converge-con è «la» convergenza se ce ne sono più d'una.",
+-    "«nessun ⚠ citato come certo»: il piano lo mette tra i deterministici, ma nei file non c'è un modo meccanico di dire «come certo»; va al giudice (D8). Divergenza dichiarata.",
++    "«una cosa segnata ⚠ nell'archivio è detta come certa?»: è l'ottava domanda del giudice (D8, obbligatoria), perché nei file non c'è un modo meccanico di dire «come certo» (piano blocco 4).",
+     "Giudice: le domande di R01 che non dipendono da novembre (1, 2, 3, 5 di R01: qui D1–D4) e R14.1–R14.3 sulla convergenza (D5–D7), più D8. Soglia: R01 «4 su 5 con la 1 e la 2» diventa 3 su 4 con D1 e D2; R14 «tutte»: D5–D7 obbligatorie; in tutto almeno 7 su 8 con D1, D2, D5–D8 obbligatorie.",
+     "Le parti di R01 D3–D7 legate a novembre (conti di § Conti, il vuoto, «una domanda nell'ultima frase», le letture ◌, ≤ 18 righe) non sono nel collaudo del blocco 4 e non si controllano qui; la pancia dell'utente non è del banco."
+   ]
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/prove/R14.json prova-a-freddo-6/codice/banco/prove/R14.json
+--- prova-a-freddo-5/codice/banco/prove/R14.json	2026-11-02 03:49:00.601972535 +0000
++++ prova-a-freddo-6/codice/banco/prove/R14.json	2026-11-02 03:54:26.000000000 +0000
+@@ -175,7 +175,7 @@
+       "attesa": "sì"
+     },
+     {
+-      "domanda": "Coprendo la riga del perché (◌), le due frasi citate, una accanto all'altra, bastano già a far vedere il nesso? (Non si chiede se il nesso sia scritto: si chiede se si regge sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea: modello §7.5.)",
++      "domanda": "Coprendo la riga del perché (◌), le due frasi citate, una accanto all'altra, bastano già a far vedere il nesso? (Non si chiede se il nesso sia scritto: si chiede se si regge sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea.)",
+       "attesa": "sì"
+     },
+     {
+@@ -212,7 +212,7 @@
+     "D5 è una misura di fine banco, non decide la prova: non sta qui.",
+     "X1–X6 della parte 3: X1 è D1; X3 in Non deve; X5 in parte con G3 (schema) e G7 (nessun frammento o restituzione precedente cambia); X2, X4, X6 non hanno un controllo in più su un bilancio di 1–3 righe.",
+     "Soglia del giudice (scheda): con un ponte, tutte (caso a); senza ponte, cioè con la sola riga «Niente si aggancia ancora.», solo la 3, nella sua forma senza ponte (caso b). Nessun ponte è atteso: passano tutti e due i casi.",
+-    "«Forte» (scheda R14, la riga sotto il giudice; definizione unica, la richiamano modello §7.5, prompt/specchio.md e piano blocco 6): sì alla domanda 2 e no alla 3. Nel caso a la soglia «tutte» la contiene; la 1 (il nesso è nuovo) si chiede in più.",
++    "«Forte» (scheda R14, la riga sotto il giudice; definizione unica, la richiamano modello §7.5, piano blocco 6 e CLAUDE.md; prompt/specchio.md ne scrive le due domande per la prova interna): sì alla domanda 2 e no alla 3. Nel caso a la soglia «tutte» la contiene; la 1 (il nesso è nuovo) si chiede in più.",
+     "Il giudice vede sotto la Preparazione i frammenti del campo frammenti (u19, B01, B02: banco §5) e, in più, i frammenti della base che il legame dell'uscita nomina nel tra (il capo vecchio, se non è u19).",
+     "Le domande sono quelle della scheda alla lettera, senza «(deve essere no)», che è l'attesa e il giudice non la vede."
+   ]
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/banco/prove/schema.json prova-a-freddo-6/codice/banco/prove/schema.json
+--- prova-a-freddo-5/codice/banco/prove/schema.json	2026-11-02 03:49:00.601972535 +0000
++++ prova-a-freddo-6/codice/banco/prove/schema.json	2026-11-02 03:58:31.000000000 +0000
+@@ -46,7 +46,8 @@
+         "riga": {"type": "string", "description": "regex: si guardano le righe non vuote che la soddisfano, una per una (\"\" tutte)"},
+         "corsivo_da": {"type": "string", "description": "glob: delle righe scelte, solo quelle con un tratto alla lettera di quei frammenti (fonte, tratti, parole_min, con_data)"},
+         "serve_tratto": {"type": "boolean", "description": "con riga e alla_lettera: ogni riga scelta deve avere almeno un tratto"},
+-        "gruppi": {"type": "string", "description": "con riga e corsivo_da: le righe scelte consecutive formano un gruppo; questo testo (la nota) compare una volta sola per gruppo, sulla sua prima riga o in una riga senza segni subito prima, e in nessun'altra riga"},
++        "gruppi": {"type": "string", "description": "con riga e corsivo_da: le righe scelte consecutive formano un gruppo; questa regex (la nota) compare una volta sola per gruppo, sulla sua prima riga o in una riga senza segni subito prima, e in nessun'altra riga"},
++        "tranne": {"type": "array", "items": {"type": "string"}, "description": "con corsivo_da: i tratti contenuti in uno di questi testi non contano (la riga sua di un frammento altrui, CLAUDE.md regola 7)"},
+         "ogni": {"type": "boolean", "description": "con riga e testo o regex: ogni riga scelta li contiene"},
+         "dopo": {"type": "string", "description": "regex: ogni riga scelta viene dopo l'ultima riga che la soddisfa"},
+         "prima": {"type": "string", "description": "regex: ogni riga scelta viene prima della prima riga che la soddisfa (se c'è)"},
+Only in prova-a-freddo-6/codice: rispetto-alla-quinta.diff
+diff -ru '--exclude=esiti' '--exclude=lacune.md' '--exclude=stato.md' '--exclude=radice-rispetto-al-pacchetto.diff' prova-a-freddo-5/codice/test/schema.test.mjs prova-a-freddo-6/codice/test/schema.test.mjs
+--- prova-a-freddo-5/codice/test/schema.test.mjs	2026-11-02 03:49:00.615449209 +0000
++++ prova-a-freddo-6/codice/test/schema.test.mjs	2026-11-02 03:52:10.000000000 +0000
+@@ -65,6 +65,18 @@
+   ['§3.5 senza registrato', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { delete d.registrato; }],
+ ];
+ 
++test('le sei fixture sono gli esempi del modello §3.3–§3.5, nello stesso ordine', () => {
++  const t = readFileSync(join(RADICE, 'progetto/pacchetto/02-modello-v3.md'), 'utf8');
++  const sez = t.slice(t.indexOf('### 3.3'), t.indexOf('### 3.6'));
++  const blocchi = [...sez.matchAll(/```(?:yaml|md)\n([\s\S]*?)```/g)]
++    .map((m) => /^---\n([\s\S]*?)\n---(\n|$)/m.exec(m[1])).filter(Boolean).map((m) => parse(m[1]));
++  const file = ['letture/2026/11/20261103-2340-k7q2.md', 'persone/umberto-galimberti.md',
++    'citazioni/il-nichilismo-e-l-ospite-inquietante.md', 'consolidata/citazioni/il-nichilismo-e-l-ospite-inquietante.md',
++    'temi/stare-da-solo.md', 'restituzioni/2026/11/r-20261103-2341-risposta.md'];
++  assert.equal(blocchi.length, file.length);
++  file.forEach((rel, i) => { const { _genere, ...d } = dati(rel); assert.deepEqual(d, blocchi[i], rel); });
++});
++
+ for (const [sez, rel, tipo, sbaglia] of ESEMPI) {
+   test(`${sez}: l'esempio del modello valida, la copia con un campo sbagliato no`, () => {
+     const d = dati(rel);

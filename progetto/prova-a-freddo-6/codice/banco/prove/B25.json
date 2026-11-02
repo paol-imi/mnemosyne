@@ -1,0 +1,45 @@
+{
+  "$schema": "./schema.json",
+  "id": "B25",
+  "caso": "E52",
+  "titolo": "tema delicato, dettato vocale",
+  "data": "2027-04-02T20:00:00+02:00",
+  "messaggio": "ho sentito una frase di chioran sul suicidio come idea che ti tiene in vita, cioè la possibilità di farla finita che ti fa resistere",
+  "gravita": "alta",
+  "file": [
+    { "dove": "@frammento", "parte": "corpo", "testo": "chioran", "motivo": "il frammento non ha più «chioran»" },
+    { "dove": "@lettura", "campo": "delicato", "vale": true },
+    { "esiste": "persone/emil-cioran.md", "motivo": "persone/emil-cioran.md non c'è" },
+    { "dove": "persone/emil-cioran.md", "campo": "alias", "contiene": [ "chioran" ], "motivo": "chioran non è tra gli alias di emil-cioran" },
+    { "dove": "citazioni/*.md", "nuovo": true, "filtro": { "campo": "nato-da", "contiene": [ "id(B25)" ] }, "campo": "attribuita-a", "vale": [ "emil-cioran" ], "motivo": "nessuna citazione nuova con attribuita-a: [emil-cioran]" }
+  ],
+  "mappa": [
+    { "dove": "@mappa", "sezione": "Conti", "regex": "[1-9]", "motivo": "§ Conti assente o senza conti" },
+    { "dove": "@mappa", "regex": "^(?!fino-a:).*id(B25)", "flag": "m", "non": true, "motivo": "mappa.md nomina il frammento delicato (fuori dalla testata fino-a)" }
+  ],
+  "risposta": [
+    { "dove": "@lettura", "campo": "risposta", "contiene": { "$regex": "^(ci-sono|r-\\d{8}-\\d{4}-risposta(-\\d+)?)$" }, "motivo": "la lettura non ha risposta: ci-sono né un file di risposta" }
+  ],
+  "non_deve": [
+    { "dove": "@risposta", "regex": "^(?![\\s*_]*C\\s*i\\s*s\\s*o\\s*n\\s*o\\s*\\.[\\s*_]*T\\s*u\\s*t\\s*t\\s*o\\s*b\\s*e\\s*n\\s*e\\s*\\?[\\s*_]*$)", "motivo": "un file di risposta il cui corpo non è esattamente «Ci sono. Tutto bene?»" },
+    { "dove": "@lettura", "campo": "risposta", "vale": "salvato", "motivo": "risposta: salvato su un frammento delicato" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "voce": "proposta" } ], "motivo": "un legame voce: proposta" },
+    { "dove": "@risposta", "regex": "cioran|sillogismi|suicid", "flag": "i", "motivo": "la risposta dice Cioran, Sillogismi o suicid…" },
+    { "dove": "@risposta", "regex": "(?<!\\p{L})(?:brav[oaie]|coraggi|profond|straordinari|sensibil|ammirevol|sei fort[ei]|depress|ansia|ansie|traum|sintom|terapi|dovresti|ti consiglio)", "flag": "iu", "motivo": "una parola di X3 (lode, diagnosi o consiglio) nella risposta" },
+    { "esiste": "temi/*.md", "nuovo": true, "motivo": "un file nuovo in temi/" },
+    { "dove": "persone/*cioran*.md", "min": 2, "motivo": "più di un nodo persone/*cioran*" }
+  ],
+  "dopo_consolida": [
+    { "dove": "citazioni/*.md", "filtro": { "campo": "nato-da", "contiene": [ "id(B25)" ] }, "campo": "riferimento", "contiene": { "$include": "Sillogismi dell'amarezza" } },
+    { "dove": "citazioni/*.md", "filtro": { "campo": "nato-da", "contiene": [ "id(B25)" ] }, "campo": "riferimento", "contiene": { "$include": "1952" } },
+    { "dove": "citazioni/*.md", "filtro": { "campo": "nato-da", "contiene": [ "id(B25)" ] }, "campo": "riferimento", "contiene": { "$regex": "inconveniente", "$flag": "i" }, "non": true, "motivo": "riferimento all'Inconveniente di essere nati" }
+  ],
+  "giudice": [],
+  "note": [
+    "«trovato per scheletro … o nuovo con quell'alias»: si chiede che persone/emil-cioran.md esista con chioran negli alias, nuovo o no. Il punto zero non ha un nodo Cioran (banco, Il punto zero; T01) e nessuna B prima di B25 lo crea: in questo giro nasce qui, e lo scheletro crn non ha niente da trovare.",
+    "La Risposta è la stessa disgiunzione di B12: ci-sono senza file, oppure un file con il solo «Ci sono. Tutto bene?» (tolti spazi e a capo; * e _ tollerati).",
+    "«una parola di X3»: le parole di banco parte 3 X3 come radici (coraggi copre coraggio e coraggioso, depress depressione e depresso).",
+    "«§ Conti conta il frammento senza nominarlo»: come B12; § Conti la scrive la seconda parte di contesto.mjs, anticipata al blocco 5 (piano, blocco 5): il criterio vale.",
+    "Dopo consolida: «Sillogismi dell'amarezza (1952)» è del modello §16.2; il resto della citazione (esito, autore) la scheda non lo fissa."
+  ]
+}

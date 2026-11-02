@@ -1,0 +1,33 @@
+{
+  "$schema": "./schema.json",
+  "id": "B22",
+  "caso": "E51",
+  "titolo": "correzione",
+  "data": "2027-03-12T16:00:00+01:00",
+  "messaggio": "no aspetta quella di ieri sulla casa in ordine non era jung era peterson",
+  "gravita": "alta",
+  "file": [
+    { "dove": "@lettura", "campo": "intento", "vale": [ "salva" ] }
+  ],
+  "mappa": [
+    { "dove": "@mappa", "sezione": "Correzioni", "regex": "peterson|casa in ordine", "flag": "i", "non": true, "motivo": "§ Correzioni ha una riga sulla casa in ordine o su Peterson" },
+    { "dove": "@mappa", "sezione": "Correzioni", "testo": "id(B22)", "non": true, "motivo": "§ Correzioni nomina il frammento di B22" }
+  ],
+  "risposta": [
+    { "esiste": "@risposta", "motivo": "nessun file con per: id(B22)" },
+    { "dove": "@lettura", "campo": "risposta", "contiene": { "$regex": "^r-" }, "motivo": "la lettura non punta al file di risposta" },
+    { "dove": "@risposta", "regex": "riscrivi", "flag": "i", "motivo": "la risposta non contiene «riscrivi»" },
+    { "dove": "@risposta", "conta": "domande", "min": 1, "max": 1, "motivo": "la risposta non ha esattamente un \"?\" (caso 4)" }
+  ],
+  "non_deve": [
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "ritorna-su", "come": "corregge" } ], "motivo": "un ritorna-su come: corregge senza bersaglio" },
+    { "dove": "{citazioni,persone}/*.md", "nuovo": true, "min": 1, "motivo": "un file nuovo in citazioni/ o persone/" }
+  ],
+  "giudice": [],
+  "note": [
+    "Presuppone B20 e B21 (gli ultimi 3 giorni di calendario più oggi) e B03 (la citazione di Jung di novembre), e l'assenza del frammento dell'11 marzo (R54). Nessun criterio usa id(B20) o id(B21): il divieto di corregge vale verso qualunque bersaglio, quindi anche verso la citazione di B03 e verso B21.",
+    "«il corpo contiene riscrivi»: si cerca «riscrivi» senza distinguere le maiuscole (anche «Riscrivi» in testa).",
+    "«§ Correzioni senza righe nuove»: il criterio non confronta con la mappa di prima; vieta in § Correzioni l'id di B22, Peterson e «casa in ordine». § Correzioni la scrive la seconda parte di contesto.mjs, anticipata al blocco 5 (piano, blocco 5): il criterio vale dalla porta del blocco 5; se la sezione manca, il criterio passa da sé (vieta righe, non ne chiede).",
+    "Nessuna domanda al giudice: la scheda non ha punti di giudizio. «frase inventata» sta solo nella colonna «perché» della tabella (banco §5, Gravità e porte), che dice perché il caso pesa e non è un criterio; il piano (blocco 5) che conta B22 tra le B con un giudice cede al banco."
+  ]
+}

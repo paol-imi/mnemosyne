@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "memo/banco-prova",
+  "title": "Una prova del banco: i criteri deterministici della scheda e le domande del giudice (banco §5)",
+  "$comment": "Lo legge banco/esegui.mjs. Ogni criterio descrive un fatto: nelle sezioni deve accadere (salvo non: true), in non_deve non deve accadere. G1–G7 sono nel codice e valgono da sé per le B.",
+  "type": "object",
+  "required": ["id", "gravita"],
+  "additionalProperties": false,
+  "$defs": {
+    "dove": {
+      "type": "string",
+      "description": "un glob dalla radice (**, *, ?, {a,b}) oppure @frammento, @lettura, @risposta (le restituzioni con per o copre uguale a id(Bnn)), @mappa (contesto/mappa.md), @uscita (il file di --uscita: la risposta in chat). Dentro ogni stringa: id(Bnn) è l'id del frammento di quella prova, nuovo(GLOB) lo slug dell'unico file nuovo che GLOB trova."
+    },
+    "filtro": {
+      "type": "object",
+      "description": "restringe i file a quelli il cui frontmatter ha questo campo",
+      "required": ["campo"],
+      "properties": {"campo": {"type": "string"}, "vale": {}, "contiene": {}, "assente": {"const": true}, "diverso": {}},
+      "oneOf": [{"required": ["vale"]}, {"required": ["contiene"]}, {"required": ["assente"]}, {"required": ["diverso"]}],
+      "additionalProperties": false
+    },
+    "criterio": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "nome": {"type": "string", "description": "l'etichetta nella riga dell'esito (D0, D1…); predefinita «Sezione n»"},
+        "esiste": {"$ref": "#/$defs/dove", "description": "almeno un file (come dove + min: 1)"},
+        "cambia": {"type": "string", "description": "glob: un file cambiato o cancellato rispetto alla base (git diff)"},
+        "oppure": {"type": "array", "minItems": 2, "items": {"$ref": "#/$defs/criteri"}, "description": "regge se tutti i criteri di almeno un'alternativa reggono"},
+        "comando": {"type": "array", "minItems": 1, "items": {"type": "string"}, "description": "un comando nella cartella dei file (worktree del ramo); regge se esce con 0 e, se c'è testo o regex, la sua uscita li contiene"},
+        "env": {"type": "object", "additionalProperties": {"type": "string"}, "description": "variabili d'ambiente del comando (ATLANTE_ORA)"},
+        "dove": {"$ref": "#/$defs/dove"},
+        "nuovo": {"type": "boolean", "description": "true: solo i file che alla base non c'erano; false: solo quelli che c'erano"},
+        "filtro": {"$ref": "#/$defs/filtro"},
+        "campo": {"type": "string", "description": "un campo del frontmatter: con vale (uguale), contiene (sottoinsieme), assente, diverso, o elementi (conta gli elementi della lista)"},
+        "vale": {},
+        "diverso": {},
+        "contiene": {"description": "liste come sottoinsiemi, oggetti parziali; un oggetto con chiavi $presente, $ogni, $alcuno, $include, $regex (+$flag), $nodo (genere: il file <genere>/<valore>.md esiste), $alla_base (il valore è un id di frammento o uno slug che alla base c'era) confronta in modo speciale"},
+        "elementi": {"description": "come contiene, per un elemento della lista campo: si contano gli elementi conformi (min predefinito 1, 0 se c'è max)"},
+        "assente": {"const": true},
+        "alla_lettera": {"type": "string", "description": "glob dei frammenti fonte: ogni tratto (in corsivo, o tra «» con tratti) si ritrova esatto nel corpo di uno di essi, il frammento della prova escluso; i pezzi tra … o […] si cercano nello stesso frammento"},
+        "fonte": {"$ref": "#/$defs/filtro", "description": "filtra i frammenti fonte di alla_lettera o corsivo_da sul loro frontmatter (voce diverso seme, forma riportata)"},
+        "tratti": {"enum": ["corsivo", "virgolette", "entrambi"], "description": "che cosa è un tratto citato; predefinito corsivo"},
+        "parole_min": {"type": "integer", "minimum": 1, "description": "un tratto vale se ha almeno tante parole o è il frammento intero (banco parte 2: 4)"},
+        "con_data": {"enum": [true, "testo"], "description": "il tratto trovato porta la data del suo frammento (id, registrato o data-tetto) nella stessa riga (true) o nel testo (testo)"},
+        "riga": {"type": "string", "description": "regex: si guardano le righe non vuote che la soddisfano, una per una (\"\" tutte)"},
+        "corsivo_da": {"type": "string", "description": "glob: delle righe scelte, solo quelle con un tratto alla lettera di quei frammenti (fonte, tratti, parole_min, con_data)"},
+        "serve_tratto": {"type": "boolean", "description": "con riga e alla_lettera: ogni riga scelta deve avere almeno un tratto"},
+        "gruppi": {"type": "string", "description": "con riga e corsivo_da: le righe scelte consecutive formano un gruppo; questa regex (la nota) compare una volta sola per gruppo, sulla sua prima riga o in una riga senza segni subito prima, e in nessun'altra riga"},
+        "tranne": {"type": "array", "items": {"type": "string"}, "description": "con corsivo_da: i tratti contenuti in uno di questi testi non contano (la riga sua di un frammento altrui, CLAUDE.md regola 7)"},
+        "ogni": {"type": "boolean", "description": "con riga e testo o regex: ogni riga scelta li contiene"},
+        "dopo": {"type": "string", "description": "regex: ogni riga scelta viene dopo l'ultima riga che la soddisfa"},
+        "prima": {"type": "string", "description": "regex: ogni riga scelta viene prima della prima riga che la soddisfa (se c'è)"},
+        "ultima": {"type": "string", "description": "l'ultima riga non vuota è esattamente questa"},
+        "conta": {"enum": ["righe", "parole", "domande"], "description": "conta nel testo le righe non vuote, le parole (senza link) o i \"?\" come G6; con min e max"},
+        "copia_in": {"type": "string", "description": "un file che deve contenere il testo di dove (contesto/ritratto.md)"},
+        "legame_nuovo": {"type": "string", "description": "un tipo di legame (converge-con): dove ne ha uno con un tra che nessun file di confronta ha"},
+        "confronta": {"type": "string"},
+        "filtro_confronto": {"$ref": "#/$defs/filtro"},
+        "voci_a_inizio_riga": {"const": true, "description": "ogni voce n del frontmatter ha nel corpo una riga che comincia con «n.»"},
+        "testo": {"type": "string", "description": "ricerca esatta"},
+        "regex": {"type": "string"},
+        "flag": {"type": "string", "pattern": "^[imsu]*$"},
+        "parte": {"enum": ["corpo", "frontmatter", "tutto"], "description": "dove si cerca; predefinito corpo per @risposta, tutto altrimenti (l'uscita è tutta corpo)"},
+        "sezione": {"type": "string", "description": "solo la sezione markdown con questo titolo (## Alias, ## 3. Alias)"},
+        "min": {"type": "integer", "minimum": 0},
+        "max": {"type": "integer", "minimum": 0},
+        "non": {"const": true, "description": "il fatto non deve accadere (in non_deve è implicito)"},
+        "motivo": {"type": "string", "description": "che cosa scrive la riga dell'esito se il criterio cade"}
+      },
+      "anyOf": [
+        {"required": ["esiste"]}, {"required": ["cambia"]}, {"required": ["oppure"]}, {"required": ["comando"]},
+        {"required": ["campo", "dove"]}, {"required": ["testo", "dove"]}, {"required": ["alla_lettera", "dove"]},
+        {"required": ["regex", "dove"]}, {"required": ["min", "dove"]}, {"required": ["max", "dove"]},
+        {"required": ["riga", "dove"]}, {"required": ["ultima", "dove"]}, {"required": ["conta", "dove"]},
+        {"required": ["copia_in", "dove"]}, {"required": ["legame_nuovo", "dove", "confronta"]}, {"required": ["voci_a_inizio_riga", "dove"]}
+      ],
+      "dependentSchemas": {
+        "campo": {"oneOf": [{"required": ["vale"]}, {"required": ["contiene"]}, {"required": ["assente"]}, {"required": ["diverso"]}, {"required": ["elementi"]}]},
+        "elementi": {"required": ["campo"]},
+        "flag": {"required": ["regex"]},
+        "env": {"required": ["comando"]}
+      }
+    },
+    "criteri": {"type": "array", "items": {"$ref": "#/$defs/criterio"}},
+    "soglia": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "quando": {"$ref": "#/$defs/criterio"},
+        "obbligatorie": {"type": "array", "items": {"type": "integer", "minimum": 1}},
+        "min": {"type": "integer", "minimum": 0}
+      }
+    }
+  },
+  "properties": {
+    "$schema": {"type": "string"},
+    "id": {"type": "string", "pattern": "^[BDRT][0-9]{2}[a-z]?$"},
+    "caso": {"type": "string", "description": "il caso d'origine negli esempi (E01…, n.75)"},
+    "titolo": {"type": "string"},
+    "data": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}(:\\d{2})?[+-]\\d{2}:\\d{2}$", "description": "ATLANTE_ORA del messaggio; dà il glob del frammento frammenti/AAAA/MM/AAAAMMGG-HHMM-*.md (in cattura: ingresso/…)"},
+    "messaggio": {"type": "string", "description": "il testo esatto del Comando rapido (G1)"},
+    "base": {
+      "description": "per una prova senza il suo frammento: i candidati per il commit «prima del caso», in ordine (un ref, o {dopo: Bnn}: l'ultimo commit che tocca la lettura di Bnn); --base vince",
+      "type": "array",
+      "items": {"oneOf": [{"type": "string"}, {"type": "object", "required": ["dopo"], "additionalProperties": false,
+        "properties": {"dopo": {"type": "string", "pattern": "^B[0-9]{2}$"}}}]}
+    },
+    "preparazione": {"type": "string", "description": "ciò che il giudice vede come preparazione; senza, la data e il messaggio"},
+    "frammenti": {"type": "array", "items": {"type": "string"}, "description": "i frammenti della Preparazione che il giudice vede sotto di essa (banco §5): glob dalla radice o id(Bnn); in più esegui.mjs vi mette i frammenti della base che un legame dell'uscita nomina nel tra"},
+    "gravita": {"enum": ["alta", "media", "bassa"], "description": "dalla tabella di banco §5, Gravità e porte, o dalla prova R"},
+    "generali": {"type": "array", "items": {"enum": ["G1", "G2", "G3", "G4", "G5", "G6", "G7"]}, "description": "predefinito: tutti per le B, nessuno per le altre"},
+    "file": {"$ref": "#/$defs/criteri"},
+    "mappa": {"$ref": "#/$defs/criteri"},
+    "risposta": {"$ref": "#/$defs/criteri"},
+    "forma": {"$ref": "#/$defs/criteri"},
+    "scrive": {"$ref": "#/$defs/criteri"},
+    "deterministici": {"$ref": "#/$defs/criteri"},
+    "non_deve": {"$ref": "#/$defs/criteri"},
+    "dopo_consolida": {"$ref": "#/$defs/criteri", "description": "si controllano con --fase consolida, dopo il primo commit consolida: che segue il caso"},
+    "giudice": {
+      "type": "array",
+      "description": "ciò che non è deterministico: domande sì/no per banco/giudice.md, con la risposta attesa (il giudice non la vede)",
+      "items": {"type": "object", "required": ["domanda", "attesa"], "additionalProperties": false,
+        "properties": {"domanda": {"type": "string"}, "attesa": {"enum": ["sì", "no"]}}}
+    },
+    "soglia": {"$ref": "#/$defs/soglia", "description": "la soglia del giudice; senza, tutte le domande obbligatorie"},
+    "soglie": {"type": "array", "items": {"$ref": "#/$defs/soglia"}, "description": "vale la prima il cui quando regge (o senza quando)"},
+    "note": {"type": "array", "items": {"type": "string"}, "description": "scelte di trascrizione e ambiguità della scheda"}
+  },
+  "if": {"properties": {"id": {"pattern": "^B"}}},
+  "then": {"required": ["data", "messaggio"]}
+}

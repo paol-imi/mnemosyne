@@ -1,6 +1,6 @@
 # Stato
 
-- **Blocco corrente:** 0 (fondamenta), in collaudo.
+- **Blocco corrente:** 2 (importazione fatta: 35/52/60, verifica ok, 126 test verdi; tag `punto-zero` locale, vedi lacune) — D02 «oggi» in corso; blocco 3 in collaudo in parallelo.
 - **Fatto:** passo 1 (radice: `CLAUDE.md`, `prompt/`); clone dell'Atlante in `/tmp/atlante` al checkpoint `3a7ea79`
   (non sopravvive alla sessione: riclonare con il comando di `progetto/pacchetto/ORIGINE.md`).
 - **Blocco 0:** riusato il codice della sesta prova (`progetto/prova-a-freddo-6/codice/`, senza `lacune.md`, `stato.md`,

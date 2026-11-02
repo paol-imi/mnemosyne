@@ -24,3 +24,7 @@ Le lacune del pacchetto (il modello non dice) con la scelta fatta.
   Scelta: sostituita con una prova a due lati in `prompt/ritratto.md` (non già detta in una delle frasi; le due frasi
   bastano senza il perché ◌; se nessuna coppia passa, nessuna convergenza). Il giudice non vede i frammenti della
   tensione (non sono capi di legami): la domanda 3 riceve "non so", che conta contro; non è obbligatoria.
+- R01a, quarto giro (6 su 8: convergenza forzata, una frase tagliata a metà). Il ritratto non aveva la prova del ponte
+  con giudizi indipendenti che `specchio.md` ha. Scelta: `prompt/ritratto.md` (variante giorno 1) rimanda alla prova del
+  passo 2 di `specchio.md`, frasi intere, più una domanda C ("una delle due dice già il nesso?"); se nessuna coppia
+  passa, nessuna convergenza. Rende la prova più severa, non spinge verso un ponte.

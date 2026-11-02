@@ -30,10 +30,11 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
      l'ultima riga è la domanda.
    **Variante giorno 1** (giorno 1 = il **primo ritratto**, non il primo del mese): salta i passi 2 e 3 (ritmo e
    soglia): il primo ritratto si scrive con 0 frammenti parlanti, prima del primo memo. Sul nucleo e sulle frasi
-   importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); la prova prima di scriverla: (1) se una
-   delle due frasi dice già il nesso, non è nuova; (2) coprendo il perché ◌, le due frasi alla lettera, una accanto
-   all'altra, devono bastare a vederlo, senza parole che non hanno; se non passa una delle due, cerca un'altra coppia, e
-   se nessuna passa, nessuna convergenza (il ritratto lo dice in una riga); le date come tetto ("entro il 4
+   importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); prima di scriverla, la **prova del ponte** di
+   `prompt/specchio.md` (passo 2: tre subagent nuovi, o tre `claude -p`, con le due frasi intere alla lettera, mai
+   tagliate, e le domande A e B così come sono), più una terza domanda, C: «Una delle due frasi dice già da sola questo
+   nesso? Rispondi sì o no, con una riga di motivo.» (conta a favore solo un no senza riserve); prova le coppie in ordine
+   fino alla prima forte per la maggioranza; se nessuna passa, nessuna convergenza (il ritratto lo dice in una riga); le date come tetto ("entro il 4
    ottobre"), su **ogni** frase ✦ citata, i due capi della convergenza compresi (sulla riga, o una volta in testa al
    gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota
    della regola 6 una volta sola, le altre senza nota; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,

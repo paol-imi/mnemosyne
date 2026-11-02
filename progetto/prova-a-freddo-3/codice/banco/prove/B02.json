@@ -1,0 +1,35 @@
+{
+  "$schema": "./schema.json",
+  "id": "B02",
+  "caso": "E02",
+  "titolo": "follow-up",
+  "data": "2026-11-04T08:12:00+01:00",
+  "messaggio": "ah e la frase dell'ospite era verso la fine, quando parlava dei greci",
+  "gravita": "media",
+  "file": [
+    { "dove": "@lettura", "campo": "intento", "vale": [ "salva" ] },
+    { "dove": "@lettura", "campo": "parole", "vale": [ "greci" ] },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "ritorna-su", "a": "id(B01)", "come": "aggiunge", "voce": "sua" } ], "motivo": "manca ritorna-su id(B01) come: aggiunge" },
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "p": "nomina", "a": { "$nodo": "citazioni", "$regex": "ospite" }, "momento": "verso la fine", "voce": "sua" } ], "motivo": "manca nomina della citazione di B01 con momento: verso la fine" },
+    { "dove": "{persone,opere,citazioni,temi,raccolte}/*.md", "nuovo": true, "max": 0, "motivo": "un file nuovo in una cartella di nodi" }
+  ],
+  "mappa": [
+    { "dove": "@mappa", "sezione": "Parole candidate", "regex": "(?<![\\w-])greci(?![\\w-]).*\\d", "motivo": "§ Parole candidate senza greci con una data" }
+  ],
+  "risposta": [
+    { "dove": "@lettura", "campo": "risposta", "vale": "salvato" },
+    { "dove": "@risposta", "max": 0, "motivo": "c'è un file con per: id(B02)" }
+  ],
+  "non_deve": [
+    { "cambia": "frammenti/**/id(B01).md", "motivo": "cambiato il frammento di B01" },
+    { "cambia": "letture/**/id(B01).md", "motivo": "cambiata la lettura di B01" },
+    { "esiste": "temi/{greci,filosofia-antica}.md", "nuovo": true, "motivo": "nato temi/greci.md o temi/filosofia-antica.md" },
+    { "dove": "@risposta", "conta": "domande", "min": 1, "motivo": "una risposta con «?»" }
+  ],
+  "giudice": [],
+  "note": [
+    "La citazione di B01 si riconosce dallo slug (un nodo citazioni/ con «ospite»): la scheda non ne fissa lo slug.",
+    "«greci con una data»: basta una cifra sulla stessa riga; il formato della data in § Parole candidate il modello §6.1 non lo fissa.",
+    "Il frammento di B01 e la sua lettura non devono cambiare: vale anche G7, qui ripetuto perché la scheda lo nomina."
+  ]
+}

@@ -1,0 +1,79 @@
+{
+ "ciclo": "smista",
+ "letto-da": "<modello>",
+ "operazioni": [
+  {
+   "op": "crea-nodo",
+   "genere": "persone",
+   "nome": "Umberto Galimberti",
+   "alias": [
+    "galimberti"
+   ],
+   "cerchia": "mondo"
+  },
+  {
+   "op": "crea-nodo",
+   "genere": "opere",
+   "nome": "spettacolo sulle emozioni",
+   "autore": "@Umberto Galimberti"
+  },
+  {
+   "op": "crea-nodo",
+   "genere": "citazioni",
+   "nome": "Il nichilismo è l'ospite inquietante",
+   "attribuita-a": [
+    "@Umberto Galimberti"
+   ]
+  },
+  {
+   "op": "lettura",
+   "frammento": "20261103-2340-k7q2",
+   "versione": 1,
+   "intento": [
+    "salva"
+   ],
+   "reazione": [
+    {
+     "parole": "molto interessante",
+     "verso": "+"
+    }
+   ],
+   "legami": [
+    {
+     "p": "nomina",
+     "a": "@Umberto Galimberti",
+     "voce": "sua",
+     "perche": "«uno spezzone di galimberti a teatro»"
+    },
+    {
+     "p": "parla-di",
+     "a": "nichilismo",
+     "voce": "sua",
+     "perche": "parola tua"
+    }
+   ],
+   "parole": [
+    "ragazzo",
+    "cultura"
+   ]
+  },
+  {
+   "op": "restituzione",
+   "forma": "risposta",
+   "per": "20261103-2340-k7q2",
+   "testo": "…",
+   "voci": [
+    {
+     "rif": "@Il nichilismo è l'ospite inquietante",
+     "voce": "mondo",
+     "cosa": "citazione"
+    },
+    {
+     "rif": "@spettacolo sulle emozioni",
+     "voce": "mondo",
+     "cosa": "opera"
+    }
+   ]
+  }
+ ]
+}

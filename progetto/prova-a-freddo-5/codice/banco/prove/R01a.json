@@ -1,0 +1,183 @@
+{
+  "$schema": "./schema.json",
+  "id": "R01a",
+  "titolo": "il primo ritratto, sul punto zero (R01 e R14 adattate al blocco 4)",
+  "base": [
+    "punto-zero",
+    "banco-zero"
+  ],
+  "preparazione": "L'archivio è il solo punto zero: le 32 frasi tue importate dall'archivio d'origine (ciascuna con la sua data-tetto, detta «entro il …»), il nucleo e gli altri sguardi del seme (✧), le convergenze già proposte in ottobre (restituzioni eredita), nessun memo dal telefono. Prima del primo memo la Routine «ritratto» scrive il primo ritratto: breve (al più 400 parole), sul nucleo e sulle 31 frasi, con una domanda sola e una convergenza nuova, ancorata a una tua frase citata alla lettera e datata.",
+  "gravita": "alta",
+  "generali": [
+    "G3",
+    "G7"
+  ],
+  "deterministici": [
+    {
+      "nome": "D1",
+      "esiste": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "motivo": "nessun file nuovo restituzioni/AAAA/MM/r-…-ritratto.md"
+    },
+    {
+      "nome": "D1",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "campo": "forma",
+      "vale": "ritratto"
+    },
+    {
+      "nome": "D1",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "parte": "corpo",
+      "copia_in": "contesto/ritratto.md",
+      "motivo": "contesto/ritratto.md non è la copia del ritratto (senza frontmatter)"
+    },
+    {
+      "nome": "✦ alla lettera",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "parte": "corpo",
+      "riga": "✦",
+      "alla_lettera": "frammenti/**/*.md",
+      "fonte": {
+        "campo": "voce",
+        "vale": "sua"
+      },
+      "con_data": true
+    },
+    {
+      "nome": "convergenza ancorata",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "parte": "corpo",
+      "riga": "✦",
+      "corsivo_da": "frammenti/**/*.md",
+      "fonte": {
+        "campo": "voce",
+        "vale": "sua"
+      },
+      "con_data": true,
+      "min": 1,
+      "motivo": "nessuna frase ✦ citata alla lettera con la sua data"
+    },
+    {
+      "nome": "capo della convergenza",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "campo": "legami",
+      "elementi": {
+        "p": "converge-con",
+        "tra": {
+          "$alcuno": {
+            "$regex": "^202610\\d\\d-0000-u\\d{2}[ab]?$"
+          }
+        }
+      },
+      "min": 1,
+      "motivo": "nessun converge-con del ritratto con un capo in una frase ✦ del punto zero (uNN, anche altrui)"
+    },
+    {
+      "nome": "capo della convergenza",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "campo": "legami",
+      "elementi": {
+        "p": "converge-con",
+        "tra": {
+          "$alcuno": {
+            "$regex": "^202610\\d\\d-0000-s\\d{2}$|^r-.*-eredita-"
+          }
+        }
+      },
+      "max": 0,
+      "motivo": "un converge-con del ritratto con un capo nel seme ✧ (s01, s03, s04) o in una restituzione eredita (modello §7.5)"
+    },
+    {
+      "nome": "convergenza nuova",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "legame_nuovo": "converge-con",
+      "confronta": "restituzioni/**/*.md",
+      "filtro_confronto": {
+        "campo": "forma",
+        "vale": "eredita"
+      },
+      "motivo": "nessun converge-con del ritratto che non sia già una delle C1–C25 importate"
+    },
+    {
+      "nome": "≤ 400 parole",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "parte": "corpo",
+      "conta": "parole",
+      "max": 400
+    }
+  ],
+  "non_deve": [
+    {
+      "nome": "X3",
+      "dove": "restituzioni/**/r-*-ritratto.md",
+      "nuovo": true,
+      "parte": "corpo",
+      "regex": "(?<!\\p{L})(?:brav[oaie]|coraggi|profond|straordinari|sensibil|ammirevol|sei fort[ei]|depress|ansia|ansie|traum|sintom|terapi|dovresti|ti consiglio)",
+      "flag": "iu",
+      "motivo": "una parola di X3 (lode, diagnosi o consiglio)"
+    }
+  ],
+  "giudice": [
+    {
+      "domanda": "Leggendolo, imparerebbe qualcosa di sé che non ha scritto in nessun frammento?",
+      "attesa": "sì"
+    },
+    {
+      "domanda": "C'è una frase che potrebbe stare nel ritratto di chiunque?",
+      "attesa": "no"
+    },
+    {
+      "domanda": "La tensione, se c'è, nasce da due sue frasi vere e non da una categoria?",
+      "attesa": "sì"
+    },
+    {
+      "domanda": "La domanda finale è una a cui non saprebbe rispondere subito?",
+      "attesa": "sì"
+    },
+    {
+      "domanda": "La convergenza nuova è un nesso che lui non aveva fatto?",
+      "attesa": "sì"
+    },
+    {
+      "domanda": "Coprendo la riga del perché (◌), le due frasi citate, una accanto all'altra, bastano già a far vedere il nesso? (Non si chiede se il nesso sia scritto: si chiede se si regge sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea.)",
+      "attesa": "sì"
+    },
+    {
+      "domanda": "La convergenza è inventata o forzata?",
+      "attesa": "no"
+    },
+    {
+      "domanda": "Una cosa che nell'archivio è segnata ⚠ (a memoria, non verificata) è detta come certa?",
+      "attesa": "no"
+    }
+  ],
+  "soglia": {
+    "obbligatorie": [
+      1,
+      2,
+      5,
+      6,
+      7,
+      8
+    ],
+    "min": 7
+  },
+  "note": [
+    "Il collaudo del blocco 4 (piano, «Collaudo (adattato da R01 e R14, sul punto zero)»): deterministici ogni frase in corsivo segnata ✦ alla lettera in un frammento ✦ con la data giusta, la convergenza nuova che non è una delle C1–C25, ≤ 400 parole; più D1 di R01 per trovare il file. Si esegue sul ramo della prova dopo la Routine «ritratto»; la base è il tag punto-zero (o banco-zero).",
+    "«con la data giusta»: la riga del corsivo dice la data del suo frammento (id, registrato o data-tetto vissuto ≤…), come «4 ottobre», «4/10» o «2026-10-04». Le fonti sono i frammenti voce: sua (gli importati del punto zero).",
+    "«la convergenza nuova non è una delle C1–C25 importate»: le C1–C25 sono i converge-con delle restituzioni forma: eredita (modello §14, R4); il ritratto deve avere un converge-con il cui tra, come insieme, non è il tra di nessuna di quelle.",
+    "«il capo della convergenza è una frase ✦ o un frammento altrui, mai il seme ✧» (piano blocco 4): almeno un converge-con del ritratto ha nel tra un uNN del punto zero (U18–U20, altrui, compresi), e nessun converge-con del ritratto ha nel tra s01, s03, s04 o una r-…-eredita-…. Che la convergenza nuova e quella col capo uNN siano la stessa non si controlla: il piano non dice quale converge-con è «la» convergenza se ce ne sono più d'una.",
+    "«nessun ⚠ citato come certo»: il piano lo mette tra i deterministici, ma nei file non c'è un modo meccanico di dire «come certo»; va al giudice (D8). Divergenza dichiarata.",
+    "Giudice: le domande di R01 che non dipendono da novembre (1, 2, 3, 5 di R01: qui D1–D4) e R14.1–R14.3 sulla convergenza (D5–D7), più D8. Soglia: R01 «4 su 5 con la 1 e la 2» diventa 3 su 4 con D1 e D2; R14 «tutte»: D5–D7 obbligatorie; in tutto almeno 7 su 8 con D1, D2, D5–D8 obbligatorie.",
+    "Le parti di R01 D3–D7 legate a novembre (conti di § Conti, il vuoto, «una domanda nell'ultima frase», le letture ◌, ≤ 18 righe) non sono nel collaudo del blocco 4 e non si controllano qui; la pancia dell'utente non è del banco."
+  ]
+}

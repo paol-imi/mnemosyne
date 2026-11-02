@@ -1,0 +1,18 @@
+{
+  "name": "memo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "verifica": "node scripts/verifica.mjs",
+    "test": "node --test test/*.test.mjs",
+    "banco": "node banco/esegui.mjs"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "yaml": "^2.8.1"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "./schema.json",
+  "id": "B18",
+  "caso": "E49",
+  "titolo": "vuoto",
+  "data": "2027-02-09T13:00:00+01:00",
+  "messaggio": "boh niente volevo solo scrivere qualcosa",
+  "gravita": "bassa",
+  "file": [
+    { "dove": "@lettura", "campo": "intento", "vale": [ "niente" ] },
+    { "dove": "@lettura", "campo": "legami", "vale": [], "motivo": "la lettura non ha legami: []" }
+  ],
+  "mappa": [
+    { "dove": "contesto/parole.md", "testo": "id(B18)", "non": true, "motivo": "il frammento non parlante è in contesto/parole.md (§ Stato: non è parlante)" },
+    { "dove": "@mappa", "regex": "^(?!fino-a:).*id(B18)", "flag": "m", "non": true, "motivo": "mappa.md nomina il frammento vuoto" }
+  ],
+  "risposta": [
+    { "dove": "@lettura", "campo": "risposta", "vale": "ci-sono", "motivo": "la lettura non ha risposta: ci-sono" },
+    { "dove": "@risposta", "max": 0, "motivo": "c'è un file con per: id(B18)" }
+  ],
+  "non_deve": [
+    { "dove": "@lettura", "campo": "legami", "contiene": [ { "voce": "proposta" } ], "motivo": "un legame voce: proposta" },
+    { "dove": "@risposta", "conta": "domande", "min": 1, "motivo": "un \"?\" in una risposta" }
+  ],
+  "giudice": [],
+  "note": [
+    "Blocco 3 (piano, Collaudo: «B18, messaggio vuoto: deve diventare un file comunque»): `node banco/esegui.mjs --prova B18 --fase cattura` controlla G1 sul file ingresso/20270209-1300-*.md (corpo byte per byte, canale: telefono, registrato ± 60 s) e G3 (lo schema: «G1 e lo schema del frammento», piano blocco 3), prima di «smista». La scheda intera, con «smista» e mappa.md, vale alla sua data nella parte 1 (piano blocco 3: blocco 7); B18 non è tra le dieci della porta del blocco 5.",
+    "«§ Stato: il frammento non è parlante»: § Stato del modello §6.1 dà solo totali, non i singoli frammenti; si controlla che l'id non sia in contesto/parole.md (che ha solo i ✦ parlanti, §6.1) e non sia nominato in mappa.md.",
+    "«§ Conti non lo conta»: il formato di § Conti il modello §6.1 non lo fissa, quindi il conto non si controlla; resta il divieto di nominarlo.",
+    "«un \"?\" in qualunque risposta»: nessun file di risposta per B18 (Risposta 2), e se ci fosse, nessun «?» contato come G6."
+  ]
+}

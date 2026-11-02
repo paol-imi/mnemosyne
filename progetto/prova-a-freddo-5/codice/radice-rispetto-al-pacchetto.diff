@@ -1,0 +1,13 @@
+diff --git a/prompt/ritratto.md b/prompt/ritratto.md
+index 0b99a9f..fa500d8 100644
+--- a/prompt/ritratto.md
++++ b/prompt/ritratto.md
+@@ -29,7 +29,7 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
+      l'ultima riga è la domanda.
+    **Variante giorno 1**: salta i passi 2 e 3 (ritmo e soglia): il primo ritratto si scrive con 0 frammenti parlanti,
+    prima del primo memo. Sul nucleo e sulle frasi importate, con **una** convergenza nuova ancorata a una mia frase ✦
+-   (non al seme ✧); le date come tetto ("entro il 4 ottobre"); le frasi importate sono `forma: riportata`, con la nota
++   (non al seme ✧); le date come tetto ("entro il 4 ottobre"), su **ogni** frase ✦ citata, i due capi della convergenza compresi (sulla riga, o una volta in testa al gruppo di righe con la stessa data); le frasi importate sono `forma: riportata`, con la nota
+    della regola 6 una volta sola; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
+    senza il numero dei frammenti; nessun conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è
+    un prima); la convergenza è ◌; l'ultima riga resta la domanda. Nel piano: **una** voce, la convergenza (`cosa:

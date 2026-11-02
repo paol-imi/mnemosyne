@@ -7,7 +7,7 @@
   ridotta e memo con accenti passano); blocco 4 (R01a passa al sesto giro, 8/8 ×3, dopo cinque correzioni a
   `prompt/ritratto.md`); blocco 5 (10 prove su 10 al primo giro); blocco 6 sul banco (R14 passa al primo giro nel caso
   b, la formula; 33 vicini, tetto resta 10).
-- **Da fare:** la prova vera del blocco 6 sui memo veri dei giorni 1–3 (servono U3, U4 e tre sere di Specchio); poi, solo
+- **Da fare:** la prova vera del blocco 6 sui memo veri dei giorni 1–3 (servono U3, U4 e tre sere di Specchio); prima del blocco 7, aggiungere a `banco/prove/R01a.json` il caso (b) (la sola riga onesta del modello §9.2, almeno 5 su 6, giudice sulla convergenza forzata: decisione del coordinatore, piano blocco 4); poi, solo con un «vai avanti», P1, P2, P4 e il blocco 7.
   con un «vai avanti», P1, P2, P4 e il blocco 7.
 - **Passi a mano:** U1, U2 fatti. U3 (token) chiesto il 2026-11-02, in attesa; U4 (Comando rapido) dopo U3; P3 con U4.
 - **Esiti:** `banco/esiti/` (blocchi 0–1, 2, 3, 4, 5, 6).

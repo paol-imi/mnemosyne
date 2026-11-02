@@ -1,0 +1,217 @@
+{
+  "$schema": "./schema.json",
+  "id": "D02",
+  "caso": "n.75",
+  "titolo": "le mie frasi, solo le mie",
+  "base": [
+    {
+      "dopo": "B06"
+    },
+    "punto-zero",
+    "banco-zero"
+  ],
+  "preparazione": "In Specchio (una sessione Code sul repository, che legge contesto/parole.md e può leggere frammenti/), chiedi:\n\n> le mie frasi, solo le mie\n\nNell'archivio ci sono le 32 frasi tue importate dall'archivio d'origine (voce: sua, ciascuna con la sua data-tetto, detta «entro il …»; alcune forma: riportata, cioè trascritte da Claude nel seme), i tre sguardi del seme (s01, s03, s04, voce: seme, ✧) e, se la prova si fa la sera del 20 novembre 2026, i tuoi memo dal telefono dal 3 al 20 novembre. Le importate U18, U19 (il monologo di Rust Cohle) e U20 sono parole d'altri che hai riportato (altrui: true): tuo è il gesto, non le parole.",
+  "gravita": "alta",
+  "generali": [
+    "G3",
+    "G7"
+  ],
+  "forma": [
+    {
+      "nome": "Forma ✦ al più 8",
+      "dove": "@uscita",
+      "riga": "✦",
+      "min": 0,
+      "max": 8,
+      "motivo": "più di 8 righe con ✦"
+    },
+    {
+      "nome": "Forma ✦ alla lettera",
+      "dove": "@uscita",
+      "riga": "^(?!.*(○|\\bmuto\\b)).*✦",
+      "alla_lettera": "frammenti/**/*.md",
+      "fonte": {
+        "campo": "voce",
+        "diverso": "seme"
+      },
+      "parole_min": 4,
+      "con_data": true,
+      "serve_tratto": true
+    },
+    {
+      "nome": "Forma ✦ almeno una",
+      "dove": "@uscita",
+      "riga": "✦",
+      "corsivo_da": "frammenti/**/*.md",
+      "fonte": {
+        "campo": "voce",
+        "diverso": "seme"
+      },
+      "parole_min": 4,
+      "con_data": true,
+      "min": 1,
+      "motivo": "nessuna riga ✦ con una tua frase alla lettera e la sua data"
+    },
+    {
+      "nome": "Forma Vuoi il resto",
+      "oppure": [
+        [
+          {
+            "dove": "frammenti/**/*.md",
+            "filtro": {
+              "campo": "voce",
+              "diverso": "seme"
+            },
+            "max": 8
+          },
+          {
+            "dove": "@uscita",
+            "conta": "domande",
+            "max": 0
+          }
+        ],
+        [
+          {
+            "dove": "@uscita",
+            "ultima": "Vuoi il resto?"
+          },
+          {
+            "dove": "@uscita",
+            "conta": "domande",
+            "max": 1
+          }
+        ]
+      ],
+      "motivo": "più di 8 frammenti ✦ citabili e l'ultima riga non è «Vuoi il resto?», o un altro «?»"
+    },
+    {
+      "nome": "Forma riportate",
+      "dove": "@uscita",
+      "riga": "✦",
+      "corsivo_da": "frammenti/**/*.md",
+      "fonte": {
+        "campo": "forma",
+        "vale": "riportata"
+      },
+      "parole_min": 4,
+      "gruppi": "trascritt[ae] da Claude"
+    },
+    {
+      "nome": "Forma altrui",
+      "dove": "@uscita",
+      "riga": "",
+      "corsivo_da": "frammenti/**/*-{u18,u19,u20}.md",
+      "tranne": ["Un candidato se vorrò fare testi lunghi."],
+      "max": 0,
+      "min": 0,
+      "motivo": "un corsivo dalle parole d'altri di U18, U19 o U20"
+    },
+    {
+      "nome": "Forma altrui ○",
+      "dove": "@uscita",
+      "riga": "",
+      "corsivo_da": "frammenti/**/*-{u18,u19,u20}.md",
+      "tratti": "virgolette",
+      "ogni": true,
+      "testo": "○",
+      "motivo": "le parole di U18, U19 o U20 tra «» senza ○ sulla loro riga"
+    },
+    {
+      "nome": "Forma seme una",
+      "dove": "@uscita",
+      "riga": "✧",
+      "min": 1,
+      "max": 1,
+      "motivo": "non c'è esattamente una riga ✧"
+    },
+    {
+      "nome": "Forma seme dopo",
+      "dove": "@uscita",
+      "riga": "✧",
+      "dopo": "✦",
+      "motivo": "la riga ✧ non viene dopo l'ultima riga ✦"
+    },
+    {
+      "nome": "Forma seme prima",
+      "dove": "@uscita",
+      "riga": "✧",
+      "prima": "^Vuoi il resto\\?$",
+      "motivo": "la riga ✧ viene dopo «Vuoi il resto?»"
+    },
+    {
+      "nome": "Forma seme alla lettera",
+      "dove": "@uscita",
+      "riga": "✧",
+      "alla_lettera": "frammenti/**/*-{s01,s03,s04}.md",
+      "parole_min": 4,
+      "serve_tratto": true
+    },
+    {
+      "nome": "Forma ✦✧",
+      "dove": "@uscita",
+      "riga": "✦.*✧|✧.*✦",
+      "min": 0,
+      "max": 0,
+      "motivo": "una riga porta insieme ✦ e ✧"
+    },
+    {
+      "nome": "Forma ●",
+      "dove": "@uscita",
+      "riga": "●",
+      "min": 0,
+      "max": 0,
+      "motivo": "una riga porta ●"
+    },
+    {
+      "nome": "Non deve: corsivo non alla lettera",
+      "dove": "@uscita",
+      "riga": "^(?!.*✧)",
+      "alla_lettera": "frammenti/**/*.md",
+      "fonte": {
+        "campo": "voce",
+        "diverso": "seme"
+      }
+    }
+  ],
+  "scrive": [
+    {
+      "dove": "{persone,opere,citazioni,temi,raccolte}/*.md",
+      "nuovo": true,
+      "max": 0,
+      "motivo": "un file nuovo in una cartella di nodi (Scrive: niente)"
+    },
+    {
+      "dove": "letture/**/*.md",
+      "nuovo": true,
+      "campo": "legami",
+      "elementi": {
+        "p": {
+          "$presente": true
+        }
+      },
+      "max": 0,
+      "motivo": "un legame nella lettura del frammento di chat (Scrive: niente)"
+    }
+  ],
+  "giudice": [
+    {
+      "domanda": "Tra le righe date come tue (le righe ✦; non la riga ✧ del seme, che la Forma richiede a parte e che è segnata come seme), c'è una sintesi, una parafrasi, una lettura o un testo del mondo (per esempio il passo vero di una citazione) invece delle parole di un frammento?",
+      "attesa": "no"
+    },
+    {
+      "domanda": "Le parole di U18, U19 o U20 (il monologo di Rust e le altre parole d'altri) sono date come tue, invece che solo come il gesto di averle riportate (✦ il gesto, le parole tra «» con ○)? (La riga sua di U18, «Un candidato se vorrò fare testi lunghi.», è il suo commento: è sua, e può stare in corsivo ✦ accanto al gesto.)",
+      "attesa": "no"
+    }
+  ],
+  "note": [
+    "D02 alla porta del blocco 5 si fa in Specchio la sera di B06 (2026-11-20, piano blocco 5; banco §5 «Gravità e porte»): il frammento di chat e la restituzione della sessione non contano come Scrive e non si controllano; nessun forma: riportata richiesto. Si salva la risposta di Specchio così com'è in un file e la si passa con --uscita. La stessa prova vale per D02 «oggi» al blocco 2, sul solo punto zero (--etichetta \"D02 oggi\"): la base è allora punto-zero, perché B06 non c'è.",
+    "La base (per Scrive e G7) è l'ultimo commit che tocca la lettura di B06, altrimenti il tag punto-zero (o banco-zero); --base la fissa a mano.",
+    "Le righe ✦ si guardano una per una: ognuna, tranne quelle di un gesto altrui (con ○) o di un muto, ha un tratto in corsivo di almeno 4 parole (o il frammento intero) che si ritrova esatto in un frammento non del seme, con la data del frammento (dell'id, registrato o data-tetto: «3 novembre», «3/11», «2026-11-03»).",
+    "«se i frammenti ✦ citabili sono più di 8»: si contano i file in frammenti/ senza voce: seme; con le 32 importate è sempre vero, quindi l'ultima riga è «Vuoi il resto?» e quello è l'unico «?» (contato come G6).",
+    "«muti e delicati» (B12, B13, B18, B21, B25) non si controllano: alle date di questa prova (20 novembre o punto zero) quei frammenti non esistono ancora. Nella D02 dopo B25 (blocco 8) servono criteri in più.",
+    "Non deve (scritto come criterio di Forma in positivo): ogni corsivo fuori dalla riga ✧ si ritrova esatto in un frammento ✦ (anche sotto le 4 parole: qui conta la ricerca esatta, non la lunghezza); la riga ✧ è controllata in Forma (seme alla lettera). G3 e G7 valgono; G1, G2, G4, G5, G6 sono dell'ingresso.",
+    "Riportate (scheda attuale): le righe ✦ con un tratto di un frammento forma: riportata che si toccano fanno un gruppo; «trascritta da Claude» compare una volta sola per gruppo, sulla sua prima riga o in una riga senza segni subito prima, e in nessun'altra riga (quindi mai su una riga di un frammento non riportato). Non più su ogni riga, come voleva la versione vecchia del banco.",
+    "Altrui (scheda, regola 7 di CLAUDE.md): nessun tratto in corsivo viene dalle parole d'altri di U18–U20; la riga sua di U18 («Un candidato se vorrò fare testi lunghi.») è sua, e un suo corsivo non conta (tranne). Riportate: un tratto è di almeno 4 parole o il frammento intero (banco parte 2), così un titolo in corsivo (True Detective) non fa di una riga una riportata. «una loro riga dice il gesto con ✦ e le parole tra «» con ○»; si controlla che ogni riga con parole di U18–U20 tra «» porti ○; che il gesto con ✦ ci sia lo vede il giudice (domanda 2).",
+    "X3 non è nella scheda D02: non si controlla qui."
+  ]
+}

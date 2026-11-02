@@ -20,3 +20,7 @@ Le lacune del pacchetto (il modello non dice) con la scelta fatta.
 - R01a, secondo giro (7 su 8, cade l'obbligatoria 5): la convergenza u01–u09 ("lo stesso metro") ripeteva un'idea che
   u09 dice già in forma generale. Scelta: una riga in `prompt/ritratto.md` (variante giorno 1): i due capi vengono da cose
   mai accostate, non due frasi che dicono già la stessa idea.
+- R01a, terzo giro (5 su 8: convergenza forzata, D6 no e D7 sì): la riga del secondo giro spingeva verso capi lontani.
+  Scelta: sostituita con una prova a due lati in `prompt/ritratto.md` (non già detta in una delle frasi; le due frasi
+  bastano senza il perché ◌; se nessuna coppia passa, nessuna convergenza). Il giudice non vede i frammenti della
+  tensione (non sono capi di legami): la domanda 3 riceve "non so", che conta contro; non è obbligatoria.

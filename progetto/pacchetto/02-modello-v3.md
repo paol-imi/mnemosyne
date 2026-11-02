@@ -1142,7 +1142,7 @@ Prima della pipeline, una restituzione vera (CS §4):
 | giorno | che cosa |
 |---|---|
 | 0 | Claude Code: repository privato, importazione (§14), `smista.mjs`, `verifica.mjs`, `CLAUDE.md`. Tu: repo, App GitHub, PAT, Comando rapido **solo PUT** (~20 minuti) |
-| 1 | **il primo ritratto**, sul nucleo e sulle 31 frasi tue, con **una** convergenza nuova ancorata a una tua frase |
+| 1 | **il primo ritratto**, sul nucleo e sulle 31 frasi tue, con **una** convergenza nuova ancorata a una tua frase, solo se forte (come i ponti del giorno 3): se nessuna coppia regge, il ritratto lo dice in una riga |
 | 1–3 | cattura cieca; **ogni sera** (e così fino al giorno 7) apri Specchio, che fa "smista" e ti dice i ponti della giornata (al massimo uno per memo, solo se forte). Anche se i memo sono già stati smistati, Specchio non risponde "nessun memo nuovo": rilegge i memo dal giorno 1 e cerca il ponte |
 | 3 | **il bilancio dei ponti**: Specchio rilegge **tutti** i memo dei giorni 1–3, con i loro vicini dati da [S] (§6.2), e chiude con il migliore dei ponti **forti** (sotto), oppure con "Niente si aggancia ancora." e nient'altro. È la prova della meraviglia: un ponte inatteso e forte, con il tuo frammento vecchio e la data (la frase alla lettera, o per un testo trascritto il gesto e le parole ○: sotto), oppure la franchezza di dire che non c'è; nessun ponte particolare è dovuto |
 | 4–7 | Specchio ogni sera, come nei giorni 1–3, finché le Routine non sono attive; al giorno 7 (o prima, se l'apertura serale pesa) si attivano il `fire` e le Routine, e la domenica parte la prima lettera |

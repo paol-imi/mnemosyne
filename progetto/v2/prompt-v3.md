@@ -735,7 +735,8 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
      ancora vuota si dice), **una tensione** (due mie frasi datate);
    - la riga sulla **voce**, dagli indicatori di `mappa.md` ("il 41% di queste righe sono parole tue; hai preso da me
      *ospite* e *soglia*"), **prima** della domanda;
-   - **una domanda** in chiusura, che non ripete una "in sospeso";
+   - **una domanda** in chiusura, che non ripete una "in sospeso", a cui non saprei rispondere subito: non una scelta
+     tra due parti di cui una è già una mia frase;
    - un testo `altrui` che ho trascritto può essere un capo (della convergenza, della tensione): il gesto ✦ con la data,
      le parole ○ tra «» (CLAUDE.md, regola 7), mai come mia frase;
    - il seme ✧ non fa da capo di una convergenza: è una sintesi di Claude, e la convergenza si aggancia alle mie parole
@@ -744,12 +745,19 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
      l'ultima riga è la domanda.
    **Variante giorno 1** (giorno 1 = il **primo ritratto**, non il primo del mese): salta i passi 2 e 3 (ritmo e
    soglia): il primo ritratto si scrive con 0 frammenti parlanti, prima del primo memo. Sul nucleo e sulle frasi
-   importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); le date come tetto ("entro il 4
+   importate, con **una** convergenza nuova ancorata a una mia frase ✦ (non al seme ✧); prima di scriverla, la **prova del ponte** di
+   `prompt/specchio.md` (passo 2: tre subagent nuovi, o tre `claude -p`, con le due frasi intere alla lettera, mai
+   tagliate, e le domande A e B così come sono), più una terza domanda, C: «Questo nesso l'aveva già fatto lui, cioè una
+   delle due frasi è già la forma generale o un caso dell'altra? Rispondi sì o no, con una riga di motivo.» (conta a
+   favore solo un no senza riserve); il perché ◌ nomina il nesso tra quelle due frasi, non è una massima che varrebbe
+   per chiunque; prova le coppie in ordine
+   fino alla prima forte per la maggioranza; se nessuna passa, nessuna convergenza (il ritratto lo dice in una riga); le date come tetto ("entro il 4
    ottobre"), su **ogni** frase ✦ citata, i due capi della convergenza compresi (sulla riga, o una volta in testa al
    gruppo di righe con la stessa data); quelle `forma: riportata` (non tutte le importate: guarda il campo) con la nota
    della regola 6 una volta sola, le altre senza nota; il titolo dice l'archivio d'origine e la data-tetto più recente tra quelle citate,
    senza il numero dei frammenti; nessun conto mensile, nessuna riga sulla voce, niente "nuovo" e "sparito" (non c'è
-   un prima); "che cosa torna" con i numeri di § Nodi di `mappa.md` (i conti ✦ dei nodi), o senza numeri se non ci
+   un prima); in "che cosa manca" non la serie dei memo, vuota per forza prima del primo memo (è una riga che starebbe
+   nel ritratto di chiunque); "che cosa torna" con i numeri di § Nodi di `mappa.md` (i conti ✦ dei nodi), o senza numeri se non ci
    sono; i titoletti delle sezioni sono righe di servizio, senza segni; la convergenza è ◌; l'ultima riga resta la
    domanda. Nel piano: **una** voce, la convergenza (`cosa:
    convergenza`, `voce: proposta`, `1.` a inizio riga o `[1]` nella prosa: modello §3.5), con il suo legame
@@ -1186,6 +1194,14 @@ Dalla sesta prova a freddo (giro 11), dal suo registro:
 43. **`ritratto.md`, giorno 1** (P6-14): "che cosa torna" con i numeri di § Nodi, o senza; i titoletti senza segni.
 44. **`formato-piano.md`** (P6-8): la lettera la scrive "consolida" nel suo piano (per questo lo schema ammette `forma:
     lettera`); "lettera" non scrive.
+
+Dall'implementazione (blocco 4, R01a in sei giri; `progetto/lacune.md`):
+45. **`ritratto.md`, giorno 1**: la serie dei memo, vuota per forza prima del primo memo, non si dice in "che cosa
+    manca" (due giudici su tre la trovavano generica); la domanda non è una scelta tra due parti di cui una è già una
+    mia frase (tre su tre: ci si risponde subito); prima della convergenza la prova del ponte di `specchio.md` (passo 2,
+    frasi intere) più la domanda C, che chiede ciò che chiede la domanda 5 del giudice di R01a (il nesso l'aveva già
+    fatto lui? una è la forma generale o un caso dell'altra?); il perché ◌ non è una massima; se nessuna coppia passa,
+    nessuna convergenza. Una riga che chiedeva capi «mai accostati» spingeva verso il ponte forzato ed è stata tolta.
 
 ---
 

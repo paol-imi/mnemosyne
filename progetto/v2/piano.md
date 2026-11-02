@@ -268,7 +268,9 @@ Convenzioni per tutti i blocchi:
     già qui, il primo ritratto (blocco 4) e "smista" (blocco 5): modello §2.3. Le sezioni 4, 5 e 8 di `mappa.md` al
     blocco 5, il resto al blocco 7.
 - **Uscita:** commit `importa: punto zero` con data 2026-10-31 (la data dell'ultima frase importata, U31; i passi dentro
-  portano ciascuno la sua data); tag `punto-zero` (lo stesso tag che il banco chiama `banco-zero`).
+  portano ciascuno la sua data); tag `punto-zero` (lo stesso tag che il banco chiama `banco-zero`). Il tag può restare
+  locale (nell'implementazione il proxy dell'ambiente rifiutava con 403 ogni push che non fosse `main`): una sessione
+  nuova lo rifà dal commit, `git tag punto-zero $(git log --format=%H --grep='^importa: punto zero$' -n1 main)`.
 - **Collaudo:** conti attesi entro il ±15%; nessun nodo `nietzsche`, `sisifo`, `eraclito`; `raccolte/tatuaggi.md` con `nato-da: [s03]`;
   le 8 domande come temi accolti; **D02 "oggi"** (le mie frasi, solo le mie: verbatim, il seme non è mio) sul solo punto
   zero, letto da `contesto/parole.md` in Specchio (il Progetto nasce al blocco 8), con `ATLANTE_ORA` del 2026-11-02 alle
@@ -314,7 +316,8 @@ Convenzioni per tutti i blocchi:
 ### Blocco 4 · Il primo ritratto (giorno 1)
 
 - **Obiettivo:** la prima restituzione **prima** del primo memo: un ritratto breve sul nucleo e sulle 31 frasi, con **una**
-  convergenza nuova ancorata a una sua frase citata alla lettera e datata.
+  convergenza nuova ancorata a una sua frase citata alla lettera e datata, solo se forte; se nessuna coppia regge, una
+  riga che lo dice (modello §9.2).
 - **Dipende da:** blocco 2, compresa la prima parte di `contesto.mjs`. Non dipende da "smista": si può fare anche prima
   del blocco 3. Il lucchetto è del blocco 5: se non c'è ancora, il prompt del ritratto ne salta i passi, come dice per gli
   script che mancano (prova a freddo R44b); chi riusa il codice di una prova lo trova già scritto, e può usarlo.
@@ -324,6 +327,9 @@ Convenzioni per tutti i blocchi:
 - **Script:** `scripts/applica.mjs` (modello §2.3: un solo script piano → file per tutti i cicli, condiviso col blocco 5): si
   scrive qui la parte che numera le voci e salva la restituzione; il blocco 5 aggiunge letture e nodi.
 - **Collaudo (R01a: adattato da R01 e R14, sul punto zero, con `ATLANTE_ORA` del 2026-11-03 alle 09:07):**
+  - due casi, come R14 (decisione di progetto, dopo l'implementazione): passano tutti e due. **(a)** una convergenza
+    forte, che regge le domande di R14; **(b)** nessuna convergenza, e al suo posto la sola riga del modello §9.2 che dice
+    che nessuna coppia regge, senza un accostamento accennato altrove. Il resto del ritratto è lo stesso nei due casi;
   - deterministici: il file `restituzioni/2026/11/r-20261103-…-ritratto.md` e la sua copia in `contesto/ritratto.md` (R01
     D1); ogni frase in corsivo segnata ✦ esiste alla lettera in un frammento ✦ (ricerca esatta), con la data giusta (sulla
     riga, o una volta in testa a un gruppo di righe con la stessa data, come la nota delle riportate: `CLAUDE.md`, regola
@@ -331,16 +337,22 @@ Convenzioni per tutti i blocchi:
     *True Detective*, s1e1, *The Long Bright Dark*), non una frase ✦, e non si cerca nei frammenti (banco, parte 2,
     "Come si leggono i criteri"); il capo
     della convergenza è una frase ✦ o un frammento `altrui`, mai il seme ✧ (modello §7.5); la convergenza nuova non è una
-    delle C1–C25 importate; ≤ 400 parole. Le parti di R01 legate a novembre (D3–D7: conti, vuoto, domanda nell'ultima frase,
+    delle C1–C25 importate (questi due solo nel caso a; nel caso b il piano non ha la voce `convergenza` né il suo legame
+    `converge-con`); ≤ 400 parole. Le parti di R01 legate a novembre (D3–D7: conti, vuoto, domanda nell'ultima frase,
     letture ◌, 18 righe) non si controllano qui;
   - giudice, otto domande: le 1, 2, 3 e 5 di R01 (quelle che non dipendono da novembre; la 3 "se c'è una tensione"); le tre
     di R14 sulla convergenza, con la domanda 2 nella forma univoca del banco (le domande 2 e 3 sono la definizione di
     "forte": banco R14); più una
     ottava, "una cosa segnata ⚠ nell'archivio è detta come certa?" (deve essere no), perché "nessun ⚠ citato come certo" non
-    si controlla in modo meccanico. **Soglia:** almeno 7 su 8, con obbligatorie le 1 e 2 di R01, le tre di R14 e l'ottava.
+    si controlla in modo meccanico. Nel caso b la 3 di R14 prende la sua forma "senza ponte" (accanto alla riga, o al suo
+    posto, c'è una convergenza forzata, anche solo accennata?), e le 1 e 2 di R14 non si pongono: il giudice controlla
+    comunque che non ci sia una convergenza forzata. **Soglia:** caso a, almeno 7 su 8, con obbligatorie le 1 e 2 di R01,
+    le tre di R14 e l'ottava; caso b, almeno 5 su 6, con obbligatorie le 1 e 2 di R01, la 3 di R14 e l'ottava.
   Poi **la pancia dell'utente**, una domanda sola: "ti ha detto qualcosa che non sapevi?".
 - **Tempo:** misurato ~4 minuti (4 subagent: 1 ritratto, 3 giudici; ~278k token; `applica.mjs` 364 righe, nessun
-  cambio). Nella sesta prova R01a è passata al secondo giro, ma il primo era caduto sul checker, non sul ritratto: un
+  cambio). Nell'implementazione R01a è passata al sesto giro, con cinque correzioni di `ritratto.md` (prompt v3, scelta
+  45): ogni giro caduto lo era per una convergenza generica, già detta da lui o forzata, o per una riga di "che cosa
+  manca" che starebbe nel ritratto di chiunque. Nella sesta prova R01a è passata al secondo giro, ma il primo era caduto sul checker, non sul ritratto: un
   titolo in corsivo dopo ○ (*The Long Bright Dark*) contato come frase ✦ non alla lettera (ora il collaudo lo esclude);
   giudici 8/8, 8/8, 8/8. Nella quinta (~10 minuti, 6 subagent, ~491k token) R01a è caduta due volte sui deterministici: il ritratto metteva la data alla tensione e la lasciava fuori dai due
   capi della convergenza; con una riga in più in `ritratto.md` (la data su **ogni** frase ✦ citata, ora nei prompt v3)
@@ -515,7 +527,7 @@ Convenzioni per tutti i blocchi:
 | 1 slug, verifica, banco | g. 0 | ~3 min (misura) | — | test di slug, B03 meccanico |
 | 2 importazione | g. 0 | ~6 min (misura, con due giri di D02) | — | D02 "oggi", conti |
 | 3 cattura | g. 0 sera | ~1 min (misura) | U3–U4, 20 min | B18 ridotta; P3 con l'utente (non ferma i blocchi 4 e 5) |
-| 4 primo ritratto | g. 1 | ~4 min con due giri (misura; ~10 con tre giri nella quinta) | leggerlo | R01a: R14.1–3 sulla convergenza, verbatim |
+| 4 primo ritratto | g. 1 | ~4 min con due giri (misura; ~10 con tre giri nella quinta) | leggerlo | R01a: R14.1–3 sulla convergenza, verbatim (una convergenza forte, o la riga che non regge) |
 | 5 smista + Specchio | g. 1–3 | ~16 min al primo giro (misura; ~37 nella quinta con il codice; ~45 nella quarta, con le prove rifatte) | aprire Specchio la sera | B01, B02, B06, D02; poi B03, B11, B12, B14, B22, B25 |
 | 6 prova della meraviglia | g. 3 | ~3 min a giro sul banco (misura; 1 giro nella sesta e nella quinta, 5 giri e ~13 min nella quarta) | una risposta a pancia: la porta vera | R14 (un ponte forte, o la formula) |
 | 7 Routine e fire | g. 5–7 | 4–5 h | U5–U7, 30 min | P1, P4, B01–B25 |

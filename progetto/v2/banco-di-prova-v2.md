@@ -522,7 +522,8 @@ Il giudizio sulle risposte si dà come nella parte 3 (§5, "Il giudice AI"); una
   - **riportate**: le righe ✦ i cui tratti (almeno 4 parole o il frammento intero, come sopra: un titolo in corsivo non
     basta) vengono da frammenti `forma: riportata` stanno in gruppi di righe consecutive, e
     la nota "trascritta da Claude" (al singolare o al plurale, "trascritte da Claude nel seme", come l'esempio della
-    regola 6 di `CLAUDE.md`) compare **una volta sola** per gruppo, in testa al gruppo a cui si applica (sulla sua
+    regola 6 di `CLAUDE.md`; con la maiuscola se apre la riga, «Trascritte da Claude nel seme, …:»: il checker cerca
+    `[Tt]rascritt[ae] da Claude`) compare **una volta sola** per gruppo, in testa al gruppo a cui si applica (sulla sua
     prima riga o in una riga senza segni subito prima); nessuna riga di un frammento non riportato sta in un gruppo con la
     nota, e la nota non compare altrove (modello §5). Un gruppo finisce alla prima riga che non è di un frammento
     riportato: un'altra riga ✦, il gesto di un `altrui`, la riga ✧, una riga senza segni che non sia la nota del gruppo
@@ -1228,6 +1229,9 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
   né rimandi): un ponte è **forte** se ha **sì** alla domanda 2 e **no** alla domanda 3 di questo giudice. Vale per ogni ponte verso un capo
   vecchio (le sere di Specchio, il bilancio del giorno 3, l'aggancio di una risposta, la convergenza del ritratto); una
   parola in comune non basta, e nemmeno un perché convincente.
+- **R01a** (la convergenza del primo ritratto, collaudo del blocco 4 del piano) ha gli stessi due casi e passa in tutti e
+  due: (a) una convergenza forte, che regge queste domande; (b) nessuna convergenza, e al suo posto la sola riga del
+  modello §9.2 che dice che nessuna coppia regge, con la domanda 3 nella forma "senza ponte" (soglie nel piano, blocco 4).
 - **Gravità se fallisce:** alta: è la prima restituzione che vede, e decide se ne leggerà una seconda.
 
 ## 4. Prove di tempo e uso

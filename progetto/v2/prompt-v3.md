@@ -16,8 +16,8 @@ il contenuto, da copiare così com'è. Nell'interfaccia di claude.ai il prompt d
 Leggi ed esegui prompt/NOME.md (NOME = smista, consolida, lettera, ritratto). Il testo che ricevi dal fire è l'id del frammento.
 ```
 
-Così [S] calcola il campo `prompt` delle letture e delle restituzioni dall'hash di `CLAUDE.md`, `prompt/CICLO.md` e
-`prompt/formato-piano.md` messi in fila (v3 §2.2), e la storia dei prompt sta in git. Le istruzioni del Progetto claude.ai stanno in `prompt/progetto.md` come copia versionata: vanno
+Così [S] calcola il campo `prompt` delle letture (le restituzioni non lo hanno) dallo SHA-1 di `CLAUDE.md`,
+`prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila (v3 §2.2), e la storia dei prompt sta in git. Le istruzioni del Progetto claude.ai stanno in `prompt/progetto.md` come copia versionata: vanno
 incollate nel Progetto, che non legge il repository. Dove il v3 non fissa un dettaglio, il file fa una scelta e la segna
 **[scelta]**; le scelte sono raccolte nel §13.
 
@@ -66,7 +66,7 @@ la sua bozza in `ingresso/` mentre conversa (`prompt/specchio.md`).
 Un file, un solo scrittore:
 - `letture/` versione 1: "smista" (o Specchio che ne fa il lavoro); versione ≥ 2: solo "consolida" e le migrazioni.
 - nodi: creazione con i campi del genere (un'opera nasce già con `autore`, se lo dicono le mie parole: "lo spettacolo di
-  galimberti"; una citazione nasce con solo `nome`, `attribuita-a`, `nato-da`, senza `esito`: ⚠; i temi solo per i
+  galimberti"; una citazione nasce con solo `nome`, `nato-da` ed eventuali `alias` e `attribuita-a`, senza `esito`: ⚠; i temi solo per i
   concetti che nomino io, ✦, e nascono subito) e nuovi alias: "smista"; ogni altro campo (delle citazioni anche `esito`,
   `riferimento`, `autore`, `originale`, `traduzione`, `citata-da`), i temi dedotti ◌ (alla 2ª–3ª ricorrenza, cioè a una
   vicenda) e le lapidi `fuso-in`: "consolida". Unica eccezione: le citazioni dell'Atlante accolte all'importazione nascono già con `esito` e `riferimento`.
@@ -143,7 +143,8 @@ calcolati, mai scritti.
    Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi.
 7. Un testo altrui che ho **trascritto** (foto, copia: `altrui: true`): ✦ il gesto e il mio commento, ○ le parole, tra
    «», al più una riga. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
-   ("a ottobre avevi trascritto il monologo di Rust ✦"), poi le parole ○ tra «» con l'opera e il passo. Le parole d'altri
+   ("a ottobre avevi trascritto il monologo di Rust ✦"), poi le parole ○ tra «», al più una riga, alla lettera nella
+   lingua in cui le ho trascritte, con l'opera e il passo. Le parole d'altri
    che **ricordo** a memoria in un memo sono mie: ✦ in corsivo, nella mia versione; il testo verificato accanto è ○ tra «».
 8. Il seme ✧ si consuma: una lettera vi si appoggia una volta per nodo ("Seme già usato" in `mappa.md`).
 9. Niente ritornelli: una coppia di 2 parole di contenuto entro 4 parole, fuori dalle «», già in 2 restituzioni e
@@ -261,7 +262,7 @@ il motivo nel messaggio finale. Un frammento senza lettura è la coda: non si pe
   Scarti, Eredità, Ritorni con effetto, Mondo verificato, Nomi senza nodo, Ricordabili (quanti, e 20 id), In sospeso,
   Seme già usato e immagini già usate, Voce.
 Ognuno ha in testa `aggiornato`, `fino-a`, `token-stimati`.
-Il campo `prompt` di letture e restituzioni è l'hash di `CLAUDE.md`, `prompt/CICLO.md` e `prompt/formato-piano.md`
+Il campo `prompt` delle letture (le restituzioni non lo hanno) è lo SHA-1 di `CLAUDE.md`, `prompt/CICLO.md` e `prompt/formato-piano.md`
 messi in fila: cambiare uno di questi file è un cambio di lettore.
 
 ## Cercare nei file (Specchio)
@@ -323,8 +324,8 @@ di operazione. Il v3 nomina i tipi; i campi di ciascuno sono **[scelta]**, presi
 
 Ogni ciclo che scrive (smista, consolida, ritratto, specchio) produce **un piano JSON** e lo passa a
 `node scripts/applica.mjs PIANO.json`; "lettera" non scrive e non ha piano. Lo script lo convalida, calcola slug e numeri,
-pulisce i link, scrive i file, mette `prompt` (le prime 7 cifre dell'hash di `CLAUDE.md`, `prompt/CICLO.md` e
-`prompt/formato-piano.md` messi in fila), `registrato`, `schema` e, se manca, `versione`, o rifiuta con il motivo. È
+pulisce i link, scrive i file, mette nelle letture `prompt` (le prime 7 cifre dello SHA-1 di `CLAUDE.md`,
+`prompt/CICLO.md` e `prompt/formato-piano.md` messi in fila), `registrato`, `schema` e, se manca, `versione`, o rifiuta con il motivo. È
 transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimenti non resta niente.
 
 ```json
@@ -372,7 +373,8 @@ luogo come voce: `cosa: opera` (il racconto) o `persona` (il protagonista); l'en
 - Ogni legame ha `p`, `a` oppure `tra`, `voce`, `perche`. `legami` della lettura e `voci` della restituzione ci sono
   sempre, anche vuoti (`[]`).
 - `reazione.parole` è copiata **esatta** dal frammento (lo script controlla che sia una sottostringa).
-- Una citazione creata da "smista" o da Specchio ha solo `nome`, `attribuita-a` (se la attribuisco), `nato-da` e, nel
+- Una citazione creata da "smista" o da Specchio ha solo `nome`, `nato-da`, eventuali `alias`, `attribuita-a` (se la
+  attribuisco) e, nel
   `corpo`, la traccia della verifica rapida: mai `esito`, `riferimento`, `autore`, `originale`, `traduzione`, `citata-da`
   (li scrive "consolida" con `aggiorna-nodo`). Un'opera invece può nascere con `autore`, se lo dicono le mie parole.
 - `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`).
@@ -657,6 +659,8 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    - la riga sulla **voce**, dagli indicatori di `mappa.md` ("il 41% di queste righe sono parole tue; hai preso da me
      *ospite* e *soglia*"), **prima** della domanda;
    - **una domanda** in chiusura, che non ripete una "in sospeso";
+   - un testo `altrui` che ho trascritto può essere un capo (della convergenza, della tensione): il gesto ✦ con la data,
+     le parole ○ tra «» (CLAUDE.md, regola 7), mai come mia frase;
    - fuori i delicati; nessuna lode, nessuna etichetta come destino; ogni ○ con opera e passo, o la riga si toglie;
      l'ultima riga è la domanda.
    **Variante giorno 1**: salta i passi 2 e 3 (ritmo e soglia): il primo ritratto si scrive con 0 frammenti parlanti,
@@ -704,7 +708,8 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    **Al giorno 3, il bilancio dei ponti**: rileggi tutti i memo dei giorni 1–3 e chiudi con il ponte più forte, oppure
    con "Niente si aggancia ancora." Il bilancio sta in **al più 3 righe**, senza "?": la frase del memo nuovo **alla
    lettera**, in corsivo, con la sua data ✦; il testo vecchio **alla lettera** con la sua data (una mia frase in corsivo
-   ✦, gli importati con la data-tetto; per un `altrui` il gesto ✦ e le parole tra «» ○, con l'opera e il passo); il
+   ✦, gli importati con la data-tetto; per un `altrui` il gesto ✦ e le parole tra «» ○ alla lettera nella lingua in cui
+   le ho trascritte, con l'opera e il passo); il
    perché ◌, breve. Nella restituzione della sessione il ponte è **un** legame `converge-con` `voce: proposta` con `tra`
    i due frammenti e il `perche`; al più uno. Se nessun ponte è forte: "Niente si aggancia ancora." e nient'altro, una
    sola formula (non anche "Nessun ponte oggi.").
@@ -938,12 +943,10 @@ un suo esempio o dal banco, e lo si dice:
    `momento` (§4, con B14), ma non la conversione. Per un link senza nome, il `~Nome` dalle mie parole.
 10. **La nota di una chat riportata**, "trascritta da Claude": il v3 §5 dà solo quella dell'importato, "trascritta da
     Claude nel seme".
-11. **`parole` come nome** (P2-72): dall'esempio del v3 (§3.3, §13.2: "culturali" → `cultura`), che la regola della stessa
-    riga ("la tua forma") non dice.
+11. **`parole` come nome** (P2-72): *non più una scelta*, il v3 §3.3 lo dice ("un nome, non un aggettivo").
 12. **Le voci di un fatto del mondo sono ○ anche su un nodo che ho nominato** (P2-73): dall'esempio del v3 (§2.2, §3.5,
     §13.2: lo spettacolo è `voce: mondo`), non da una regola.
-13. **Il corsivo dei titoli** (P2-77): dagli esempi del v3 (§3.5, §7.2.1, §9.3); il §9.1 nomina il corsivo solo per le mie
-    parole.
+13. **Il corsivo dei titoli** (P2-77): *non più una scelta*, il v3 §9.1 lo dice (un titolo non porta ✦).
 14. **Il ritratto del giorno 1** (P2-48, P2-49): saltare ritmo e soglia viene dal v3 (§7.5, §9.2); il titolo senza numero,
     la riga di servizio prima del corpo e gli importati fuori dai 14 file sono scelte.
 15. **I vicini di Specchio a memo già smistati** (P2-87): `smista.mjs vicini ID` e `prepara --sigilla ID` (P2-85) sono
@@ -964,8 +967,7 @@ P2-38, P2-39, P2-41, P2-48, P2-49, P2-51 (il testo del piano), P2-52, P2-61 (il 
 P2-73, P2-75, P2-76, P2-77, P2-78, P2-79, P2-81, P2-83, P2-85 e P2-87 (il lato del prompt: i comandi del piano), P2-88;
 P2-55 (il codice 4 dove il prompt lo cita); P2-1 (`_schema.md` rimanda a `schema/frontmatter.json`). In più, per P2-78, la regola dei
 delicati in `CLAUDE.md` e in `progetto.md` torna al v3 §7.2.1: a una richiesta esplicita delle mie parole si riportano,
-alla lettera, mai in testa. **Non corretta qui**, perché il v3 dice altro: P2-62 (il v3 §3.4 fa nascere la citazione con solo `nome`, `attribuita-a`, `nato-da`: niente
-`alias`).
+alla lettera, mai in testa. P2-62: la citazione all'ingresso ammette `alias` (v3 §3.4, elenco unico, come il G4 del banco).
 
 Le dieci del secondo giro sono risolte nel v3 (registro n. 75 e 77) e restano nell'appendice B. Queste cinque, emerse
 dalla [prova a freddo](/progetto/v2/prova-a-freddo.md), sono ora **risolte** nel v3 (registro n. 78) e nei file qui

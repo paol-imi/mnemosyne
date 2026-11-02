@@ -91,7 +91,8 @@ passata delle 3 ore.
    `smista: N memo`, push.
 
 ## La risposta (solo se ha contenuto)
-Al più: **un aggancio** dall'archivio (un ponte forte a un vicino, con un **luogo preciso** da entrambe le parti: la mia
+Al più: **un aggancio** dall'archivio (un ponte **forte** a un vicino, come lo definisce il banco, R14, riga "Forte"
+sotto il giudice: `progetto/pacchetto/04-banco-di-prova.md`; con un **luogo preciso** da entrambe le parti: la mia
 frase alla lettera con la data, e per un ○ l'opera e il passo; un ○ senza luogo non si consegna mai; il seme ✧ non fa
 da capo vecchio di un ponte, `prompt/specchio.md`), **un fatto del
 mondo ○** verificato che la mia frase chiama, una **correzione di fatto** solo per un errore scritto da me, al più **una**

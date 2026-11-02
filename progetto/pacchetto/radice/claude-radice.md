@@ -51,8 +51,10 @@ Un file, un solo scrittore:
   Comando rapido "Chiedi", con il predefinito `[chiedi]`, e la lettura contiene sempre i suoi valori. Il corpo è il testo esatto, refusi compresi. In una chat:
   solo i miei turni, ciascuno preceduto da `[HH:MM]`.
 - **lettura**: `schema: 3`, `versione`, `letto-da`, `prompt`, `intento` (`salva` · `chiedi` · `sguardo` · `niente`),
-  `reazione` (`{parole, verso: "+" · "-" · "±"}`, `parole` copiate esatte dal frammento), `legami`, `parole`, `link`,
-  `trascrizione`, `altrui`, `vissuto`, `delicato`, `nota`, `fonte`, `risposta` (id, `salvato` o `ci-sono`).
+  `reazione` (`{parole, verso: "+" · "-" · "±"}`, `parole` copiate esatte dal frammento; l'iperbole d'entusiasmo è `+`:
+  "mi ha spaccato", "mi ha distrutto", "mi ha colpito tanto"; `±` solo per un giudizio che sta tra i due, "ci ha preso"),
+  `legami`, `parole`, `link`, `trascrizione`, `altrui`, `vissuto`, `delicato`, `nota`, `fonte`, `risposta` (id,
+  `salvato` o `ci-sono`).
 - **nodo**: `schema`, `nome`, `nato-da`, `alias`, `link`, `fuso-in`; persone `cerchia` (`mondo` · `vita` · `finzione`)
   e `in`; opere `autore`, `in`, `anno`; citazioni `autore`, `attribuita-a`, `citata-da`, `originale`, `traduzione`,
   `riferimento`, `esito` (`verificata` · `simile` · `errata` · `non-trovata`; **senza esito = ⚠**); raccolte `scopo`.
@@ -94,7 +96,8 @@ calcolati, mai scritti.
 1. Le mie parole sono sacre: mai ricopiate a mano dove c'è uno script, mai corrette, mai attribuite a me se non le ho
    scritte. Un corsivo è sempre una frase riportata alla lettera, oppure il titolo di un'opera (*Il mondo delle
    emozioni* ⚠): una mia frase ✦ (anche `forma: riportata`) o un passo del seme ✧, copiato com'è (*amore e verità* ✧);
-   mai una tua formula.
+   mai una tua formula. Un corsivo è un tratto di **una** riga del frammento: un frammento su più righe si cita riga per
+   riga (o se ne sceglie una), mai con le righe unite da " / " o da uno spazio, che non sono più alla lettera.
 2. Nessun numero a occhio: conti, giorni attivi, soglie, vicende, ricordabili vengono da `contesto/mappa.md`.
 3. "Parlante" = non importato, intento non solo `niente`, almeno 3 parole mie tolti i link. Tutte le soglie contano
    solo i parlanti: gli importati non ci entrano.
@@ -103,7 +106,9 @@ calcolati, mai scritti.
 6. Una frase `forma: riportata` si mostra ✦ con la nota "trascritta da Claude nel seme" (un importato) o "trascritta da
    Claude" (una chat ricopiata dal memo del Progetto), e conta tra le mie frasi. La nota compare **una volta sola**, in
    testa al gruppo di righe contigue a cui si applica (in una prosa, una volta per il passo che le cita), con le stesse
-   parole e non ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze.
+   parole e non ripetuta su ogni riga: così la risposta resta nella tabella delle lunghezze. Allo stesso modo la data
+   comune di un gruppo di righe consecutive (la data-tetto delle riportate) può stare una volta in testa al gruppo,
+   accanto alla nota, invece che su ogni riga. Il gruppo finisce alla prima riga che non è di un frammento riportato.
 7. Un testo altrui che ho **trascritto** (foto, copia: `altrui: true`): ✦ il gesto e il mio commento, ○ le parole, tra
    «», al più una riga. Un frammento `altrui` può fare da ponte, come gli altri: dalla mia parte il gesto ✦ con la data
    ("a ottobre avevi trascritto il monologo di Rust ✦"), poi le parole ○ tra «», al più una riga, alla lettera nella
@@ -206,7 +211,8 @@ contano, non si nominano.
 | `node scripts/migra/fondi.mjs DA IN` | la fusione di due temi (la chiama `applica.mjs` per un'operazione `lapide`) |
 | `node scripts/contesto.mjs` | rigenera `contesto/` |
 | `node scripts/verifica.mjs` | prima di ogni push: schema, hash, immutabilità, link, Q-nomi, ritornelli, tetto |
-Regole: si lavora su `main`. L'id della sessione e il gettone che `prendi` stampa li tieni e li passi a `rinnova` e
+Regole: si lavora su `main`, salvo il banco di prova, che gira sul ramo `banco/*` che ti dà chi lo esegue (piano §4).
+L'id della sessione e il gettone che `prendi` stampa li tieni e li passi a `rinnova` e
 `lascia` (anche dove questi file scrivono solo `rinnova` o `lascia`); senza argomenti, i due li rileggono da
 `.git/lucchetto`, dove `prendi` li ha scritti. Ogni tempo del lucchetto è in secondi. Con
 `--solo ID`, `prepara` costruisce il pacchetto del solo frammento ID. Il clone è pulito: se `node_modules/` manca, prima di ogni script `bash ambiente/setup.sh`
@@ -240,8 +246,10 @@ La ricerca **espande sempre la domanda**: prima di cercare scegli 6–10 parole 
 ## Ricette per le domande
 Voci numerate `1.`, `2.`… (le fissa lo script), lunghezze della tabella.
 - **"le mie frasi"** (anche "solo le mie") senza argomento: solo le mie ✦, dalla più recente, alla lettera con la data,
-  refusi compresi, in corsivo; gli importati con la data-tetto; le `forma: riportata` comprese, con la nota (regola 6:
-  una volta sola, in testa al loro gruppo); gli `altrui` solo come gesto, mai le loro parole come mie; i non parlanti
+  refusi compresi, in corsivo (un frammento su più righe: il corsivo è un tratto di **una** sua riga, mai righe unite
+  con " / " o con uno spazio: regola 1); gli importati con la data-tetto; le `forma: riportata` comprese, con la nota
+  (regola 6: una volta sola, in testa al loro gruppo, e con lei, se è comune, la data); gli `altrui` solo come gesto,
+  mai le loro parole come mie; i non parlanti
   fuori; i delicati alla lettera, mai in testa.
   Fino a 8 righe, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
   **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo

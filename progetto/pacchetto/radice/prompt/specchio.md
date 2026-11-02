@@ -9,27 +9,37 @@ Leggi CLAUDE.md e prompt/formato-piano.md.
    lucchetto all'apertura: lo prendi solo alla fine (passo 6).
 2. I **ponti della giornata**: per ogni memo al più **3 righe** e al più un ponte, solo se forte e con un luogo preciso
    (la mia frase vecchia alla lettera e la data; per un ○ l'opera e il passo). Formato `HH:MM · **Salvato.** …`.
-   Altrimenti "Nessun ponte oggi." Non inventare. Al giorno 0, prima del primo memo, niente ponti e nessuna formula.
+   **Forte** ha una sola definizione, nel banco: `progetto/pacchetto/04-banco-di-prova.md`, R14, la riga "Forte" sotto il
+   giudice (le sue domande 2 e 3). Non riscriverla a parole tue: leggila lì.
+   **La prova, prima di consegnare un ponte** (non la fai tu, che l'hai trovato): dai a **tre** subagent nuovi e separati
+   **solo** le due frasi alla lettera, con i loro luoghi e senza il perché, e le domande 2 e 3 di R14 copiate da lì; vale
+   la maggioranza, e un "non so" conta contro il ponte. Consegni il ponte solo se per la maggioranza è forte, anche se ne
+   sei convinto e anche se somiglia a un esempio. Senza lo strumento dei subagent, tre sessioni separate (`claude -p`);
+   se non puoi nemmeno quelle, niente ponte, e lo dici nel messaggio finale.
+   Senza un ponte che passa la prova: "Nessun ponte oggi." (al giorno 3, il bilancio del passo 3). Non inventare.
+   Al giorno 0, prima del primo memo, niente ponti e nessuna formula.
    I vicini di un memo vengono dal suo pacchetto o, se il memo è già
    smistato, da `node scripts/smista.mjs vicini ID` (sola lettura, senza lucchetto): non sceglierli tu. Guardali
-   **tutti**, anche quelli che non hanno parole in comune con il memo: il ponte inatteso sta lì (Rust per Galimberti).
+   **tutti**, anche quelli che non hanno parole in comune con il memo: il ponte inatteso, se c'è, sta lì. Nessun vicino è
+   un ponte dovuto: un vicino dice che un ponte è possibile, la prova dice se regge.
    **I capi del ponte.** Il capo vecchio è una mia frase ✦ oppure un testo `altrui` che ho trascritto (il gesto ✦, le
    parole ○: passo 3). **Il seme ✧ non vale come capo vecchio** (lo script non lo mette tra i vicini): è una sintesi scritta da
    Claude, e la meraviglia si aggancia alle mie parole o ai miei gesti.
 3. **Giorni 1–7**: anche se i memo sono già smistati, non rispondere "nessun memo nuovo": rileggi i memo dal giorno 1 e
    cerca il ponte, con `smista.mjs vicini ID` per ciascuno (nei primi 3 giorni i vicini sono anche tutti gli importati
    ✦). Gli `altrui` sono vicini come gli altri: un
-   testo che ho trascritto (il monologo di Rust) fa da ponte con il mio gesto ✦ e le sue parole ○ (CLAUDE.md, regola 7);
-   non scartarli perché le parole non sono mie.
-   **Al giorno 3, il bilancio dei ponti**: rileggi tutti i memo dei giorni 1–3 e chiudi con il ponte più forte, oppure
-   con "Niente si aggancia ancora." Il bilancio sta in **al più 3 righe**, senza "?": la frase del memo nuovo **alla
+   testo che ho trascritto (il monologo di Rust) può fare da capo vecchio con il mio gesto ✦ e le sue parole ○ (CLAUDE.md,
+   regola 7), se il ponte passa la prova del passo 2; non scartarli perché le parole non sono mie.
+   **Al giorno 3, il bilancio dei ponti**: rileggi tutti i memo dei giorni 1–3 e chiudi con il migliore dei ponti forti
+   (che ha passato la prova del passo 2), oppure con "Niente si aggancia ancora.", che è un esito pieno, non un ripiego.
+   Il bilancio sta in **al più 3 righe**, senza "?": la frase del memo nuovo **alla
    lettera**, in corsivo, con la sua data ✦; il testo vecchio **alla lettera** con la sua data (una mia frase in corsivo
-   ✦, gli importati con la data-tetto; per un `altrui` il gesto ✦ e le parole tra «» ○ alla lettera nella lingua in cui
-   le ho trascritte, con l'opera e il passo; mai il seme ✧, passo 2); il
+   ✦, gli importati con la data-tetto; per un `altrui` il gesto ✦ e, tra «» ○, la riga che da sola regge il nesso, alla
+   lettera nella lingua in cui l'ho trascritta, con l'opera e il passo; mai il seme ✧, passo 2); il
    perché ◌, breve. Rileggi **tutti** i vicini dei memo, anche senza parole in comune (passo 2). Nella restituzione
    della sessione il ponte è **una** voce numerata (`cosa: ponte`, `voce: proposta`, `rif` il frammento vecchio) e **un**
    legame `converge-con` `voce: proposta` con `tra` i due frammenti, il `perche` e `da` quella voce; al più uno. Se
-   nessun ponte è forte: "Niente si aggancia ancora." e nient'altro, una
+   nessun ponte passa la prova: "Niente si aggancia ancora." e nient'altro, una
    sola formula (non anche "Nessun ponte oggi.").
 
 ## Poi conversa

@@ -17,7 +17,10 @@ transazionale: i file vanno al loro posto solo se `verifica.mjs` passa, altrimen
      "attribuita-a": ["@Umberto Galimberti"], "corpo": "Verifica rapida: nessun apocrifo noto; … (traccia)"},
     {"op": "lettura", "frammento": "20261103-2340-k7q2", "versione": 1, "intento": ["salva"],
      "reazione": [{"parole": "molto interessante", "verso": "+"}],
-     "legami": [{"p": "nomina", "a": "@Umberto Galimberti", "voce": "sua", "perche": "«uno spezzone di galimberti a teatro»"}],
+     "legami": [{"p": "nomina", "a": "@Umberto Galimberti", "voce": "sua", "perche": "«uno spezzone di galimberti a teatro»"},
+                {"p": "nomina", "a": "@spettacolo sulle emozioni", "voce": "sua", "perche": "«credo lo spettacolo sulle emozioni»"},
+                {"p": "nomina", "a": "@Il nichilismo è l'ospite inquietante", "voce": "sua", "perche": "«diceva che il nichilismo è l'ospite inquietante»"},
+                {"p": "parla-di", "a": "nichilismo", "voce": "sua", "perche": "parola tua, anche dentro la frase che riporti"}],
      "parole": ["ragazzo", "cultura"]},
     {"op": "restituzione", "forma": "risposta", "per": "20261103-2340-k7q2",
      "testo": "**Salvato.**\n1. …\n2. …",
@@ -40,7 +43,8 @@ Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione 
 | `riserva` | `file` (`ritorno` · `pronte`), `testo` (il file intero) | solo consolida |
 | `lapide` | `da`, `in`, `perche` (la fusione: lo script chiama `migra/fondi.mjs`) | solo consolida |
 
-**I tipi dei campi.** Stringa (slug, `@Nome` o `~Nome`): `autore`, `in`, `nodo`, `a`. Elenco: `alias`,
+**I tipi dei campi.** Stringa (slug, `@Nome` o `~Nome`): `autore`, `in`, `a`; `nodo` (di `alias`, `aggiorna-nodo` e di
+una correzione) è uno slug o `@Nome`, mai `~Nome`, perché punta a un nodo che c'è o che nasce nel piano (v3 §3.7). Elenco: `alias`,
 `attribuita-a`, `citata-da`, `nato-da`, `copre`, `parole`, `tra`, `intento`. Intero: `anno`, `n`, e `da` di un legame
 di restituzione (la voce da cui parte); nell'operazione `lapide`, `da` e `in` sono slug. Un mito, una tradizione, un
 luogo come voce: `cosa: opera` (il racconto) o `persona` (il protagonista); l'enum non ha altro.

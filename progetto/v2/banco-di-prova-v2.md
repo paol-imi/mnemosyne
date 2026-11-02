@@ -3,7 +3,9 @@
 > Progettazione v3, 2026-10-31; riscritto il 2026-11-01 dopo la [prova a freddo](/progetto/v2/prova-a-freddo.md)
 > (R30, R46, R54, R58, R64, R66, R70, R24/R62) e il 2026-11-02 dopo la
 > [seconda prova a freddo](/progetto/v2/prova-a-freddo-2.md) (P2-1, P2-16, P2-19, P2-37, P2-40, P2-41, P2-79, P2-87, P2-88)
-> e dopo la [terza](/progetto/v2/prova-a-freddo-3.md) (P3-9, P3-10, P3-17, P3-40, P3-55, P3-56, P3-61, P3-64, P3-69, P3-79).
+> e dopo la [terza](/progetto/v2/prova-a-freddo-3.md) (P3-9, P3-10, P3-17, P3-40, P3-55, P3-56, P3-61, P3-64, P3-69, P3-79);
+> il 2026-11-02, giro 9, dopo la [quarta](/progetto/v2/prova-a-freddo-4.md) (P4-1: R14 senza un ponte dovuto; P4-2: il
+> giudice di D02; P4-4, P4-13: la data e la nota di un gruppo di righe).
 > Proposta di Claude, da validare. Serve a collaudare l'implementazione
 > del [modello v3](/progetto/v2/modello-v3.md) nel repo nuovo: ogni criterio si controlla sui file del repository
 > (percorsi, campi del frontmatter, legami, conteggi, ricerche esatte), senza giudizio; il giudizio sta solo nelle
@@ -24,7 +26,8 @@ sola, nel commit `importa: punto zero` con data **2026-10-31** (la data dell'ult
 blocco 2); i frammenti dentro portano ciascuno la sua data, dal 4 al 31 ottobre 2026.
 - **35 frammenti** `canale: importato`, con `registrato` di sola data (le viste orarie non li contano):
   - 32 frasi tue, `20261004-0000-u01` … `20261031-0000-u31` (`u26a`, `u26b`), `voce: sua`; quelle messe per iscritto da
-    Claude anche `forma: riportata` (si mostrano ✦ con la nota "trascritta da Claude nel seme"); U18, U19 (il monologo di
+    Claude anche `forma: riportata` (si mostrano ✦ con la nota "trascritta da Claude nel seme", **una volta** per gruppo di
+    righe, non su ogni frase: D02, Forma); U18, U19 (il monologo di
     Rust) e U20 hanno nella lettura `altrui: true`: ✦ il gesto, ○ le parole;
   - tre sguardi `voce: seme` (✧): `20261005-0000-s01` (il nucleo, `intento: [sguardo]`, passi citabili come
     `passo: nucleo:19`), `20261005-0000-s04` (tensioni, virtù e fortuna, evoluzione), `20261004-0000-s03` (il racconto
@@ -470,7 +473,8 @@ sigilla lo stesso frammento e la stessa restituzione, senza `forma: riportata`.
   frammento di chat.
 - **Non deve**: come nella parte 1, un fatto solo basta a fallire.
 
-Il giudizio sulle risposte si dà con le domande del giudice della parte 3, che valgono per tutti i casi D.
+Il giudizio sulle risposte si dà come nella parte 3 (§5, "Il giudice AI"); una scheda D che ha le sue domande
+(**Giudice AI**) si giudica su quelle.
 
 ### Su di me
 
@@ -491,18 +495,23 @@ Il giudizio sulle risposte si dà con le domande del giudice della parte 3, che 
 > le mie frasi, solo le mie
 
 - **Dati:** `parole.md`: i frammenti ✦ (telefono, chat) e gli importati `voce: sua`, con la data-tetto; quelli
-  `forma: riportata` con la nota "trascritta da Claude"; U18, U19 e U20 (`altrui: true`) solo come gesto. Il seme ✧ (`s01`,
+  `forma: riportata` con la nota "trascritta da Claude" (una volta per gruppo di righe, come dice la Forma, non su ogni
+  frase); U18, U19 e U20 (`altrui: true`) solo come gesto. Il seme ✧ (`s01`,
   `s03`, `s04`) dalla sezione `## Seme ✧` in fondo a `parole.md` (modello §6.1), a parte. Il seme c'è **sempre**, anche
   **oggi**. **Oggi:** le frasi tue importate, il seme a parte.
 - **Forma** (ogni punto è un controllo sulle righe non vuote della sezione):
   - **righe ✦**: al più **8** righe con ✦, ognuna con un tratto in corsivo alla lettera (refusi compresi) di un frammento ✦
-    e la sua data (per gli importati la data-tetto, "entro il …"); fanno eccezione la riga di un gesto altrui e quella di un
+    e la sua data (per gli importati la data-tetto, "entro il …"): sulla riga, oppure **una volta** in testa a un gruppo di
+    righe consecutive che hanno la stessa data, come la nota delle riportate (sulla prima riga o in una riga senza segni
+    subito prima); fanno eccezione la riga di un gesto altrui e quella di un
     muto, che non hanno corsivo (sotto); se i frammenti ✦ citabili sono più di 8, l'ultima riga della sezione è "Vuoi il
     resto?"; nessun altro "?";
   - **riportate**: le righe ✦ i cui tratti vengono da frammenti `forma: riportata` stanno in gruppi di righe consecutive, e
     la nota "trascritta da Claude" compare **una volta sola** per gruppo, in testa al gruppo a cui si applica (sulla sua
     prima riga o in una riga senza segni subito prima); nessuna riga di un frammento non riportato sta in un gruppo con la
-    nota, e la nota non compare altrove (modello §5);
+    nota, e la nota non compare altrove (modello §5). Un gruppo finisce alla prima riga che non è di un frammento
+    riportato: un'altra riga ✦, il gesto di un `altrui`, la riga ✧, una riga senza segni che non sia la nota del gruppo
+    dopo;
   - **altrui**: nessun tratto in corsivo si ritrova in `u18`, `u19` o `u20`; una loro riga dice il gesto con ✦ e le parole,
     se ci sono, tra «» con ○;
   - **muti e delicati**: nessun tratto in corsivo di B13, B18, B21 (non parlanti), oppure la loro riga dice "muto"; un
@@ -515,6 +524,12 @@ Il giudizio sulle risposte si dà con le domande del giudice della parte 3, che 
 - **Non deve:** un testo in corsivo che non si ritrova con una ricerca esatta nei frammenti ✦ o, sulla riga ✧, nel seme (il
   passo vero di Jung, una sintesi, una lettura); una riga ✧ o ● tra le righe ✦; più di una riga ✧ o nessuna; le parole di
   U18–U20 date come tue.
+- **Giudice AI (sì/no):** 1. Tra le righe date come tue (le righe ✦; **non** la riga ✧ del seme, che la Forma richiede a
+  parte e che è segnata come seme), c'è una sintesi, una parafrasi, una lettura o un testo del mondo (per esempio il passo
+  vero di una citazione) invece delle parole di un frammento? (deve essere no) 2. Le parole di U18, U19 o U20 (il monologo
+  di Rust e le altre parole d'altri) sono date come tue, invece che solo come il gesto di averle riportate (✦ il gesto, le
+  parole tra «» con ○)? (deve essere no) **Soglia:** tutte. (Quarta prova a freddo, P4-2: senza l'esclusione della riga ✧,
+  che la Forma vuole, i giudici la contavano come sintesi, e la stessa uscita passava o cadeva a caso.)
 
 ### Catena C: lo stato d'animo (n.48 → 50 → 51)
 
@@ -1145,20 +1160,25 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
 - **Scopo:** il criterio di riuscita di critica-semplicita §4: entro il terzo giorno, un ponte inatteso e vero, o la
   franchezza di dire che non c'è.
 - **Preparazione:** punto zero (nucleo ✧; il monologo di Rust, U19, come in R13, con i legami del modello §14.1:
-  `nomina rust-cohle`, `nomina true-detective-s1` con `momento: "episodio 1"`) + B01 (3 nov 23:40) e B02 (4 nov). Il
-  ponte atteso è quello della scena 1 di essenza §3: Galimberti e Rust, sul prezzo della lucidità. Nei primi 3 giorni i
-  vicini di un memo sono tutti gli importati ✦, oltre il tetto di 10, e [S] li dà a Specchio anche per i memo già
-  smistati (modello §6.2, §7.5): è la condizione perché il ponte su U19 sia possibile, e D0 la controlla.
+  `nomina rust-cohle`, `nomina true-detective-s1` con `momento: "episodio 1"`) + B01 (3 nov 23:40) e B02 (4 nov).
+  **Nessun ponte è atteso** (la provenienza prima della meraviglia, come in R08): la prova non chiede un ponte
+  particolare, chiede che il ponte consegnato regga sulle due frasi, oppure che la sessione dica che non c'è. Nei primi 3
+  giorni i vicini di un memo sono tutti gli importati ✦, oltre il tetto di 10, e [S] li dà a Specchio anche per i memo già
+  smistati (modello §6.2, §7.5): è la **condizione** perché un ponte verso un testo senza parole in comune con il memo
+  (per B01, il monologo di Rust, U19) sia possibile, non la risposta. D0 controlla la condizione; U19 tra i vicini rende
+  quel ponte possibile, non dovuto.
 - **Azione:** Specchio, la sera del 2026-11-05: il bilancio dei ponti del giorno 3 (modello §7.5). Le risposte a B01 e B02
   restano quelle del banco (B02: `risposta: salvato`).
-- **Uscita attesa:** 1–3 righe: B01 o B02 ✦, con un tratto alla lettera e la data, agganciato a un frammento suo del punto
-  zero (`voce: sua`, uno degli `uNN`): una sua frase alla lettera con la data-tetto, **oppure**, per un frammento
-  `altrui: true` (U18–U20), il gesto ✦ con la data-tetto e al più una riga delle parole ○ tra «», alla lettera come le ha
-  trascritte, con l'opera e il passo (modello §7.5); il perché ◌ in mezza riga. **Il seme ✧** (`s01`, `s03`, `s04`) **non**
-  è un capo del ponte: è una sintesi scritta da Claude (modello §7.5), e un ponte verso il seme fa fallire D1 e D2. Es. del ponte atteso: "*diceva che il nichilismo è l'ospite inquietante* ✦
-  (3 novembre) / entro il 4 ottobre hai trascritto il monologo di Rust ✦: «I think human consciousness is a tragic misstep
-  in human evolution» ○ (*True Detective*, st. 1, ep. 1) / il prezzo della lucidità, da due lati ◌". Se nessun ponte è
-  forte, la sola riga "Niente si aggancia ancora." (la formula del giorno 3; "Nessun ponte oggi." è delle altre sere).
+- **Uscita attesa:** uno dei due casi; passano tutti e due.
+  - **(a) Un ponte forte** (la definizione è sotto il giudice): 1–3 righe, B01 o B02 ✦, con un tratto alla lettera e la
+    data, agganciato a un frammento suo del punto zero (`voce: sua`, uno degli `uNN`): una sua frase alla lettera con la
+    data-tetto, **oppure**, per un frammento `altrui: true` (U18–U20), il gesto ✦ con la data-tetto e al più una riga
+    delle parole ○ tra «», alla lettera come le ha trascritte, con l'opera e il passo (modello §7.5); il perché ◌ in mezza
+    riga. **Il seme ✧** (`s01`, `s03`, `s04`) **non** è un capo del ponte: è una sintesi scritta da Claude (modello §7.5),
+    e un ponte verso il seme fa fallire D1 e D2.
+  - **(b) Nessun ponte regge:** la sola riga "Niente si aggancia ancora." (la formula del giorno 3; "Nessun ponte oggi." è
+    delle altre sere). È l'uscita giusta ogni volta che il ponte migliore che la sessione trova regge solo sul suo perché:
+    meglio la formula che un ponte forzato (modello §7.5).
 - **Criteri deterministici:**
   - D0 (preparazione) I vicini che [S] calcola per `id(B01)` con l'ora del 2026-11-05 (modello §6.2) comprendono
     `20261004-0000-u19`. Se mancano, la prova fallisce: un "nessun ponte" senza vicini non prova niente.
@@ -1177,7 +1197,12 @@ Valgono sempre sei criteri trasversali (uno violato = prova fallita):
 - **Giudice AI (sì/no):** 1. È un nesso che lui non aveva fatto? 2. Coprendo la riga del perché (◌), le due frasi citate,
   una accanto all'altra, bastano già a far vedere il nesso? (Non si chiede se il nesso sia scritto: si chiede se si regge
   sulle sue parole, con i loro luoghi, e non sulla formula di Claude, che lo nomina e non lo crea: modello §7.5.) 3. È
-  inventato o forzato? (deve essere no) **Soglia:** tutte; oppure, se non c'è ponte, solo la 3.
+  inventato o forzato? (deve essere no; senza ponte la domanda diventa: accanto alla formula, o al suo posto, c'è un
+  accostamento forzato, anche solo accennato?) **Soglia:** con un ponte, tutte (caso a); senza ponte, solo la 3 (caso b).
+- **Forte** (definizione unica: la richiamano il modello §7.5, `prompt/specchio.md` e il piano, blocco 6): un ponte è
+  **forte** se ha **sì** alla domanda 2 e **no** alla domanda 3 di questo giudice. Vale per ogni ponte verso un capo
+  vecchio (le sere di Specchio, il bilancio del giorno 3, l'aggancio di una risposta, la convergenza del ritratto); una
+  parola in comune non basta, e nemmeno un perché convincente.
 - **Gravità se fallisce:** alta: è la prima restituzione che vede, e decide se ne leggerà una seconda.
 
 ## 4. Prove di tempo e uso

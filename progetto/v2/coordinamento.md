@@ -66,7 +66,13 @@ Stato:
   (§6.2) e non è mai capo vecchio di un ponte (§7.5): valgono solo le frasi sue ✦ o un `altrui`; la nota «trascritta
   da Claude» compare una volta, in testa al gruppo; la domanda 2 del giudice di R14 riscritta; §14 R7: la traduzione
   (col traduttore o «resa di Claude») va nel riferimento e nel corpo (8 citazioni su 17 la perdevano).
-- F4. Quarta prova a freddo: lanciata sul pacchetto rigenerato.
+- F4. Quarta prova a freddo: fatta (session_016XqAM3XusSJqhWWU6FVzZg): blocchi 0–5 con porte aperte, R14 fallisce
+  5/5 (2 alte). Resoconto `prova-a-freddo-4.md`.
+- Giro 9. Decisione di prodotto: nessun documento prescrive un ponte particolare (via il «ponte atteso»
+  Galimberti–Rust). R14 passa con un ponte forte (definito una volta nel banco: sì alla domanda 2, no alla 3) oppure
+  con la sola riga «Niente si aggancia ancora.». La porta vera del blocco 6 è la domanda a pancia sui memo veri.
+  D02: la domanda 1 del giudice esclude la riga ✧. Aperta, bassa: P4-15 (9 o 8 rese di Claude in 07, vale il file).
+- F5. Quinta prova a freddo: lanciata.
 - Nome: Mnemosyne (sessione session_016XqALzZG9b2QGQbSqhNrc7, documento `nome.md`).
 - G. Implementazione: dopo F.
 

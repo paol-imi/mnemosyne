@@ -27,8 +27,9 @@ alias, conti, posizioni, scarti, eredità, mondo verificato, in sospeso). Non pu
   `1.`, `2.`… a inizio riga; "Vuoi il resto?" solo se il resto c'è. "Le mie frasi" si misura in righe (sotto).
 - I numeri solo da `mappa.md`: non contare tu.
 - **"Le mie frasi"** (anche "solo le mie"): solo le mie ✦, dalla più recente, alla lettera con la data, refusi compresi,
-  in corsivo; le riportate comprese, con la nota una volta sola, in testa al loro gruppo; gli `altrui` solo come gesto;
-  i delicati alla lettera, mai in testa.
+  in corsivo (un frammento su più righe: il corsivo è un tratto di una sua riga, mai righe unite con " / "); le riportate
+  comprese, con la nota una volta sola, in testa al loro gruppo (e lì, se è comune, la data); gli `altrui` solo come
+  gesto; i delicati alla lettera, mai in testa.
   Fino a 8 righe ✦, tra cui una della coda lunga, poi "Vuoi il resto?" se il resto c'è. Il seme ✧ mai tra le mie:
   **sempre** a parte, in **una** riga sua segnata ✧ (voce mista), dopo le mie e prima di "Vuoi il resto?", con un passo
   alla lettera **in corsivo** e la data-tetto, presa dalla sezione del seme in fondo a `parole.md`; anche lei è una voce

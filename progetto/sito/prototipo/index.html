@@ -213,7 +213,8 @@ details[open] summary::before { content: "－ "; }
 mark { background: none; color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .15em; }
 
 /* Il tempo: quadratini tutti uguali, senza scala */
-.nodo-soglia { padding-top: 6svh; }
+.nodo-soglia { padding-top: 6svh; min-height: 0; padding-bottom: 3em; }
+.piede .strati { margin: .2em 0 0; font-size: .66em; }
 .nodo-soglia h1 { margin-bottom: 1.2em; }
 .giorni { display: grid; grid-template-columns: repeat(7, 14px); gap: 4px; margin: .4em 0 .8em; }
 .giorni i { width: 14px; height: 14px; border: 1px solid var(--filo); border-radius: 2px; }
@@ -287,7 +288,7 @@ const NODI = {
   'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', autore: 'Italo Calvino', anno: 1972, conto: '✦2 · fruizione: fatta' },
   'wislawa-szymborska': { nome: 'Wisława Szymborska', genere: 'persone', cerchia: 'mondo', conto: '✦1 · fruizione: da fare' },
   'simone-weil': { nome: 'Simone Weil', genere: 'persone', cerchia: 'mondo', conto: '○1' },
-  'quello-che-cerchi-ti-sta-cercando': { nome: 'Quello che cerchi ti sta cercando', genere: 'citazioni', attribuita: 'Rumi', esito: null, conto: '✦1 · ⚠' },
+  'quello-che-cerchi-ti-sta-cercando': { nome: 'Quello che cerchi ti sta cercando', genere: 'citazioni', attribuita: 'Rumi', esito: null, conto: '✦1' },
   papa: { nome: 'papà', genere: 'persone', cerchia: 'vita' },
   tatuaggi: { nome: 'tatuaggi', genere: 'raccolte', scopo: null },
 };
@@ -385,7 +386,7 @@ function foglioVoce(n) {
   const rif = `${LETTERA.id}#${n}`;
   const segno = v.voce === 'proposta' ? 'tensione ◌, lettura mia' : 'mondo ○';
   return `<p class="sc">voce ${n} · ${segno}</p>
-    <p>${v.html}</p>
+    <p class="${v.voce === 'proposta' ? 'prop' : 'mondo'}">${v.html}${sg(v.voce === 'proposta' ? 'prop' : 'mondo')}</p>
     ${v.rifTesto ? `<p class="servizio">${esc(v.rifTesto)} · esito: ${v.esito ?? 'da verificare ⚠'}</p>` : `<p class="servizio">Il nome della tensione tra il 14 e il 29 ottobre. Nessun tuo ritorno ancora.</p>`}
     <p class="servizio">Indirizzo: ${rif}</p>
     <div class="gesti">
@@ -410,14 +411,13 @@ V.nodo = (slug) => {
       </div>
       <p class="servizio" style="margin-top:1.4em">la prima tiene insieme attenzione e <a href="#/nodo/aspettare">aspettare</a> · <a href="#/nodo/attenzione/tavola">la tavola →</a></p>
     </div>
+    <p class="conto">tema · nome tuo · ${CS(n.conto)}</p>
+    <div class="piede">${strati()}</div>
+    <div class="l2"><h2>dal mondo</h2><p class="mondo">Simone Weil${sg('mondo')}<span class="luogo">lettera del 1 novembre, voce 2 · Attente de Dieu, § 4 · verificata</span></p></div>
     <h2>le altre porte</h2>
     <ul class="righe">
       <li>${frase('20261003-1930-d4f1')}</li>
       <li>${frase('20260912-0000-u01')}</li></ul>
-    ${strati()}
-    <div class="l2"><h2>dal mondo</h2><p class="mondo">Simone Weil${sg('mondo')}<span class="luogo">lettera del 1 novembre, voce 2 · Attente de Dieu, § 4 · verificata</span></p></div>
-    <button class="nascosti" data-s="2">e 1 voce dal mondo<span class="sg"> ○</span></button>
-    <p class="conto" style="margin-top:2.4em">tema · nome tuo · ${CS(n.conto)}</p>
   </div>
   <aside class="lato"><h2>anteprima</h2>
     <p><a href="#/nodo/aspettare">aspettare</a> <span class="conto">${CS(NODI.aspettare.conto)}</span></p><p class="frase">${frase('20261029-2305-p8s3')}</p></aside></div>`;
@@ -469,7 +469,7 @@ V.frammento = (id) => {
   const i = ids.indexOf(id);
   const prima = ids[i - 1], dopo = ids[i + 1];
   if (f.delicato) {
-    return `<div class="pagina">${testa(dataL(f.reg) + ' · ' + ora(f.reg))}<p class="corpo" style="margin-top:2em">${esc(f.testo)}</p></div>`;
+    return `<div class="pagina">${testa(dataL(f.reg) + ' · ' + ora(f.reg))}<p class="corpo sua" style="margin-top:2em">${esc(f.testo)}${sg('sua')}</p></div>`;
   }
   const luoghi = { '20261014-2201-g6k2': 'in apertura, accanto al 29 ottobre', '20261029-2305-p8s3': 'in apertura, accanto al 14 ottobre', '20260929-2240-c2e9': 'in chiusura' };
   const citatoIn = luoghi[id] ? `<li><a href="#/r/${LETTERA.id}">Lettera di domenica 1 novembre</a> <span class="servizio">· ${luoghi[id]}</span></li>` : '';
@@ -488,7 +488,7 @@ V.frammento = (id) => {
       ${prima ? `<a href="#/frammento/${prima}"><small>← giorno prima</small>${dataL(F[prima].reg)}</a>` : '<span></span>'}
       ${dopo ? `<a href="#/frammento/${dopo}" style="text-align:right"><small>giorno dopo →</small>${dataL(F[dopo].reg)}</a>` : '<span></span>'}
       ${(f.temi || []).length ? `<a href="#/nodo/${f.temi[0]}"><small>nel filo</small>${NODI[f.temi[0]].nome}</a>` : ''}
-      ${(() => { const t = (f.temi || [])[0]; if (!t) return ''; const v = Object.keys(F).find((k) => k !== id && !F[k].delicato && (F[k].temi || []).includes(t) && gg(F[k].reg, f.reg) > 7); return v ? `<a class="l2" href="#/frammento/${v}" style="text-align:right"><small>◌ vicino · anche lei su «${NODI[t].nome}»</small>${dataL(F[v].reg)}</a>` : ''; })()}
+      ${(() => { const t = (f.temi || [])[0]; if (!t) return ''; const v = Object.keys(F).find((k) => k !== id && !F[k].delicato && (F[k].temi || []).includes(t) && gg(F[k].reg, f.reg) > 7); return v ? `<a class="l2" href="#/frammento/${v}" style="text-align:right"><small>◌ vicino · anche lei su ${NODI[t].nome}</small>${dataL(F[v].reg)}</a>` : ''; })()}
     </div>
   </div>`;
 };
@@ -513,7 +513,7 @@ V.tempo = () => {
     </section>
     <section class="mese"><h2>ottobre 2026</h2>
       ${giorniMese(2026, 9, [3, 8, 11, 14, 18, 20, 22, 26, 29, 30])}
-      <p class="conto">9 frammenti parlanti e 1 delicato · 10 giorni attivi</p>
+      <p class="conto">9 frammenti parlanti e 1 delicato · 10 giorni attivi · e 1 link senza parole</p>
       <h2 style="margin-top:1.2em">posizioni</h2>
       <div class="pos">${frase('20261014-2201-g6k2')}<span class="luogo">dal 14 ottobre · messa in discussione il 29 ottobre</span></div>
       <div class="pos">${frase('20261029-2305-p8s3')}<span class="luogo">dal 29 ottobre · tensione con il 14 ottobre</span></div>
@@ -558,7 +558,7 @@ V.cerca = () => `<div class="pagina">${testa('cerca')}
   <div id="ris"></div></div>`;
 
 function risultati(q) {
-  q = q.trim().toLowerCase(); if (!q) return '<p class="servizio">Le tue parole, i nomi, le restituzioni.</p>';
+  q = q.trim().toLowerCase(); if (!q) return '<p class="servizio">Le tue parole e i nomi.</p>';
   const norm = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
   const tuoi = Object.keys(F).filter((id) => !F[id].delicato && !F[id].nonParlante && norm(F[id].testo).includes(norm(q))).reverse();
   const nodi = Object.keys(NODI).filter((s) => norm(NODI[s].nome).includes(norm(q)));
@@ -569,11 +569,10 @@ function risultati(q) {
 
 V.assenze = () => `<div class="pagina">${testa('assenze')}
   <h1>Che cosa non stai guardando</h1>
-  <p class="servizio">Al più tre. I numeri vengono da mappa.md.</p>
+  <p class="servizio">Al più tre; oggi due. I numeri vengono da mappa.md.</p>
   <ol class="righe">
     <li><a href="#/nodo/wislawa-szymborska">Wisława Szymborska</a>: <span class="sua">la voglio rileggere</span>${sg('sua')}, il 18 ottobre. Fruizione: da fare. Nessun ritorno.</li>
-    <li><a href="#/nodo/mare">mare</a>: ✦2, l'ultima il 26 ottobre. A novembre ✦0.</li>
-    <li>Domande: ✦0 da ottobre. Nessun memo con «chiedi».</li>
+    <li><a href="#/nodo/mare">mare</a>: ✦2 tra il 21 settembre e il 26 ottobre, poi niente.</li>
   </ol></div>`;
 
 V.tatuaggi = (stampa) => {
@@ -591,7 +590,7 @@ V.tatuaggi = (stampa) => {
     <h1>tatuaggi</h1>
     <p class="servizio" style="margin:0">senza scopo</p>
     <div class="campo-t" style="margin-top:14px">
-      <p class="legenda">${sg('sua')} tue · ${sg('mondo')} mondo${stampa ? '' : ' · ' + sg('prop') + ' mia'}</p>
+      <p class="legenda">${sg('sua')} tue · ${sg('mondo')} mondo</p>
       <div class="pezzi">
         ${pezzo('20261008-0745-e8a0')}
         <div class="filo-t">✦ linea</div>
@@ -601,7 +600,7 @@ V.tatuaggi = (stampa) => {
         <div class="filo-t">✦ faro</div>
         ${pezzo('20261027-1302-t9v4')}
       </div>
-      ${stampa ? '' : `<div class="margine">una bussola senza ago${sg('prop')} <span style="display:block;font-size:.85em">un’idea di Claude, arrivata con l’importazione · <a href="#/nodo/tatuaggi" style="color:inherit">le altre idee</a></span></div>`}
+      ${stampa ? '' : `<div class="margine"><a href="#/nodo/tatuaggi" style="color:inherit">le idee arrivate con l’importazione →</a></div>`}
     </div>
     ${stampa ? `<p class="servizio no-stampa" style="margin-top:1em">Senza proposte ◌, senza delicati, senza persone della tua vita. <a href="#/tatuaggi">← la tavola</a> · <a href="javascript:print()">stampa</a></p>` : `<p class="servizio" style="margin-top:1em"><a href="#/tatuaggi/stampa">il brief da stampare →</a></p>`}
   </div>`;

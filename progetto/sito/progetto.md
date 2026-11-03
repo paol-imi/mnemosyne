@@ -478,13 +478,15 @@ da due o più pezzi; gli `allegati` (WebP cifrate); per i pin, il `link[].titolo
   Un pin è una carta tipografica: il titolo dal link e ↗, **nessuna miniatura e nessun embed**.
 - Un ○ dentro il pezzo, se il pezzo nomina un testo verificato: una riga tra «», con opera e passo.
 - I **fili**: un'etichetta tratteggiata tra i pezzi che condividono un nodo («✦ linea», «✦ faro»).
-- **Ai margini**, fuori dal campo, in grigio: **un solo** ◌, l'idea `eredita` più vicina ai pezzi grandi (deterministica:
-  più legami verso nodi che i pezzi ✦ nominano), e «le 6 idee ◌» che apre la pagina della raccolta (Forma A).
+- **Ai margini**, fuori dal campo: un solo link, «le idee arrivate con l'importazione →», che apre la pagina della
+  raccolta (Forma A) con le `eredita` ◌. **Nessuna idea ◌ in vista sul campo.** Vista-tatuaggi proponeva un ◌ ai
+  margini; il giudice delle regole (terzo giro) ha fatto notare che un'`eredita` «non si rilancia» (`CLAUDE.md`,
+  regola 5): mostrarne una scelta dal sito è rilanciarla. Senza conti («le 6 idee» era un contatore).
 - «il brief da stampare →».
 - **A 1440 px**: la griglia a 12 colonne, grande su 5×2, medio su 4, piccolo su 3.
 
 **La stampa** (`tatuaggi-stampa-tel.png`, e `@media print`). Fondo bianco, pezzi con il bordo, i segni restano (il
-tatuatore deve sapere che cosa è tuo). Fuori: il ◌ dei margini, ogni pezzo delicato, ogni pezzo che nomina una persona
+tatuatore deve sapere che cosa è tuo). Fuori: il link alle idee importate, ogni pezzo delicato, ogni pezzo che nomina una persona
 `cerchia: vita`, la barra, i link. Il filtro si fa sui **dati** (la funzione esclude), non solo con il CSS. È l'unica
 uscita voluta del sito.
 
@@ -683,18 +685,47 @@ rumore) e passa con **zero violazioni sostanziali**. Al più tre giri; gli esiti
 
 ## 9. Gli esiti dei giudici sul prototipo
 
-<!-- ESITI -->
+Due subagent separati, senza il ragionamento di questa sessione, a ogni giro. **Giudice A** (le regole): ha
+`CLAUDE.md`, il prototipo e le foto, e cerca le violazioni. **Giudice B** (la meraviglia): ha solo cinque foto
+(soglia chiara, scura, desktop; nodo; tavola del nodo) e un brief di tre righe; risponde sì o no, e «sì con riserve»
+vale no. Al più tre giri.
+
+| giro | giudice A (regole) | giudice B: soglia | giudice B: nodo |
+|---|---|---|---|
+| 1 | **non passa**: 9 violazioni, 4 sostanziali (un ○ senza passo sul nodo citazione; la coppia della lettera non era forte e il ◌ era una convergenza banale; conti con gli importati dentro e un «30 giorni attivi» impossibile; vicini senza legame nella tavola) | **no**: «sotto c'è una griglia di quattro riquadri che sembra un menu» | **no**: «le stesse quattro frasi compaiono due volte», una riga tecnica in testa |
+| 2 | **non passa**: 4 sostanziali (la lettera diventava due cose, Weil sull'attenzione e la coppia sull'attesa; un ⚠ mancante su un legame a una citazione; un conto con un importato; le porte con frasi ✦ nel periodo delicato) | **sì**: «due mie frasi che si smentiscono, con 15 giorni in mezzo, e nient'altro: mi colgo in flagrante» | **no**: «sembra il pannello di un database»; la frase più bella sepolta sotto «le porte» |
+| 3 | **passa**: nessuna violazione sostanziale; i conti tornano con i frammenti sintetici. 9 minori | **sì**: «è come trovarmi colto in flagrante da me stesso. Non c'è niente intorno e niente spiega» | **no**: la parte alta tiene; poi un vuoto lungo e il selettore a pillola: «smetto di leggermi e comincio a usare un programma» |
+
+**Che cosa è cambiato tra i giri.**
+- La soglia ha una sola coppia nella prima schermata; le porte sono dopo lo scorrimento e senza frasi.
+- La lettera sintetica è diventata una tensione (14 e 29 ottobre), con una sola voce ○ verificata sullo stesso tema e la
+  chiusa su una frase ✦ che tiene insieme attenzione e attesa.
+- Il nodo si apre come la soglia, con due frasi accostate; conti, genere e selettore sono scesi sotto.
+- Ogni ○ ha il suo luogo; i conti escludono gli importati.
+
+**Dopo il terzo giro** (non rigiudicate, perché i giri erano finiti): le 9 minori del giudice A sono corrette (il ◌ dei
+margini dei tatuaggi tolto, la legenda in ordine, il ✦ sul delicato aperto, un ⚠ doppio, le «» su un nome, una
+promessa della ricerca, un'assenza che suonava come sollecito, il segno nel foglio della voce). Sul nodo: è sparito il
+vuoto, e il selettore è sceso sotto i conti, in piccolo; la pagina finisce su una frase.
+
+**Esito: il nodo non è passato al giudice della meraviglia in tre giri.** La tensione è reale: il principio 4 vuole lo
+stesso selettore su ogni vista calcolata, e il giudice lo legge come «un programma». La proposta, da provare in B5
+con il giudice cieco: sul nodo il selettore diventa una riga di servizio in fondo alla pagina («mostra anche le mie
+proposte»), e la tavola del nodo si offre solo quando ha almeno tre vicini tenuti da tue frasi (con due, «non mi
+mostra niente che non sapessi già»).
 
 ---
 
 ## 10. Dubbi aperti
 
-1. **La soglia ha una sola cosa, ma due stati che si alternano** (la coppia e il ritorno). Se le restituzioni sono
+1. **Il nodo non ha ancora la sua meraviglia** (§9): il selettore degli strati e una tavola povera. È il primo lavoro di
+   B5.
+2. **La soglia ha una sola cosa, ma due stati che si alternano** (la coppia e il ritorno). Se le restituzioni sono
    frequenti, il ritorno non compare quasi mai. Da guardare dopo un mese (B10).
-2. **Il campo scuro dei tatuaggi anche nel tema chiaro** è una scelta di forma, non di tema: va confermata dall'utente.
-3. **L'intervallo in giorni** («15 giorni») è un numero calcolato, non preso da `mappa.md`. È un conto di calendario, non
+3. **Il campo scuro dei tatuaggi anche nel tema chiaro** è una scelta di forma, non di tema: va confermata dall'utente.
+4. **L'intervallo in giorni** («15 giorni») è un numero calcolato, non preso da `mappa.md`. È un conto di calendario, non
    una soglia; se la regola 2 di `CLAUDE.md` lo volesse in `contesto/`, va tolto.
-4. **Il bersaglio del gesto**: id nel testo o campo `da-sito` (§7.2.1).
-5. **Le persone della vita nella pagina di un tema** (una tua frase che nomina «mio padre» come porta): sono parole tue,
+5. **Il bersaglio del gesto**: id nel testo o campo `da-sito` (§7.2.1).
+6. **Le persone della vita nella pagina di un tema** (una tua frase che nomina «mio padre» come porta): sono parole tue,
    viste solo da te, e restano. Non diventano mai vicini né ponti.
-6. **I font da Google nel prototipo**: nel sito vero sono self-hosted; il prototipo pubblicato chiama Google Fonts.
+7. **I font da Google nel prototipo**: nel sito vero sono self-hosted; il prototipo pubblicato chiama Google Fonts.

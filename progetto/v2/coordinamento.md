@@ -121,3 +121,15 @@ passa nel caso (b)). R01a è passata solo al 6° giro, dopo 5 correzioni a `prom
 `progetto/lacune.md`: da riportare in `progetto/v2/prompt-v3.md`. Il tag `punto-zero` non si spinge (403 del proxy):
 resta locale. Restano all'utente: U3 (token) e U4 (Comando rapido) nella sessione di implementazione; tre sere di
 Specchio con memo veri; la risposta a pancia; un «vai avanti» esplicito per il blocco 7.
+
+## Il sito (H), dal 2026-11-03
+L'utente: «ora deve essere progettato il sito web, assolutamente fondamentale, è il modo in cui consumerò il contenuto».
+Decisione del coordinatore: il sito esce dalla tappa 2 facoltativa ed entra nel progetto. Si **progetta** subito e si
+**costruisce** dopo la porta del blocco 6, senza toccare `main` né l'implementazione in corso. Resta un lettore: privato,
+dietro login, mai su GitHub Pages pubblico. Chiesta anche una vista tatuaggi.
+Sessioni (consegne in `progetto/sito/`, ognuna sul suo branch):
+- letteratura (`letteratura.md`): session_016XqAM1GLwABRBCjFzbmsbo;
+- autopsia del sito dell'Atlante (`atlante-sito.md`): session_016XqALzFRqfjtumVp73rPKM;
+- vista tatuaggi (`vista-tatuaggi.md`): session_016XqAM2cnYAEs6MUhJxatDt;
+- tecnica e privacy (`tecnica.md`): session_016XqAM2tBzDzqXTjdB5JYc7.
+Dopo: una sessione di sintesi scrive il progetto del sito (`progetto/sito/progetto.md`) con un prototipo su dati sintetici.

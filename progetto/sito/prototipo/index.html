@@ -1,0 +1,659 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Mnemosyne</title>
+<script>
+  // Lo script anti-lampo (atlante-sito §5.1): il tema segue il sistema; ?tema= serve solo alle foto del prototipo.
+  (function () {
+    var t = new URLSearchParams(location.search).get('tema');
+    if (t === 'scuro') document.documentElement.dataset.theme = 'dark';
+    if (t === 'chiaro') document.documentElement.dataset.theme = 'light';
+    var s = 1; try { var v = localStorage.getItem('mn-strato'); if (v !== null) s = +v; } catch (e) {}
+    document.documentElement.dataset.strato = String(s);
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+<style>
+:root {
+  --carta: #f5f1e8; --campo: #ebe5d8; --inchiostro: #1c1a17; --tenue: #6a645a; --filo: #d9d1c1; --velo: rgba(28,26,23,.06);
+  --sotto: #fbf8f2; --ombra: 0 -8px 30px rgba(0,0,0,.12);
+  --corpo: 18px; --misura: 34em;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --carta: #151412; --campo: #0c0b0a; --inchiostro: #e8e2d6; --tenue: #9b9488; --filo: #2e2b27; --velo: rgba(232,226,214,.06);
+    --sotto: #1d1b18; --ombra: 0 -8px 30px rgba(0,0,0,.5); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --carta: #151412; --campo: #0c0b0a; --inchiostro: #e8e2d6; --tenue: #9b9488; --filo: #2e2b27; --velo: rgba(232,226,214,.06);
+  --sotto: #1d1b18; --ombra: 0 -8px 30px rgba(0,0,0,.5); color-scheme: dark;
+}
+@media (min-width: 900px) { :root { --corpo: 20px; } }
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--carta); color: var(--inchiostro);
+  font: 400 var(--corpo)/1.45 "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  font-optical-sizing: auto; font-variant-numeric: oldstyle-nums proportional-nums;
+  -webkit-font-smoothing: antialiased; padding-bottom: 72px;
+}
+a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: .18em; text-decoration-color: var(--filo); }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px solid var(--inchiostro); outline-offset: 3px; }
+.pagina { max-width: var(--misura); margin: 0 auto; padding: 0 16px; }
+.larga { max-width: 1180px; margin: 0 auto; padding: 0 16px; }
+.testa { display: flex; justify-content: space-between; align-items: baseline; padding: 18px 0 6px; }
+.marchio, .sc { font-variant-caps: all-small-caps; letter-spacing: .07em; font-size: .82em; color: var(--tenue); }
+.marchio { text-decoration: none; }
+h1 { font-weight: 500; font-size: 1.55em; line-height: 1.15; margin: .5em 0 .15em; font-variation-settings: "opsz" 48; letter-spacing: -.005em; }
+h2 { font-weight: 500; font-size: .82em; font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--tenue); margin: 2.2em 0 .6em; }
+p { margin: 0 0 .8em; }
+.servizio { color: var(--tenue); font-size: .88em; }
+.legenda { color: var(--tenue); font-size: .8em; margin: 0 0 1.4em; }
+
+/* I segni: peso tipografico, mai colore d'allarme */
+.sg { font-family: "Noto Sans Symbols 2", "Segoe UI Symbol", sans-serif; font-style: normal; font-size: .7em; vertical-align: .12em; }
+.righe a, .frase a, .porta, .pezzo a { text-decoration: none; }
+body.foto .barra { position: static; }
+.foglio { visibility: hidden; }
+body.aperto .foglio { visibility: visible; }
+.sua { font-style: italic; }
+.sua .sg, .seme .sg, .acc .sg { color: var(--inchiostro); }
+.seme { font-style: italic; }
+.prop, .prop .sg { color: var(--tenue); font-weight: 350; }
+.mondo { }
+.mondo .sg { color: var(--tenue); }
+.luogo { display: block; font-size: .78em; color: var(--tenue); font-style: normal; margin-top: .15em; }
+.vf { font-size: .62em; vertical-align: .3em; margin-left: .2em; font-family: "Noto Sans Symbols 2", sans-serif; }
+.data { display: block; font-size: .78em; color: var(--tenue); font-variant-numeric: lining-nums; letter-spacing: .01em; margin-bottom: .1em; }
+.nota-r { display: block; font-size: .78em; color: var(--tenue); margin: 1.2em 0 .2em; }
+
+/* Strati: 0 = mie, 1 = e accolte, 2 = e proposte */
+[data-strato="0"] .l1, [data-strato="0"] .l2, [data-strato="1"] .l2 { display: none; }
+[data-strato="2"] .nascosti { display: none; }
+.strati { display: inline-flex; border: 1px solid var(--filo); border-radius: 999px; padding: 2px; font-size: .74em; margin: .3em 0 1.2em; }
+.strati button { all: unset; cursor: pointer; padding: .35em .8em; border-radius: 999px; color: var(--tenue); min-height: 28px; line-height: 28px; padding-top: 0; padding-bottom: 0; }
+[data-strato="0"] .strati [data-s="0"], [data-strato="1"] .strati [data-s="1"], [data-strato="2"] .strati [data-s="2"] { background: var(--inchiostro); color: var(--carta); }
+.strati button:focus-visible { outline: 2px solid var(--inchiostro); }
+.nascosti { all: unset; cursor: pointer; color: var(--tenue); font-size: .82em; display: block; padding: .6em 0; }
+
+/* La soglia */
+.soglia { min-height: calc(100svh - 120px); display: flex; flex-direction: column; justify-content: flex-start; padding-top: 11svh; }
+.soglia .quando { font-size: .82em; color: var(--tenue); margin: 2.2em 0 1.6em; }
+.coppia { margin: 0; }
+.coppia .frase { font-size: 1.32em; line-height: 1.3; font-variation-settings: "opsz" 36; margin: 0; }
+.intervallo { display: flex; align-items: center; gap: .7em; margin: 1.2em 0; color: var(--tenue); font-size: .74em; }
+.intervallo::before { content: ""; width: 1px; height: 3.2em; background: var(--filo); margin-left: .2em; }
+.respiro { opacity: 0; animation: respiro .9s ease-out .7s forwards; }
+@keyframes respiro { to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .respiro { animation: none; opacity: 1; } }
+.apri { display: inline-block; margin-top: 1.6em; font-size: .9em; }
+.porte { margin-top: 1em; padding: 2.4em 0 1.5em; border-top: 1px solid var(--filo); display: grid; grid-template-columns: 1fr 1fr; gap: 1.1em 1em; }
+.porta { text-decoration: none; display: block; min-height: 44px; }
+.porta b { display: block; font-weight: 500; font-size: .95em; }
+.porta span { display: block; font-size: .74em; color: var(--tenue); font-style: italic; line-height: 1.35; margin-top: .15em; }
+.porta span.r { font-style: normal; }
+
+/* Liste di frasi */
+.righe { list-style: none; padding: 0; margin: 0; }
+.righe li { padding: .7em 0; border-bottom: 1px solid var(--velo); }
+.righe li:last-child { border-bottom: 0; }
+.righe a { text-decoration: none; }
+.numerate { list-style: decimal; padding-left: 1.6em; }
+.numerate li::marker { color: var(--tenue); font-size: .8em; font-variant-numeric: lining-nums; }
+.mese { margin-top: 2em; }
+.mese > h2 { margin-top: 0; }
+.coda::after { content: "da tempo"; font-size: .62em; font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--tenue); margin-left: .6em; font-style: normal; }
+.delic { all: unset; cursor: pointer; color: var(--tenue); font-size: .82em; padding: .7em 0; display: block; }
+
+/* La restituzione come tavola */
+.tavola-r { background: var(--campo); margin: 0 -16px; padding: 22px 16px 26px; }
+.voce { display: grid; grid-template-columns: 2.1em 1fr; gap: 0 .3em; padding: .55em 0; }
+.num { all: unset; cursor: pointer; font-variant-numeric: lining-nums tabular-nums; font-size: .8em; width: 1.9em; height: 1.9em; border: 1px solid var(--filo); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; margin-top: .1em; background: var(--carta); }
+.num:focus-visible { outline: 2px solid var(--inchiostro); }
+.affiancate { display: grid; gap: 1.1em; margin: .4em 0 1.2em; }
+@media (min-width: 900px) { .affiancate { grid-template-columns: 1fr 1fr; gap: 2em; } }
+.affiancate .frase { font-size: 1.12em; line-height: 1.32; }
+.chiusa { margin-top: 1.2em; }
+
+/* Il foglio dal basso */
+.velo { position: fixed; inset: 0; background: rgba(0,0,0,.28); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 20; }
+.foglio { position: fixed; left: 0; right: 0; bottom: 0; background: var(--sotto); box-shadow: var(--ombra); border-radius: 14px 14px 0 0; padding: 10px 16px 28px; transform: translateY(105%); transition: transform .22s cubic-bezier(.2,.8,.2,1); z-index: 21; max-height: 78svh; overflow: auto; }
+.foglio .maniglia { width: 36px; height: 4px; border-radius: 2px; background: var(--filo); margin: 0 auto 12px; }
+body.aperto .velo { opacity: 1; pointer-events: auto; }
+body.aperto .foglio { transform: none; }
+@media (min-width: 900px) { .foglio { left: auto; right: 24px; bottom: 24px; width: 420px; border-radius: 14px; } }
+@media (prefers-reduced-motion: reduce) { .foglio, .velo { transition: none; } }
+.gesti { display: grid; gap: .5em; margin-top: 1em; }
+.gesto { display: block; text-decoration: none; border: 1px solid var(--filo); border-radius: 10px; padding: .6em .8em; min-height: 44px; }
+.gesto b { font-weight: 500; font-size: .9em; }
+.gesto code { display: block; font: .7em/1.4 ui-monospace, Menlo, monospace; color: var(--tenue); margin-top: .2em; word-break: break-all; }
+
+/* Il nodo */
+.conto { font-size: .78em; color: var(--tenue); font-variant-numeric: lining-nums; }
+.incrocio { margin: 1.4em 0 1.6em; }
+.nomi-x { display: flex; align-items: center; gap: .6em; font-variant-caps: all-small-caps; letter-spacing: .07em; font-size: .9em; margin: 0 0 .6em; color: var(--tenue); }
+.nomi-x a { text-decoration: none; color: var(--inchiostro); }
+.nomi-x .x { flex: 1; border-top: 1px solid var(--inchiostro); }
+.frase.grande { font-size: 1.28em; line-height: 1.3; font-variation-settings: "opsz" 36; margin: 0; }
+.conv { border-left: 1px solid var(--filo); padding-left: 1em; margin: .6em 0 1em; }
+.binari { display: grid; grid-template-columns: 1fr 1fr; gap: .2em 1em; font-size: .86em; margin-top: 1em; }
+.binari a { display: block; padding: .5em 0; min-height: 44px; text-decoration: none; }
+.binari small { display: block; color: var(--tenue); font-size: .8em; }
+details { margin: .4em 0; }
+summary { cursor: pointer; color: var(--tenue); font-size: .86em; padding: .5em 0; list-style: none; }
+summary::-webkit-details-marker { display: none; }
+summary::before { content: "＋ "; font-size: .8em; }
+details[open] summary::before { content: "－ "; }
+.corpo { font-size: 1.18em; line-height: 1.4; margin: .2em 0 .6em; white-space: pre-wrap; }
+
+/* La tavola del nodo: zoom semantico */
+.tela { position: relative; background: var(--campo); margin: 0 -16px; overflow: hidden; touch-action: manipulation; }
+.tela svg { display: block; width: 100%; height: auto; transition: transform .32s cubic-bezier(.2,.8,.2,1); transform-origin: 50% 50%; }
+@media (prefers-reduced-motion: reduce) { .tela svg { transition: none; } }
+.tela text { fill: var(--inchiostro); font-family: "Source Serif 4", Georgia, serif; }
+.tela .t-tenue { fill: var(--tenue); }
+.tela line { stroke: var(--filo); stroke-width: 1; }
+.tela line.acceso { stroke: var(--inchiostro); }
+.tela .n { cursor: pointer; }
+.tela .n rect { fill: transparent; }
+.tela .n:focus { outline: none; }
+.tela .n:focus-visible rect { stroke: var(--inchiostro); }
+.tela svg.zoomato .n:not(.sel) text { opacity: .3; }
+.tela svg.zoomato .n.sel text { font-weight: 600; }
+.livello { font-size: .78em; color: var(--tenue); margin: .8em 0; }
+
+/* La tavola dei tatuaggi */
+.campo-t { background: #11100e; color: #ece6da; margin: 0 -16px; padding: 18px 14px 26px; }
+.campo-t .sc, .campo-t .legenda, .campo-t .servizio, .campo-t .data, .campo-t .luogo { color: #a39c90; }
+.campo-t .sg { color: #ece6da; }
+.pezzi { display: grid; grid-template-columns: repeat(6, 1fr); gap: 22px 14px; grid-auto-flow: dense; }
+.pezzo { border: 1px solid #3a3631; padding: 12px; background: #191714; }
+.pezzo.g { grid-column: span 6; }
+.pezzo.m { grid-column: span 3; }
+.pezzo.p { grid-column: span 3; padding: 10px; }
+@media (min-width: 900px) { .pezzi { grid-template-columns: repeat(12, 1fr); gap: 34px 26px; } .pezzo.g { grid-column: span 5; grid-row: span 2; } .pezzo.m { grid-column: span 4; } .pezzo.p { grid-column: span 3; } }
+.pezzo .frase { font-style: italic; line-height: 1.3; }
+.pezzo.g .frase { font-size: 1.15em; }
+.pezzo.m .frase { font-size: .92em; }
+.pezzo.p .frase, .pezzo.p { font-size: .76em; }
+.pezzo svg { width: 100%; height: auto; display: block; margin-bottom: 10px; }
+.pezzo svg path, .pezzo svg circle, .pezzo svg line { stroke: #ece6da; fill: none; stroke-width: 1.4; }
+.filo-t { grid-column: 1 / -1; display: flex; align-items: center; gap: .6em; font-size: .7em; color: #a39c90; letter-spacing: .05em; font-variant-caps: all-small-caps; margin: -8px 0; }
+.filo-t::before, .filo-t::after { content: ""; flex: 1; border-top: 1px dashed #3a3631; }
+.margine { margin-top: 26px; padding-top: 14px; border-top: 1px solid #2a2723; color: #8f887c; font-size: .8em; font-weight: 350; }
+.pin { font-style: normal !important; }
+.pin a { color: #ece6da; }
+
+/* Stampa: il brief */
+@media print {
+  body { background: #fff; color: #000; padding: 0; font-size: 12pt; }
+  .barra, .testa .strumenti, .velo, .foglio, .no-stampa, .margine { display: none !important; }
+  .campo-t { background: #fff; color: #000; margin: 0; padding: 0; }
+  .campo-t .sc, .campo-t .legenda, .campo-t .data, .campo-t .luogo, .filo-t { color: #444; }
+  .campo-t .sg, .pin a { color: #000; }
+  .pezzo { background: #fff; border-color: #bbb; break-inside: avoid; }
+  .pezzo svg path, .pezzo svg circle, .pezzo svg line { stroke: #000; }
+}
+.stampa-v .campo-t { background: #fff; color: #111; }
+.stampa-v .pezzo { background: #fff; border-color: #c9c3b8; }
+.stampa-v .pezzo svg path, .stampa-v .pezzo svg circle, .stampa-v .pezzo svg line { stroke: #111; }
+.stampa-v .campo-t .sg, .stampa-v .pin a { color: #111; }
+.stampa-v .campo-t .sc, .stampa-v .campo-t .legenda, .stampa-v .campo-t .data, .stampa-v .campo-t .luogo, .stampa-v .filo-t { color: #555; }
+
+/* Cerca */
+.campo-cerca { width: 100%; font: inherit; font-size: 1.05em; padding: .6em .8em; border: 1px solid var(--filo); border-radius: 10px; background: var(--sotto); color: var(--inchiostro); }
+mark { background: none; color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .15em; }
+
+/* Il tempo: quadratini tutti uguali, senza scala */
+.nodo-soglia { padding-top: 6svh; }
+.nodo-soglia h1 { margin-bottom: 1.2em; }
+.giorni { display: grid; grid-template-columns: repeat(7, 14px); gap: 4px; margin: .4em 0 .8em; }
+.giorni i { width: 14px; height: 14px; border: 1px solid var(--filo); border-radius: 2px; }
+.giorni i.a { background: var(--inchiostro); border-color: var(--inchiostro); }
+.giorni i.v { visibility: hidden; }
+.lettore { display: flex; align-items: center; gap: .6em; font-size: .72em; color: var(--tenue); margin: 1em 0; }
+.lettore::before, .lettore::after { content: ""; flex: 1; border-top: 1px dotted var(--filo); }
+.pos { border-left: 1px solid var(--inchiostro); padding-left: .9em; margin: .6em 0 1em; }
+@media (min-width: 900px) {
+  .tempo-griglia { display: grid; grid-template-columns: 200px 1fr; gap: 0 40px; }
+}
+
+/* Barra in basso */
+.barra { position: fixed; left: 0; right: 0; bottom: 0; background: var(--carta); border-top: 1px solid var(--filo); display: flex; justify-content: space-around; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); z-index: 10; }
+.barra a { text-decoration: none; font-variant-caps: all-small-caps; letter-spacing: .08em; font-size: .82em; color: var(--tenue); min-height: 44px; min-width: 56px; display: flex; align-items: center; justify-content: center; }
+.barra a.qui { color: var(--inchiostro); text-decoration: underline; text-decoration-color: var(--inchiostro); text-underline-offset: .4em; }
+@media (min-width: 900px) {
+  body { padding-bottom: 0; }
+  .barra { position: sticky; top: 0; bottom: auto; justify-content: center; gap: 28px; border-top: 0; border-bottom: 1px solid var(--filo); }
+  .soglia { min-height: calc(100svh - 140px); }
+  .pannelli { display: grid; grid-template-columns: minmax(0, 34em) 1fr; gap: 56px; max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+  .pannelli > .pagina { margin: 0; padding: 0; }
+  .lato { border-left: 1px solid var(--filo); padding-left: 32px; font-size: .9em; }
+}
+@media (max-width: 899px) { .lato { display: none; } }
+</style>
+</head>
+<body>
+<nav class="barra" aria-label="Sezioni">
+  <a href="#/" data-r="">oggi</a>
+  <a href="#/tempo" data-r="tempo">tempo</a>
+  <a href="#/frasi" data-r="frasi">frasi</a>
+  <a href="#/cerca" data-r="cerca">cerca</a>
+</nav>
+<main id="vista"></main>
+<div class="velo" id="velo"></div>
+<aside class="foglio" id="foglio" role="dialog" aria-modal="true" aria-label="Provenienza"><div class="maniglia"></div><div id="foglio-c"></div></aside>
+
+<script>
+/* ===== DATI SINTETICI: inventati per il prototipo, nessun dato del repository ===== */
+const OGGI = '2026-11-03';
+const F = {
+  '20260912-0000-u01': { reg: '2026-09-12', canale: 'importato', forma: 'riportata', testo: "l'attenzione è l'unica cosa che posso regalare davvero", temi: ['attenzione'] },
+  '20260912-0000-u02': { reg: '2026-09-12', canale: 'importato', forma: 'riportata', testo: 'ogni tatuaggio una parola sola, e il braccio come una frase che si scrive negli anni', serve: 'tatuaggi', misura: 'm' },
+  '20260912-0000-u03': { reg: '2026-09-12', canale: 'importato', forma: 'riportata', testo: 'niente colore. solo linea.', serve: 'tatuaggi', temi: ['linea'], misura: 'm' },
+  '20260921-2315-a1c4': { reg: '2026-09-21T23:15', canale: 'telefono', testo: "il mare d'inverno è l'unico posto dove nn devo spiegare niente a nessuno", temi: ['mare'] },
+  '20260924-0810-b7d2': { reg: '2026-09-24T08:10', canale: 'telefono', testo: 'letto la fine delle città invisibili in treno. mi ha spaccato', nomina: ['le-citta-invisibili'] },
+  '20260929-2240-c2e9': { reg: '2026-09-29T22:40', canale: 'telefono', testo: 'stasera ho capito che nn faccio attenzione, aspetto solo il mio turno per parlare', temi: ['attenzione', 'aspettare'] },
+  '20261003-1930-d4f1': { reg: '2026-10-03T19:30', canale: 'telefono', testo: 'fare attenzione a una persona è diverso da guardarla', temi: ['attenzione'] },
+  '20261008-0745-e8a0': { reg: '2026-10-08T07:45', canale: 'telefono', testo: 'questa la voglio. una chiave senza porta, solo linea', serve: 'tatuaggi', temi: ['linea'], allegato: 'chiave', misura: 'g' },
+  '20261011-0210-f3b6': { reg: '2026-10-11T02:10', canale: 'telefono', testo: 'stanotte nn riesco a dormire e mi manca tutto', delicato: true },
+  '20261014-2201-g6k2': { reg: '2026-10-14T22:01', canale: 'telefono', testo: 'aspettare non è perdere tempo, è il tempo che lavora', temi: ['aspettare'] },
+  '20261018-1120-h1m8': { reg: '2026-10-18T11:20', canale: 'telefono', testo: 'una poesia della szymborska che dice che niente succede due volte. la voglio rileggere', nomina: ['wislawa-szymborska'] },
+  '20261020-2214-k3q1': { reg: '2026-10-20T22:14', canale: 'telefono', testo: 'il faro spento, piccolo, sulla caviglia. da tatuare', serve: 'tatuaggi', temi: ['faro'], misura: 'm' },
+  '20261022-0905-m2q7': { reg: '2026-10-22T09:05', canale: 'telefono', testo: 'quello che cerchi ti sta cercando. rumi credo', nomina: ['quello-che-cerchi-ti-sta-cercando'] },
+  '20261026-1840-n5r1': { reg: '2026-10-26T18:40', canale: 'telefono', testo: "a mare oggi c'era una luce che non sapevo di ricordare", temi: ['mare'] },
+  '20261027-1302-t9v4': { reg: '2026-10-27T13:02', canale: 'telefono', testo: 'https://pin.it/3kQx9', serve: 'tatuaggi', temi: ['faro'], pin: 'Faro, incisione su legno', misura: 'p', nonParlante: true },
+  '20261029-2305-p8s3': { reg: '2026-10-29T23:05', canale: 'telefono', testo: 'mi sono rotto di aspettare. aspettare è una scusa', temi: ['aspettare'] },
+  '20261030-2320-w2x8': { reg: '2026-10-30T23:20', canale: 'telefono', testo: 'da tatuare in piccolo: non è inferno. calvino', serve: 'tatuaggi', nomina: ['le-citta-invisibili'], misura: 'm' },
+  '20261102-2214-q1t6': { reg: '2026-11-02T22:14', canale: 'telefono', testo: 'ho guardato le mani di mio padre mentre aggiustava la sedia. attenzione pura', temi: ['attenzione'], vita: ['papa'] },
+  '20261103-0750-r4u2': { reg: '2026-11-03T07:50', canale: 'telefono', testo: 'sogno: una città fatta solo di porte' },
+};
+const SEME = { passo: 's01:7', reg: '2026-09-12', testo: 'una persona che cerca il punto in cui le cose smettono di essere rumore' };
+const CS = (t) => t.replace(/([✦✧●◌○⚠])/g, '<span class="sg">$1</span>');
+const NODI = {
+  attenzione: { nome: 'attenzione', genere: 'temi', conto: '✦3 · dal 29 settembre al 2 novembre · e 1 dall\u2019archivio d\u2019origine, fuori dai conti' },
+  aspettare: { nome: 'aspettare', genere: 'temi', conto: '✦3 ◌1 · dal 29 settembre al 29 ottobre' },
+  mare: { nome: 'mare', genere: 'temi', conto: '✦2 · 2026-09-21–2026-10-26' },
+  linea: { nome: 'linea', genere: 'temi', conto: '✦2' },
+  faro: { nome: 'faro', genere: 'temi', conto: '✦2' },
+  'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', autore: 'Italo Calvino', anno: 1972, conto: '✦2 · fruizione: fatta' },
+  'wislawa-szymborska': { nome: 'Wisława Szymborska', genere: 'persone', cerchia: 'mondo', conto: '✦1 · fruizione: da fare' },
+  'simone-weil': { nome: 'Simone Weil', genere: 'persone', cerchia: 'mondo', conto: '○1' },
+  'quello-che-cerchi-ti-sta-cercando': { nome: 'Quello che cerchi ti sta cercando', genere: 'citazioni', attribuita: 'Rumi', esito: null, conto: '✦1 · ⚠' },
+  papa: { nome: 'papà', genere: 'persone', cerchia: 'vita' },
+  tatuaggi: { nome: 'tatuaggi', genere: 'raccolte', scopo: null },
+};
+const LETTERA = {
+  id: 'r-20261101-2130-lettera', titolo: 'Lettera di domenica 1 novembre', reg: '2026-11-01T21:30',
+  coppia: ['20261014-2201-g6k2', '20261029-2305-p8s3'],
+  voci: [
+    { n: 1, voce: 'proposta', cosa: 'tensione', rif: '20261014-2201-g6k2', html: 'L\u2019attesa che lavora e l\u2019attesa che copre.' },
+    { n: 2, voce: 'mondo', cosa: 'citazione', rif: 'simone-weil', html: 'Simone Weil, nel 1942: «L\u2019attenzione consiste nel sospendere il proprio pensiero, nel lasciarlo disponibile, vuoto» (resa mia).', rifTesto: 'Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4; testo primario', esito: 'verificata' },
+  ],
+  chiusa: '20261003-1930-d4f1',
+};
+const RISPOSTA_RUMI = { html: 'Traccia della verifica rapida del 22 ottobre: non trovata nelle raccolte tradotte consultate.' };
+
+/* ===== Aiuti ===== */
+const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const GIORNI = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const d = (s) => new Date(s.slice(0, 10) + 'T12:00:00');
+const dataL = (s) => { const x = d(s); return `${x.getDate()} ${MESI[x.getMonth()]}`; };
+const dataG = (s) => { const x = d(s); return `${GIORNI[x.getDay()]} ${x.getDate()} ${MESI[x.getMonth()]}`; };
+const ora = (s) => (s.length > 10 ? s.slice(11, 16) : '');
+const gg = (a, b) => Math.round((d(b) - d(a)) / 86400000);
+const esc = (t) => t.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const SG = { sua: '✦', seme: '✧', acc: '●', prop: '◌', mondo: '○' };
+const sg = (v) => `&nbsp;<span class="sg" aria-label="${{ sua: 'tua', seme: 'seme', acc: 'accolta', prop: 'mia', mondo: 'mondo' }[v]}">${SG[v]}</span>`;
+const vf = '<span class="vf" title="da verificare" aria-label="da verificare">⚠</span>';
+const imp = (id) => F[id].canale === 'importato';
+const tetto = (id) => `Entro il ${dataL(F[id].reg)}, nell’archivio d’origine`;
+// Una frase tua: sempre letta dal frammento (transclusione), mai ricopiata.
+function frase(id, { link = true, data = true, cls = '' } = {}) {
+  const f = F[id];
+  const t = `<span class="sua ${cls}">${esc(f.testo)}${sg('sua')}</span>`;
+  const dt = !data ? '' : imp(id) ? `<span class="data">${tetto(id)}, trascritta da Claude nel seme:</span>` : `<span class="data">${dataL(f.reg)}</span>`;
+  return `${dt}${link ? `<a href="#/frammento/${id}">${t}</a>` : t}`;
+}
+const scorciatoia = (testo) => `shortcuts://run-shortcut?name=Memo&input=text&text=${encodeURIComponent(testo)}`;
+const gesto = (etichetta, testo) => `<a class="gesto" href="${scorciatoia(testo)}"><b>${etichetta}</b><code>${esc(testo)}</code></a>`;
+const strati = () => `<div class="strati" role="group" aria-label="Strati"><button data-s="0">mie</button><button data-s="1">e accolte</button><button data-s="2">e proposte</button></div>`;
+const testa = (destra = '') => `<header class="testa"><a class="marchio" href="#/">Mnemosyne</a><span class="sc">${destra}</span></header>`;
+
+/* ===== Le viste ===== */
+const V = {};
+
+V.soglia = (stato) => {
+  const delicato = stato === 'delicato';
+  const ritorno = stato === 'ritorno';
+  let cuore;
+  if (delicato) {
+    cuore = `<p class="quando">${dataG(OGGI)}</p>`;
+  } else if (ritorno) {
+    const id = '20260921-2315-a1c4';
+    cuore = `<p class="quando">${dataG(OGGI)} · dai ricordabili</p>
+      <div class="coppia"><p class="frase">${frase(id)}</p></div>`;
+  } else {
+    const [a, b] = LETTERA.coppia;
+    cuore = `<p class="quando">${dataG(OGGI)} · la lettera di domenica</p>
+      <div class="coppia">
+        <p class="frase">${frase(a)}</p>
+        <div class="intervallo" aria-hidden="true">${gg(F[a].reg, F[b].reg)} giorni</div>
+        <p class="frase respiro">${frase(b)}</p>
+      </div>
+      <a class="apri" href="#/r/${LETTERA.id}">la lettera →</a>`;
+  }
+  const porte = `<nav class="porte" aria-label="Porte">
+      <a class="porta" href="#/tempo"><b>il tempo</b><span>${esc(F['20261103-0750-r4u2'].testo)}${sg('sua')}</span></a>
+      <a class="porta" href="#/frasi"><b>le tue frasi</b><span class="r">dalla più recente</span></a>
+      <a class="porta" href="#/nodo/attenzione"><b>attenzione</b><span>${esc(F['20261003-1930-d4f1'].testo)}${sg('sua')}</span></a>
+      <a class="porta" href="#/tatuaggi"><b>tatuaggi</b><span class="r">la tavola</span></a>
+    </nav>`;
+  return `<div class="pagina">${testa()}<div class="soglia">${cuore}</div>${porte}</div>`;
+};
+
+V.lettera = () => {
+  const L = LETTERA;
+  const voci = L.voci.map((v) => {
+    const cls = v.voce === 'proposta' ? 'prop' : 'mondo';
+    return `<div class="voce"><button class="num" data-voce="${v.n}" aria-label="voce ${v.n}, provenienza">${v.n}</button>
+      <div class="${cls}">${v.html}${sg(v.voce === 'proposta' ? 'prop' : 'mondo')}${v.rifTesto ? `<span class="luogo">${esc(v.rifTesto)}</span>` : ''}</div></div>`;
+  }).join('');
+  return `<div class="pagina">${testa(dataL(L.reg) + ' · ' + ora(L.reg))}
+    <h1>${L.titolo}</h1>
+    <p class="legenda">${sg('sua')} tue · ${sg('prop')} mia · ${sg('mondo')} mondo</p>
+    <div class="tavola-r">
+      <div class="affiancate"><p class="frase">${frase(L.coppia[0])}</p><p class="frase">${frase(L.coppia[1])}</p></div>
+      ${voci}
+      <p class="chiusa">${frase(L.chiusa)}</p>
+    </div>
+    <hr style="border:0;border-top:1px solid var(--filo);margin:1.6em 0 1em"><p class="servizio">Tocca un numero per la provenienza e i gesti. La lettera non cambia: le tue risposte diventano memo.</p>
+    <details><summary>citata in</summary><p class="servizio">Nessuna restituzione la cita ancora.</p></details>
+  </div>`;
+};
+
+function foglioVoce(n) {
+  const v = LETTERA.voci.find((x) => x.n === +n);
+  const rif = `${LETTERA.id}#${n}`;
+  const segno = v.voce === 'proposta' ? 'tensione ◌, lettura mia' : 'mondo ○';
+  return `<p class="sc">voce ${n} · ${segno}</p>
+    <p>${v.html}</p>
+    ${v.rifTesto ? `<p class="servizio">${esc(v.rifTesto)} · esito: ${v.esito ?? 'da verificare ⚠'}</p>` : `<p class="servizio">Il nome della tensione tra il 14 e il 29 ottobre. Nessun tuo ritorno ancora.</p>`}
+    <p class="servizio">Indirizzo: ${rif}</p>
+    <div class="gesti">
+      ${gesto('sì alla ' + n, `sì alla ${n} → ${rif}`)}
+      ${gesto('la ' + n + ' no', `la ${n} no → ${rif}`)}
+      ${gesto('perché la ' + n + '?', `perché la ${n}? → ${rif}`)}
+    </div>
+    <p class="servizio" style="margin-top:.8em">Il gesto apre il Comando rapido «Memo» con il testo già scritto: lo puoi cambiare prima di mandarlo.</p>`;
+}
+
+V.nodo = (slug) => {
+  const n = NODI[slug];
+  if (slug !== 'attenzione') return V.nodoSemplice(slug);
+  const [x, y] = ['20260929-2240-c2e9', '20261102-2214-q1t6'];
+  return `<div class="pannelli"><div class="pagina">${testa()}
+    <div class="soglia nodo-soglia">
+      <h1>attenzione</h1>
+      <div class="coppia">
+        <p class="frase">${frase(x)}</p>
+        <div class="intervallo" aria-hidden="true">${gg(F[x].reg, F[y].reg)} giorni</div>
+        <p class="frase respiro">${frase(y)}</p>
+      </div>
+      <p class="servizio" style="margin-top:1.4em">la prima tiene insieme attenzione e <a href="#/nodo/aspettare">aspettare</a> · <a href="#/nodo/attenzione/tavola">la tavola →</a></p>
+    </div>
+    <h2>le altre porte</h2>
+    <ul class="righe">
+      <li>${frase('20261003-1930-d4f1')}</li>
+      <li>${frase('20260912-0000-u01')}</li></ul>
+    ${strati()}
+    <div class="l2"><h2>dal mondo</h2><p class="mondo">Simone Weil${sg('mondo')}<span class="luogo">lettera del 1 novembre, voce 2 · Attente de Dieu, § 4 · verificata</span></p></div>
+    <button class="nascosti" data-s="2">e 1 voce dal mondo<span class="sg"> ○</span></button>
+    <p class="conto" style="margin-top:2.4em">tema · nome tuo · ${CS(n.conto)}</p>
+  </div>
+  <aside class="lato"><h2>anteprima</h2>
+    <p><a href="#/nodo/aspettare">aspettare</a> <span class="conto">${CS(NODI.aspettare.conto)}</span></p><p class="frase">${frase('20261029-2305-p8s3')}</p></aside></div>`;
+};
+
+V.nodoSemplice = (slug) => {
+  const n = NODI[slug]; if (!n) return V.vuoto();
+  const ids = Object.keys(F).filter((id) => !F[id].delicato && ((F[id].temi || []).includes(slug) || (F[id].nomina || []).includes(slug) || F[id].serve === slug)).reverse();
+  const vita = n.cerchia === 'vita';
+  let testaN = n.genere === 'opere' ? `${n.autore} · ${n.anno}` : n.genere === 'citazioni' ? `attribuita a ${n.attribuita} · senza esito ${vf}` : n.genere === 'persone' ? (vita ? 'persona della tua vita · nessun link, nessuna proposta' : 'persona · mondo') : 'tema · nome tuo';
+  return `<div class="pagina">${testa(n.genere)}
+    <h1>${n.nome}</h1>
+    <p class="conto">${testaN}${n.conto ? ' · ' + CS(n.conto) : ''}</p>
+    ${vita ? '' : strati()}
+    <h2>le porte</h2>
+    <ul class="righe">${ids.slice(0, 5).map((id) => `<li>${frase(id)}</li>`).join('') || '<li class="servizio">Niente si aggancia ancora.</li>'}</ul>
+    ${n.genere === 'citazioni' ? `<h2>la verifica</h2><p class="servizio">${RISPOSTA_RUMI.html} ${vf}</p>` : ''}
+    ${n.genere === 'opere' ? `<h2>il mondo</h2><p class="mondo">«cercare e saper riconoscere chi e cosa, in mezzo all’inferno, non è inferno»${sg('mondo')}<span class="luogo">Le città invisibili, parte nona, l’ultimo dialogo · verificata</span></p>` : ''}
+    ${vita ? '<p class="servizio">Le persone della tua vita restano qui: mai in una ricerca, mai un ponte.</p>' : ''}
+  </div>`;
+};
+
+V.tavolaNodo = () => {
+  const vicini = [
+    { s: 'aspettare', a: -90, frasi: ['20260929-2240-c2e9'] },
+    { s: 'simone-weil', a: 30, frasi: [], via: 'la lettera del 1 novembre, voce 2 ○' },
+  ];
+  const W = 360, H = 360, cx = 180, cy = 180, R = 125;
+  const pos = vicini.map((v) => ({ ...v, x: cx + R * Math.cos(v.a * Math.PI / 180), y: cy + R * Math.sin(v.a * Math.PI / 180) }));
+  const svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="La tavola di attenzione: ${vicini.length} vicini">
+    ${pos.map((p) => `<line data-l="${p.s}" x1="${cx + (p.x - cx) * .3}" y1="${cy + (p.y - cy) * .3}" x2="${cx + (p.x - cx) * .78}" y2="${cy + (p.y - cy) * .78}" ${p.frasi.length ? '' : 'stroke-dasharray="2 4"'}/>`).join('')}
+    <text x="${cx}" y="${cy + 6}" text-anchor="middle" font-size="19" font-weight="500">attenzione</text>
+    ${pos.map((p) => `<g class="n" tabindex="0" role="button" data-n="${p.s}"><rect x="${p.x - 60}" y="${p.y - 22}" width="120" height="44"/><text x="${p.x}" y="${p.y + 5}" text-anchor="middle" font-size="14" class="${p.frasi.length ? '' : 't-tenue'}">${NODI[p.s].nome}</text></g>`).join('')}
+  </svg>`;
+  window.__vicini = pos;
+  return `<div class="pagina">${testa('la tavola')}
+    <h1>attenzione</h1>
+    <p class="livello" id="livello">nomi · tocca un nome per vedere le frasi che li tengono insieme</p>
+    <div class="tela" id="tela">${svg}</div>
+    <div id="zoom"><p class="servizio" style="margin-top:1em">Solo i vicini a un passo, al più dieci. Linea piena: una tua frase li tiene insieme. Tratteggio: un legame non tuo.</p>
+    <p class="servizio">Fuori dalla tavola: 1 persona della tua vita.</p></div>
+    <p><a href="#/nodo/attenzione">← la pagina</a></p>
+  </div>`;
+};
+
+V.frammento = (id) => {
+  const f = F[id]; if (!f) return V.vuoto();
+  const ids = Object.keys(F).filter((k) => !F[k].delicato);
+  const i = ids.indexOf(id);
+  const prima = ids[i - 1], dopo = ids[i + 1];
+  if (f.delicato) {
+    return `<div class="pagina">${testa(dataL(f.reg) + ' · ' + ora(f.reg))}<p class="corpo" style="margin-top:2em">${esc(f.testo)}</p></div>`;
+  }
+  const luoghi = { '20261014-2201-g6k2': 'in apertura, accanto al 29 ottobre', '20261029-2305-p8s3': 'in apertura, accanto al 14 ottobre', '20261003-1930-d4f1': 'in chiusura' };
+  const citatoIn = luoghi[id] ? `<li><a href="#/r/${LETTERA.id}">Lettera di domenica 1 novembre</a> <span class="servizio">· ${luoghi[id]}</span></li>` : '';
+  const temi = (f.temi || []).map((t) => `<a href="#/nodo/${t}">${NODI[t].nome}</a>${sg('sua')}`).join(' · ');
+  const nom = (f.nomina || []).map((t) => `<a href="#/nodo/${t}">${NODI[t].nome}</a>${sg('sua')}`).join(' · ');
+  return `<div class="pagina">${testa(imp(id) ? 'archivio d’origine' : f.canale)}
+    <p class="data" style="margin-top:1.6em">${imp(id) ? tetto(id) + ', trascritta da Claude nel seme' : dataG(f.reg) + ' · ' + ora(f.reg)}</p>
+    <p class="corpo sua">${esc(f.testo)}${sg('sua')}</p>
+    ${f.canale === 'telefono' ? '<p class="servizio">Salvato.</p>' : ''}
+    ${strati()}
+    ${temi || nom ? `<h2>legami</h2><p>${[temi, nom].filter(Boolean).join(' · ')}</p>` : ''}
+    ${(f.vita || []).length ? `<p class="servizio">Nomina una persona della tua vita: ${(f.vita).map((v) => `<a href="#/nodo/${v}">${NODI[v].nome}</a>`).join(', ')}.</p>` : ''}
+    <details ${citatoIn ? 'open' : ''}><summary>citato in</summary><ul class="righe">${citatoIn || '<li class="servizio">Nessuna restituzione lo cita.</li>'}</ul></details>
+    <h2>binari</h2>
+    <div class="binari">
+      ${prima ? `<a href="#/frammento/${prima}"><small>← giorno prima</small>${dataL(F[prima].reg)}</a>` : '<span></span>'}
+      ${dopo ? `<a href="#/frammento/${dopo}" style="text-align:right"><small>giorno dopo →</small>${dataL(F[dopo].reg)}</a>` : '<span></span>'}
+      ${(f.temi || []).length ? `<a href="#/nodo/${f.temi[0]}"><small>nel filo</small>${NODI[f.temi[0]].nome}</a>` : ''}
+      <a class="l2" href="#/frammento/20261014-2201-g6k2" style="text-align:right"><small>◌ vicino</small>14 ottobre</a>
+    </div>
+  </div>`;
+};
+
+V.tempo = () => {
+  const giorniMese = (anno, mese, attivi, fino) => {
+    const primo = new Date(anno, mese, 1).getDay(); const off = (primo + 6) % 7;
+    const n = fino || new Date(anno, mese + 1, 0).getDate();
+    let s = ''; for (let i = 0; i < off; i++) s += '<i class="v"></i>';
+    for (let g = 1; g <= n; g++) s += `<i class="${attivi.includes(g) ? 'a' : ''}" title="${g} ${MESI[mese]}"></i>`;
+    return `<div class="giorni" aria-label="giorni attivi">${s}</div>`;
+  };
+  const righe = (ids) => `<ul class="righe">${ids.map((id) => `<li>${frase(id)}</li>`).join('')}</ul>`;
+  return `<div class="pagina">${testa('il tempo')}
+    <h1>Il tempo</h1>
+    ${strati()}
+    <section class="mese"><h2>novembre 2026 · in corso</h2>
+      ${giorniMese(2026, 10, [2, 3], 3)}
+      <p class="conto">2 frammenti parlanti · 2 giorni attivi</p>
+      ${righe(['20261103-0750-r4u2', '20261102-2214-q1t6'])}
+      <p class="servizio"><a href="#/r/${LETTERA.id}">Lettera di domenica 1 novembre</a></p>
+    </section>
+    <section class="mese"><h2>ottobre 2026</h2>
+      ${giorniMese(2026, 9, [3, 8, 11, 14, 18, 20, 22, 26, 29, 30])}
+      <p class="conto">9 frammenti parlanti e 1 delicato · 10 giorni attivi</p>
+      <h2 style="margin-top:1.2em">posizioni</h2>
+      <div class="pos">${frase('20261014-2201-g6k2')}<span class="luogo">dal 14 ottobre · messa in discussione il 29 ottobre</span></div>
+      <div class="pos">${frase('20261029-2305-p8s3')}<span class="luogo">dal 29 ottobre · tensione con il 14 ottobre</span></div>
+      <div class="lettore">cambio di lettore · 20 ottobre</div>
+      ${righe(['20261030-2320-w2x8', '20261026-1840-n5r1', '20261022-0905-m2q7', '20261020-2214-k3q1', '20261018-1120-h1m8', '20261008-0745-e8a0', '20261003-1930-d4f1'])}
+    </section>
+    <section class="mese"><h2>settembre 2026 · periodo</h2>
+      <p class="conto">3 frammenti parlanti · 3 giorni attivi · temi: mare, attenzione, aspettare</p>
+      ${righe(['20260929-2240-c2e9', '20260924-0810-b7d2', '20260921-2315-a1c4'])}
+    </section>
+    <section class="mese"><h2>archivio d'origine</h2>
+      <p class="servizio">Fuori dai conti. Le date sono un tetto.</p>
+      <p class="nota-r">${tetto('20260912-0000-u01')}, trascritte da Claude nel seme:</p>
+      <ul class="righe">${['20260912-0000-u01', '20260912-0000-u02', '20260912-0000-u03'].map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
+    </section>
+  </div>`;
+};
+
+V.frasi = () => {
+  const recenti = ['20261103-0750-r4u2', '20261102-2214-q1t6', '20261030-2320-w2x8', '20261029-2305-p8s3', '20261026-1840-n5r1', '20261022-0905-m2q7', '20261020-2214-k3q1'];
+  return `<div class="pagina">${testa('le tue frasi')}
+    <h1>Le tue frasi</h1>
+    <ol class="righe numerate">
+      ${recenti.map((id) => `<li>${frase(id)}</li>`).join('')}
+      <li><span class="nota-r" style="margin:0 0 .2em">${tetto('20260912-0000-u03')}, trascritta da Claude nel seme:</span>${frase('20260912-0000-u03', { data: false, cls: 'coda' })}</li>
+      <li><span class="data">Entro il ${dataL(SEME.reg)}, nell’archivio d’origine, dal seme:</span><span class="seme">${esc(SEME.testo)}${sg('seme')}</span></li>
+    </ol>
+    <details><summary>il resto · dal 18 ottobre all'indietro</summary>
+      <ul class="righe">${['20261018-1120-h1m8', '20261014-2201-g6k2', '20261008-0745-e8a0', '20261003-1930-d4f1', '20260929-2240-c2e9', '20260924-0810-b7d2', '20260921-2315-a1c4'].map((id) => `<li>${frase(id)}</li>`).join('')}</ul>
+      <button class="delic" id="delic">e 1 frase dell'11 ottobre, delicata · mostrala</button>
+    </details>
+  </div>`;
+};
+
+V.cerca = () => `<div class="pagina">${testa('cerca')}
+  <h1>Cerca</h1>
+  <input class="campo-cerca" id="q" type="search" value="port" autocomplete="off" aria-label="Cerca nelle tue parole">
+  <p class="servizio" style="margin-top:.6em">Ricerca a parole, alla lettera, anche di tre lettere. Per cercare per senso, chiedilo a Specchio.</p>
+  <div id="ris"></div></div>`;
+
+function risultati(q) {
+  q = q.trim().toLowerCase(); if (!q) return '<p class="servizio">Le tue parole, i nomi, le restituzioni.</p>';
+  const norm = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+  const tuoi = Object.keys(F).filter((id) => !F[id].delicato && !F[id].nonParlante && norm(F[id].testo).includes(norm(q))).reverse();
+  const nodi = Object.keys(NODI).filter((s) => norm(NODI[s].nome).includes(norm(q)));
+  const evid = (t) => esc(t).replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig'), '<mark>$1</mark>');
+  return `<h2>le tue parole · ${tuoi.length}</h2><ul class="righe">${tuoi.map((id) => `<li><span class="data">${imp(id) ? tetto(id) + ', trascritta da Claude nel seme:' : dataL(F[id].reg)}</span><a href="#/frammento/${id}"><span class="sua">${evid(F[id].testo)}${sg('sua')}</span></a></li>`).join('') || '<li class="servizio">Nessuna tua parola.</li>'}</ul>
+    <h2>nomi · ${nodi.length}</h2><ul class="righe">${nodi.map((s) => `<li><a href="#/nodo/${s}">${NODI[s].nome}</a> <span class="conto">${NODI[s].genere}</span></li>`).join('') || '<li class="servizio">Nessun nome.</li>'}</ul>`;
+}
+
+V.assenze = () => `<div class="pagina">${testa('assenze')}
+  <h1>Che cosa non stai guardando</h1>
+  <p class="servizio">Al più tre. I numeri vengono da mappa.md.</p>
+  <ol class="righe">
+    <li><a href="#/nodo/wislawa-szymborska">Wisława Szymborska</a>: <span class="sua">la voglio rileggere</span>${sg('sua')}, il 18 ottobre. Fruizione: da fare. Nessun ritorno.</li>
+    <li><a href="#/nodo/mare">mare</a>: ✦2, l'ultima il 26 ottobre. A novembre ✦0.</li>
+    <li>Domande: ✦0 da ottobre. Nessun memo con «chiedi».</li>
+  </ol></div>`;
+
+V.tatuaggi = (stampa) => {
+  const pezzi = ['20261008-0745-e8a0', '20260912-0000-u02', '20260912-0000-u03', '20261030-2320-w2x8', '20261020-2214-k3q1', '20261027-1302-t9v4'];
+  const disegno = `<svg viewBox="0 0 200 120" aria-label="la tua foto: uno schizzo a matita"><circle cx="52" cy="60" r="22"/><circle cx="52" cy="60" r="8"/><line x1="74" y1="60" x2="168" y2="60"/><path d="M140 60 v16 M152 60 v10 M164 60 v20"/></svg>`;
+  const pezzo = (id) => {
+    const f = F[id];
+    if (f.pin) return `<div class="pezzo p pin"><span class="data">${dataL(f.reg)} · pin</span><a href="#/frammento/${id}">${esc(f.pin)} ↗</a><span class="luogo">titolo dal link · nessuna anteprima</span></div>`;
+    const dt = imp(id) ? '' : `<span class="data">${dataL(f.reg)}</span>`;
+    const mondo = id === '20261030-2320-w2x8' ? `<span class="luogo">«…in mezzo all’inferno, non è inferno» ○ · Le città invisibili, parte nona, l’ultimo dialogo</span>` : '';
+    return `<div class="pezzo ${f.misura}">${f.allegato ? disegno : ''}${dt}<a href="#/frammento/${id}" style="text-decoration:none"><span class="frase">${esc(f.testo)}${sg('sua')}</span></a>${mondo}</div>`;
+  };
+  const importati = `<div class="filo-t" style="margin:0">${tetto('20260912-0000-u02').toLowerCase()}, trascritte da claude nel seme</div>`;
+  return `<div class="pagina ${stampa ? 'stampa-v' : ''}" style="max-width:1180px">${testa(stampa ? 'il brief' : 'la tavola')}
+    <h1>tatuaggi</h1>
+    <p class="servizio" style="margin:0">senza scopo</p>
+    <div class="campo-t" style="margin-top:14px">
+      <p class="legenda">${sg('sua')} tue · ${sg('mondo')} mondo${stampa ? '' : ' · ' + sg('prop') + ' mia'}</p>
+      <div class="pezzi">
+        ${pezzo('20261008-0745-e8a0')}
+        <div class="filo-t">✦ linea</div>
+        ${importati}
+        ${pezzo('20260912-0000-u02')}${pezzo('20260912-0000-u03')}
+        ${pezzo('20261030-2320-w2x8')}${pezzo('20261020-2214-k3q1')}
+        <div class="filo-t">✦ faro</div>
+        ${pezzo('20261027-1302-t9v4')}
+      </div>
+      ${stampa ? '' : `<div class="margine">una bussola senza ago${sg('prop')} <span style="display:block;font-size:.85em">un’idea di Claude, arrivata con l’importazione · <a href="#/nodo/tatuaggi" style="color:inherit">le altre idee</a></span></div>`}
+    </div>
+    ${stampa ? `<p class="servizio no-stampa" style="margin-top:1em">Senza proposte ◌, senza delicati, senza persone della tua vita. <a href="#/tatuaggi">← la tavola</a> · <a href="javascript:print()">stampa</a></p>` : `<p class="servizio" style="margin-top:1em"><a href="#/tatuaggi/stampa">il brief da stampare →</a></p>`}
+  </div>`;
+};
+
+V.vuoto = () => `<div class="pagina">${testa()}<p style="margin-top:3em" class="servizio">Niente qui.</p></div>`;
+
+/* ===== Router ===== */
+function vai() {
+  const h = location.hash.replace(/^#\/?/, '');
+  const [a, b, c] = h.split('/');
+  const stato = new URLSearchParams(location.search).get('soglia');
+  let html;
+  if (!a) html = V.soglia(stato);
+  else if (a === 'ritorno') html = V.soglia('ritorno');
+  else if (a === 'r') html = V.lettera();
+  else if (a === 'nodo' && c === 'tavola') html = V.tavolaNodo();
+  else if (a === 'nodo') html = V.nodo(b);
+  else if (a === 'frammento') html = V.frammento(b);
+  else if (a === 'tempo') html = V.tempo();
+  else if (a === 'frasi') html = V.frasi();
+  else if (a === 'cerca') html = V.cerca();
+  else if (a === 'assenze') html = V.assenze();
+  else if (a === 'tatuaggi') html = V.tatuaggi(b === 'stampa');
+  else html = V.vuoto();
+  document.getElementById('vista').innerHTML = html;
+  document.querySelectorAll('.barra a').forEach((x) => x.classList.toggle('qui', x.dataset.r === (a || '')));
+  chiudi(); window.scrollTo(0, 0);
+  if (a === 'cerca') { const q = document.getElementById('q'); const r = () => (document.getElementById('ris').innerHTML = risultati(q.value)); q.addEventListener('input', r); r(); }
+}
+function apri(html) { document.getElementById('foglio-c').innerHTML = html; document.body.classList.add('aperto'); }
+function chiudi() { document.body.classList.remove('aperto'); }
+document.addEventListener('click', (e) => {
+  const s = e.target.closest('[data-s]');
+  if (s) { document.documentElement.dataset.strato = s.dataset.s; try { localStorage.setItem('mn-strato', s.dataset.s); } catch (x) {} return; }
+  const v = e.target.closest('[data-voce]'); if (v) return apri(foglioVoce(v.dataset.voce));
+  if (e.target.id === 'velo') return chiudi();
+  if (e.target.id === 'delic') { e.target.outerHTML = `<p style="margin:.6em 0">${frase('20261011-0210-f3b6')}</p>`; return; }
+  const n = e.target.closest('.tela [data-n]'); if (n) zoom(n.dataset.n);
+});
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') chiudi(); if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.tela [data-n]')) { e.preventDefault(); zoom(e.target.dataset.n); } });
+function zoom(slug) {
+  const p = window.__vicini.find((x) => x.s === slug); const svg = document.querySelector('.tela svg');
+  const dx = (180 - (180 + p.x) / 2) * 1.6, dy = (180 - (180 + p.y) / 2) * 1.6;
+  svg.style.transform = `translate(${dx / 3.6}%, ${dy / 3.6}%) scale(1.6)`;
+  svg.classList.add('zoomato'); document.querySelectorAll('.tela .n').forEach((g) => g.classList.toggle('sel', g.dataset.n === slug));
+  document.querySelectorAll('.tela line').forEach((l) => l.classList.toggle('acceso', l.dataset.l === slug));
+  document.getElementById('livello').innerHTML = `frasi · attenzione — ${NODI[slug].nome} · <a href="#" id="indietro">tutti i nomi</a>`;
+  document.getElementById('zoom').innerHTML = p.frasi.length
+    ? `<h2>le frasi che li tengono insieme</h2><ul class="righe">${p.frasi.map((id) => `<li>${frase(id)}</li>`).join('')}</ul><p><a href="#/nodo/${slug}">${NODI[slug].nome} →</a></p>`
+    : `<p class="servizio" style="margin-top:1em">Nessuna tua frase li tiene insieme: ${esc(p.via)}.</p><p><a href="#/nodo/${slug}">${NODI[slug].nome} →</a></p>`;
+  document.getElementById('indietro').onclick = (e) => { e.preventDefault(); vai(); };
+}
+addEventListener('hashchange', vai);
+vai();
+</script>
+</body>
+</html>

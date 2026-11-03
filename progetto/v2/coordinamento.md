@@ -133,3 +133,13 @@ Sessioni (consegne in `progetto/sito/`, ognuna sul suo branch):
 - vista tatuaggi (`vista-tatuaggi.md`): session_016XqAM2cnYAEs6MUhJxatDt;
 - tecnica e privacy (`tecnica.md`): session_016XqAM2tBzDzqXTjdB5JYc7.
 Dopo: una sessione di sintesi scrive il progetto del sito (`progetto/sito/progetto.md`) con un prototipo su dati sintetici.
+Consegnate tutte e quattro (2026-11-03). Divergenze decise dal coordinatore, con l'opzione più semplice:
+- mappa: nessuna mappa globale; la "tavola" si apre da un nodo o da una domanda, con lo zoom semantico (regioni → nomi →
+  frasi) e le porte ✦ prima di tutto. Chiesto all'utente se la mappa dell'Atlante la usava davvero (era un'inferenza).
+- pila: quella di `tecnica.md` (SPA Vite + Preact, archivio cifrato, Cloudflare Access). Niente VitePress. La cifratura
+  resta: i dati sono lutti e persone della vita.
+- il sito non scrive mai: i gesti passano dal Comando rapido "Memo" con il testo già pronto.
+- tema: segue il sistema (chiaro e scuro), senza scelta di marchio; i segni si distinguono per peso tipografico, mai col rosso.
+- niente sparkline né misure d'intensità nella prima versione.
+- tatuaggi: «la tavola» di `vista-tatuaggi.md`, con la stampa come brief.
+Sintesi: `progetto/sito/progetto.md` e un prototipo su dati sintetici.

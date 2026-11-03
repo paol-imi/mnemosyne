@@ -143,3 +143,8 @@ Consegnate tutte e quattro (2026-11-03). Divergenze decise dal coordinatore, con
 - niente sparkline né misure d'intensità nella prima versione.
 - tatuaggi: «la tavola» di `vista-tatuaggi.md`, con la stampa come brief.
 Sintesi: `progetto/sito/progetto.md` e un prototipo su dati sintetici.
+Progetto consegnato (session_016XqAM1Rx8kqhHBvQKPgQvy): `progetto/sito/progetto.md`, prototipo su dati sintetici
+pubblicato privato (https://claude.ai/artifact/TxMwzvfVsChYNhjEnRonoG). Giudici: le regole passano al 3° giro; la
+meraviglia della soglia è sì; quella del nodo è no in tutti e tre i giri (il selettore degli strati «sembra un programma»,
+la tavola con 2 vicini è povera): resta aperta, da provare nel blocco B5. 11 blocchi, circa 17 giorni; chiede a main 18
+funzioni pure e il campo `da-sito`. Si aspetta la reazione dell'utente al prototipo.

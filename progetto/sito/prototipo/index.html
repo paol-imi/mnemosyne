@@ -186,7 +186,7 @@ details[open] summary::before { content: "－ "; }
 .pezzo.p .frase, .pezzo.p { font-size: .76em; }
 .pezzo svg { width: 100%; height: auto; display: block; margin-bottom: 10px; }
 .pezzo svg path, .pezzo svg circle, .pezzo svg line { stroke: #ece6da; fill: none; stroke-width: 1.4; }
-.filo-t { grid-column: 1 / -1; display: flex; align-items: center; gap: .6em; font-size: .7em; color: #a39c90; letter-spacing: .05em; font-variant-caps: all-small-caps; margin: -8px 0; }
+.filo-t { grid-column: 1 / -1; display: flex; align-items: center; gap: .6em; font-size: .7em; color: #a39c90; letter-spacing: .03em; margin: -8px 0; }
 .filo-t::before, .filo-t::after { content: ""; flex: 1; border-top: 1px dashed #3a3631; }
 .margine { margin-top: 26px; padding-top: 14px; border-top: 1px solid #2a2723; color: #8f887c; font-size: .8em; font-weight: 350; }
 .pin { font-style: normal !important; }
@@ -281,9 +281,9 @@ const CS = (t) => t.replace(/([✦✧●◌○⚠])/g, '<span class="sg">$1</spa
 const NODI = {
   attenzione: { nome: 'attenzione', genere: 'temi', conto: '✦3 · dal 29 settembre al 2 novembre · e 1 dall\u2019archivio d\u2019origine, fuori dai conti' },
   aspettare: { nome: 'aspettare', genere: 'temi', conto: '✦3 ◌1 · dal 29 settembre al 29 ottobre' },
-  mare: { nome: 'mare', genere: 'temi', conto: '✦2 · 2026-09-21–2026-10-26' },
-  linea: { nome: 'linea', genere: 'temi', conto: '✦2' },
-  faro: { nome: 'faro', genere: 'temi', conto: '✦2' },
+  mare: { nome: 'mare', genere: 'temi', conto: '✦2 · dal 21 settembre al 26 ottobre' },
+  linea: { nome: 'linea', genere: 'temi', conto: '✦1 · e 1 dall\u2019archivio d\u2019origine, fuori dai conti' },
+  faro: { nome: 'faro', genere: 'temi', conto: '✦1 · e 1 link senza parole' },
   'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', autore: 'Italo Calvino', anno: 1972, conto: '✦2 · fruizione: fatta' },
   'wislawa-szymborska': { nome: 'Wisława Szymborska', genere: 'persone', cerchia: 'mondo', conto: '✦1 · fruizione: da fare' },
   'simone-weil': { nome: 'Simone Weil', genere: 'persone', cerchia: 'mondo', conto: '○1' },
@@ -296,11 +296,11 @@ const LETTERA = {
   coppia: ['20261014-2201-g6k2', '20261029-2305-p8s3'],
   voci: [
     { n: 1, voce: 'proposta', cosa: 'tensione', rif: '20261014-2201-g6k2', html: 'L\u2019attesa che lavora e l\u2019attesa che copre.' },
-    { n: 2, voce: 'mondo', cosa: 'citazione', rif: 'simone-weil', html: 'Simone Weil, nel 1942: «L\u2019attenzione consiste nel sospendere il proprio pensiero, nel lasciarlo disponibile, vuoto» (resa mia).', rifTesto: 'Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4; testo primario', esito: 'verificata' },
+    { n: 2, voce: 'mondo', cosa: 'citazione', rif: 'simone-weil', html: 'Simone Weil, nel 1942, sull\u2019attenzione: «Soprattutto il pensiero dev\u2019essere vuoto, in attesa» (resa mia).', rifTesto: 'Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4; testo primario', esito: 'verificata' },
   ],
-  chiusa: '20261003-1930-d4f1',
+  chiusa: '20260929-2240-c2e9',
 };
-const RISPOSTA_RUMI = { html: 'Traccia della verifica rapida del 22 ottobre: non trovata nelle raccolte tradotte consultate.' };
+const RISPOSTA_RUMI = { html: 'Traccia della verifica rapida del 22 ottobre: nelle raccolte tradotte consultate la frase non c\u2019è. Senza esito, finché «consolida» non la verifica.' };
 
 /* ===== Aiuti ===== */
 const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
@@ -352,9 +352,9 @@ V.soglia = (stato) => {
       <a class="apri" href="#/r/${LETTERA.id}">la lettera →</a>`;
   }
   const porte = `<nav class="porte" aria-label="Porte">
-      <a class="porta" href="#/tempo"><b>il tempo</b><span>${esc(F['20261103-0750-r4u2'].testo)}${sg('sua')}</span></a>
+      <a class="porta" href="#/tempo"><b>il tempo</b><span class="r">mese per mese</span></a>
       <a class="porta" href="#/frasi"><b>le tue frasi</b><span class="r">dalla più recente</span></a>
-      <a class="porta" href="#/nodo/attenzione"><b>attenzione</b><span>${esc(F['20261003-1930-d4f1'].testo)}${sg('sua')}</span></a>
+      <a class="porta" href="#/nodo/attenzione"><b>attenzione</b><span class="r">un tema tuo, vivo</span></a>
       <a class="porta" href="#/tatuaggi"><b>tatuaggi</b><span class="r">la tavola</span></a>
     </nav>`;
   return `<div class="pagina">${testa()}<div class="soglia">${cuore}</div>${porte}</div>`;
@@ -425,7 +425,7 @@ V.nodo = (slug) => {
 
 V.nodoSemplice = (slug) => {
   const n = NODI[slug]; if (!n) return V.vuoto();
-  const ids = Object.keys(F).filter((id) => !F[id].delicato && ((F[id].temi || []).includes(slug) || (F[id].nomina || []).includes(slug) || F[id].serve === slug)).reverse();
+  const ids = Object.keys(F).filter((id) => !F[id].delicato && ((F[id].temi || []).includes(slug) || (F[id].nomina || []).includes(slug) || (F[id].vita || []).includes(slug) || F[id].serve === slug)).reverse();
   const vita = n.cerchia === 'vita';
   let testaN = n.genere === 'opere' ? `${n.autore} · ${n.anno}` : n.genere === 'citazioni' ? `attribuita a ${n.attribuita} · senza esito ${vf}` : n.genere === 'persone' ? (vita ? 'persona della tua vita · nessun link, nessuna proposta' : 'persona · mondo') : 'tema · nome tuo';
   return `<div class="pagina">${testa(n.genere)}
@@ -434,7 +434,7 @@ V.nodoSemplice = (slug) => {
     ${vita ? '' : strati()}
     <h2>le porte</h2>
     <ul class="righe">${ids.slice(0, 5).map((id) => `<li>${frase(id)}</li>`).join('') || '<li class="servizio">Niente si aggancia ancora.</li>'}</ul>
-    ${n.genere === 'citazioni' ? `<h2>la verifica</h2><p class="servizio">${RISPOSTA_RUMI.html} ${vf}</p>` : ''}
+    ${n.genere === 'citazioni' ? `<h2>la verifica</h2><p class="servizio">${RISPOSTA_RUMI.html}</p>` : ''}
     ${n.genere === 'opere' ? `<h2>il mondo</h2><p class="mondo">«cercare e saper riconoscere chi e cosa, in mezzo all’inferno, non è inferno»${sg('mondo')}<span class="luogo">Le città invisibili, parte nona, l’ultimo dialogo · verificata</span></p>` : ''}
     ${vita ? '<p class="servizio">Le persone della tua vita restano qui: mai in una ricerca, mai un ponte.</p>' : ''}
   </div>`;
@@ -471,10 +471,10 @@ V.frammento = (id) => {
   if (f.delicato) {
     return `<div class="pagina">${testa(dataL(f.reg) + ' · ' + ora(f.reg))}<p class="corpo" style="margin-top:2em">${esc(f.testo)}</p></div>`;
   }
-  const luoghi = { '20261014-2201-g6k2': 'in apertura, accanto al 29 ottobre', '20261029-2305-p8s3': 'in apertura, accanto al 14 ottobre', '20261003-1930-d4f1': 'in chiusura' };
+  const luoghi = { '20261014-2201-g6k2': 'in apertura, accanto al 29 ottobre', '20261029-2305-p8s3': 'in apertura, accanto al 14 ottobre', '20260929-2240-c2e9': 'in chiusura' };
   const citatoIn = luoghi[id] ? `<li><a href="#/r/${LETTERA.id}">Lettera di domenica 1 novembre</a> <span class="servizio">· ${luoghi[id]}</span></li>` : '';
   const temi = (f.temi || []).map((t) => `<a href="#/nodo/${t}">${NODI[t].nome}</a>${sg('sua')}`).join(' · ');
-  const nom = (f.nomina || []).map((t) => `<a href="#/nodo/${t}">${NODI[t].nome}</a>${sg('sua')}`).join(' · ');
+  const nom = (f.nomina || []).map((t) => `<a href="#/nodo/${t}">${NODI[t].nome}</a>${sg('sua')}${NODI[t].genere === 'citazioni' && !NODI[t].esito ? vf : ''}`).join(' · ');
   return `<div class="pagina">${testa(imp(id) ? 'archivio d’origine' : f.canale)}
     <p class="data" style="margin-top:1.6em">${imp(id) ? tetto(id) + ', trascritta da Claude nel seme' : dataG(f.reg) + ' · ' + ora(f.reg)}</p>
     <p class="corpo sua">${esc(f.testo)}${sg('sua')}</p>
@@ -488,7 +488,7 @@ V.frammento = (id) => {
       ${prima ? `<a href="#/frammento/${prima}"><small>← giorno prima</small>${dataL(F[prima].reg)}</a>` : '<span></span>'}
       ${dopo ? `<a href="#/frammento/${dopo}" style="text-align:right"><small>giorno dopo →</small>${dataL(F[dopo].reg)}</a>` : '<span></span>'}
       ${(f.temi || []).length ? `<a href="#/nodo/${f.temi[0]}"><small>nel filo</small>${NODI[f.temi[0]].nome}</a>` : ''}
-      <a class="l2" href="#/frammento/20261014-2201-g6k2" style="text-align:right"><small>◌ vicino</small>14 ottobre</a>
+      ${(() => { const t = (f.temi || [])[0]; if (!t) return ''; const v = Object.keys(F).find((k) => k !== id && !F[k].delicato && (F[k].temi || []).includes(t) && gg(F[k].reg, f.reg) > 7); return v ? `<a class="l2" href="#/frammento/${v}" style="text-align:right"><small>◌ vicino · anche lei su «${NODI[t].nome}»</small>${dataL(F[v].reg)}</a>` : ''; })()}
     </div>
   </div>`;
 };
@@ -517,8 +517,9 @@ V.tempo = () => {
       <h2 style="margin-top:1.2em">posizioni</h2>
       <div class="pos">${frase('20261014-2201-g6k2')}<span class="luogo">dal 14 ottobre · messa in discussione il 29 ottobre</span></div>
       <div class="pos">${frase('20261029-2305-p8s3')}<span class="luogo">dal 29 ottobre · tensione con il 14 ottobre</span></div>
-      <div class="lettore">cambio di lettore · 20 ottobre</div>
-      ${righe(['20261030-2320-w2x8', '20261026-1840-n5r1', '20261022-0905-m2q7', '20261020-2214-k3q1', '20261018-1120-h1m8', '20261008-0745-e8a0', '20261003-1930-d4f1'])}
+      ${righe(['20261030-2320-w2x8', '20261029-2305-p8s3', '20261026-1840-n5r1', '20261022-0905-m2q7'])}
+      <div class="lettore">cambio di lettore · 21 ottobre</div>
+      ${righe(['20261020-2214-k3q1', '20261018-1120-h1m8', '20261014-2201-g6k2', '20261008-0745-e8a0', '20261003-1930-d4f1'])}
     </section>
     <section class="mese"><h2>settembre 2026 · periodo</h2>
       <p class="conto">3 frammenti parlanti · 3 giorni attivi · temi: mare, attenzione, aspettare</p>
@@ -543,6 +544,8 @@ V.frasi = () => {
     </ol>
     <details><summary>il resto · dal 18 ottobre all'indietro</summary>
       <ul class="righe">${['20261018-1120-h1m8', '20261014-2201-g6k2', '20261008-0745-e8a0', '20261003-1930-d4f1', '20260929-2240-c2e9', '20260924-0810-b7d2', '20260921-2315-a1c4'].map((id) => `<li>${frase(id)}</li>`).join('')}</ul>
+      <p class="nota-r">${tetto('20260912-0000-u01')}, trascritte da Claude nel seme:</p>
+      <ul class="righe">${['20260912-0000-u02', '20260912-0000-u01'].map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
       <button class="delic" id="delic">e 1 frase dell'11 ottobre, delicata · mostrala</button>
     </details>
   </div>`;
@@ -578,12 +581,12 @@ V.tatuaggi = (stampa) => {
   const disegno = `<svg viewBox="0 0 200 120" aria-label="la tua foto: uno schizzo a matita"><circle cx="52" cy="60" r="22"/><circle cx="52" cy="60" r="8"/><line x1="74" y1="60" x2="168" y2="60"/><path d="M140 60 v16 M152 60 v10 M164 60 v20"/></svg>`;
   const pezzo = (id) => {
     const f = F[id];
-    if (f.pin) return `<div class="pezzo p pin"><span class="data">${dataL(f.reg)} · pin</span><a href="#/frammento/${id}">${esc(f.pin)} ↗</a><span class="luogo">titolo dal link · nessuna anteprima</span></div>`;
+    if (f.pin) return `<div class="pezzo p pin"><a class="data" href="#/frammento/${id}">${dataL(f.reg)} · pin</a><a href="${esc(f.testo)}" rel="noreferrer" target="_blank">${esc(f.pin)} ↗</a><span class="luogo">titolo dal link · nessuna anteprima</span></div>`;
     const dt = imp(id) ? '' : `<span class="data">${dataL(f.reg)}</span>`;
     const mondo = id === '20261030-2320-w2x8' ? `<span class="luogo">«…in mezzo all’inferno, non è inferno» ○ · Le città invisibili, parte nona, l’ultimo dialogo</span>` : '';
     return `<div class="pezzo ${f.misura}">${f.allegato ? disegno : ''}${dt}<a href="#/frammento/${id}" style="text-decoration:none"><span class="frase">${esc(f.testo)}${sg('sua')}</span></a>${mondo}</div>`;
   };
-  const importati = `<div class="filo-t" style="margin:0">${tetto('20260912-0000-u02').toLowerCase()}, trascritte da claude nel seme</div>`;
+  const importati = `<div class="filo-t" style="margin:0">${tetto('20260912-0000-u02')}, trascritte da Claude nel seme</div>`;
   return `<div class="pagina ${stampa ? 'stampa-v' : ''}" style="max-width:1180px">${testa(stampa ? 'il brief' : 'la tavola')}
     <h1>tatuaggi</h1>
     <p class="servizio" style="margin:0">senza scopo</p>

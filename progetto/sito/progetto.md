@@ -156,19 +156,21 @@ la soglia è la sua faccia.
 - l'intervallo: i giorni di calendario tra i due `registrato` (o la data-tetto per un importato), calcolati;
 - il **periodo delicato** (≥ 2 delicati in 7 giorni, funzione pura, §7);
 - il ritorno: `ricordabili(a)` (§7), uno al giorno.
-- Le porte: il tempo (la tua riga ✦ più recente), le tue frasi, **un nodo vivo** (il nodo con l'ultima vicenda in
-  `mappa.md` § Nodi, con la sua riga ✦ più recente), i tatuaggi.
+- Le porte: il tempo, le tue frasi, **un nodo vivo** (il nodo con l'ultima vicenda in `mappa.md` § Nodi), i tatuaggi;
+  ognuna con una riga di servizio, senza frasi.
 
 **Disegno a 390 px** (foto `soglia-tel.png`, `soglia-tel-scuro.png`).
 - In alto, piccolo, «Mnemosyne» in maiuscoletto.
 - Una riga di servizio: «martedì 3 novembre · la lettera di domenica».
 - La prima frase ✦, grande (≈ 24 px), con la data sopra in piccolo.
-- L'intervallo: un filo verticale e «11 giorni». È lo *Zwischenraum* di Warburg (letteratura §2.2), ma non lo dice.
+- L'intervallo: un filo verticale e «15 giorni». È lo *Zwischenraum* di Warburg (letteratura §2.2), ma non lo dice.
 - La seconda frase ✦, che compare dopo un respiro (0,7 s di dissolvenza; nessuna con `prefers-reduced-motion`): è
   l'«indizio parziale, poi l'affermazione completa» del ricordo (modello §9.3), applicato all'accostamento.
 - «la lettera →». **La prima schermata finisce qui**: sotto c'è solo carta.
 - Dopo lo scorrimento, oltre un filo, le **porte**: una griglia 2×2, ognuna con il nome e la sua riga (✦ in corsivo,
-  oppure una riga di servizio in tondo). Stanno fuori dalla prima schermata perché, viste insieme alla coppia, la
+  oppure una riga di servizio in tondo). Le porte non citano frasi: solo righe di servizio («mese per mese», «un tema
+  tuo, vivo»), così non c'è una frase senza data e nel periodo delicato non resta niente di tuo da evocare (giudice
+  delle regole, secondo giro). Stanno fuori dalla prima schermata perché, viste insieme alla coppia, la
   facevano sembrare un menu (giudice della meraviglia, primo giro, §9).
 - La barra fissa in basso: oggi · tempo · frasi · cerca.
 
@@ -274,14 +276,15 @@ ultima data, vicenda); le Correzioni in attesa; le Fruizioni; gli Scarti; i lega
 (`statoLegami`, §7); `porte(a, slug)` e `codaLunga` (§7).
 
 **Disegno a 390 px** (`nodo-tel.png`, `nodo-tel-scuro.png`, `nodo-proposte-tel.png`).
-- Il nome grande; in alto a destra, in maiuscoletto, il genere («tema · nome tuo», «persona · mondo», «opera ·
-  Calvino · 1972»).
-- **L'incrocio**, in testa: i due nomi uniti da un filo (il nodo e il suo vicino più forte, §3.5) e sotto, grande, la
-  frase ✦ che li tiene insieme, con la data; «la tavola →». È la meraviglia della tavola portata in prima pagina (§9).
-  Senza un vicino tenuto da una tua frase, l'incrocio non c'è e si parte dalle porte.
-- Il selettore degli strati.
-- **Le porte**: 3–5 frasi ✦ datate, diverse da quella dell'incrocio, le più forti (con una reazione, un `serve-a`, un ritorno spontaneo; a pari merito
+- Il nome grande.
+- **La prima schermata è come la soglia**: il nome, e sotto due frasi ✦ grandi, datate, con l'intervallo in giorni.
+  La prima è la frase che tiene il nodo insieme al suo vicino più forte (§3.5); la seconda è la porta più forte
+  diversa da lei. Sotto, una riga di servizio: «la prima tiene insieme attenzione e aspettare · la tavola →». Il
+  selettore, i conti e il genere stanno dopo lo scorrimento (giudice della meraviglia, secondo giro: «sembra il pannello
+  di un database»). Senza un vicino tenuto da una tua frase, le due frasi sono le due porte più forti.
+- **Le altre porte**: fino a 5 in tutto con le due della prima schermata, frasi ✦ datate, le più forti (con una reazione, un `serve-a`, un ritorno spontaneo; a pari merito
   le più recenti), più **una della coda lunga** con il segno «da tempo».
+- Il selettore degli strati.
 - **Le convergenze**: le due frasi affiancate, e sopra, in piccolo, il legame con il suo segno e il suo luogo
   («lettera del 1 novembre, voce 3»). Nello strato *e accolte* le ◌ restano chiuse in una riga che le conta.
 - **Il resto per modalità**, piegato: «parla di · 4 frammenti», «nominato con · …», «serve a · …», con i mesi come
@@ -289,8 +292,8 @@ ultima data, vicenda); le Correzioni in attesa; le Fruizioni; gli Scarti; i lega
 - Per una citazione: l'`esito` (o ⚠), l'originale breve, la traduzione o «resa mia», il `riferimento`; sempre visibili.
   Una correzione in attesa: «attribuita a → … (corregge il 12 marzo, in attesa)».
 - **Le sbiadite** in fondo, nello strato delle proposte.
-- In fondo, in piccolo, la riga dei conti copiata da `mappa.md` (gli importati detti a parte, fuori dai conti). In
-  testa era «una riga tecnica» (§9).
+- In fondo, in piccolo, il genere («tema · nome tuo», «persona · mondo», «opera · Calvino · 1972») e la riga dei conti
+  copiata da `mappa.md` (gli importati detti a parte, fuori dai conti). In testa era «una riga tecnica» (§9).
 - Una frase compare **una volta sola** nella pagina: il resto per modalità esclude le porte e l'incrocio.
 - **A 1440 px**: a destra le anteprime al passaggio.
 
@@ -356,7 +359,7 @@ cui cambia `letto-da` o `prompt` delle letture); il conto dei delicati per mese,
   quelli riassunti).
 - **Il calendario**: quadratini tutti uguali; pieno = giorno attivo. Nessuna scala d'intensità (letteratura 6 e «Che
   cosa NON prendere»).
-- I conti in una riga di servizio, copiati da `mappa.md`: «10 frammenti parlanti · 11 giorni attivi · e 1 delicato».
+- I conti in una riga di servizio, copiati da `mappa.md`: «9 frammenti parlanti e 1 delicato · 10 giorni attivi».
 - Le **posizioni**: la frase ✦ con «dal 14 ottobre · messa in discussione il 29 ottobre», o «tensione con il 14
   ottobre». Mai "superato".
 - Il **cambio di lettore**: un filo punteggiato con la data.
@@ -689,7 +692,7 @@ rumore) e passa con **zero violazioni sostanziali**. Al più tre giri; gli esiti
 1. **La soglia ha una sola cosa, ma due stati che si alternano** (la coppia e il ritorno). Se le restituzioni sono
    frequenti, il ritorno non compare quasi mai. Da guardare dopo un mese (B10).
 2. **Il campo scuro dei tatuaggi anche nel tema chiaro** è una scelta di forma, non di tema: va confermata dall'utente.
-3. **L'intervallo in giorni** («11 giorni») è un numero calcolato, non preso da `mappa.md`. È un conto di calendario, non
+3. **L'intervallo in giorni** («15 giorni») è un numero calcolato, non preso da `mappa.md`. È un conto di calendario, non
    una soglia; se la regola 2 di `CLAUDE.md` lo volesse in `contesto/`, va tolto.
 4. **Il bersaglio del gesto**: id nel testo o campo `da-sito` (§7.2.1).
 5. **Le persone della vita nella pagina di un tema** (una tua frase che nomina «mio padre» come porta): sono parole tue,

@@ -199,7 +199,7 @@ test('specchio: la risposta della chat sigillata toglie la bozza ingresso/ID.ris
   const e = applica(piano('specchio', [
     { op: 'lettura', frammento: CHAT, intento: ['chiedi'], legami: [] },
     { op: 'restituzione', forma: 'risposta', per: CHAT, testo: '### 21:04 · canzoni sulla solitudine\n1. *Eleanor Rigby* ○.',
-      voci: [{ rif: '~Eleanor Rigby', voce: 'mondo', cosa: 'canzone', turno: '21:04' }] },
+      voci: [{ rif: '~Eleanor Rigby', voce: 'mondo', cosa: 'brano', turno: '21:04' }] },
   ]), dir);
   assert.deepEqual(e.errori, []);
   assert.deepEqual(e.tolti, [`ingresso/${CHAT}.risposte.md`]);
@@ -227,4 +227,18 @@ test('la riga di comando: 0 con "scritto" e "verifica: ok", 1 con "RIFIUTO"', (t
   const no = lancia(piano('ritratto', [{ op: 'restituzione', forma: 'ritratto', testo: '1. a', voci: [] }]));
   assert.equal(no.status, 1);
   assert.match(no.stdout, /^RIFIUTO restituzione ritratto: nel testo c'è il numero 1 ma le voci sono 0$/m);
+});
+
+// Il bersaglio esplicito (CLAUDE.md, Confini; schema 4): «sì alla 2 → r-…#2» su una lettera di 10 giorni fa.
+test('smista: un bersaglio esplicito → r-…#n vale senza la finestra dei 3 giorni (accoglie con n)', (t) => {
+  const dir = archivio(t);
+  const LET = 'r-20261025-0900-lettera', M = '20261104-0815-s1a2';
+  mkdirSync(join(dir, 'restituzioni/2026/10'), { recursive: true });
+  writeFileSync(join(dir, `restituzioni/2026/10/${LET}.md`), '---\nschema: 3\nforma: lettera\nletto-da: lettore-di-prova\nregistrato: 2026-10-25T09:00:00+02:00\nvoci:\n  - {n: 1, rif: 20261103-2340-k7q2, voce: sua, cosa: frase}\n  - {n: 2, rif: nichilismo, voce: proposta, cosa: idea}\n---\n1. Una frase.\n2. Un\'idea.\n');
+  frammento(dir, M, `sì alla 2 → ${LET}#2`);
+  const e = applica(piano('smista', [{ op: 'lettura', frammento: M, intento: ['salva'], risposta: 'salvato',
+    legami: [{ p: 'ritorna-su', a: LET, n: 2, voce: 'sua', come: 'accoglie', perche: '«sì alla 2»' }] }]), dir);
+  assert.deepEqual(e.errori, []);
+  const g = leggi(dir, `letture/2026/11/${M}.md`).dati.legami[0];
+  assert.deepEqual([g.a, g.n, g.come], [LET, 2, 'accoglie']);
 });

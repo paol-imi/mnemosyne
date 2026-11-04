@@ -50,8 +50,6 @@ function senzaSchema4(s) {
     const no = r.then?.not?.anyOf;
     if (no) r.then.not.anyOf = no.filter((v) => !v.required.includes('campo'));
   }
-  const cosa = d.restituzione.properties.voci.items.properties.cosa;
-  cosa.enum = cosa.enum.map((v) => (v === 'canzone' ? 'brano' : v));
   return x;
 }
 
@@ -95,7 +93,7 @@ const ESEMPI = [
   ['§3.4 citazione', 'citazioni/il-nichilismo-e-l-ospite-inquietante.md', 'nodo', (d) => { d['attribuita-a'] = ['Umberto Galimberti']; }],
   ['§3.4 citazione consolidata', 'consolidata/citazioni/il-nichilismo-e-l-ospite-inquietante.md', 'nodo', (d) => { d.esito = 'vera'; }],
   ['§3.4 lapide', 'temi/stare-da-solo.md', 'nodo', (d) => { d.alias = ['solo']; }],
-  ['§3.5 restituzione', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { d.voci[0].cosa = 'brano'; }],
+  ['§3.5 restituzione', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { d.voci[0].cosa = 'canzone'; }],
   ['§3.5 senza registrato', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { delete d.registrato; }],
 ];
 

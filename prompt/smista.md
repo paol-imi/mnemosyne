@@ -29,6 +29,7 @@ passata delle 3 ore.
      `sguardo` mai. Se il frammento porta già un `intento` (da "Chiedi": `[chiedi]`), la lettura contiene sempre i suoi
      valori e può aggiungerne (`[salva, chiedi]`).
    - **riferimenti** ("quella di ieri", "la terza"): solo nei 3 giorni di calendario prima più oggi, in `recenti.md`.
+     Un bersaglio esplicito (`→ 20261025-0900-ab12`, `→ r-…#2`) vale senza la finestra: l'atto va lì, con il suo `n`.
      Se non si trova: nessun atto, e la domanda 4. Un frammento precedente messo in una raccolta («quella di ieri la
      voglio tra i tatuaggi»): `serve-a` verso la raccolta e `ritorna-su` `come: aggiunge` verso il vecchio, che con la
      sua lettura non si tocca. Lo `scopo` mancante di una raccolta non si chiede (non è tra i 7 casi).

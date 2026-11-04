@@ -14,7 +14,7 @@ accetta. Il frammento non ha `schema`: il suo formato è congelato.
 
 - 004 (schema 4, `scripts/migra/004-dimensioni.mjs`, `progetto/sito/dimensioni.md` §3 e §5): i nodi a `schema: 4`;
   campi nuovi solo sui nodi, `tipo` sulle opere, `specie` sui temi, `campo` (1–2) su persone non `vita`, opere e
-  correnti; 58 valori su 49 nodi; `brano` → `canzone` in `voci[].cosa`; letture e restituzioni restano a 3. Data: quella
+  correnti; 58 valori su 49 nodi; `voci[].cosa` non cambia (resta `brano`); letture e restituzioni restano a 3. Data: quella
   del commit "migrazione 004".
 
 (Ogni migrazione: `scripts/migra/NNN-nome.mjs`, un commit "migrazione NNN", una riga qui con data, numero e che

@@ -66,7 +66,7 @@ Un file, un solo scrittore:
   Vocabolari chiusi in `schema/frontmatter.json`.
 - **restituzione**: `schema` (3 o 4), `forma` (`risposta` · `lettera` · `ritratto` · `eredita`), `letto-da`, `registrato`,
   `per`, `copre`, `aggancio`, `voci` (`{n, rif, voce, cosa, turno?, perche?, esito?, riferimento?}`; `estratto` solo
-  nelle `eredita` dell'importazione, mai in un piano), `legami`. `cosa`: frase, tensione, vuoto, correzione, opera, canzone, libro, film, citazione, persona, ponte,
+  nelle `eredita` dell'importazione, mai in un piano), `legami`. `cosa`: frase, tensione, vuoto, correzione, opera, brano, libro, film, citazione, persona, ponte,
   convergenza, confronto, sogno, ricordo, domanda, assenza, idea.
 
 ## I sei predicati
@@ -84,7 +84,8 @@ Ogni legame: `{p, a | tra, voce, perche, …}`; `perche` = le mie parole tra «�
 Confini: un effetto senza `n` non è accoglienza; "perché me l'hai proposta?" è `chiede`; una correzione o un
 riferimento cercano il bersaglio solo nei 3 giorni di calendario prima più oggi, e senza bersaglio non c'è atto (una
 correzione di `tipo`, `specie` o `campo` non ha la finestra: `a` è il primo frammento di `nato-da` del nodo, non delicato e
-non importato, o il memo stesso che nomina il nodo); un
+non importato, o il memo stesso che nomina il nodo; un bersaglio esplicito, `→ id` di frammento o `→ r-…#n`, vale senza
+la finestra dei 3 giorni); un
 rifiuto non si ripropone più nello stesso contesto (Scarti di `mappa.md`) e blocca i `contraddice` sullo stesso legame
 per 60 giorni; anche una domanda nomina; le copie non generano legami; non esiste lo stato `superato`.
 

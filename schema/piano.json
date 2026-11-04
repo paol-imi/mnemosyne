@@ -275,7 +275,7 @@
             "voce": {"$ref": "#/$defs/voce"},
             "esito": {"$ref": "#/$defs/esito"},
             "riferimento": {"type": "string"},
-            "cosa": {"enum": ["frase", "tensione", "vuoto", "correzione", "opera", "canzone", "libro", "film", "citazione", "persona", "ponte", "convergenza", "confronto", "sogno", "ricordo", "domanda", "assenza", "idea"]}}}},
+            "cosa": {"enum": ["frase", "tensione", "vuoto", "correzione", "opera", "brano", "libro", "film", "citazione", "persona", "ponte", "convergenza", "confronto", "sogno", "ricordo", "domanda", "assenza", "idea"]}}}},
         "legami": {"type": "array", "items": {"allOf": [{"$ref": "#/$defs/legame"},
           {"properties": {"voce": {"enum": ["proposta", "mondo"]}}}]}}
       },

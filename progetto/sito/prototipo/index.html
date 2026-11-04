@@ -213,9 +213,9 @@ details[open] summary::before { content: "－ "; }
 mark { background: none; color: inherit; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: .15em; }
 
 /* Il tempo: quadratini tutti uguali, senza scala */
-.nodo-soglia { padding-top: 6svh; min-height: 0; padding-bottom: 3em; }
+.nodo-soglia { padding-top: 6svh; min-height: 0; padding-bottom: .6em; }
 .piede .strati { margin: .2em 0 0; font-size: .66em; }
-.nodo-soglia h1 { margin-bottom: 1.2em; }
+.nodo-soglia h1 { margin-bottom: .25em; }
 .giorni { display: grid; grid-template-columns: repeat(7, 14px); gap: 4px; margin: .4em 0 .8em; }
 .giorni i { width: 14px; height: 14px; border: 1px solid var(--filo); border-radius: 2px; }
 .giorni i.a { background: var(--inchiostro); border-color: var(--inchiostro); }
@@ -227,6 +227,59 @@ mark { background: none; color: inherit; text-decoration: underline; text-decora
   .tempo-griglia { display: grid; grid-template-columns: 200px 1fr; gap: 0 40px; }
 }
 
+
+/* Esplora: la parola, le chip, l'indice, il foglio dei filtri */
+.esp-testa { position: sticky; top: 0; z-index: 5; background: var(--carta); margin: 0 -16px; padding: 6px 16px 0; border-bottom: 1px solid var(--velo); }
+.chips { display: flex; gap: 8px; overflow-x: auto; padding: 8px 0 8px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip { all: unset; box-sizing: border-box; cursor: pointer; flex: none; display: inline-flex; align-items: center; gap: .5em; min-height: 44px; padding: 0 1em; border: 1px solid var(--filo); border-radius: 999px; font-size: .8em; white-space: nowrap; text-decoration: none; }
+.chip.attivo { background: var(--inchiostro); color: var(--carta); border-color: var(--inchiostro); }
+.chips.restringi { margin: .4em -16px 0; padding-left: 16px; padding-right: 16px; align-items: center; }
+.chips.restringi .sc { flex: none; font-size: .72em; }
+.c-prop-l { color: var(--tenue); }
+.chip.attivo.c-prop { background: var(--tenue); border-color: var(--tenue); }
+.chip.da { border-color: var(--inchiostro); font-variant-caps: all-small-caps; letter-spacing: .05em; }
+.chip span[aria-hidden] { opacity: .7; }
+.chip:focus-visible { outline: 2px solid var(--inchiostro); outline-offset: 2px; }
+.chip.filtra::before { content: "＋"; font-size: .9em; }
+.totale { font-size: .78em; color: var(--tenue); margin: 1em 0 0; font-variant-numeric: lining-nums; }
+.asse h2 { margin: 1.7em 0 .2em; }
+.valori { margin: 0; line-height: 1.25; }
+.valori a { display: inline-block; text-decoration: none; padding: .62em 0; margin-right: 1.05em; min-height: 44px; box-sizing: border-box; }
+.valori.titoli { font-style: italic; }
+.n { font-size: .66em; color: var(--tenue); margin-left: .32em; font-variant-numeric: lining-nums tabular-nums; vertical-align: .12em; font-style: normal; }
+.asse-prop h2, .asse-prop .valori a, .f-asse.asse-prop h2 { color: var(--tenue); font-weight: 350; }
+.perche { font-variant-caps: normal; letter-spacing: 0; font-size: 1.1em; font-weight: 350; }
+.nomi { line-height: 1.5; margin: 0; }
+.nomi a { display: inline-block; padding: .45em 0; }
+.sep { color: var(--tenue); }
+.vuoto { margin: 1.4em 0; }
+.lente { margin: 2.4em 0 1em; border-top: 1px solid var(--velo); padding-top: .4em; }
+.lente-b { all: unset; cursor: pointer; color: var(--tenue); font-size: .82em; min-height: 44px; display: inline-flex; align-items: center; }
+.lente-b:focus-visible { outline: 2px solid var(--inchiostro); }
+[data-strato="2"] .solo-l1 { display: none; }
+.f-asse h2 { margin: 1.2em 0 .5em; }
+.vals { display: flex; flex-wrap: wrap; gap: 8px; }
+.val, .altri { all: unset; box-sizing: border-box; cursor: pointer; min-height: 44px; display: inline-flex; align-items: center; padding: 0 .9em; border: 1px solid var(--filo); border-radius: 999px; font-size: .84em; }
+.val.on { background: var(--inchiostro); color: var(--carta); border-color: var(--inchiostro); }
+.val.on .n { color: inherit; opacity: .75; }
+.val:focus-visible, .altri:focus-visible, .mostra:focus-visible { outline: 2px solid var(--inchiostro); outline-offset: 2px; }
+.val.oltre { display: none; }
+.vals.tutti .val.oltre { display: inline-flex; }
+.altri { color: var(--tenue); border-style: dashed; }
+.f-piede { position: sticky; bottom: -28px; background: var(--sotto); padding: 14px 0 6px; margin-top: 1.2em; }
+.mostra { all: unset; box-sizing: border-box; cursor: pointer; display: block; width: 100%; text-align: center; min-height: 48px; line-height: 48px; border-radius: 12px; background: var(--inchiostro); color: var(--carta); font-size: .92em; }
+/* Il nodo: le faccette e l'intorno */
+.faccette { font-size: .84em; color: var(--tenue); margin: 0 0 2em; line-height: 1.6; }
+.faccette a { color: var(--inchiostro); display: inline-block; padding: .3em 0; }
+.intorno { margin: 0 0 .3em; line-height: 1.45; display: grid; grid-template-columns: 5.6em 1fr; align-items: baseline; }
+.intorno > span:not(.t), .intorno > a { grid-column: 2; }
+.intorno .vs { grid-column: 2; }
+.intorno .t, .raccordi .t { display: inline-block; min-width: 5.4em; font-variant-caps: all-small-caps; letter-spacing: .07em; font-size: .8em; color: var(--tenue); }
+.intorno a { display: inline-block; padding: .5em 0; }
+.raccordi { font-size: .86em; line-height: 1.5; margin: 1em 0; }
+.raccordi a { display: inline-block; padding: .5em 0; }
+.piede-n { margin-top: 2.4em; }
 /* Barra in basso */
 .barra { position: fixed; left: 0; right: 0; bottom: 0; background: var(--carta); border-top: 1px solid var(--filo); display: flex; justify-content: space-around; padding: 6px 8px calc(6px + env(safe-area-inset-bottom)); z-index: 10; }
 .barra a { text-decoration: none; font-variant-caps: all-small-caps; letter-spacing: .08em; font-size: .82em; color: var(--tenue); min-height: 44px; min-width: 56px; display: flex; align-items: center; justify-content: center; }
@@ -247,7 +300,7 @@ mark { background: none; color: inherit; text-decoration: underline; text-decora
   <a href="#/" data-r="">oggi</a>
   <a href="#/tempo" data-r="tempo">tempo</a>
   <a href="#/frasi" data-r="frasi">frasi</a>
-  <a href="#/cerca" data-r="cerca">cerca</a>
+  <a href="#/esplora" data-r="esplora">esplora</a>
 </nav>
 <main id="vista"></main>
 <div class="velo" id="velo"></div>
@@ -255,53 +308,119 @@ mark { background: none; color: inherit; text-decoration: underline; text-decora
 
 <script>
 /* ===== DATI SINTETICI: inventati per il prototipo, nessun dato del repository ===== */
+// Campi del frammento e della sua lettura, ridotti: temi = parla-di ✦; stato = i temi con «come: stato»; prop = parla-di ◌;
+// nomina = nomina ✦; fru = fruizione per nodo; serve = serve-a; pos = capo di un contraddice (Posizioni di mappa.md);
+// chiedi = intento chiedi; vissuto = la lettura ha un vissuto.
 const OGGI = '2026-11-03';
 const F = {
   '20260912-0000-u01': { reg: '2026-09-12', canale: 'importato', forma: 'riportata', testo: "l'attenzione è l'unica cosa che posso regalare davvero", temi: ['attenzione'] },
   '20260912-0000-u02': { reg: '2026-09-12', canale: 'importato', forma: 'riportata', testo: 'ogni tatuaggio una parola sola, e il braccio come una frase che si scrive negli anni', serve: 'tatuaggi', misura: 'm' },
   '20260912-0000-u03': { reg: '2026-09-12', canale: 'importato', forma: 'riportata', testo: 'niente colore. solo linea.', serve: 'tatuaggi', temi: ['linea'], misura: 'm' },
+  '20260912-0000-u04': { reg: '2026-09-12', canale: 'importato', forma: 'riportata', testo: 'spinoza e la gioia come passaggio a qualcosa di più grande', nomina: ['baruch-spinoza'] },
   '20260921-2315-a1c4': { reg: '2026-09-21T23:15', canale: 'telefono', testo: "il mare d'inverno è l'unico posto dove nn devo spiegare niente a nessuno", temi: ['mare'] },
-  '20260924-0810-b7d2': { reg: '2026-09-24T08:10', canale: 'telefono', testo: 'letto la fine delle città invisibili in treno. mi ha spaccato', nomina: ['le-citta-invisibili'] },
+  '20260922-0730-aa01': { reg: '2026-09-22T07:30', canale: 'telefono', testo: 'nick drake stamattina, pink moon in loop. malinconia buona', nomina: ['pink-moon'], temi: ['malinconia'], stato: ['malinconia'] },
+  '20260924-0810-b7d2': { reg: '2026-09-24T08:10', canale: 'telefono', testo: 'letto la fine delle città invisibili in treno. mi ha spaccato', nomina: ['le-citta-invisibili'], fru: { 'le-citta-invisibili': 'fatta' } },
+  '20260925-2210-aa02': { reg: '2026-09-25T22:10', canale: 'telefono', testo: "rileggo spinoza, l'etica, il libro quarto. le passioni come cose da capire non da vincere", nomina: ['baruch-spinoza', 'etica'] },
+  '20260927-1915-aa03': { reg: '2026-09-27T19:15', canale: 'telefono', testo: 'oggi una rabbia che non so dove mettere', temi: ['rabbia'], stato: ['rabbia'] },
   '20260929-2240-c2e9': { reg: '2026-09-29T22:40', canale: 'telefono', testo: 'stasera ho capito che nn faccio attenzione, aspetto solo il mio turno per parlare', temi: ['attenzione', 'aspettare'] },
+  '20261001-0820-aa04': { reg: '2026-10-01T08:20', canale: 'telefono', testo: 'la rabbia è energia che non ha ancora trovato la sua forma', temi: ['rabbia'] },
+  '20261002-2300-aa05': { reg: '2026-10-02T23:00', canale: 'telefono', testo: 'a che cosa serve ricordare?', temi: ['a-che-cosa-serve-ricordare'] },
   '20261003-1930-d4f1': { reg: '2026-10-03T19:30', canale: 'telefono', testo: 'fare attenzione a una persona è diverso da guardarla', temi: ['attenzione'] },
+  '20261005-1310-aa06': { reg: '2026-10-05T13:10', canale: 'telefono', testo: "paterson di jarmusch, da vedere. me l'hanno consigliato in tre", nomina: ['paterson'], fru: { paterson: 'da-fare' } },
+  '20261006-2140-aa07': { reg: '2026-10-06T21:40', canale: 'telefono', testo: 'il dolore non insegna niente. è solo dolore', temi: ['dolore'], pos: true },
+  '20261007-1800-aa08': { reg: '2026-10-07T18:00', canale: 'telefono', testo: 'la società della stanchezza di han. tutti stanchi di essere liberi', nomina: ['la-societa-della-stanchezza'] },
   '20261008-0745-e8a0': { reg: '2026-10-08T07:45', canale: 'telefono', testo: 'questa la voglio. una chiave senza porta, solo linea', serve: 'tatuaggi', temi: ['linea'], allegato: 'chiave', misura: 'g' },
+  '20261009-2230-aa09': { reg: '2026-10-09T22:30', canale: 'telefono', testo: 'orfeo che si volta. sul polpaccio, da tatuare', nomina: ['orfeo'], serve: 'tatuaggi', misura: 'm' },
+  '20261010-1045-aa10': { reg: '2026-10-10T10:45', canale: 'telefono', testo: 'battiato, la cura, in macchina col finestrino giù. una quiete strana', nomina: ['la-cura'], temi: ['quiete'], stato: ['quiete'] },
   '20261011-0210-f3b6': { reg: '2026-10-11T02:10', canale: 'telefono', testo: 'stanotte nn riesco a dormire e mi manca tutto', delicato: true },
-  '20261014-2201-g6k2': { reg: '2026-10-14T22:01', canale: 'telefono', testo: 'aspettare non è perdere tempo, è il tempo che lavora', temi: ['aspettare'] },
-  '20261018-1120-h1m8': { reg: '2026-10-18T11:20', canale: 'telefono', testo: 'una poesia della szymborska che dice che niente succede due volte. la voglio rileggere', nomina: ['wislawa-szymborska'] },
+  '20261012-0915-aa11': { reg: '2026-10-12T09:15', canale: 'telefono', testo: "chi è che diceva che pensare è fermarsi? arendt credo", nomina: ['pensare-e-fermarsi'], chiedi: true },
+  '20261013-2350-aa12': { reg: '2026-10-13T23:50', canale: 'telefono', testo: "da piccolo pensavo che il mare d'inverno fosse un altro mare", temi: ['mare'], prop: ['nostalgia'], vissuto: true },
+  '20261014-2201-g6k2': { reg: '2026-10-14T22:01', canale: 'telefono', testo: 'aspettare non è perdere tempo, è il tempo che lavora', temi: ['aspettare'], pos: true },
+  '20261016-1930-aa13': { reg: '2026-10-16T19:30', canale: 'telefono', testo: 'stalker di tarkovskij, visto finalmente. la stanza che esaudisce i desideri veri, non quelli che dici', nomina: ['stalker'], fru: { stalker: 'fatta' } },
+  '20261017-2205-aa14': { reg: '2026-10-17T22:05', canale: 'telefono', testo: 'mushishi, da guardare un episodio a sera', nomina: ['mushishi'], fru: { mushishi: 'da-fare' } },
+  '20261018-1120-h1m8': { reg: '2026-10-18T11:20', canale: 'telefono', testo: 'una poesia della szymborska che dice che niente succede due volte. la voglio rileggere', nomina: ['wislawa-szymborska'], fru: { 'wislawa-szymborska': 'da-fare' } },
+  '20261019-0700-aa15': { reg: '2026-10-19T07:00', canale: 'telefono', testo: 'che cosa resta di un giorno se nessuno lo racconta?', temi: ['che-cosa-resta-di-un-giorno'] },
   '20261020-2214-k3q1': { reg: '2026-10-20T22:14', canale: 'telefono', testo: 'il faro spento, piccolo, sulla caviglia. da tatuare', serve: 'tatuaggi', temi: ['faro'], misura: 'm' },
-  '20261022-0905-m2q7': { reg: '2026-10-22T09:05', canale: 'telefono', testo: 'quello che cerchi ti sta cercando. rumi credo', nomina: ['quello-che-cerchi-ti-sta-cercando'] },
+  '20261021-2120-aa16': { reg: '2026-10-21T21:20', canale: 'telefono', testo: 'twin peaks rivisto, la signora del ceppo. mi fa ridere e paura insieme', nomina: ['twin-peaks', 'la-signora-del-ceppo'] },
+  '20261022-0905-m2q7': { reg: '2026-10-22T09:05', canale: 'telefono', testo: 'quello che cerchi ti sta cercando. rumi credo', nomina: ['quello-che-cerchi-ti-sta-cercando'], prop: ['aspettare'] },
+  '20261023-2300-aa17': { reg: '2026-10-23T23:00', canale: 'telefono', testo: 'il gufo che non è quello che sembra, la frase di twin peaks. da tatuare? forse', nomina: ['i-gufi-non-sono-quello-che-sembrano', 'twin-peaks'], serve: 'tatuaggi', misura: 'p' },
+  '20261024-1830-aa18': { reg: '2026-10-24T18:30', canale: 'telefono', testo: 'il caduceo di ermete trismegisto, a linea sottile. per i tatuaggi', nomina: ['ermete-trismegisto'], temi: ['linea'], serve: 'tatuaggi', misura: 'm' },
+  '20261025-2215-aa19': { reg: '2026-10-25T22:15', canale: 'telefono', testo: "forse il dolore è l'unico posto dove ho imparato qualcosa", temi: ['dolore'], pos: true },
   '20261026-1840-n5r1': { reg: '2026-10-26T18:40', canale: 'telefono', testo: "a mare oggi c'era una luce che non sapevo di ricordare", temi: ['mare'] },
   '20261027-1302-t9v4': { reg: '2026-10-27T13:02', canale: 'telefono', testo: 'https://pin.it/3kQx9', serve: 'tatuaggi', temi: ['faro'], pin: 'Faro, incisione su legno', misura: 'p', nonParlante: true },
-  '20261029-2305-p8s3': { reg: '2026-10-29T23:05', canale: 'telefono', testo: 'mi sono rotto di aspettare. aspettare è una scusa', temi: ['aspettare'] },
-  '20261030-2320-w2x8': { reg: '2026-10-30T23:20', canale: 'telefono', testo: 'da tatuare in piccolo: non è inferno. calvino', serve: 'tatuaggi', nomina: ['le-citta-invisibili'], misura: 'm' },
+  '20261028-0810-aa20': { reg: '2026-10-28T08:10', canale: 'telefono', testo: "l'epicureismo che ho studiato a scuola era una caricatura. il piacere come assenza di dolore è una cosa seria", temi: ['epicureismo', 'dolore'] },
+  '20261029-2305-p8s3': { reg: '2026-10-29T23:05', canale: 'telefono', testo: 'mi sono rotto di aspettare. aspettare è una scusa', temi: ['aspettare'], pos: true },
+  '20261030-2320-w2x8': { reg: '2026-10-30T23:20', canale: 'telefono', testo: 'da tatuare in piccolo: non è inferno. calvino', serve: 'tatuaggi', nomina: ['l-inferno-dei-viventi'], misura: 'm' },
+  '20261031-2245-aa21': { reg: '2026-10-31T22:45', canale: 'telefono', testo: 'stasera malinconia. nn triste, malinconia', temi: ['malinconia'], stato: ['malinconia'] },
+  '20261101-1130-aa22': { reg: '2026-11-01T11:30', canale: 'telefono', testo: 'gioco e realtà di winnicott, da leggere. luca dice che spiega tutto', nomina: ['gioco-e-realta'], fru: { 'gioco-e-realta': 'da-fare' }, vita: ['luca'] },
+  '20261101-2200-aa23': { reg: '2026-11-01T22:00', canale: 'telefono', testo: 'nostalgia di una casa che nn ho mai avuto', temi: ['nostalgia'], stato: ['nostalgia'] },
+  '20261102-0900-aa24': { reg: '2026-11-02T09:00', canale: 'telefono', testo: 'wabi sabi: la crepa come parte del vaso. da tatuare, forse', temi: ['wabi-sabi'], serve: 'tatuaggi', misura: 'm' },
   '20261102-2214-q1t6': { reg: '2026-11-02T22:14', canale: 'telefono', testo: 'ho guardato le mani di mio padre mentre aggiustava la sedia. attenzione pura', temi: ['attenzione'], vita: ['papa'] },
-  '20261103-0750-r4u2': { reg: '2026-11-03T07:50', canale: 'telefono', testo: 'sogno: una città fatta solo di porte' },
+  '20261103-0750-r4u2': { reg: '2026-11-03T07:50', canale: 'telefono', testo: 'sogno: una città fatta solo di porte', temi: ['porta'] },
 };
 const SEME = { passo: 's01:7', reg: '2026-09-12', testo: 'una persona che cerca il punto in cui le cose smettono di essere rumore' };
 const CS = (t) => t.replace(/([✦✧●◌○⚠])/g, '<span class="sg">$1</span>');
+// I nodi. tipo, specie e campo sono i tre campi nuovi dello schema 4 (dimensioni.md): li scrive "consolida", ◌.
 const NODI = {
-  attenzione: { nome: 'attenzione', genere: 'temi', conto: '✦3 · dal 29 settembre al 2 novembre · e 1 dall\u2019archivio d\u2019origine, fuori dai conti' },
-  aspettare: { nome: 'aspettare', genere: 'temi', conto: '✦3 ◌1 · dal 29 settembre al 29 ottobre' },
-  mare: { nome: 'mare', genere: 'temi', conto: '✦2 · dal 21 settembre al 26 ottobre' },
-  linea: { nome: 'linea', genere: 'temi', conto: '✦1 · e 1 dall\u2019archivio d\u2019origine, fuori dai conti' },
-  faro: { nome: 'faro', genere: 'temi', conto: '✦1 · e 1 link senza parole' },
-  'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', autore: 'Italo Calvino', anno: 1972, conto: '✦2 · fruizione: fatta' },
-  'wislawa-szymborska': { nome: 'Wisława Szymborska', genere: 'persone', cerchia: 'mondo', conto: '✦1 · fruizione: da fare' },
-  'simone-weil': { nome: 'Simone Weil', genere: 'persone', cerchia: 'mondo', conto: '○1' },
-  'quello-che-cerchi-ti-sta-cercando': { nome: 'Quello che cerchi ti sta cercando', genere: 'citazioni', attribuita: 'Rumi', esito: null, conto: '✦1' },
+  attenzione: { nome: 'attenzione', genere: 'temi', specie: 'idea' },
+  aspettare: { nome: 'aspettare', genere: 'temi', specie: 'idea' },
+  dolore: { nome: 'dolore', genere: 'temi', specie: 'idea' },
+  mare: { nome: 'mare', genere: 'temi', specie: 'simbolo' },
+  faro: { nome: 'faro', genere: 'temi', specie: 'simbolo' },
+  porta: { nome: 'porta', genere: 'temi', specie: 'simbolo' },
+  linea: { nome: 'linea', genere: 'temi', specie: 'stile' },
+  malinconia: { nome: 'malinconia', genere: 'temi', specie: 'stato' },
+  rabbia: { nome: 'rabbia', genere: 'temi', specie: 'stato' },
+  quiete: { nome: 'quiete', genere: 'temi', specie: 'stato' },
+  nostalgia: { nome: 'nostalgia', genere: 'temi', specie: 'stato' },
+  'a-che-cosa-serve-ricordare': { nome: 'a che cosa serve ricordare?', genere: 'temi', specie: 'domanda' },
+  'che-cosa-resta-di-un-giorno': { nome: 'che cosa resta di un giorno?', genere: 'temi', specie: 'domanda' },
+  epicureismo: { nome: 'epicureismo', genere: 'temi', specie: 'corrente', campo: ['filosofia'] },
+  'wabi-sabi': { nome: 'wabi sabi', genere: 'temi', specie: 'corrente', campo: ['arte'] },
+  'baruch-spinoza': { nome: 'Baruch Spinoza', genere: 'persone', cerchia: 'mondo', campo: ['filosofia'] },
+  'hannah-arendt': { nome: 'Hannah Arendt', genere: 'persone', cerchia: 'mondo', campo: ['filosofia'] },
+  'byung-chul-han': { nome: 'Byung-Chul Han', genere: 'persone', cerchia: 'mondo', campo: ['filosofia'] },
+  'simone-weil': { nome: 'Simone Weil', genere: 'persone', cerchia: 'mondo', campo: ['filosofia'] },
+  'donald-winnicott': { nome: 'Donald Winnicott', genere: 'persone', cerchia: 'mondo', campo: ['psicologia'] },
+  'italo-calvino': { nome: 'Italo Calvino', genere: 'persone', cerchia: 'mondo', campo: ['letteratura'] },
+  'wislawa-szymborska': { nome: 'Wisława Szymborska', genere: 'persone', cerchia: 'mondo', campo: ['letteratura'] },
+  rumi: { nome: 'Rumi', genere: 'persone', cerchia: 'mondo', campo: ['letteratura', 'mito-e-religione'] },
+  'nick-drake': { nome: 'Nick Drake', genere: 'persone', cerchia: 'mondo', campo: ['musica'] },
+  'franco-battiato': { nome: 'Franco Battiato', genere: 'persone', cerchia: 'mondo', campo: ['musica'] },
+  'jim-jarmusch': { nome: 'Jim Jarmusch', genere: 'persone', cerchia: 'mondo', campo: ['cinema'] },
+  'andrej-tarkovskij': { nome: 'Andrej Tarkovskij', genere: 'persone', cerchia: 'mondo', campo: ['cinema'] },
+  'david-lynch': { nome: 'David Lynch', genere: 'persone', cerchia: 'mondo', campo: ['cinema'] },
+  orfeo: { nome: 'Orfeo', genere: 'persone', cerchia: 'finzione', campo: ['mito-e-religione'] },
+  'ermete-trismegisto': { nome: 'Ermete Trismegisto', genere: 'persone', cerchia: 'finzione', campo: ['esoterismo'] },
+  'la-signora-del-ceppo': { nome: 'la signora del ceppo', genere: 'persone', cerchia: 'finzione', in: 'twin-peaks' },
   papa: { nome: 'papà', genere: 'persone', cerchia: 'vita' },
+  luca: { nome: 'Luca', genere: 'persone', cerchia: 'vita' },
+  'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', tipo: 'libro', autore: 'italo-calvino', anno: 1972, campo: ['letteratura'] },
+  etica: { nome: 'Etica', genere: 'opere', tipo: 'libro', autore: 'baruch-spinoza', anno: 1677, campo: ['filosofia'] },
+  'la-societa-della-stanchezza': { nome: 'La società della stanchezza', genere: 'opere', tipo: 'libro', autore: 'byung-chul-han', anno: 2010, campo: ['filosofia'] },
+  'gioco-e-realta': { nome: 'Gioco e realtà', genere: 'opere', tipo: 'libro', autore: 'donald-winnicott', anno: 1971, campo: ['psicologia'] },
+  'pink-moon': { nome: 'Pink Moon', genere: 'opere', tipo: 'canzone', autore: 'nick-drake', anno: 1972, campo: ['musica'] },
+  'la-cura': { nome: 'La cura', genere: 'opere', tipo: 'canzone', autore: 'franco-battiato', anno: 1996, campo: ['musica'] },
+  paterson: { nome: 'Paterson', genere: 'opere', tipo: 'film', autore: 'jim-jarmusch', anno: 2016, campo: ['cinema'] },
+  stalker: { nome: 'Stalker', genere: 'opere', tipo: 'film', autore: 'andrej-tarkovskij', anno: 1979, campo: ['cinema'] },
+  'twin-peaks': { nome: 'Twin Peaks', genere: 'opere', tipo: 'serie', autore: 'david-lynch', anno: 1990, campo: ['cinema'] },
+  mushishi: { nome: 'Mushishi', genere: 'opere', tipo: 'serie', anno: 2005, campo: ['cinema'] },
+  'quello-che-cerchi-ti-sta-cercando': { nome: 'Quello che cerchi ti sta cercando', genere: 'citazioni', attribuita: 'rumi', esito: null },
+  'pensare-e-fermarsi': { nome: 'Pensare è fermarsi', genere: 'citazioni', attribuita: 'hannah-arendt', esito: null },
+  'i-gufi-non-sono-quello-che-sembrano': { nome: 'I gufi non sono quello che sembrano', genere: 'citazioni', esito: null },
+  'l-inferno-dei-viventi': { nome: 'L’inferno dei viventi', genere: 'citazioni', autore: 'italo-calvino', attribuita: 'italo-calvino', esito: 'verificata', rif: 'Le città invisibili, parte nona, l’ultimo dialogo' },
   tatuaggi: { nome: 'tatuaggi', genere: 'raccolte', scopo: null },
 };
 const LETTERA = {
   id: 'r-20261101-2130-lettera', titolo: 'Lettera di domenica 1 novembre', reg: '2026-11-01T21:30',
   coppia: ['20261014-2201-g6k2', '20261029-2305-p8s3'],
   voci: [
-    { n: 1, voce: 'proposta', cosa: 'tensione', rif: '20261014-2201-g6k2', html: 'L\u2019attesa che lavora e l\u2019attesa che copre.' },
-    { n: 2, voce: 'mondo', cosa: 'citazione', rif: 'simone-weil', html: 'Simone Weil, nel 1942, sull\u2019attenzione: «Soprattutto il pensiero dev\u2019essere vuoto, in attesa» (resa mia).', rifTesto: 'Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4; testo primario', esito: 'verificata' },
+    { n: 1, voce: 'proposta', cosa: 'tensione', rif: '20261014-2201-g6k2', html: 'L’attesa che lavora e l’attesa che copre.' },
+    { n: 2, voce: 'mondo', cosa: 'citazione', rif: 'simone-weil', html: 'Simone Weil, nel 1942, sull’attenzione: «Soprattutto il pensiero dev’essere vuoto, in attesa» (resa mia).', rifTesto: 'Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4; testo primario', esito: 'verificata' },
   ],
   chiusa: '20260929-2240-c2e9',
 };
-const RISPOSTA_RUMI = { html: 'Traccia della verifica rapida del 22 ottobre: nelle raccolte tradotte consultate la frase non c\u2019è. Senza esito, finché «consolida» non la verifica.' };
+const RISPOSTA_RUMI = { html: 'Traccia della verifica rapida del 22 ottobre: nelle raccolte tradotte consultate la frase non c’è. Senza esito, finché «consolida» non la verifica.' };
 
 /* ===== Aiuti ===== */
 const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
@@ -320,7 +439,8 @@ const tetto = (id) => `Entro il ${dataL(F[id].reg)}, nell’archivio d’origine
 // Una frase tua: sempre letta dal frammento (transclusione), mai ricopiata.
 function frase(id, { link = true, data = true, cls = '' } = {}) {
   const f = F[id];
-  const t = `<span class="sua ${cls}">${esc(f.testo)}${sg('sua')}</span>`;
+  const daVerif = (f.nomina || []).some((s) => NODI[s].genere === 'citazioni' && !NODI[s].esito);
+  const t = `<span class="sua ${cls}">${esc(f.testo)}${sg('sua')}</span>${daVerif ? vf : ''}`;
   const dt = !data ? '' : imp(id) ? `<span class="data">${tetto(id)}, trascritta da Claude nel seme:</span>` : `<span class="data">${dataL(f.reg)}</span>`;
   return `${dt}${link ? `<a href="#/frammento/${id}">${t}</a>` : t}`;
 }
@@ -331,7 +451,241 @@ const testa = (destra = '') => `<header class="testa"><a class="marchio" href="#
 
 /* ===== Le viste ===== */
 const V = {};
+/* ===== Le dimensioni (dimensioni.md): sei assi, la lente, la parola ===== */
+const FORME = ['canzone', 'album', 'libro', 'poesia', 'film', 'serie', 'fumetto', 'spettacolo', 'immagine', 'gioco', 'video'];
+const SPECIE = { stato: 'sentimenti', idea: 'idee', domanda: 'domande', corrente: 'correnti', simbolo: 'simboli', stile: 'stili' };
+const CAMPI = ['filosofia', 'psicologia', 'mito-e-religione', 'esoterismo', 'scienza', 'storia', 'letteratura', 'arte', 'musica', 'cinema'];
+const GESTI = ['penso', 'sento', 'chiedo', 'ricordo', 'voglio fare', 'trascrivo'];
+const ESITI = ['verificata', 'simile', 'errata', 'non-trovata', 'da-verificare'];
+const ASSI = [
+  { k: 'cose', nome: 'cose' }, { k: 'persone', nome: 'persone' }, { k: 'temi', nome: 'temi' },
+  { k: 'campo', nome: 'campo', prop: true }, { k: 'gesto', nome: 'gesto' }, { k: 'tempo', nome: 'tempo' },
+];
+const nomeCampo = (c) => c.replace(/-/g, ' ');
+const SPECIE1 = { stato: 'sentimento', idea: 'idea', domanda: 'domanda', corrente: 'corrente', simbolo: 'simbolo', stile: 'stile' };
+const RACC = { tatuaggi: 'per i tatuaggi' };
+// L'etichetta di un valore, sempre la stessa in ogni vista.
+function etichetta(asse, v) {
+  const [t, x] = v.includes(':') ? [v.slice(0, v.indexOf(':')), v.slice(v.indexOf(':') + 1)] : ['', v];
+  if (asse === 'cose') return t === 'f' ? x : t === 'c' ? 'citazioni' : t === 'e' ? (x === 'da-verificare' ? 'da verificare ⚠' : x.replace('-', ' ')) : NODI[x].nome;
+  if (asse === 'temi') return t === 's' ? SPECIE[x] + ' ◌' : NODI[x].nome;
+  if (asse === 'campo') return nomeCampo(v);
+  if (asse === 'gesto') return t === 'r' ? RACC[x] : v;
+  if (asse === 'tempo') return v === 'origine' ? 'archivio d’origine' : `${MESI[+v.slice(5, 7) - 1]} ${v.slice(0, 4)}`;
+  return NODI[v] ? NODI[v].nome : v;
+}
+const parlante = (id) => !F[id].delicato && !F[id].nonParlante;
+const norm = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
 
+// I valori dei sei assi per una frase: un passo di legame, più l'autore e la catena dell'«in». Mai scritti: calcolati.
+function valori(id, lente) {
+  const f = F[id];
+  const v = { cose: new Set(), persone: new Set(), temi: new Set(), campo: new Set(), gesto: new Set(), tempo: new Set(), nodi: new Set() };
+  const campoDi = (s) => (NODI[s] && NODI[s].cerchia !== 'vita' ? NODI[s].campo || [] : []).forEach((c) => v.campo.add(c));
+  const persona = (s) => { const n = NODI[s]; if (!n || n.cerchia === 'vita') return; v.persone.add(s); v.nodi.add(s); campoDi(s); if (n.in) opera(n.in, true); };
+  function opera(s, perIn) { const n = NODI[s]; v.nodi.add(s); v.cose.add('o:' + s); if (n.tipo) v.cose.add('f:' + n.tipo); if (!perIn) campoDi(s); if (n.autore && !perIn) persona(n.autore); }
+  for (const s of f.nomina || []) {
+    const n = NODI[s];
+    if (n.genere === 'opere') opera(s);
+    else if (n.genere === 'persone') persona(s);
+    else if (n.genere === 'citazioni') {
+      v.nodi.add(s); v.cose.add('c:citazione'); v.cose.add('e:' + (n.esito || 'da-verificare')); v.cose.add('o:' + s);
+      if (n.autore) persona(n.autore);
+      if (n.attribuita && n.attribuita !== n.autore) { const p = NODI[n.attribuita]; if (p.cerchia === 'vita') continue; v.persone.add(n.attribuita); v.nodi.add(n.attribuita); if (p.in) opera(p.in, true); }
+    }
+  }
+  const temi = [...(f.temi || []), ...(lente ? f.prop || [] : [])];
+  for (const t of temi) { v.nodi.add(t); v.temi.add('t:' + t); v.temi.add('s:' + NODI[t].specie); if (NODI[t].specie === 'corrente') campoDi(t); }
+  if (f.pos) v.gesto.add('penso');
+  if ((f.stato || []).length) v.gesto.add('sento');
+  if (f.chiedi) v.gesto.add('chiedo');
+  if (f.vissuto) v.gesto.add('ricordo');
+  if (Object.values(f.fru || {}).some((x) => x === 'da-fare' || x === 'in-corso')) v.gesto.add('voglio fare');
+  if (f.altrui) v.gesto.add('trascrivo');
+  if (f.serve) { v.gesto.add('r:' + f.serve); v.nodi.add(f.serve); }
+  v.tempo.add(imp(id) ? 'origine' : f.reg.slice(0, 7));
+  return v;
+}
+const VAL = { 0: {}, 1: {} };
+const val = (id, lente) => (VAL[+lente][id] ||= valori(id, lente));
+
+// Lo stato di Esplora: le scelte per asse (O dentro l'asse, E tra assi), il punto di partenza, la parola, la lente.
+let ESP = { sel: {}, da: null, q: '', lente: false };
+function leggiStato() {
+  const p = new URLSearchParams((location.hash.split('?')[1]) || '');
+  const sel = {};
+  for (const a of ASSI) { const xs = p.getAll(a.k); if (xs.length) sel[a.k] = new Set(xs); }
+  ESP = { sel, da: p.get('da'), q: p.get('q') || '', lente: p.get('lente') === 'proposte' };
+}
+function indirizzo(st = ESP) {
+  const p = new URLSearchParams();
+  if (st.da) p.append('da', st.da);
+  for (const a of ASSI) for (const x of st.sel[a.k] || []) p.append(a.k, x);
+  if (st.q) p.append('q', st.q);
+  if (st.lente) p.append('lente', 'proposte');
+  const s = p.toString();
+  return '#/esplora' + (s ? '?' + s : '');
+}
+const conValore = (asse, v, st = ESP) => { const sel = { ...st.sel }; sel[asse] = new Set([...(sel[asse] || []), v]); if (v.startsWith('e:')) sel[asse].delete('c:citazione'); if (v.startsWith('t:') && NODI[v.slice(2)]) sel[asse].delete('s:' + NODI[v.slice(2)].specie); return indirizzo({ ...st, sel }); };
+const senzaValore = (asse, v, st = ESP) => { const sel = { ...st.sel }; const s = new Set(sel[asse]); s.delete(v); if (s.size) sel[asse] = s; else delete sel[asse]; return indirizzo({ ...st, sel }); };
+const solo = (asse, v, da) => indirizzo({ sel: { [asse]: new Set([v]) }, da: da || null, q: '', lente: false });
+
+function passa(id, st, tranne) {
+  if (!parlante(id)) return false;
+  const v = val(id, st.lente);
+  if (st.da && !v.nodi.has(st.da) && !(F[id].vita || []).includes(st.da)) return false;
+  if (st.q && !norm(F[id].testo).includes(norm(st.q))) return false;
+  for (const a of ASSI) {
+    if (a.k === tranne) continue;
+    const s = st.sel[a.k]; if (!s || !s.size) continue;
+    if (![...s].some((x) => v[a.k].has(x))) return false;
+  }
+  return true;
+}
+const filtrati = (st = ESP) => Object.keys(F).filter((id) => passa(id, st)).sort((a, b) => F[b].reg.localeCompare(F[a].reg));
+// Il numero accanto a un valore: le frasi che resterebbero scegliendolo, sugli altri assi. Conta solo i parlanti (regola 3).
+function conteggi(asse, st = ESP) {
+  const m = new Map();
+  for (const id of Object.keys(F)) {
+    if (!passa(id, st, asse)) continue;
+    for (const x of val(id, st.lente)[asse]) { const c = m.get(x) || { n: 0, imp: 0 }; imp(id) ? c.imp++ : c.n++; m.set(x, c); }
+  }
+  return m;
+}
+// L'ordine dei valori: forme e campi in ordine fisso, il tempo cronologico, il resto per numero.
+function ordinati(asse, m) {
+  const xs = [...m.keys()];
+  const peso = (x) => -(m.get(x).n * 10 + m.get(x).imp);
+  if (asse === 'cose') return [...FORME.map((f) => 'f:' + f), 'c:citazione', ...ESITI.map((e) => 'e:' + e)].filter((x) => m.has(x)).concat(xs.filter((x) => x.startsWith('o:')).sort((a, b) => peso(a) - peso(b)));
+  if (asse === 'campo') return CAMPI.filter((x) => m.has(x));
+  if (asse === 'gesto') return [...GESTI, ...Object.keys(RACC).map((r) => 'r:' + r)].filter((x) => m.has(x));
+  if (asse === 'tempo') return xs.sort((a, b) => (a === 'origine' ? 1 : b === 'origine' ? -1 : b.localeCompare(a)));
+  if (asse === 'temi') return Object.keys(SPECIE).map((s) => 's:' + s).filter((x) => m.has(x)).concat(xs.filter((x) => x.startsWith('t:')).sort((a, b) => peso(a) - peso(b)));
+  return xs.sort((a, b) => peso(a) - peso(b));
+}
+const numero = (c) => (c.n ? `<span class="n">${c.n}</span>` : '<span class="n">·</span>');
+const nomeNodo = (s) => (s && NODI[s] ? NODI[s].nome : '');
+
+/* ===== Esplora ===== */
+function chipAttive() {
+  const xs = [];
+  if (ESP.da) xs.push(`<a class="chip da" href="${indirizzo({ ...ESP, da: null })}" aria-label="togli ${esc(nomeNodo(ESP.da))}">da ${esc(nomeNodo(ESP.da))}<span aria-hidden="true">×</span></a>`);
+  if (ESP.q) xs.push(`<a class="chip attivo" href="${indirizzo({ ...ESP, q: '' })}" aria-label="togli la parola">«${esc(ESP.q)}»<span aria-hidden="true">×</span></a>`);
+  for (const a of ASSI) for (const x of ESP.sel[a.k] || []) xs.push(`<a class="chip attivo${a.prop ? ' c-prop' : ''}" href="${senzaValore(a.k, x)}" aria-label="togli ${esc(etichetta(a.k, x))}">${CS(esc(etichetta(a.k, x)))}${a.prop ? '&nbsp;◌' : ''}<span aria-hidden="true">×</span></a>`);
+  return xs.join('');
+}
+const attivi = () => ESP.da || ESP.q || ASSI.some((a) => ESP.sel[a.k] && ESP.sel[a.k].size);
+function totale(ids) {
+  const n = ids.filter((id) => !imp(id)).length, i = ids.length - n;
+  return `${n} ${n === 1 ? 'frase' : 'frasi'}${i ? ` · e ${i} dall’archivio d’origine, fuori dai conti` : ''}`;
+}
+// I nomi tra i risultati: i nodi delle frasi trovate che danno il valore scelto, e i nomi che la parola trova.
+function nomiTrovati(ids) {
+  const out = new Set();
+  const reach = new Set(); ids.forEach((id) => val(id, ESP.lente).nodi.forEach((s) => reach.add(s)));
+  const sel = ESP.sel;
+  const vuole = (s) => {
+    const n = NODI[s]; if (!n || n.cerchia === 'vita') return false;
+    const ok = [];
+    if (sel.cose) ok.push([...sel.cose].some((x) => x === 'o:' + s || (x === 'f:' + n.tipo && n.genere === 'opere') || (x === 'c:citazione' && n.genere === 'citazioni') || (n.genere === 'citazioni' && x === 'e:' + (n.esito || 'da-verificare'))));
+    if (sel.persone) ok.push(sel.persone.has(s));
+    if (sel.temi) ok.push([...sel.temi].some((x) => x === 't:' + s || (n.genere === 'temi' && x === 's:' + n.specie)));
+    if (sel.campo) ok.push([...sel.campo].some((c) => (n.campo || []).includes(c)));
+    return ok.some(Boolean);
+  };
+  reach.forEach((s) => { if (s !== ESP.da && vuole(s)) out.add(s); });
+  if (ESP.q) Object.keys(NODI).forEach((s) => { if (norm(NODI[s].nome).includes(norm(ESP.q))) out.add(s); });
+  return [...out];
+}
+function rigaFrase(id) {
+  const prop = ESP.lente && !passa(id, { ...ESP, lente: false });
+  const nomi = [...val(id, ESP.lente).nodi].filter((s) => s !== ESP.da && NODI[s].genere !== 'raccolte').slice(0, 3).map(nomeNodo);
+  const via = prop ? `<span class="luogo">entra per una mia lettura ◌: ${(F[id].prop || []).map(nomeNodo).join(', ')}</span>` : nomi.length ? `<span class="luogo">${esc(nomi.join(' · '))}</span>` : '';
+  return `<li class="${prop ? 'smorzata' : ''}">${frase(id, { data: !imp(id) })}${via}</li>`;
+}
+function vuotoDetto() {
+  const f = [...(ESP.sel.cose || [])].find((x) => x.startsWith('f:'));
+  const m = { canzone: 'Nessuna canzone tua.', libro: 'Nessun libro tuo.', film: 'Nessun film tuo.', serie: 'Nessuna serie tua.', poesia: 'Nessuna poesia tua.' };
+  return (f && m[f.slice(2)]) || (ESP.q ? 'Nessuna tua parola.' : 'Nessuna tua frase qui.');
+}
+// Restringere: dentro un asse già scelto un valore in più allarga (O), quindi si propongono solo gli altri assi.
+const passa2 = (x, asse) => !(ESP.sel[asse] && ESP.sel[asse].size);
+function risultatiEsplora() {
+  const ids = filtrati();
+  const tuoi = ids.filter((id) => !imp(id)), orig = ids.filter(imp);
+  const nomi = nomiTrovati(ids);
+  const delic = ESP.q ? Object.keys(F).filter((id) => F[id].delicato && norm(F[id].testo).includes(norm(ESP.q))) : [];
+  // Restringi: i valori degli altri assi che restringono davvero; dentro un asse già scelto, «o anche» (allarga: O).
+  // Le citazioni scelte si restringono per esito. Nessun taglio: la riga scorre, e in fondo «tutti i filtri».
+  const tot = ids.filter((i) => !imp(i)).length;
+  const restr = [], oanche = [];
+  if (ids.length) for (const a of ASSI) {
+    const m = conteggi(a.k); const scelti = ESP.sel[a.k] || new Set();
+    if (a.k === 'temi' && [...scelti].some((s) => s.startsWith('s:'))) { const sp = [...scelti].filter((s) => s.startsWith('s:')); ordinati('temi', m).filter((x) => x.startsWith('t:') && sp.includes('s:' + NODI[x.slice(2)].specie) && m.get(x).n < tot).forEach((x) => restr.push([a, x, m.get(x)])); }
+    if (a.k === 'cose' && scelti.has('c:citazione')) { const mm = conteggi('cose', { ...ESP, sel: { ...ESP.sel, cose: new Set(['c:citazione']) } }); ESITI.map((e) => 'e:' + e).filter((x) => mm.has(x) && mm.get(x).n).forEach((x) => restr.push([a, x, mm.get(x)])); }
+    for (const x of ordinati(a.k, m)) {
+      if (scelti.has(x) || !m.get(x).n) continue;
+      if (scelti.size) { if (restr.some(([, y]) => y === x)) continue; if (!x.startsWith('e:') && !(x.startsWith('o:') && [...scelti].some((s) => s.startsWith('f:')))) oanche.push([a, x, m.get(x)]); }
+      else if (m.get(x).n < tot && !(a.k === 'cose' && x.startsWith('e:'))) restr.push([a, x, m.get(x)]);
+    }
+  }
+  const riga = (cls, titolo, xs) => xs.length ? `<div class="chips restringi" role="group" aria-label="${titolo}"><span class="sc">${titolo}</span>${xs.map(([a, x, c]) => `<a class="chip${a.prop ? ' c-prop-l' : ''}" href="${conValore(a.k, x)}">${CS(esc(etichetta(a.k, x)))}${a.prop ? '&nbsp;◌' : ''}${numero(c)}</a>`).join('')}<button class="chip" data-tutti>tutti i filtri</button></div>` : '';
+  return `<p class="totale" aria-live="polite">${totale(ids)}${nomi.length ? ` · ${nomi.length} ${nomi.length === 1 ? 'nome' : 'nomi'}` : ''}</p>
+    ${riga('restringi', 'restringi', restr)}${riga('oanche', 'o anche', oanche)}
+    ${nomi.length ? `<h2>nomi</h2><p class="nomi">${nomi.map((s) => `<a href="#/nodo/${s}">${esc(NODI[s].nome)}</a>${NODI[s].genere === 'citazioni' && !NODI[s].esito ? vf : ''}`).join('<span class="sep"> · </span>')}</p>` : ''}
+    ${ids.length ? `<h2>le tue frasi</h2><ul class="righe">${tuoi.map(rigaFrase).join('')}</ul>` : `<p class="vuoto">${vuotoDetto()}</p>`}
+    ${orig.length ? `<p class="nota-r">${tetto(orig[0])}, ${orig.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme:</p><ul class="righe">${orig.map(rigaFrase).join('')}</ul>` : ''}
+    ${delic.length ? `<button class="delic" id="delic">e ${delic.length} risultato delicato · mostralo</button>` : ''}`;
+}
+// L'indice: senza filtri, Esplora mostra gli assi come parole da toccare, con i numeri. È la parte del navigare.
+function indiceEsplora() {
+  return ASSI.map((a) => {
+    const m = conteggi(a.k); const xs = ordinati(a.k, m).filter((x) => !(a.k === 'cose' && (x.startsWith('o:') || x.startsWith('e:'))) && !(a.k === 'temi' && x.startsWith('t:')));
+    const extra = a.k === 'temi' ? ordinati('temi', m).filter((x) => x.startsWith('t:')).slice(0, 12) : a.k === 'cose' ? ordinati('cose', m).filter((x) => x.startsWith('o:') && NODI[x.slice(2)].genere === 'opere').slice(0, 5) : [];
+    const voci = (lista) => lista.slice(0, a.k === 'persone' ? 8 : 12).map((x) => `<a href="${conValore(a.k, x)}">${CS(esc(etichetta(a.k, x)))}${numero(m.get(x))}</a>`).join('');
+    if (!xs.length) return '';
+    return `<section class="asse${a.prop ? ' asse-prop' : ''}"><h2>${a.nome}${a.prop ? ' ◌ <span class="perche">scelto da me, sui nomi del mondo e sulle correnti</span>' : ''}</h2>
+      <p class="valori">${voci(xs)}</p>${extra.length ? `<p class="valori secondi${a.k === 'cose' ? ' titoli' : ''}">${voci(extra)}</p>` : ''}</section>`;
+  }).join('');
+}
+V.esplora = () => {
+  leggiStato();
+  return `<div class="pagina esplora">${testa('esplora')}
+    <div class="esp-testa">
+      <input class="campo-cerca" id="q" type="search" value="${esc(ESP.q)}" placeholder="una parola, alla lettera" autocomplete="off" aria-label="Cerca nelle tue parole">
+      <div class="chips" role="group" aria-label="Filtri attivi"><button class="chip filtra" id="filtra" aria-haspopup="dialog">filtra</button>${chipAttive()}</div>
+    </div>
+    <div id="esp-corpo">${attivi() ? risultatiEsplora() : `<p class="servizio">Tocca una parola per filtrare; le scelte si incrociano.</p>${indiceEsplora()}`}</div>
+    <p class="lente"><button class="lente-b" id="lente" aria-pressed="${ESP.lente}">${ESP.lente ? 'solo le tue parole e le accolte' : 'anche le mie proposte ◌'}</button></p>
+  </div>`;
+};
+// Il foglio dei filtri: un asse per sezione, i valori con il numero, live.
+function foglioFiltri() {
+  const ids = filtrati();
+  const sez = ASSI.map((a) => {
+    const m = conteggi(a.k); const xs = ordinati(a.k, m); if (!xs.length) return '';
+    const on = ESP.sel[a.k] || new Set();
+    const b = (x, i) => `<button class="val${on.has(x) ? ' on' : ''}${i >= 8 ? ' oltre' : ''}" data-asse="${a.k}" data-v="${esc(x)}" aria-pressed="${on.has(x)}">${CS(esc(etichetta(a.k, x)))}${numero(m.get(x))}</button>`;
+    return `<section class="f-asse${a.prop ? ' asse-prop' : ''}"><h2>${a.nome}${a.prop ? ' ◌' : ''}</h2><div class="vals">${xs.map(b).join('')}${xs.length > 8 ? `<button class="altri" data-altri>altri ${xs.length - 8}</button>` : ''}</div></section>`;
+  }).join('');
+  return `<p class="sc">filtra · ${totale(ids)}</p>${sez}<div class="f-piede"><button class="mostra" id="mostra">mostra ${ids.length} ${ids.length === 1 ? 'frase' : 'frasi'}</button></div>`;
+}
+function aggiornaEsplora() {
+  history.replaceState(null, '', indirizzo());
+  document.getElementById('esp-corpo').innerHTML = attivi() ? risultatiEsplora() : `<p class="servizio">Tocca una parola per filtrare; le scelte si incrociano.</p>${indiceEsplora()}`;
+  document.querySelector('.chips').innerHTML = `<button class="chip filtra" id="filtra" aria-haspopup="dialog">filtra</button>${chipAttive()}`;
+  if (document.body.classList.contains('aperto') && document.querySelector('#foglio-c .f-asse, #foglio-c .mostra')) document.getElementById('foglio-c').innerHTML = foglioFiltri();
+}
+
+
+// La riga «esplora» della soglia: solo i valori che hanno almeno una frase (nessun vicolo cieco).
+function raccordiSoglia() {
+  const vuoto = { sel: {}, da: null, q: '', lente: false };
+  const c = (a) => conteggi(a, vuoto);
+  const xs = [['cose', 'f:canzone', 'canzoni'], ['cose', 'f:libro', 'libri'], ['cose', 'f:film', 'film'], ['temi', 's:stato', 'sentimenti ◌'], ['temi', 's:domanda', 'domande ◌'], ['campo', 'filosofia', 'filosofia ◌', true]]
+    .filter(([a, v]) => c(a).has(v));
+  return xs.length ? `<p class="raccordi"><span class="t">esplora</span> ${xs.map(([a, v, t, p]) => `<a href="${solo(a, v)}"${p ? ' class="c-prop-l"' : ''}>${CS(t)}</a>`).join(' · ')}</p>` : '';
+}
 V.soglia = (stato) => {
   const delicato = stato === 'delicato';
   const ritorno = stato === 'ritorno';
@@ -352,12 +706,18 @@ V.soglia = (stato) => {
       </div>
       <a class="apri" href="#/r/${LETTERA.id}">la lettera →</a>`;
   }
-  const porte = `<nav class="porte" aria-label="Porte">
+  const porte = delicato ? `<nav class="porte" aria-label="Porte">
+      <a class="porta" href="#/tempo"><b>il tempo</b><span class="r">mese per mese</span></a>
+      <a class="porta" href="#/frasi"><b>le tue frasi</b><span class="r">dalla più recente</span></a>
+      <a class="porta" href="#/esplora"><b>esplora</b><span class="r">i nomi e le cose</span></a>
+      <a class="porta" href="#/tatuaggi"><b>tatuaggi</b><span class="r">la tavola</span></a>
+    </nav>` : `<nav class="porte" aria-label="Porte">
       <a class="porta" href="#/tempo"><b>il tempo</b><span class="r">mese per mese</span></a>
       <a class="porta" href="#/frasi"><b>le tue frasi</b><span class="r">dalla più recente</span></a>
       <a class="porta" href="#/nodo/attenzione"><b>attenzione</b><span class="r">un tema tuo, vivo</span></a>
       <a class="porta" href="#/tatuaggi"><b>tatuaggi</b><span class="r">la tavola</span></a>
-    </nav>`;
+    </nav>
+    ${raccordiSoglia()}`;
   return `<div class="pagina">${testa()}<div class="soglia">${cuore}</div>${porte}</div>`;
 };
 
@@ -396,49 +756,6 @@ function foglioVoce(n) {
     </div>
     <p class="servizio" style="margin-top:.8em">Il gesto apre il Comando rapido «Memo» con il testo già scritto: lo puoi cambiare prima di mandarlo.</p>`;
 }
-
-V.nodo = (slug) => {
-  const n = NODI[slug];
-  if (slug !== 'attenzione') return V.nodoSemplice(slug);
-  const [x, y] = ['20260929-2240-c2e9', '20261102-2214-q1t6'];
-  return `<div class="pannelli"><div class="pagina">${testa()}
-    <div class="soglia nodo-soglia">
-      <h1>attenzione</h1>
-      <div class="coppia">
-        <p class="frase">${frase(x)}</p>
-        <div class="intervallo" aria-hidden="true">${gg(F[x].reg, F[y].reg)} giorni</div>
-        <p class="frase respiro">${frase(y)}</p>
-      </div>
-      <p class="servizio" style="margin-top:1.4em">la prima tiene insieme attenzione e <a href="#/nodo/aspettare">aspettare</a> · <a href="#/nodo/attenzione/tavola">la tavola →</a></p>
-    </div>
-    <p class="conto">tema · nome tuo · ${CS(n.conto)}</p>
-    <div class="piede">${strati()}</div>
-    <div class="l2"><h2>dal mondo</h2><p class="mondo">Simone Weil${sg('mondo')}<span class="luogo">lettera del 1 novembre, voce 2 · Attente de Dieu, § 4 · verificata</span></p></div>
-    <h2>le altre porte</h2>
-    <ul class="righe">
-      <li>${frase('20261003-1930-d4f1')}</li>
-      <li>${frase('20260912-0000-u01')}</li></ul>
-  </div>
-  <aside class="lato"><h2>anteprima</h2>
-    <p><a href="#/nodo/aspettare">aspettare</a> <span class="conto">${CS(NODI.aspettare.conto)}</span></p><p class="frase">${frase('20261029-2305-p8s3')}</p></aside></div>`;
-};
-
-V.nodoSemplice = (slug) => {
-  const n = NODI[slug]; if (!n) return V.vuoto();
-  const ids = Object.keys(F).filter((id) => !F[id].delicato && ((F[id].temi || []).includes(slug) || (F[id].nomina || []).includes(slug) || (F[id].vita || []).includes(slug) || F[id].serve === slug)).reverse();
-  const vita = n.cerchia === 'vita';
-  let testaN = n.genere === 'opere' ? `${n.autore} · ${n.anno}` : n.genere === 'citazioni' ? `attribuita a ${n.attribuita} · senza esito ${vf}` : n.genere === 'persone' ? (vita ? 'persona della tua vita · nessun link, nessuna proposta' : 'persona · mondo') : 'tema · nome tuo';
-  return `<div class="pagina">${testa(n.genere)}
-    <h1>${n.nome}</h1>
-    <p class="conto">${testaN}${n.conto ? ' · ' + CS(n.conto) : ''}</p>
-    ${vita ? '' : strati()}
-    <h2>le porte</h2>
-    <ul class="righe">${ids.slice(0, 5).map((id) => `<li>${frase(id)}</li>`).join('') || '<li class="servizio">Niente si aggancia ancora.</li>'}</ul>
-    ${n.genere === 'citazioni' ? `<h2>la verifica</h2><p class="servizio">${RISPOSTA_RUMI.html}</p>` : ''}
-    ${n.genere === 'opere' ? `<h2>il mondo</h2><p class="mondo">«cercare e saper riconoscere chi e cosa, in mezzo all’inferno, non è inferno»${sg('mondo')}<span class="luogo">Le città invisibili, parte nona, l’ultimo dialogo · verificata</span></p>` : ''}
-    ${vita ? '<p class="servizio">Le persone della tua vita restano qui: mai in una ricerca, mai un ponte.</p>' : ''}
-  </div>`;
-};
 
 V.tavolaNodo = () => {
   const vicini = [
@@ -481,6 +798,9 @@ V.frammento = (id) => {
     ${f.canale === 'telefono' ? '<p class="servizio">Salvato.</p>' : ''}
     ${strati()}
     ${temi || nom ? `<h2>legami</h2><p>${[temi, nom].filter(Boolean).join(' · ')}</p>` : ''}
+    ${(() => { const v = val(id, false); const xs = [...[...v.cose].filter((x) => x.startsWith('f:') || x === 'c:citazione').map((x) => ['cose', x]), ...[...v.temi].filter((x) => x.startsWith('s:')).map((x) => ['temi', x]), ...[...v.gesto].map((x) => ['gesto', x]), ...[...v.tempo].map((x) => ['tempo', x])];
+      const cs = [...v.campo].map((x) => `<a href="${solo('campo', x)}">${nomeCampo(x)}</a>&nbsp;<span class="sg">◌</span>`);
+      return xs.length || cs.length ? `<p class="raccordi"><span class="t">esplora</span> ${[...xs.map(([a, x]) => `<a href="${solo(a, x)}">${CS(esc(etichetta(a, x)))}</a>`), ...cs].join(' · ')}</p>` : ''; })()}
     ${(f.vita || []).length ? `<p class="servizio">Nomina una persona della tua vita: ${(f.vita).map((v) => `<a href="#/nodo/${v}">${NODI[v].nome}</a>`).join(', ')}.</p>` : ''}
     <details ${citatoIn ? 'open' : ''}><summary>citato in</summary><ul class="righe">${citatoIn || '<li class="servizio">Nessuna restituzione lo cita.</li>'}</ul></details>
     <h2>binari</h2>
@@ -493,6 +813,75 @@ V.frammento = (id) => {
   </div>`;
 };
 
+// Le frasi di un nodo: le tue, a un passo (più l'autore e l'«in»), dalla più vecchia.
+const frasiDi = (slug, lente = false) => Object.keys(F).filter((id) => parlante(id) && (val(id, lente).nodi.has(slug) || (F[id].vita || []).includes(slug))).sort((a, b) => F[a].reg.localeCompare(F[b].reg));
+const da = (slug, asse, v) => indirizzo({ sel: asse ? { [asse]: new Set([v]) } : {}, da: slug, q: '', lente: false });
+
+// La riga delle faccette del nodo: ogni valore porta a Esplora con quel filtro.
+function faccetteNodo(slug) {
+  const n = NODI[slug]; const p = [];
+  const campo = () => (n.campo || []).map((c) => `<a href="${solo('campo', c)}">${nomeCampo(c)}</a>&nbsp;<span class="sg">◌</span>`);
+  if (n.genere === 'temi') { p.push(`tema · <a href="${solo('temi', 's:' + n.specie)}">${SPECIE1[n.specie]}</a>&nbsp;<span class="sg">◌</span>`); p.push(...campo()); }
+  if (n.genere === 'opere') { p.push(`<a href="${solo('cose', 'f:' + n.tipo)}">${n.tipo}</a>`); if (n.autore) p.push(`<a href="#/nodo/${n.autore}">${NODI[n.autore].nome}</a>`); if (n.anno) p.push(n.anno); p.push(...campo()); }
+  if (n.genere === 'persone') {
+    if (n.cerchia === 'vita') p.push('persona della tua vita');
+    else if (n.in) p.push(`personaggio · <a href="#/nodo/${n.in}">${NODI[n.in].nome}</a>`);
+    else { p.push(n.cerchia === 'finzione' ? 'figura' : 'persona'); p.push(...campo()); }
+  }
+  if (n.genere === 'citazioni') { p.push(`<a href="${solo('cose', 'c:citazione')}">citazione</a>`); if (n.attribuita) p.push(`attribuita a <a href="#/nodo/${n.attribuita}">${NODI[n.attribuita].nome}</a>`); p.push(n.esito ? `<a href="${solo('cose', 'e:' + n.esito)}">${n.esito}</a>` : `<a href="${solo('cose', 'e:da-verificare')}">da verificare</a>${vf}`); }
+  if (n.genere === 'raccolte') p.push('raccolta · senza scopo');
+  return `<p class="faccette">${p.join('<span class="sep"> · </span>')}</p>`;
+}
+// «Intorno»: le faccette delle frasi del nodo, in poche righe di parole. Ogni parola apre Esplora da qui.
+function intorno(slug, ids) {
+  const conta = (asse, filtro) => { const m = new Map(); ids.forEach((id) => val(id, false)[asse].forEach((x) => { if (filtro(x)) m.set(x, (m.get(x) || 0) + (imp(id) ? 0 : 1)); })); return [...m].filter(([, c]) => c > 0).sort((a, b) => b[1] - a[1]); };
+  const riga = (titolo, asse, xs) => !xs.length ? '' : titolo === 'quando' ? `<p class="intorno"><span class="t">dentro</span><span class="vs">${xs.map(([x]) => `<a href="${da(slug, asse, x)}">${esc(etichetta(asse, x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : xs.length ? `<p class="intorno"><span class="t">${titolo}</span><span class="vs">${xs.map(([x]) => `<a href="${da(slug, asse, x)}">${esc(asse === 'tempo' ? MESI[+x.slice(5, 7) - 1] : etichetta(asse, x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '';
+  const temi = conta('temi', (x) => x.startsWith('t:') && x !== 't:' + slug);
+  const nomi = [...conta('persone', (x) => x !== slug && x !== NODI[slug].autore && x !== NODI[slug].attribuita).map(([x, c]) => ['p', x, c]), ...conta('cose', (x) => x.startsWith('o:') && x !== 'o:' + slug && ['opere', 'citazioni'].includes(NODI[x.slice(2)].genere)).map(([x, c]) => ['c', x, c])];
+  const gesti = conta('gesto', () => true);
+  const mesi = conta('tempo', (x) => x !== 'origine').sort((a, b) => a[0].localeCompare(b[0]));
+  const out = [
+    riga('insieme a', 'temi', temi),
+    nomi.length ? `<p class="intorno"><span class="t">nomini</span><span class="vs">${nomi.map(([t, x]) => `<a href="${da(slug, t === 'p' ? 'persone' : 'cose', x)}">${esc(etichetta(t === 'p' ? 'persone' : 'cose', x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '',
+    riga('quando', 'gesto', gesti),
+    riga('ci torni in', 'tempo', mesi),
+  ].join('');
+  return out ? `<h2>intorno alle tue frasi</h2>${out}` : '';
+}
+V.nodo = (slug) => {
+  const n = NODI[slug]; if (!n) return V.vuoto();
+  const vita = n.cerchia === 'vita';
+  const ids = frasiDi(slug); const tel = ids.filter((id) => !imp(id)); const orig = ids.filter(imp);
+  const propIds = frasiDi(slug, true).filter((id) => !ids.includes(id));
+  const [x, y] = tel.length >= 2 ? [tel[0], tel[tel.length - 1]] : [tel[0], null];
+  const coppia = !x ? '' : y ? `<div class="coppia"><p class="frase">${frase(x)}</p><div class="intervallo" aria-hidden="true">${gg(F[x].reg, F[y].reg)} giorni</div><p class="frase respiro">${frase(y)}</p></div>`
+    : `<div class="coppia"><p class="frase">${frase(x)}</p></div>`;
+  const altre = tel.filter((id) => id !== x && id !== y).reverse();
+  const mondo = slug === 'attenzione' ? `<h2>dal mondo</h2><p class="mondo">«Soprattutto il pensiero dev’essere vuoto, in attesa» (resa mia)${sg('mondo')}<span class="luogo">Simone Weil, Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4 · verificata · dalla <a href="#/r/${LETTERA.id}">lettera del 1 novembre</a></span></p>`
+    : slug === 'le-citta-invisibili' || slug === 'l-inferno-dei-viventi' ? `<h2>dal mondo</h2><p class="mondo">«cercare e saper riconoscere chi e cosa, in mezzo all’inferno, non è inferno»${sg('mondo')}<span class="luogo">Le città invisibili, parte nona, l’ultimo dialogo · verificata</span></p>`
+    : n.genere === 'citazioni' && !n.esito ? `<h2>la verifica</h2><p class="servizio">${slug === 'quello-che-cerchi-ti-sta-cercando' ? RISPOSTA_RUMI.html : 'Nessuna verifica ancora. Senza esito, finché «consolida» non la verifica.'}</p>` : '';
+  // La tavola si offre solo con almeno tre vicini, ciascuno tenuto da almeno due tue frasi (§9: con due vicini «non mi mostra niente»).
+  const vic = new Map(); tel.forEach((id) => val(id, false).nodi.forEach((s) => { if (s !== slug && NODI[s].genere !== 'raccolte') vic.set(s, (vic.get(s) || 0) + 1); }));
+  const vicini = [...vic.values()].filter((c) => c >= 2);
+  const conto = `✦${tel.length}${propIds.length ? ' ◌' + propIds.length : ''}${tel.length > 1 ? ` · dal ${dataL(F[tel[0]].reg)} al ${dataL(F[tel[tel.length - 1]].reg)}` : tel.length ? ` · il ${dataL(F[tel[0]].reg)}` : ''}${orig.length ? ` · e ${orig.length} dall’archivio d’origine, fuori dai conti` : ''}`;
+  return `<div class="pagina">${testa(n.genere)}
+    <div class="soglia nodo-soglia">
+      <h1>${esc(n.nome)}</h1>
+      ${faccetteNodo(slug)}
+      ${coppia || '<p class="servizio">Niente si aggancia ancora.</p>'}
+      ${tel.length && !vita ? `<p class="servizio" style="margin-top:1.4em">${y ? 'la prima e l’ultima · ' : ''}<a href="${da(slug)}">tutte le frasi in Esplora →</a></p>` : ''}
+    </div>
+    ${altre.length ? `<h2>le altre</h2><ul class="righe">${altre.slice(0, vita ? 99 : 4).map((id) => `<li>${frase(id)}</li>`).join('')}</ul>` : ''}
+    ${orig.length ? `<p class="nota-r">${tetto(orig[0])}, ${orig.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme:</p><ul class="righe">${orig.map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>` : ''}
+    ${vita ? '<p class="servizio">Una persona della tua vita: le tue frasi stanno tutte qui. Niente proposte, mai un filtro, mai in una ricerca web, mai un ponte.</p>' : intorno(slug, ids)}
+    ${mondo}
+    ${slug === 'tatuaggi' ? '<p><a href="#/tatuaggi">la tavola dei tatuaggi →</a></p>' : ''}
+    ${propIds.length && !vita ? `<div class="l2"><h2>le mie proposte</h2><ul class="righe">${propIds.map((id) => `<li class="smorzata">${frase(id)}<span class="luogo">una mia lettura ◌, non tua</span></li>`).join('')}</ul></div>` : ''}
+    <p class="conto piede-n">${CS(conto)}${vicini.length >= 3 && !vita ? ` · <a href="#/nodo/${slug}/tavola">la tavola →</a>` : ''}</p>
+    ${vita || !propIds.length ? '' : `<p class="lente"><button class="lente-b solo-l1" data-s="2">anche le mie proposte ◌</button><button class="lente-b l2" data-s="1">solo le tue parole e le accolte</button></p>`}
+  </div>`;
+};
+
 V.tempo = () => {
   const giorniMese = (anno, mese, attivi, fino) => {
     const primo = new Date(anno, mese, 1).getDay(); const off = (primo + 6) % 7;
@@ -501,104 +890,88 @@ V.tempo = () => {
     for (let g = 1; g <= n; g++) s += `<i class="${attivi.includes(g) ? 'a' : ''}" title="${g} ${MESI[mese]}"></i>`;
     return `<div class="giorni" aria-label="giorni attivi">${s}</div>`;
   };
-  const righe = (ids) => `<ul class="righe">${ids.map((id) => `<li>${frase(id)}</li>`).join('')}</ul>`;
+  const righe = (ids) => ids.length ? `<ul class="righe">${ids.map((id) => `<li>${frase(id)}</li>`).join('')}</ul>` : '';
+  const mese = (am, etich) => {
+    const [anno, m] = [+am.slice(0, 4), +am.slice(5, 7) - 1];
+    const tutti = Object.keys(F).filter((id) => !imp(id) && F[id].reg.startsWith(am));
+    const parl = tutti.filter(parlante).sort((a, b) => F[b].reg.localeCompare(F[a].reg));
+    const del = tutti.filter((id) => F[id].delicato).length, pin = tutti.filter((id) => F[id].nonParlante).length;
+    const attivi = [...new Set(tutti.filter((id) => !F[id].nonParlante).map((id) => +F[id].reg.slice(8, 10)))];
+    const pos = parl.filter((id) => F[id].pos).sort((a, b) => F[a].reg.localeCompare(F[b].reg));
+    const conto = `${parl.length} frammenti parlanti${del ? ` e ${del} delicato` : ''} · ${attivi.length} giorni attivi${pin ? ` · e ${pin} link senza parole` : ''}`;
+    const posizioni = pos.length ? `<h2 style="margin-top:1.2em">posizioni</h2>${pos.map((id) => { const t = F[id].temi[0]; const altro = pos.find((k) => k !== id && F[k].temi[0] === t); const prima = F[altro].reg < F[id].reg; return `<div class="pos">${frase(id)}<span class="luogo">${prima ? `dal ${dataL(F[id].reg)} · tensione con il ${dataL(F[altro].reg)}` : `dal ${dataL(F[id].reg)} · messa in discussione il ${dataL(F[altro].reg)}`}</span></div>`; }).join('')}` : '';
+    const lettore = am === '2026-10' ? (() => { const dopo = parl.filter((id) => F[id].reg >= '2026-10-21'), prima = parl.filter((id) => F[id].reg < '2026-10-21'); return `${righe(dopo)}<div class="lettore">cambio di lettore · 21 ottobre</div>${righe(prima)}`; })() : righe(parl);
+    return `<section class="mese"><h2>${MESI[m]} ${anno}${etich ? ' · ' + etich : ''}</h2>
+      ${etich === 'periodo' ? '' : giorniMese(anno, m, attivi, am === OGGI.slice(0, 7) ? +OGGI.slice(8, 10) : 0)}
+      <p class="conto">${conto}</p>${posizioni}${lettore}
+      ${am === '2026-11' ? `<p class="servizio"><a href="#/r/${LETTERA.id}">Lettera di domenica 1 novembre</a></p>` : ''}</section>`;
+  };
+  const orig = Object.keys(F).filter(imp);
   return `<div class="pagina">${testa('il tempo')}
     <h1>Il tempo</h1>
     ${strati()}
-    <section class="mese"><h2>novembre 2026 · in corso</h2>
-      ${giorniMese(2026, 10, [2, 3], 3)}
-      <p class="conto">2 frammenti parlanti · 2 giorni attivi</p>
-      ${righe(['20261103-0750-r4u2', '20261102-2214-q1t6'])}
-      <p class="servizio"><a href="#/r/${LETTERA.id}">Lettera di domenica 1 novembre</a></p>
-    </section>
-    <section class="mese"><h2>ottobre 2026</h2>
-      ${giorniMese(2026, 9, [3, 8, 11, 14, 18, 20, 22, 26, 29, 30])}
-      <p class="conto">9 frammenti parlanti e 1 delicato · 10 giorni attivi · e 1 link senza parole</p>
-      <h2 style="margin-top:1.2em">posizioni</h2>
-      <div class="pos">${frase('20261014-2201-g6k2')}<span class="luogo">dal 14 ottobre · messa in discussione il 29 ottobre</span></div>
-      <div class="pos">${frase('20261029-2305-p8s3')}<span class="luogo">dal 29 ottobre · tensione con il 14 ottobre</span></div>
-      ${righe(['20261030-2320-w2x8', '20261029-2305-p8s3', '20261026-1840-n5r1', '20261022-0905-m2q7'])}
-      <div class="lettore">cambio di lettore · 21 ottobre</div>
-      ${righe(['20261020-2214-k3q1', '20261018-1120-h1m8', '20261014-2201-g6k2', '20261008-0745-e8a0', '20261003-1930-d4f1'])}
-    </section>
-    <section class="mese"><h2>settembre 2026 · periodo</h2>
-      <p class="conto">3 frammenti parlanti · 3 giorni attivi · temi: mare, attenzione, aspettare</p>
-      ${righe(['20260929-2240-c2e9', '20260924-0810-b7d2', '20260921-2315-a1c4'])}
-    </section>
+    ${mese('2026-11', 'in corso')}${mese('2026-10')}${mese('2026-09', 'periodo')}
     <section class="mese"><h2>archivio d'origine</h2>
       <p class="servizio">Fuori dai conti. Le date sono un tetto.</p>
-      <p class="nota-r">${tetto('20260912-0000-u01')}, trascritte da Claude nel seme:</p>
-      <ul class="righe">${['20260912-0000-u01', '20260912-0000-u02', '20260912-0000-u03'].map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
+      <p class="nota-r">${tetto(orig[0])}, trascritte da Claude nel seme:</p>
+      <ul class="righe">${orig.map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
     </section>
   </div>`;
 };
 
 V.frasi = () => {
-  const recenti = ['20261103-0750-r4u2', '20261102-2214-q1t6', '20261030-2320-w2x8', '20261029-2305-p8s3', '20261026-1840-n5r1', '20261022-0905-m2q7', '20261020-2214-k3q1'];
+  const tel = Object.keys(F).filter((id) => !imp(id) && parlante(id)).sort((a, b) => F[b].reg.localeCompare(F[a].reg));
+  const recenti = tel.slice(0, 7), resto = tel.slice(7);
+  const coda = '20260912-0000-u03';
+  const origResto = Object.keys(F).filter((id) => imp(id) && id !== coda);
   return `<div class="pagina">${testa('le tue frasi')}
     <h1>Le tue frasi</h1>
     <ol class="righe numerate">
       ${recenti.map((id) => `<li>${frase(id)}</li>`).join('')}
-      <li><span class="nota-r" style="margin:0 0 .2em">${tetto('20260912-0000-u03')}, trascritta da Claude nel seme:</span>${frase('20260912-0000-u03', { data: false, cls: 'coda' })}</li>
+      <li><span class="nota-r" style="margin:0 0 .2em">${tetto(coda)}, trascritta da Claude nel seme:</span>${frase(coda, { data: false, cls: 'coda' })}</li>
       <li><span class="data">Entro il ${dataL(SEME.reg)}, nell’archivio d’origine, dal seme:</span><span class="seme">${esc(SEME.testo)}${sg('seme')}</span></li>
     </ol>
-    <details><summary>il resto · dal 18 ottobre all'indietro</summary>
-      <ul class="righe">${['20261018-1120-h1m8', '20261014-2201-g6k2', '20261008-0745-e8a0', '20261003-1930-d4f1', '20260929-2240-c2e9', '20260924-0810-b7d2', '20260921-2315-a1c4'].map((id) => `<li>${frase(id)}</li>`).join('')}</ul>
-      <p class="nota-r">${tetto('20260912-0000-u01')}, trascritte da Claude nel seme:</p>
-      <ul class="righe">${['20260912-0000-u02', '20260912-0000-u01'].map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
+    <details><summary>il resto · dal ${dataL(F[resto[0]].reg)} all'indietro</summary>
+      <ul class="righe">${resto.map((id) => `<li>${frase(id)}</li>`).join('')}</ul>
+      <p class="nota-r">${tetto(origResto[0])}, trascritte da Claude nel seme:</p>
+      <ul class="righe">${origResto.map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
       <button class="delic" id="delic">e 1 frase dell'11 ottobre, delicata · mostrala</button>
     </details>
   </div>`;
 };
-
-V.cerca = () => `<div class="pagina">${testa('cerca')}
-  <h1>Cerca</h1>
-  <input class="campo-cerca" id="q" type="search" value="port" autocomplete="off" aria-label="Cerca nelle tue parole">
-  <p class="servizio" style="margin-top:.6em">Ricerca a parole, alla lettera, anche di tre lettere. Per cercare per senso, chiedilo a Specchio.</p>
-  <div id="ris"></div></div>`;
-
-function risultati(q) {
-  q = q.trim().toLowerCase(); if (!q) return '<p class="servizio">Le tue parole e i nomi.</p>';
-  const norm = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
-  const tuoi = Object.keys(F).filter((id) => !F[id].delicato && !F[id].nonParlante && norm(F[id].testo).includes(norm(q))).reverse();
-  const nodi = Object.keys(NODI).filter((s) => norm(NODI[s].nome).includes(norm(q)));
-  const evid = (t) => esc(t).replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig'), '<mark>$1</mark>');
-  return `<h2>le tue parole · ${tuoi.length}</h2><ul class="righe">${tuoi.map((id) => `<li><span class="data">${imp(id) ? tetto(id) + ', trascritta da Claude nel seme:' : dataL(F[id].reg)}</span><a href="#/frammento/${id}"><span class="sua">${evid(F[id].testo)}${sg('sua')}</span></a></li>`).join('') || '<li class="servizio">Nessuna tua parola.</li>'}</ul>
-    <h2>nomi · ${nodi.length}</h2><ul class="righe">${nodi.map((s) => `<li><a href="#/nodo/${s}">${NODI[s].nome}</a> <span class="conto">${NODI[s].genere}</span></li>`).join('') || '<li class="servizio">Nessun nome.</li>'}</ul>`;
-}
 
 V.assenze = () => `<div class="pagina">${testa('assenze')}
   <h1>Che cosa non stai guardando</h1>
   <p class="servizio">Al più tre; oggi due. I numeri vengono da mappa.md.</p>
   <ol class="righe">
     <li><a href="#/nodo/wislawa-szymborska">Wisława Szymborska</a>: <span class="sua">la voglio rileggere</span>${sg('sua')}, il 18 ottobre. Fruizione: da fare. Nessun ritorno.</li>
-    <li><a href="#/nodo/mare">mare</a>: ✦2 tra il 21 settembre e il 26 ottobre, poi niente.</li>
+    <li><a href="#/nodo/mare">mare</a>: ✦${frasiDi('mare').filter((id) => !imp(id)).length} tra il ${dataL(F[frasiDi('mare')[0]].reg)} e il ${dataL(F[frasiDi('mare').slice(-1)[0]].reg)}, poi niente.</li>
   </ol></div>`;
 
 V.tatuaggi = (stampa) => {
-  const pezzi = ['20261008-0745-e8a0', '20260912-0000-u02', '20260912-0000-u03', '20261030-2320-w2x8', '20261020-2214-k3q1', '20261027-1302-t9v4'];
+  // I pezzi: tutti i frammenti ✦ con serve-a tatuaggi, non delicati (tavolaRaccolta). I fili: i temi in comune tra due o più pezzi.
+  const tutti = Object.keys(F).filter((id) => F[id].serve === 'tatuaggi' && !F[id].delicato && !(stampa && (F[id].vita || []).length)).sort((x, y) => F[y].reg.localeCompare(F[x].reg));
+  const fili = {}; tutti.forEach((id) => (F[id].temi || []).forEach((t) => (fili[t] ||= []).push(id)));
+  const gruppi = Object.entries(fili).filter(([, xs]) => xs.length > 1).sort((x, y) => y[1].length - x[1].length);
+  const visti = new Set(); const misura = { g: 0, m: 1, p: 2 };
+  const ordine = (xs) => xs.filter((id) => !visti.has(id)).sort((x, y) => misura[F[x].misura] - misura[F[y].misura]);
   const disegno = `<svg viewBox="0 0 200 120" aria-label="la tua foto: uno schizzo a matita"><circle cx="52" cy="60" r="22"/><circle cx="52" cy="60" r="8"/><line x1="74" y1="60" x2="168" y2="60"/><path d="M140 60 v16 M152 60 v10 M164 60 v20"/></svg>`;
   const pezzo = (id) => {
     const f = F[id];
     if (f.pin) return `<div class="pezzo p pin"><a class="data" href="#/frammento/${id}">${dataL(f.reg)} · pin</a><a href="${esc(f.testo)}" rel="noreferrer" target="_blank">${esc(f.pin)} ↗</a><span class="luogo">titolo dal link · nessuna anteprima</span></div>`;
-    const dt = imp(id) ? '' : `<span class="data">${dataL(f.reg)}</span>`;
+    const dt = imp(id) ? `<span class="data">${tetto(id)}, trascritta da Claude nel seme:</span>` : `<span class="data">${dataL(f.reg)}</span>`;
     const mondo = id === '20261030-2320-w2x8' ? `<span class="luogo">«…in mezzo all’inferno, non è inferno» ○ · Le città invisibili, parte nona, l’ultimo dialogo</span>` : '';
     return `<div class="pezzo ${f.misura}">${f.allegato ? disegno : ''}${dt}<a href="#/frammento/${id}" style="text-decoration:none"><span class="frase">${esc(f.testo)}${sg('sua')}</span></a>${mondo}</div>`;
   };
-  const importati = `<div class="filo-t" style="margin:0">${tetto('20260912-0000-u02')}, trascritte da Claude nel seme</div>`;
+  const corpo = gruppi.map(([t, xs]) => { const o = ordine(xs); o.forEach((id) => visti.add(id)); return o.length ? `<div class="filo-t">✦ ${NODI[t].nome}</div>${o.map(pezzo).join('')}` : ''; }).join('')
+    + (tutti.some((id) => !visti.has(id)) ? `<div class="filo-t" style="visibility:hidden">·</div>` : '') + ordine(tutti).map(pezzo).join('');
   return `<div class="pagina ${stampa ? 'stampa-v' : ''}" style="max-width:1180px">${testa(stampa ? 'il brief' : 'la tavola')}
     <h1>tatuaggi</h1>
     <p class="servizio" style="margin:0">senza scopo</p>
     <div class="campo-t" style="margin-top:14px">
       <p class="legenda">${sg('sua')} tue · ${sg('mondo')} mondo</p>
       <div class="pezzi">
-        ${pezzo('20261008-0745-e8a0')}
-        <div class="filo-t">✦ linea</div>
-        ${importati}
-        ${pezzo('20260912-0000-u02')}${pezzo('20260912-0000-u03')}
-        ${pezzo('20261030-2320-w2x8')}${pezzo('20261020-2214-k3q1')}
-        <div class="filo-t">✦ faro</div>
-        ${pezzo('20261027-1302-t9v4')}
+        ${corpo}
       </div>
       ${stampa ? '' : `<div class="margine"><a href="#/nodo/tatuaggi" style="color:inherit">le idee arrivate con l’importazione →</a></div>`}
     </div>
@@ -611,7 +984,7 @@ V.vuoto = () => `<div class="pagina">${testa()}<p style="margin-top:3em" class="
 /* ===== Router ===== */
 function vai() {
   const h = location.hash.replace(/^#\/?/, '');
-  const [a, b, c] = h.split('/');
+  const [a0, b, c] = h.split('/'); const a = a0.split('?')[0];
   const stato = new URLSearchParams(location.search).get('soglia');
   let html;
   if (!a) html = V.soglia(stato);
@@ -622,21 +995,28 @@ function vai() {
   else if (a === 'frammento') html = V.frammento(b);
   else if (a === 'tempo') html = V.tempo();
   else if (a === 'frasi') html = V.frasi();
-  else if (a === 'cerca') html = V.cerca();
+  else if (a === 'esplora') html = V.esplora();
+  else if (a.startsWith('cerca')) { location.replace('#/esplora?q=' + encodeURIComponent(new URLSearchParams(h.split('?')[1] || '').get('q') || '')); return; }
   else if (a === 'assenze') html = V.assenze();
   else if (a === 'tatuaggi') html = V.tatuaggi(b === 'stampa');
   else html = V.vuoto();
   document.getElementById('vista').innerHTML = html;
   document.querySelectorAll('.barra a').forEach((x) => x.classList.toggle('qui', x.dataset.r === (a || '')));
   chiudi(); window.scrollTo(0, 0);
-  if (a === 'cerca') { const q = document.getElementById('q'); const r = () => (document.getElementById('ris').innerHTML = risultati(q.value)); q.addEventListener('input', r); r(); }
+  if (a === 'esplora') { const q = document.getElementById('q'); q.addEventListener('input', () => { ESP.q = q.value.trim(); aggiornaEsplora(); }); }
 }
-function apri(html) { document.getElementById('foglio-c').innerHTML = html; document.body.classList.add('aperto'); }
+function apri(html, nome = 'Provenienza') { document.getElementById('foglio-c').innerHTML = html; document.getElementById('foglio').setAttribute('aria-label', nome); document.body.classList.add('aperto'); }
 function chiudi() { document.body.classList.remove('aperto'); }
 document.addEventListener('click', (e) => {
   const s = e.target.closest('[data-s]');
   if (s) { document.documentElement.dataset.strato = s.dataset.s; try { localStorage.setItem('mn-strato', s.dataset.s); } catch (x) {} return; }
   const v = e.target.closest('[data-voce]'); if (v) return apri(foglioVoce(v.dataset.voce));
+  if (e.target.closest('#filtra') || e.target.closest('[data-tutti]')) return apri(foglioFiltri(), 'Filtri');
+  const fv = e.target.closest('[data-asse]');
+  if (fv) { const s = new Set(ESP.sel[fv.dataset.asse] || []); s.has(fv.dataset.v) ? s.delete(fv.dataset.v) : s.add(fv.dataset.v); if (s.size) ESP.sel[fv.dataset.asse] = s; else delete ESP.sel[fv.dataset.asse]; return aggiornaEsplora(); }
+  const al = e.target.closest('[data-altri]'); if (al) { al.parentNode.classList.add('tutti'); al.remove(); return; }
+  if (e.target.closest('#mostra')) return chiudi();
+  if (e.target.closest('#lente')) { location.hash = indirizzo({ ...ESP, lente: !ESP.lente }); return; }
   if (e.target.id === 'velo') return chiudi();
   if (e.target.id === 'delic') { e.target.outerHTML = `<p style="margin:.6em 0">${frase('20261011-0210-f3b6')}</p>`; return; }
   const n = e.target.closest('.tela [data-n]'); if (n) zoom(n.dataset.n);

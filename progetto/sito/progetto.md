@@ -2,13 +2,15 @@
 tipo: progetto-sito
 origine: claude
 validata: false
-data: 2026-11-03
+data: 2026-11-04
 ---
 
 # Il sito di Mnemosyne: il progetto
 
 > Il documento normativo del sito, per chi lo costruirà dopo la porta del blocco 6. È una proposta di Claude, da
-> validare. Sintetizza quattro consegne, senza riaprirne le decisioni:
+> validare. Sintetizza cinque consegne, senza riaprirne le decisioni:
+> - [`dimensioni.md`](dimensioni.md), gli assi per navigare e filtrare, con la proposta per lo schema 4 (che riconcilia
+>   [`dimensioni-dati.md`](dimensioni-dati.md) e [`dimensioni-letteratura.md`](dimensioni-letteratura.md));
 > - [`letteratura.md`](letteratura.md), la ricerca;
 > - [`atlante-sito.md`](atlante-sito.md), l'autopsia del sito vecchio;
 > - [`tecnica.md`](tecnica.md), la pila e la cifratura;
@@ -35,6 +37,11 @@ data: 2026-11-03
 datate, una sotto l'altra, con l'intervallo di giorni tra loro, e il link alla lettera. Se non c'è una restituzione di
 questa settimana, torna una tua frase dai ricordabili, una al giorno; in un periodo delicato, solo la data e le porte.
 
+**Esplora in due righe: il cuore.** Una vista sola per navigare, filtrare e cercare: sei assi (cose, persone, temi,
+campo ◌, gesto, tempo) che si incrociano, con il numero accanto a ogni valore, le scelte in chip sempre visibili e la
+parola come campo di ricerca; il risultato sono le tue frasi datate e i nomi che le tengono. Ogni valore, ovunque nel
+sito (un nodo, un frammento, la soglia), è una porta che apre Esplora con quel filtro (§3.12).
+
 ---
 
 ## 1. I principi
@@ -55,17 +62,19 @@ Dieci, in ordine di peso. Ognuno porta la sua fonte; quando la regola è già in
 4. **Gli strati si scelgono, non si validano.** Su ogni vista calcolata c'è lo stesso selettore a tre posizioni:
    *mie* (✦ ✧) · *e accolte* (●) · *e proposte* (◌ ○ ⚠). Il default è *e accolte*. Lo strato nascosto non sparisce:
    resta una riga quieta che lo conta ("e 1 convergenza ◌ · 1 voce ○") e che, toccata, lo apre. Così non si sceglie
-   tra vuoto e rumore.
+   tra vuoto e rumore. In Esplora e nel nodo il selettore diventa **la lente**: una riga quieta in fondo, «anche le
+   mie proposte ◌» (giudice della meraviglia sul nodo: il selettore a pillola «sembra un programma», §9).
    *Fonti:* letteratura 4 (i viewspecs di Engelbart; Shipman & Marshall 1999, «Inferred structure cannot be treated
    identically»); atlante-sito §4.2.2 (l'interruttore binario: «0 risposte da 0 discipline» contro 37 tavole su 5).
 5. **I segni per peso tipografico.** ✦ in corsivo e a pieno inchiostro; ◌ in tondo, tono smorzato, peso più leggero;
    ○ in tondo con il luogo in piccolo sotto; ⚠ piccolo, sempre accanto. Nessun colore fa da segnale; il rosso non c'è.
    *Fonti:* letteratura 4 (Gwern, «you must earn your ornaments»; Bernstein, «use punctuation sparingly»);
    atlante-sito §4.2.3 («il rosso voleva dire due cose»).
-6. **La porta è il nome; il tempo è la spina.** Si entra da un nodo, da una domanda, da una tua frase; la data sta in
-   testa a ogni frase e a ogni pagina. Nessuna mappa globale: la tavola di un nodo mostra i vicini a un passo, al più
+6. **La porta è il nome; il tempo è la spina; gli assi sono i corridoi.** Si entra da un nodo, da una domanda, da una
+   tua frase, o da un valore di un asse («canzone», «filosofia»), e gli assi si incrociano in Esplora (§3.12); la data
+   sta in testa a ogni frase e a ogni pagina. Nessuna mappa globale: la tavola di un nodo mostra i vicini a un passo, al più
    dieci, con zoom semantico (i nomi, poi le frasi che li tengono insieme).
-   *Fonti:* letteratura 1 (la "hairball"; Marshall & Shipman 1995: la memoria spaziale vale per chi ha disposto le
+   *Fonti:* dimensioni §1–§2 (Flamenco, Hearst 2003: le faccette incrociate battono la porta unica); letteratura 1 (la "hairball"; Marshall & Shipman 1995: la memoria spaziale vale per chi ha disposto le
    cose; Sellen & Whittaker 2010: i nomi sono indizi più forti del tempo) e 6 (Mangen 2019, Lifestreams);
    atlante-sito §4.1.2 (lo zoom semantico del Firmamento) e §4.2.8 («mancava il tempo»).
 7. **Navigazioni nominate, una direzione alla volta.** In fondo a un frammento, binari con il criterio scritto:
@@ -96,7 +105,7 @@ ancora.", "Nessun ponte oggi."), mai una sezione-template vuota (atlante-sito §
 Il routing è con l'hash (`tecnica.md` §4.4: il percorso non arriva a Cloudflare). Il `<title>` è sempre «Mnemosyne».
 
 ```
-                         ┌────────────── barra: oggi · tempo · frasi · cerca ──────────────┐
+                         ┌───────────── barra: oggi · tempo · frasi · esplora ─────────────┐
                          │                                                                  │
   #/  LA SOGLIA ─────────┼──► #/r/<id>  RESTITUZIONE (tavola) ──► foglio voce n ──► gesto (Comando rapido)
    │  porte:             │        │ le frasi ✦ citate                                        
@@ -104,9 +113,11 @@ Il routing è con l'hash (`tecnica.md` §4.4: il percorso non arriva a Cloudflar
    │  le tue frasi ──────┼──► #/frasi                                                         
    │  un nodo vivo ──────┼──► #/nodo/<slug> ──► #/nodo/<slug>/tavola (zoom: nomi → frasi)    
    │  tatuaggi ──────────┼──► #/tatuaggi ──► #/tatuaggi/stampa                               
-   │                     └──► #/cerca                                                         
+   │  un valore ─────────┼──► #/esplora?cose=f:canzone&temi=t:malinconia (assi, chip, parola)
+   │                     └──► #/esplora (senza filtri: l'indice degli assi)                   
    └─ (senza restituzione fresca) il ritorno: #/ritorno/<id>                                  
-  ogni frase ✦ ──► #/frammento/<id> (citato in · binari) ──► nodi, restituzioni, giorno prima/dopo
+  ogni frase ✦ ──► #/frammento/<id> (citato in · binari · i suoi valori) ──► nodi, restituzioni, Esplora
+  ogni valore di un nodo o di un frammento ──► #/esplora con quel filtro (dal nodo: «da <nodo>» + il valore)
   #/assenze: dalla pagina del tempo e dal ritratto, mai dalla soglia
   #/r/<id-ritratto>: i ritratti, ciascuno con la sua data; «i ritratti precedenti» in fondo
 ```
@@ -116,11 +127,11 @@ Il routing è con l'hash (`tecnica.md` §4.4: il percorso non arriva a Cloudflar
 | la soglia | `#/` | apertura, «oggi» nella barra, il marchio | `soglia-*`, `soglia-ritorno-tel`, `soglia-delicato-tel` |
 | la restituzione | `#/r/<id>`, `#/r/<id>/<n>` | la soglia, il tempo, "citato in", un nodo | `lettera-*`, `lettera-voce-tel` |
 | il frammento | `#/frammento/<id>` | ogni frase ✦ | `frammento-tel` |
-| il nodo | `#/nodo/<slug>` | le porte della soglia, i legami, la ricerca, le anteprime | `nodo-*`, `nodo-proposte-tel` |
+| il nodo | `#/nodo/<slug>` | le porte della soglia, i legami, Esplora (i nomi), le anteprime | `nodo-tel`, `nodo-giu-tel`, `nodo-opera-tel`, `nodo-persona-tel`, `nodo-proposte-tel` |
 | la tavola del nodo | `#/nodo/<slug>/tavola` | la pagina del nodo, una domanda (risultato della ricerca) | `tavola-nodo-*` |
 | la linea del tempo | `#/tempo`, `#/tempo/AAAA-MM` | barra, soglia | `tempo-*` |
 | le mie frasi | `#/frasi`, `#/frasi/<slug>` | barra, soglia | `frasi-*` |
-| la ricerca | `#/cerca?q=` | barra | `cerca-tel` |
+| **Esplora** (navigare, filtrare, cercare) | `#/esplora`, `#/esplora?da=&cose=&persone=&temi=&campo=&gesto=&tempo=&q=&lente=` | barra, la soglia (riga «esplora»), ogni valore di un nodo o di un frammento; `#/cerca?q=` vi rimanda | `esplora-*` |
 | le assenze | `#/assenze` | il tempo, il ritratto | `assenze-tel` |
 | la tavola dei tatuaggi | `#/tatuaggi`, `#/tatuaggi/stampa` | soglia (porta fissa), il nodo `tatuaggi` | `tatuaggi-*`, `tatuaggi-stampa-tel` |
 | il ritorno lento | `#/ritorno/<id>` (la soglia del giorno) | la soglia, quando non c'è restituzione fresca | `soglia-ritorno-tel` |
@@ -172,7 +183,11 @@ la soglia è la sua faccia.
   tuo, vivo»), così non c'è una frase senza data e nel periodo delicato non resta niente di tuo da evocare (giudice
   delle regole, secondo giro). Stanno fuori dalla prima schermata perché, viste insieme alla coppia, la
   facevano sembrare un menu (giudice della meraviglia, primo giro, §9).
-- La barra fissa in basso: oggi · tempo · frasi · cerca.
+- Sotto le porte, una riga **«esplora»**: canzoni · libri · film · sentimenti ◌ · domande ◌ · filosofia ◌, solo i
+  valori che hanno almeno una frase. Sono valori, non
+  frasi: ognuno apre Esplora con quel filtro (§3.12). Nel periodo delicato la riga non c'è, e la porta del nodo vivo
+  diventa «esplora».
+- La barra fissa in basso: oggi · tempo · frasi · esplora.
 
 **A 1440 px** (`soglia-desk.png`). La stessa colonna, al centro, e nient'altro: niente pannello laterale sulla soglia
 (una colonna «questa settimana» la indeboliva, §9).
@@ -248,6 +263,9 @@ lettura (`intento`, `reazione`, `legami`, `parole`, `link`, `trascrizione`, `alt
 - La riga di risposta, se è senza file («Salvato.», «Ci sono.»), o il link alla risposta.
 - Il selettore degli strati, poi i **legami** come nomi con il loro segno (✦ per i tuoi, ◌ per i proposti, nello strato
   delle proposte).
+- La riga **«esplora»**: i valori del frammento sugli assi, calcolati a un passo (dimensioni §2): il tipo delle opere
+  che nomina, la specie dei suoi temi, i suoi gesti, il mese, il campo ◌ in fondo. «canzone · sentimenti ◌ · sento ·
+  settembre 2026 · musica ◌». Ogni valore apre Esplora con quel filtro (`frammento-tel.png`).
 - «citato in», piegato, aperto se non è vuoto: ogni restituzione che lo cita, con il luogo («in apertura, accanto al 14
   ottobre»).
 - I **binari**: ← giorno prima · giorno dopo →, nel filo (il tema ✦ della sua vicenda), rimandi (i `ritorna-su`), ◌
@@ -268,49 +286,62 @@ ritorni gli si allineano sotto, con i giorni passati, senza parole dell'AI (lett
 
 ### 3.4 Il nodo
 
-**Scopo.** La porta d'ingresso a una cosa che ritorna: una persona, un'opera, una citazione, un tema, una raccolta.
+**Scopo.** La porta d'ingresso a una cosa che ritorna: una persona, un'opera, una citazione, un tema, una raccolta. Si
+legge come una pagina, non si usa come un pannello: le tue frasi in testa, poi le parole intorno, ciascuna una porta su
+Esplora.
 
 **Dati.** Il nodo (`nome`, `alias`, `cerchia`, `in`, `autore`, `anno`, `attribuita-a`, `citata-da`, `originale`,
-`traduzione`, `riferimento`, `esito`, `scopo`, `fuso-in`, `link`); la riga di `mappa.md` § Nodi (`✦n ✧n ◌n ●n`, prima e
-ultima data, vicenda); le Correzioni in attesa; le Fruizioni; gli Scarti; i legami in entrata con il loro stato
-(`statoLegami`, §7); `porte(a, slug)` e `codaLunga` (§7).
+`traduzione`, `riferimento`, `esito`, `scopo`, `fuso-in`, `link`, e dallo schema 4 `tipo`, `specie`, `campo`); la
+riga di `mappa.md` § Nodi; le Correzioni in attesa; le Fruizioni; le frasi del nodo a un passo, più l'autore e l'`in`
+(`faccette(a)`, §7.1); `statoLegami` per il ●.
 
-**Disegno a 390 px** (`nodo-tel.png`, `nodo-tel-scuro.png`, `nodo-proposte-tel.png`).
-- Il nome grande.
-- **La prima schermata è come la soglia**: il nome, e sotto due frasi ✦ grandi, datate, con l'intervallo in giorni.
-  La prima è la frase che tiene il nodo insieme al suo vicino più forte (§3.5); la seconda è la porta più forte
-  diversa da lei. Sotto, una riga di servizio: «la prima tiene insieme attenzione e aspettare · la tavola →». Il
-  selettore, i conti e il genere stanno dopo lo scorrimento (giudice della meraviglia, secondo giro: «sembra il pannello
-  di un database»). Senza un vicino tenuto da una tua frase, le due frasi sono le due porte più forti.
-- **Le altre porte**: fino a 5 in tutto con le due della prima schermata, frasi ✦ datate, le più forti (con una reazione, un `serve-a`, un ritorno spontaneo; a pari merito
-  le più recenti), più **una della coda lunga** con il segno «da tempo».
-- Il selettore degli strati.
-- **Le convergenze**: le due frasi affiancate, e sopra, in piccolo, il legame con il suo segno e il suo luogo
-  («lettera del 1 novembre, voce 3»). Nello strato *e accolte* le ◌ restano chiuse in una riga che le conta.
-- **Il resto per modalità**, piegato: «parla di · 4 frammenti», «nominato con · …», «serve a · …», con i mesi come
-  intestazioni leggere quando sono più di 8.
-- Per una citazione: l'`esito` (o ⚠), l'originale breve, la traduzione o «resa mia», il `riferimento`; sempre visibili.
-  Una correzione in attesa: «attribuita a → … (corregge il 12 marzo, in attesa)».
-- **Le sbiadite** in fondo, nello strato delle proposte.
-- In fondo, in piccolo, il genere («tema · nome tuo», «persona · mondo», «opera · Calvino · 1972») e la riga dei conti
-  copiata da `mappa.md` (gli importati detti a parte, fuori dai conti). In testa era «una riga tecnica» (§9).
-- Una frase compare **una volta sola** nella pagina: il resto per modalità esclude le porte e l'incrocio.
+**Disegno a 390 px** (`nodo-tel.png`, `nodo-tel-scuro.png`, `nodo-giu-tel.png`, `nodo-opera-tel.png`,
+`nodo-persona-tel.png`, `nodo-proposte-tel.png`).
+- Il nome grande; sotto, in una riga, **le faccette del nodo**, ciascuna una porta su Esplora:
+  - un tema: «tema · idea ◌» (la specie, con il ◌: è una lettura di "consolida");
+  - un'opera: «serie · David Lynch · 1990 · cinema ◌» (il tipo, l'autore come nodo, l'anno, il campo ◌);
+  - una persona: «persona · filosofia ◌»; un personaggio: «personaggio · Twin Peaks»;
+  - una citazione: «citazione · attribuita a Rumi · da verificare ⚠».
+  È il posto del «genere», che prima stava in fondo come «una riga tecnica»: qui sono parole da toccare, non etichette.
+- **La prima schermata è come la soglia**: due frasi ✦ grandi, datate, con l'intervallo in giorni. Sono **la prima e
+  l'ultima** tua frase sul nodo (non importate): la regola è semplice e si vede («la prima e l'ultima»), e fa leggere
+  come è cambiato il pensiero. Con una frase sola, una. Sotto: «tutte le frasi in Esplora →».
+- **Le altre**: subito dopo la coppia, fino a 4 frasi ✦, dalla più recente; poi gli importati, con la data-tetto e la
+  nota una volta in testa. Tutte le tue frasi stanno insieme, prima di ogni altra cosa (giudice delle domande, secondo
+  giro). Per una persona della vita, tutte.
+- **Intorno alle tue frasi**: tre o quattro righe di parole, ognuna un asse calcolato sulle frasi del nodo, senza
+  numeri (i numeri stanno in Esplora; qui il giudice li leggeva come «un programma»), con etichette in parole:
+  - «insieme a» i temi che stanno nelle stesse frasi;
+  - «nomini» le persone e le opere;
+  - «dentro» i gesti (penso, sento, voglio fare, per i tatuaggi);
+  - «ci torni in» i mesi.
+  Ogni parola apre Esplora **dal nodo** con quel valore («da attenzione» + «aspettare»): è il modo per incrociare due
+  temi, che dentro un asse si sommerebbero. Una riga vuota non si scrive. Sostituisce la tavola a due vicini, che il
+  giudice trovava povera: dice gli stessi vicini, con le parole e i numeri, e porta oltre.
+- **Dal mondo**: il ○ con le sue parole tra «» e il suo luogo, e solo con il luogo (senza, la riga non c'è) (Weil per attenzione, con il link alla lettera che l'ha
+  portata; il passo verificato per un'opera); per una citazione,
+  l'`esito` (o ⚠) e la traccia della verifica.
+- In fondo, piccolo: la riga dei conti da `mappa.md` (gli importati detti a parte), e «la tavola →» **solo** se il nodo
+  ha almeno tre vicini tenuti ciascuno da almeno due tue frasi (§3.5).
+- **La lente** al posto del selettore: l'ultima riga, quieta, «anche le mie proposte ◌», solo se il nodo ha proposte.
+  Aperta, mostra le frasi che entrano per un tuo legame ◌, con «una mia lettura ◌, non tua», e le convergenze ◌.
+- Una frase compare **una volta sola** nella pagina.
 - **A 1440 px**: a destra le anteprime al passaggio.
 
-**Vuoto.** «Niente si aggancia ancora.» sotto le porte. Una raccolta senza `scopo`: la riga di servizio «senza scopo».
+**Vuoto.** «Niente si aggancia ancora.» al posto della coppia. Una raccolta senza `scopo`: «raccolta · senza scopo».
 
-**Delicato.** Le porte e il resto non contengono delicati non ripresi; al loro posto, se c'è, «e 1 delicato» in fondo,
-che non si apre da qui. La pagina di un tema vicino a un delicato fresco (un tema `parla-di` dello stesso frammento) non
-mostra la coda lunga per 7 giorni.
+**Delicato.** Le frasi e l'intorno non contengono delicati non ripresi, e un delicato non dà valori all'intorno; al loro
+posto, se c'è, «e 1 delicato» in fondo, che non si apre da qui.
 
-**Persone `cerchia: vita`.** La pagina esiste, per te: il nome, le tue frasi. Niente `link`, niente proposte, niente
-tavola, mai in un ponte; nella build degli ospiti non c'è.
+**Persone `cerchia: vita`.** Il nome, «persona della tua vita», tutte le tue frasi nella pagina. Niente faccette,
+niente intorno, niente proposte, niente tavola, nessun link a Esplora (non sono un filtro), mai in un ponte, mai in
+una ricerca web; nella build degli ospiti non c'è.
 
-**Segni.** ✦ sulle porte; ● accanto ai legami accolti, con la formula in tondo («formula mia, accolta da te il 14
-marzo»); ◌ smorzato; ○ con il luogo; ⚠ sempre.
+**Segni.** ✦ sulle frasi; ◌ sulla specie, sul campo e sulle proposte, smorzato; ○ con il luogo; ⚠ sempre. Il tipo
+non ha segno, come l'anno: ha sempre una fonte (dimensioni §1.2).
 
-**NON mostra.** Un grafo globale, sparkline, una scala d'intensità, "importance", stadi di crescita, un "potrebbe
-interessarti", le persone della vita come vicine.
+**NON mostra.** Un grafo globale, sparkline, una scala d'intensità, il selettore a pillola, "importance", stadi di
+crescita, un "potrebbe interessarti", le persone della vita nell'intorno.
 
 ### 3.5 La tavola del nodo (zoom semantico)
 
@@ -338,7 +369,12 @@ frammenti ✦ che portano entrambi i capi. Il layout è fisso, con un seme dallo
 collega attenzione e mare»): i cammini sono quelli del modello (§6.2), che non attraversano un frammento con più di 8
 nodi né una persona della vita.
 
-**Vuoto.** Un nodo senza vicini: la tavola non si offre.
+**Quando si offre.** Solo con almeno tre vicini tenuti ciascuno da almeno due tue frasi (giudice della meraviglia,
+terzo giro: con due vicini «non mi mostra niente che non sapessi già»). Sotto, il nodo ha già l'intorno (§3.4), che
+dice gli stessi vicini in parole. Nei dati sintetici nessun nodo arriva alla soglia: la tavola resta raggiungibile solo
+dall'indirizzo, per le foto.
+
+**Vuoto.** Un nodo sotto la soglia: la tavola non si offre.
 
 **Delicato.** Un delicato non ripreso non conta come frammento in comune.
 
@@ -400,25 +436,22 @@ intero nel blob); il seme ✧ dalla sezione `## Seme ✧`; le restituzioni di `r
 **NON mostra.** "Le frasi più forti", un ordinamento per reazione, le parole d'altri come tue, i non parlanti (un link
 nudo, «boh»).
 
-### 3.8 La ricerca
+### 3.8 La parola (la ricerca dentro Esplora)
 
-**Scopo.** Ritrovare per parole: chi, quando, che cosa (letteratura 15).
+**Scopo.** Ritrovare per parole: chi, quando, che cosa (letteratura 15). Non è più una vista a parte: è il campo in
+testa a Esplora (§3.12), e si incrocia con gli assi. `#/cerca?q=` rimanda a `#/esplora?q=`.
 
 **Dati.** L'indice MiniSearch precalcolato nel blob (`tecnica.md` §4.1): il corpo dei frammenti, i nomi e gli alias dei
 nodi, la prosa delle restituzioni; i delicati in un indice a parte, in `delicati.bin`.
 
-**Disegno a 390 px** (`cerca-tel.png`).
-- Il campo, sotto una riga di servizio: «Ricerca a parole, alla lettera, anche di tre lettere. Per cercare per senso,
-  chiedilo a Specchio.» (l'espansione è di Specchio, `tecnica.md` §4.1).
-- I risultati in tre gruppi: **le tue parole** (✦, con la data e la parola sottolineata), **nomi**, **restituzioni**.
-  Le citazioni con il loro `esito` o ⚠ anche qui.
-- Un nodo trovato offre «apri la tavola».
-- **A 1440 px**: i gruppi in colonna, l'anteprima a destra.
+**Disegno.** Il campo, «una parola, alla lettera»: alla lettera, anche di tre lettere, con gli accenti piegati; per
+cercare per senso si chiede a Specchio. I risultati sono quelli di Esplora: i nomi trovati, poi le tue frasi con la
+data; gli assi restringono («mare» + gesto: ricordo, `esplora-parola-tel.png`). Le citazioni con il loro `esito` o ⚠.
 
 **Vuoto.** «Nessuna tua parola.»; mai un "forse cercavi".
 
 **Delicato.** Un delicato non ripreso non compare: in fondo, «e 1 risultato delicato · mostralo», con lo stesso
-gesto delle frasi.
+gesto delle frasi. Solo la parola lo trova: un filtro sugli assi mai.
 
 **NON mostra.** Suggerimenti automatici, la cronologia delle ricerche salvata, risultati dal web.
 
@@ -490,13 +523,81 @@ tatuatore deve sapere che cosa è tuo). Fuori: il link alle idee importate, ogni
 `cerchia: vita`, la barra, i link. Il filtro si fa sui **dati** (la funzione esclude), non solo con il CSS. È l'unica
 uscita voluta del sito.
 
-**Vuoto.** «Nessun pezzo ancora.» e il margine ◌, se c'è.
+**Vuoto.** «Nessun pezzo ancora.» e il link alle idee importate, se c'è.
 
 **Delicato.** Un delicato con `serve-a: tatuaggi` (un tatuaggio per un lutto) non entra finché un tuo frammento non ci
 torna sopra.
 
 **NON mostra.** Una sagoma del corpo (sarebbe un ◌ presentato come mappa), un `placement` o uno `stato` inventati,
 l'embed di Pinterest, il muro delle eredità, l'accostamento Warburg spiegato a parole.
+
+### 3.12 Esplora: navigare, filtrare, cercare (il cuore)
+
+**Scopo.** «Se voglio qualcosa legato alla filosofia, ad un autore in particolare, ad un pensiero, un sentimento […]
+oppure voglio cercare una canzone, o una parola»: una vista sola per tutte queste porte, che si incrociano. Gli assi, i
+vocabolari e le regole sono in [`dimensioni.md`](dimensioni.md); qui la forma.
+
+**Dati.** `faccette(a)` (§7.1): per ogni frase ✦ (parlante o importata, mai delicata non ripresa) i valori dei sei assi,
+ciascuno con la voce del legame che lo dà; i nodi con `tipo`, `specie`, `campo`; l'indice della parola. Tutto in
+memoria: ogni scelta ricalcola risultati e numeri in meno di 50 ms (`tecnica.md` §4.3), senza «applica».
+
+**Gli assi, in quest'ordine** (dimensioni §1): **cose** (forme e opere; citazioni ed esiti) · **persone** · **temi**
+(specie e temi) · **campo ◌** · **gesto** (penso · sento · chiedo · ricordo · voglio fare · trascrivo · per i
+tatuaggi) · **tempo** (i mesi; l'archivio d'origine). Dentro un asse O, tra assi E; il punto di partenza «da <nodo>»
+sempre in E.
+
+**Disegno a 390 px**, il caso principale.
+- **In testa, ferma mentre scorri** (`position: sticky`): il campo della parola e, sotto, **la riga delle chip** che
+  scorre in orizzontale. La prima chip è «＋ filtra», che apre il foglio; poi i filtri attivi, ciascuno con la sua ×
+  (il punto di partenza «da attenzione» con il bordo; le chip del campo in tono smorzato, con il ◌). Bersagli da 44 px.
+- **Senza filtri, l'indice** (`esplora-tel.png`, `esplora-giu-tel.png`): sotto una riga di servizio («Tocca una parola
+  per filtrare; le scelte si incrociano.»), un asse per sezione, con i valori come parole e il numero piccolo accanto:
+  «canzone 2 · libro 4 · film 2 · serie 3 · citazioni 4», poi in corsivo le opere più presenti; le persone; i temi per
+  specie («sentimenti ◌ 6 · idee ◌ 8 · domande ◌ 2…») e poi i temi; il campo, smorzato, con «◌ scelto da me, sui nomi del
+  mondo»; i gesti; i mesi. È la parte del **navigare**: si vede che cosa c'è prima di filtrare.
+- **Con un filtro, i risultati** (`esplora-risultati-tel.png`, `esplora-filosofia-tel.png`): la riga del totale («3
+  frasi · e 1 dall'archivio d'origine, fuori dai conti · 5 nomi»), poi **nomi** (i nodi che danno il valore scelto, come
+  link, con ⚠ accanto alle citazioni senza esito), poi **le tue frasi**, dalla più recente, ognuna con la data, la frase
+  ✦ e, in piccolo, i nomi che la legano. In fondo gli importati, con la data-tetto e la nota una volta in testa.
+- **Il foglio dei filtri** (`esplora-filtri-tel.png`): sale dal basso (lo stesso foglio delle voci, §3.2), «filtra · 2
+  frasi» in testa, un asse per sezione, i valori come pillole con il numero, i primi 8 e «altri N». Il tocco aggiunge o
+  toglie un valore e tutto si ricalcola sotto e dentro il foglio; i valori a zero spariscono. In fondo, fermo, «mostra
+  2 frasi», che chiude. Il foglio, non una colonna: a 390 px una colonna di faccette non ci sta accanto ai risultati.
+- **Restringi** e **o anche**: sotto il totale, due righe di chip che scorrono, con il numero. «restringi»: i valori
+  degli altri assi che restringono davvero (meno frasi, mai zero), e, se sono scelte le citazioni, i loro esiti (⚠ da
+  verificare, verificata), che le raffinano. «o anche»: gli altri valori degli assi già scelti, che allargano (O:
+  esoterismo o mito e religione; film o serie). Nessun taglio silenzioso: ogni riga finisce con «tutti i filtri», che
+  apre il foglio. Incrociare o allargare è un tocco (giudice delle domande, primo e secondo giro).
+- **La parola** scritta diventa una chip «mare» con la sua ×, come gli altri filtri.
+- **Dal nodo** (`esplora-da-nodo-tel.png`): «da attenzione» + «aspettare» = le frasi su attenzione **e** aspettare.
+- **La lente**, ultima riga: «anche le mie proposte ◌». Aperta, i legami ◌ contano; una frase che entra solo per un ◌
+  porta sotto «entra per una mia lettura ◌: nostalgia».
+- **A 1440 px** (`esplora-desk.png`): la stessa colonna; il foglio diventa il pannello a destra, come per le voci.
+  Più spazio, non più funzioni.
+
+**I numeri.** Accanto a ogni valore, le frasi che resterebbero scegliendolo, sugli altri filtri attivi. Contano solo i
+parlanti (regola 3); un valore con sole frasi importate ha «·» al posto del numero. Nessuno zero raggiungibile: un
+vicolo cieco si ha solo con la parola, e si dice («Nessuna canzone tua.», «Nessuna tua parola.»).
+
+**L'indirizzo.** `#/esplora?da=attenzione&cose=f:canzone&temi=t:malinconia&campo=filosofia&q=mare&lente=proposte`.
+Ogni stato si può tenere, mandare a se stessi, riaprire (principio 10). Le chip sono link: togliere una chip è tornare
+indietro di un passo.
+
+**Vuoto.** Togliere l'ultima chip riporta all'indice; un risultato vuoto dice che cosa manca, in una riga.
+
+**Delicato.** Un delicato non ripreso non ha valori: nessun filtro lo trova, nessun numero lo conta. Solo la parola, in
+fondo, «e 1 risultato delicato · mostralo». Un tema che vive solo in delicati non compare nell'indice. In un periodo
+delicato Esplora resta raggiungibile dalla barra, ma la soglia non lo propone con i valori.
+
+**Persone `cerchia: vita`.** Non sono valori dell'asse persone e non hanno campo; non compaiono tra i nomi sotto le
+frasi. Le trova solo la parola (scrivendo il nome).
+
+**Segni.** ✦ sulle frasi; ◌ sul campo e sulle frasi che entrano per una proposta; ⚠ sulle citazioni senza esito, anche
+dentro la frase che le nomina; la specie con il ◌ (sentimenti ◌); tipo e gesto senza segno (un fatto del mondo verificabile; un calcolo dai tuoi campi). Nessuna legenda: non è una forma lunga.
+
+**NON mostra.** Emozioni dedotte, un tono del frammento, «correlati», «popolari», un ordinamento per reazione,
+suggerimenti, un grafico dei conteggi, valori a zero, le persone della vita nelle liste, il seme ✧ tra i risultati
+(sta in «le mie frasi»).
 
 ---
 
@@ -584,6 +685,7 @@ vecchia. Se il modello sceglierà un campo (`da-sito`, §7), cambierà il traspo
 | nodo opera | correggi l'autore | `l'autore di <nome> è  → <slug>` | `come: corregge`, `campo: autore` |
 | nodo raccolta | dai lo scopo | `i tatuaggi servono a  → tatuaggi` | lo scopo con parole tue (A30) |
 | fruizione | fatta | `finito → <slug>` | `nomina` con `fruizione: fatta` |
+| nodo (tipo, specie, campo) | correggi lo scaffale | `twin peaks è un film, non una serie → twin-peaks` | `ritorna-su`, `come: corregge`, `campo: tipo` (o `specie`, `campo`; bersaglio il nodo stesso, dimensioni §3.3) |
 
 Nessun gesto è un bottone "accetta/rifiuta" dentro una lista: stanno solo nel foglio di una voce o in fondo a una
 pagina, uno alla volta (nessuna coda di validazione, atlante-sito §4.2.4).
@@ -596,7 +698,8 @@ La mappa globale; la sala a 360°; il Firmamento; l'interruttore binario delle p
 "un anno fa oggi"; sparkline; scale di colore; contatori di attività; streak; badge; notifiche; "non letti";
 il tempo di lettura; "potrebbe interessarti"; embed di terzi (Pinterest, YouTube, Spotify); oEmbed nel browser;
 analytics; «Modifica su GitHub»; un login fatto da noi (c'è Access); un editor; la cronologia delle ricerche; una
-vista "le frasi più forti"; i delicati nella soglia, nei mesi, nelle tavole, nelle anteprime.
+vista "le frasi più forti"; i delicati nella soglia, nei mesi, nelle tavole, nelle anteprime, nei filtri; le emozioni
+dedotte; i valori a zero nei filtri; una colonna di faccette sul telefono.
 
 ---
 
@@ -631,6 +734,8 @@ Il sito deve importare le regole, non riscriverle (`tecnica.md` §2.1, §7.3). O
 | `frasiCheTengono(a, x, y)` | i frammenti ✦ che portano entrambi i nodi | tavola del nodo |
 | `tavolaRaccolta(a, slug)` | pezzi con misura, fili, il ◌ dei margini, i filtri della stampa | tatuaggi |
 | `assenze(a)` | al più tre, con i numeri | assenze |
+| `faccette(a)` | per ogni frase ✦, i valori dei sei assi (un passo, più l'autore e l'`in`), ciascuno con la voce del legame | Esplora, nodo (intorno), frammento |
+| `gesti(a, id)` | i gesti di una frase (dimensioni §1.6) | Esplora |
 
 Un test `node --test` per ciascuna, sui dati sintetici di `test/`.
 
@@ -649,7 +754,11 @@ Un test `node --test` per ciascuna, sui dati sintetici di `test/`.
    accanto. Proposta: nessun campo nuovo; la seconda frase è la prima voce con `cosa: ponte | convergenza | confronto` e
    `rif` a un frammento. Se il corpo la cita solo in corsivo, `corsiviDelCorpo` la trova. Da confermare con il formato del
    piano.
-5. **Il ritorno sul sito non consuma il ricordabile.** Il sito non scrive, quindi la frase tornata sulla soglia può
+5. **Lo schema 4** (dimensioni §3): `tipo` sulle opere, `specie` sui temi, `campo` su persone (non `vita`), opere e
+   correnti; `brano` → `canzone` in `voci[].cosa`; la sezione «Da classificare» di `mappa.md`; il congelamento in
+   `verifica.mjs`; la migrazione 004 (58 valori su 49 nodi; letture e restituzioni non si toccano). Senza lo schema 4 Esplora funziona a metà: cose solo per opera,
+   temi senza specie, niente campo.
+6. **Il ritorno sul sito non consuma il ricordabile.** Il sito non scrive, quindi la frase tornata sulla soglia può
    tornare anche in una lettera. Si accetta; se disturba, la lettera può escludere il ricordabile del giorno (è
    deterministico).
 
@@ -667,13 +776,13 @@ una sessione; quelli tecnici vengono da `tecnica.md` §8, ridistribuiti per vist
 | **B2** | `sito/costruisci.mjs`: carica, calcola le viste, i due blob, i controlli | la build fallisce se: un ○ senza `riferimento`; un ● letto da file; un delicato non ripreso in `archivio.bin`; un nome `vita` nel guscio o nei nomi dei file; test sui dati sintetici | 3,5 |
 | **B3** | il guscio: routing, sistema visivo, segni, strati, foglio | axe senza errori; contrasto misurato ≥ 4,5:1 per `--tenue` nei due temi; a 390 px nessuno scorrimento orizzontale su ogni vista; `<title>` sempre «Mnemosyne»; foto 390×844 @2 dei due temi | 2,5 |
 | **B4** | soglia, restituzione, frammento | i tre stati della soglia dai dati sintetici; la coppia è transclusa (cambiando il frammento di prova cambia la soglia); **giudice cieco** (sotto) | 2 |
-| **B5** | nodo e tavola del nodo | porte 3–5 + una della coda lunga; ≤ 10 vicini; nessun `vita` nella tavola; tastiera: Tab, Invio, Esc; l'elenco testuale uguale alla tela | 2 |
+| **B5** | nodo e tavola del nodo | la prima e l'ultima frase; l'intorno uguale ai conteggi di Esplora con «da <nodo>»; la tavola solo sopra la soglia (§3.5); nessun `vita` nell'intorno né nella tavola; tastiera: Tab, Invio, Esc; **giudice cieco** sul nodo | 2 |
 | **B6** | tempo, le mie frasi, assenze | «le mie frasi» rispetta la ricetta riga per riga (≤ 8 ✦, una coda lunga, ✧ a parte, nota una volta per gruppo): il controllo è lo stesso di `verifica.mjs` sui corsivi; i conti uguali a `mappa.md` carattere per carattere | 1,5 |
-| **B7** | ricerca | i delicati assenti dai risultati finché non si tocca «mostralo»; ricerca di «zio» (3 lettere) e con accento piegato | 0,5 |
+| **B7** | **Esplora**: indice, motore delle faccette, foglio, chip, parola, URL (dopo lo schema 4) | le 12 domande di dimensioni §6 come test automatici sui dati sintetici (combinazione → frasi attese); nessun numero diverso dalle frasi mostrate; nessun valore a zero; nessun delicato in un filtro; nessun nome `vita` nelle liste; «zio» (3 lettere) e l'accento piegato; **giudice cieco** sulle 12 domande | 2,5 |
 | **B8** | tatuaggi e stampa | i pezzi = i frammenti ✦ con `serve-a`; la stampa (PDF di Chromium) non contiene ◌, delicati, nomi `vita`: verificato estraendo il testo del PDF | 1 |
 | **B9** | cifratura, offline, immagini, deploy | il blob non si apre senza passphrase; offline la soglia si apre dalla cache; nessuna richiesta verso terzi (CSP e log di Playwright) | 3 |
 | **B10** | un mese d'uso | l'utente dice dove l'ha aperto e che cosa ha letto; si correggono le tre cose che dice | 0,5 |
-| | **totale** | | **~17** |
+| | **totale** | | **~19** |
 
 **Il giudice cieco della soglia (B4).** Tre subagent separati, che non hanno visto né il progetto né il ragionamento,
 ricevono solo le foto 390×844 della soglia nei due temi e dei suoi tre stati, con un brief di tre righe («tieni un
@@ -684,6 +793,8 @@ rumore) e passa con **zero violazioni sostanziali**. Al più tre giri; gli esiti
 ---
 
 ## 9. Gli esiti dei giudici sul prototipo
+
+### 9.1 La soglia e il nodo vecchio (3 novembre)
 
 Due subagent separati, senza il ragionamento di questa sessione, a ogni giro. **Giudice A** (le regole): ha
 `CLAUDE.md`, il prototipo e le foto, e cerca le violazioni. **Giudice B** (la meraviglia): ha solo cinque foto
@@ -714,12 +825,54 @@ con il giudice cieco: sul nodo il selettore diventa una riga di servizio in fond
 proposte»), e la tavola del nodo si offre solo quando ha almeno tre vicini tenuti da tue frasi (con due, «non mi
 mostra niente che non sapessi già»).
 
+### 9.2 Esplora e il nodo nuovo (4 novembre)
+
+Due subagent separati per giro, senza il ragionamento della sessione. **Giudice A** (le regole): `CLAUDE.md`,
+`dimensioni.md`, le sezioni nuove di questo documento, il prototipo e le foto. **Giudice B** (l'utente): solo il
+prototipo e le 12 domande di `dimensioni-dati.md` §4 (con i nomi dei dati sintetici); a ogni domanda dice se ci arriva,
+in quanti tocchi dalla soglia, se il risultato è giusto; poi sì o no a pancia su Esplora e sul nodo («sì con riserve»
+vale no).
+
+| giro | giudice A (regole) | giudice B: domande (sì · in parte) | tocchi medi | B: Esplora | B: nodo |
+|---|---|---|---|---|---|
+| 1 | **non passa**: 3 sostanziali (la migrazione toccava le restituzioni immutabili; la correzione di un valore congelato senza bersaglio; «penso» da una tensione dell'AI senza ◌) e 8 minori | 11 · 1 (Arendt fuori da «filosofia») | 2,7 | **sì** | **sì** (il fondo «sa di programma») |
+| 2 | **non passa**: 4 sostanziali (la `a` della correzione dev'essere un frammento; «penso» con due definizioni; un'attribuzione a un personaggio inventata dall'AI; la specie senza ◌ in §3.4) e 6 minori | 10 · 2 (O dentro un asse; «da verificare» sotto «citazioni») | 2,3 | **sì** | **sì** |
+| 3 | **non passa**: 1 sostanziale (`brano` → `canzone` dimenticato in `schema/piano.json` e `prompt/progetto.md`) e 13 minori | 11 · 1 (Arendt, di nuovo) | 2,3 | **sì** | **sì** |
+
+**Che cosa è cambiato tra i giri.**
+- Lo schema 4 tocca solo i nodi: letture e restituzioni restano a 3 e lo schema le accetta (dimensioni §3, §5).
+- `forma` è diventato `tipo` (due significati di `forma` nel modello); il tipo ha sempre una fonte e non porta segno;
+  specie e campo sono ◌, in pagina.
+- «Penso» ha una definizione sola (i capi di un `contraddice` ✦ o ●; i proposti solo con la lente, con il ◌).
+- La correzione di un valore ha come `a` il primo frammento di `nato-da`, non delicato e non importato.
+- Esplora: «restringi» e «o anche» sotto il totale, senza tagli; gli esiti raffinano le citazioni; un tema raffina la
+  sua specie; la parola è una chip. Il nodo: tutte le frasi insieme prima dell'intorno; l'intorno senza numeri e con
+  etichette in parole; la persona della vita senza link a Esplora. La tavola dei tatuaggi calcolata dai dati.
+
+**Dopo il terzo giro** (non rigiudicate, perché i giri erano finiti): la sostanziale è chiusa (dimensioni §3.2 e
+§4.5); delle minori sono corrette: il vincolo di `piano.json` allargato a `migra`; `crea-nodo` rifiuta i tre campi
+chiunque crei; `schema 3 o 4` anche per la restituzione in `CLAUDE.md`; il tipo non più «dal nome»; il bersaglio non
+delicato e non importato; come `verifica.mjs` lega il congelamento alla correzione; il refuso e il ◌ in §3.12; il
+margine ◌ dei tatuaggi; il conto di «mare» nelle assenze calcolato; il controllo `vita` sull'`attribuita-a`; «filosofia
+◌» smorzata sulla soglia; l'etichetta del campo («e sulle correnti»); il ⚠ accanto a ogni frase che nomina una citazione
+senza esito; l'opera che nomina le sue citazioni; più temi nell'indice. Il giudice B, giro 3, chiedeva anche il campo
+«filosofia» per una citazione ⚠ attribuita a una filosofa: **non si fa**, per la regola del giudice A (un'attribuzione
+non verificata non dà campo); la frase si trova da Persone e da «citazioni › da verificare».
+
+**Esito.** Il giudice B ha detto sì a Esplora e al nodo in tutti e tre i giri: il nodo, bocciato tre volte nella
+sessione precedente, passa. Il giudice A non ha passato nessun giro, con 3, poi 4, poi 1 sostanziali; l'ultima è
+chiusa ma non rigiudicata. Va rigiudicato in B5 e B7, con il giudice cieco.
+
 ---
 
 ## 10. Dubbi aperti
 
-1. **Il nodo non ha ancora la sua meraviglia** (§9): il selettore degli strati e una tavola povera. È il primo lavoro di
-   B5.
+1. **Il nodo** (§9.2) ora passa il giudice dell'utente; resta da provare su dati veri, dove un nodo può avere 40 frasi:
+   «le altre» sono 4, il resto è in Esplora. Il fondo («intorno alle tue frasi») è la parte che sa ancora un po' di
+   programma.
+8. **Una citazione ⚠ non dà campo** (dimensioni §1.5): «filosofia» non trova una frase che attribuisco a una filosofa
+   finché "consolida" non la verifica. È prudente, ma l'utente se lo aspetterebbe (giudice B, giri 1 e 3).
+9. **Lo schema 4 è una proposta** (dimensioni.md): senza, Esplora funziona a metà. Va deciso con la porta del blocco 6.
 2. **La soglia ha una sola cosa, ma due stati che si alternano** (la coppia e il ritorno). Se le restituzioni sono
    frequenti, il ritorno non compare quasi mai. Da guardare dopo un mese (B10).
 3. **Il campo scuro dei tatuaggi anche nel tema chiaro** è una scelta di forma, non di tema: va confermata dall'utente.

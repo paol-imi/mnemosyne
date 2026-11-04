@@ -174,3 +174,10 @@ Revisione avversaria consegnata (session_016XqAM1rN5Kgopjqxq5zNQ5, `revisione.md
 scartati; prototipo ripubblicato. I quattro aperti decisi, tutti con l'opzione raccomandata (in fondo a `revisione.md`):
 A1 e A2 vanno nel ramo `claude/schema-4` (session_016XqAM3WHtNyCZ15LMjunX4), così dopo la porta c'è un solo cambio di
 lettore; A3 e A4 li applica la costruzione del sito.
+Schema 4 pronto sul ramo `claude/schema-4` (commit 9a5b776; note in `progetto/sito/schema-4-note.md`), con A1 e A2
+dentro; migrazione 004 non applicata. Prova a secco sul repo vero: 52 nodi a 4, 58 valori su 49 nodi, verifica ok,
+141 test su 141. Per applicarlo, dopo la porta del blocco 6 e solo con il «vai avanti» dell'utente: merge del ramo
+(conflitti probabili in contesto.mjs, verifica.mjs, test), `npm test`, `node scripts/migra/004-dimensioni.mjs`,
+`node scripts/contesto.mjs`, `node scripts/verifica.mjs`, commit «migrazione 004». Cambia l'hash `prompt` (cambio di
+lettore voluto). Al blocco 9, `aggiorna-nodo` deve portare il nodo a schema 4 e accettare tipo/specie/campo.
+

@@ -860,7 +860,7 @@ senza esito; l'opera che nomina le sue citazioni; più temi nell'indice. Il giud
 non verificata non dà campo); la frase si trova da Persone e da «citazioni › da verificare».
 
 **Esito.** Il giudice B ha detto sì a Esplora e al nodo in tutti e tre i giri: il nodo, bocciato tre volte nella
-sessione precedente, passa. Il giudice A non ha passato nessun giro, con le sostanziali scese da 3 a 4 a 1; l'ultima è
+sessione precedente, passa. Il giudice A non ha passato nessun giro, con 3, poi 4, poi 1 sostanziali; l'ultima è
 chiusa ma non rigiudicata. Va rigiudicato in B5 e B7, con il giudice cieco.
 
 ---

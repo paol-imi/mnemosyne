@@ -161,3 +161,12 @@ nuovi solo sui nodi (forma, specie, campo), scritti da "consolida" una volta da 
 il pensiero è una posizione; niente emozioni dedotte; proposta per lo schema 4, da applicare dopo la porta del blocco 6.
 Il delicato su u01 e u19: l'implementazione li ha verificati, restano senza (motivi in `progetto/lacune.md`).
 Sintesi: session_016XqAM2UmaSasUMWv1BgCEh (`dimensioni.md`, Esplora nel progetto, prototipo aggiornato).
+Consegnata la sintesi (2026-11-04): `dimensioni.md`, `progetto.md` §3.4 nodo e §3.12 Esplora, prototipo ripubblicato
+allo stesso indirizzo. Sei assi: cose (tipo dell'opera, 11 valori; citazioni con esito) · persone (mondo e finzione) ·
+temi (per specie ◌: stato, idea, domanda, corrente, simbolo, stile) · campo ◌ (10 voci) · gesto (calcolato) · tempo.
+Lente ✦● di default, «anche le mie proposte ◌»; la parola è la ricerca. Il nodo nuovo: faccette, prima e ultima frase,
+«intorno», niente selettore né tavola povera. Giudici: B sì a Esplora e al nodo in tre giri; A non passa mai pulito,
+l'ultima sostanziale (brano→canzone in piano.json e prompt/progetto.md) chiusa ma non rigiudicata. Sito ~19 giorni.
+Decisioni sui dubbi, la più semplice: una citazione ⚠ non dà campo; mito e religione un valore solo; le band sono
+persone; gli importati nei risultati ma fuori dai numeri; «penso» solo dai contraddice ✦/●.
+Dopo: due sessioni, una prepara lo schema 4 su un ramo (non su main), una rilegge il sito da avversaria contro CLAUDE.md.

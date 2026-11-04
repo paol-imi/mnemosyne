@@ -156,3 +156,8 @@ diverse». Il progetto entrava da una frase o da un nodo; manca lo schema delle 
 letteratura (`dimensioni-letteratura.md`, session_016XqAM1S36b8cmAYQvukUpr) e dati veri + confronto col modello
 (`dimensioni-dati.md`, session_016XqAM1yM1gpT7T7uqPEoZA). Poi una sintesi: gli assi, i campi nuovi del modello, la
 navigazione a faccette nel sito e il prototipo aggiornato.
+Consegnate entrambe. Decisioni: canzone e sentimento su assi diversi (forma di un'opera / specie di un tema); campi
+nuovi solo sui nodi (forma, specie, campo), scritti da "consolida" una volta da vocabolari chiusi; il campo è ◌ ovunque;
+il pensiero è una posizione; niente emozioni dedotte; proposta per lo schema 4, da applicare dopo la porta del blocco 6.
+Il delicato su u01 e u19: l'implementazione li ha verificati, restano senza (motivi in `progetto/lacune.md`).
+Sintesi: session_016XqAM2UmaSasUMWv1BgCEh (`dimensioni.md`, Esplora nel progetto, prototipo aggiornato).

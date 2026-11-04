@@ -18,7 +18,7 @@ data: 2026-11-04
 > la usa è in [`progetto.md`](progetto.md) §3.12 (Esplora); il prototipo, a dati solo sintetici, in
 > [`prototipo/index.html`](prototipo/index.html), `#/esplora`.
 >
-> Qui non c'è nessuna frase dell'utente alla lettera: gli esempi sono sintetici, i conti sui dati veri vengono da
+> Qui non c'è nessuna frase dei frammenti: la sola frase dell'utente è la richiesta, citata in testa; gli esempi sono sintetici, i conti sui dati veri vengono da
 > `dimensioni-dati.md`.
 
 ---
@@ -27,10 +27,10 @@ data: 2026-11-04
 
 1. **Sei assi, una lente, un campo di ricerca.** Gli assi: **Cose**, **Persone**, **Temi**, **Campo**, **Gesto**,
    **Tempo**. La lente: **la voce** (✦ di default, ◌ a richiesta). Il campo: **la parola**, alla lettera.
-2. **«Canzone» e «sentimento» stanno su assi diversi.** «Canzone» è la **forma** di un'opera (asse Cose): divide le cose
+2. **«Canzone» e «sentimento» stanno su assi diversi.** «Canzone» è il **tipo** di un'opera (asse Cose): divide le cose
    che nomino. «Sentimento» è la **specie** di un tema (asse Temi): divide ciò di cui parlo. Si combinano in E: «una
    canzone per la malinconia» è Cose: canzone **e** Temi: malinconia.
-3. **Tre campi nuovi, solo sui nodi:** `forma` sulle opere, `specie` sui temi, `campo` su persone (non `vita`), opere e
+3. **Tre campi nuovi, solo sui nodi:** `tipo` sulle opere, `specie` sui temi, `campo` su persone (non `vita`), opere e
    temi. Mai sui frammenti né sulle letture. Il valore di una frase si **calcola** a un passo di legame.
 4. **Li scrive solo "consolida",** una volta per nodo, da vocabolari chiusi (11 forme, 6 specie, 10 campi), e poi non
    li tocca più, salvo una correzione dell'utente. Il `campo` è sempre ◌: una scelta dell'AI, anche sui nodi del mondo.
@@ -38,7 +38,7 @@ data: 2026-11-04
    `serve-a` e dalle Posizioni. «Un pensiero» è una posizione (Gesto: penso), non un tema.
 6. **Le 12 domande dell'utente** (`dimensioni-dati.md` §4) si risolvono tutte con al più tre scelte (§6). Oggi ne
    passano 1 per intero e 7 in parte.
-7. **Costo**: la migrazione allo schema 4 sono 58 valori su 50 nodi; a regime, 0–5 nodi a settimana per "consolida".
+7. **Costo**: la migrazione allo schema 4 sono 58 valori su 49 nodi, e nessun altro file; a regime, 0–5 nodi a settimana per "consolida".
 
 ---
 
@@ -50,7 +50,7 @@ Un nome solo per asse, una parola italiana che l'utente capisce senza spiegazion
 
 | asse definitivo | letteratura (6) | dati (9) | che cosa ci entra |
 |---|---|---|---|
-| **Cose** | Cose | Cosa (genere e tipo) · Esito | le opere per forma, le citazioni per esito |
+| **Cose** | Cose | Cosa (genere e tipo) · Esito | le opere per tipo, le citazioni per esito |
 | **Persone** | Persone | — (era nel genere) | le persone, anche come autori |
 | **Temi** | Temi (specie) | Tema (classe) | i temi, raggruppati per specie |
 | **Campo** | Campo | Campo | il sapere di persone, opere e correnti |
@@ -59,19 +59,19 @@ Un nome solo per asse, una parola italiana che l'utente capisce senza spiegazion
 | lente: **la voce** | la voce come lente | Chi dice | ✦ ● di default; ◌ a richiesta |
 | campo: **la parola** | la parola come campo | Parola | la ricerca alla lettera |
 
-Tre nomi di campo cambiano rispetto alle due consegne: `tipo` e `forma` diventano **`forma`** (la parola della
-letteratura e di FRBR; «tipo» si confonde con il genere del nodo); `classe` e `specie` diventano **`specie`**;
-`campo` resta. L'asse «Da fare» dei dati entra nel Gesto («voglio fare»), lo «Scopo» pure («per i tatuaggi»),
+Tre nomi di campo, riconciliati: `tipo` (dati) e `forma` (letteratura) diventano **`tipo`**, perché `forma` ha già
+due significati nel modello (`forma: riportata` del frammento, `forma` della restituzione); `classe` e `specie`
+diventano **`specie`**; `campo` resta. L'asse «Da fare» dei dati entra nel Gesto («voglio fare»), lo «Scopo» pure («per i tatuaggi»),
 l'«Esito» nelle Cose (sotto «citazione»).
 
 ### 1.2 Cose
 
 - **Domanda:** che cosa nomino?
-- **Valori:** le **forme** (chiuse) e, dentro ciascuna, le **opere** (aperte, i nodi). Più **citazione**, che si apre in
+- **Valori:** i **tipi** (chiusi) e, dentro ciascuna, le **opere** (aperte, i nodi). Più **citazione**, che si apre in
   quattro esiti più ⚠.
-- **Vocabolario chiuso della forma**, 11 voci, in quest'ordine fisso (l'ordine non cambia, perché le scelte non saltino):
+- **Vocabolario chiuso del tipo**, 11 voci, in quest'ordine fisso (l'ordine non cambia, perché le scelte non saltino):
 
-  | `forma` | che cosa ci entra |
+  | `tipo` | che cosa ci entra |
   |---|---|
   | `canzone` | una canzone, un brano, una traccia |
   | `album` | un disco intero |
@@ -88,12 +88,14 @@ l'«Esito» nelle Cose (sotto «citazione»).
   `canzone` sostituisce `brano` anche in `voci[].cosa` delle restituzioni: «canzone» è la parola dell'utente, e oggi
   nessuna restituzione usa `brano` (0 su 177 voci), quindi nessun file si migra. `libro` e `film` coincidono già.
 - **Esiti della citazione:** `verificata · simile · errata · non trovata · ⚠` (l'assenza di `esito`).
-- **Chi lo riempie, con quale segno:** la forma la scrive "consolida", ◌ nel senso del modello (è una sua scelta su un
-  vocabolario chiuso), ma in pagina **non porta segno**: è una scaffalatura, come il genere del nodo. L'esito c'è già, ○
+- **Chi lo riempie, con quale segno:** il tipo lo scrive "consolida", e in pagina **non porta segno**: come l'`anno`,
+  è un fatto del mondo verificabile su un nome `mondo` (una canzone è una canzone), non una lettura. L'esito c'è già, ○
   quando è scritto, ⚠ quando manca.
-- **Si legge da:** `opere.forma` (nuovo); `citazioni.esito` (esiste).
-- **Una frase ha la forma F** se nomina un'opera di forma F, oppure una citazione o una persona `finzione` che sta `in`
-  quell'opera (l'aggregazione per `in`). **Una frase ha l'opera O** alle stesse condizioni.
+- **Si legge da:** `opere.tipo` (nuovo); `citazioni.esito` (esiste).
+- **Una frase ha il tipo T** se nomina un'opera di tipo T. **Una frase ha l'opera O** se la nomina, oppure nomina una
+  persona `finzione` con `in: O`, oppure una citazione che io attribuisco (`attribuita-a`, la mia attribuzione) a una
+  di quelle persone: è **la catena dell'`in`**, l'unica eccezione al passo singolo (§2.4), e dà solo l'opera e il suo
+  tipo, mai il campo.
 - **Esempi sintetici:**
   - «nick drake stamattina, pink moon in loop» → Cose: canzone › *Pink Moon*.
   - «la frase del gufo, credo sia di twin peaks» → Cose: citazione › ⚠, e Cose: serie › *Twin Peaks* (per `in`).
@@ -121,7 +123,7 @@ l'«Esito» nelle Cose (sotto «citazione»).
 
   | `specie` | in pagina | che cosa ci entra | dai dati veri (35 temi) |
   |---|---|---|---|
-  | `stato` | sentimenti | uno stato d'animo nominato: rabbia, malinconia, quiete | 10 |
+  | `stato` | sentimenti ◌ | uno stato d'animo nominato: rabbia, malinconia, quiete | 10 |
   | `idea` | idee | un concetto: attenzione, libertà, tempo | ~9 |
   | `domanda` | domande | una grande domanda, con il punto interrogativo | 8 |
   | `corrente` | correnti | una corrente di pensiero o di stile nominata: stoicismo, romanticismo | 3 |
@@ -131,7 +133,8 @@ l'«Esito» nelle Cose (sotto «citazione»).
   Il file porta il valore della prima colonna; la pagina mostra la seconda, sempre la stessa. «stato» resta il valore
   del modello (come `parla-di come: stato`); «sentimenti» è la parola che l'utente usa.
 - **Chi lo riempie:** il tema nasce come oggi (✦ da "smista" se lo nomino, ◌ da "consolida" se dedotto). La specie la
-  scrive "consolida", ◌, senza segno in pagina.
+  scrive "consolida", ed è ◌ **con il segno** in pagina, come il campo: dire che «rabbia» è un sentimento è una lettura,
+  anche se la parola è dell'utente. Il nome del tema resta ✦; la sua scaffalatura è ◌.
 - **Si legge da:** `parla-di`; `temi.specie` (nuovo).
 - **Una frase ha il tema T** se ha un `parla-di` verso T (✦ o ●; ◌ solo con la lente aperta).
 - **Nessuna emozione dedotta.** Un sentimento entra solo come tema che l'utente ha nominato. Il tono di un frammento non
@@ -150,15 +153,15 @@ l'«Esito» nelle Cose (sotto «citazione»).
   dell'AI su un vocabolario chiuso, non una parola dell'utente né un fatto con un luogo. In pagina l'intestazione
   dell'asse porta il ◌, in tondo smorzato, e l'asse sta **dopo** i Temi ✦: non pesa più di loro.
 - **Dove sta:** su persone `mondo` e `finzione`, opere, temi di specie `corrente` (al più 2 valori). **Mai** su persone
-  `vita`, mai su temi di altre specie, mai su citazioni (la ereditano dall'`autore`), mai su un frammento.
+  `vita`, mai su temi di altre specie, mai su citazioni (la ereditano dall'`autore` verificato o, se manca, dalla persona a cui l'utente la attribuisce: `attribuita-a` è la sua attribuzione), mai su un frammento.
 - **Si legge da:** `campo` (nuovo).
-- **Una frase ha il campo C** se nomina un nodo con C, o un'opera o una citazione il cui `autore` ha C, o parla di una
-  corrente con C. Un passo, più l'autore; mai due passi.
+- **Una frase ha il campo C** se nomina un nodo con C, o un'opera il cui `autore` ha C, o una citazione il cui `autore`
+  (o, senza autore, la persona `attribuita-a`) ha C, o parla di una corrente con C. Un passo, più l'autore; mai due passi.
 - **Un frammento delicato non ripreso** non dà valori a nessun asse, e quindi nemmeno al campo.
 - **Esempi sintetici:**
   - «rileggo spinoza, l'etica, il libro quarto» → Campo: filosofia (da Spinoza e dall'*Etica*).
-  - «la carta dell'eremita stamattina» → Campo: esoterismo (dal nodo *Tarocchi*), se l'utente nomina il mazzo; se
-    nomina solo l'eremita, il tema `eremita` è un `simbolo` e non ha campo.
+  - «il caduceo di ermete trismegisto, a linea sottile» → Campo: esoterismo (dalla figura Ermete Trismegisto); il
+    tema `linea` è uno `stile` e non ha campo.
 
 ### 1.6 Gesto
 
@@ -167,17 +170,18 @@ l'«Esito» nelle Cose (sotto «citazione»).
 
   | gesto | si calcola da | chi lo scrive già |
   |---|---|---|
-  | **penso** | la frase è una posizione: un capo di un `contraddice` (le Posizioni di `mappa.md`) | "consolida" |
+  | **penso** | la frase è un capo di un `contraddice` di voce `sua` (le mie parole negano le mie parole), non rifiutato; con la lente aperta anche i `contraddice` ◌ | "consolida" |
   | **sento** | un `parla-di` con `come: stato` | "smista" (regola rafforzata, §4) |
   | **chiedo** | `intento` contiene `chiedi` | "smista" |
-  | **ricordo** | la lettura ha `vissuto` | "smista" |
+  | **ricordo** | la lettura ha `vissuto`, che "smista" scrive solo quando le mie parole danno il tempo («da piccolo», «nel 2009») | "smista" |
   | **voglio fare** | un `nomina` con `fruizione: da-fare` o `in-corso`, senza una `fatta` più recente | "smista" |
   | **trascrivo** | `altrui: true` | "smista" |
   | **per *raccolta*** | un `serve-a` verso la raccolta (una voce per raccolta: «per i tatuaggi») | "smista" |
 
 - **Nessun campo nuovo.** `contesto.mjs` lo calcola; il sito lo legge.
-- **«Penso» è prudente:** vale solo per le frasi che "consolida" ha già messo in Posizioni, non per ogni frase
-  affermativa. Un monologo trascritto (`altrui`) non è mai «penso»: le tesi d'altri non diventano dell'utente.
+- **«Penso» è prudente:** vale solo per le frasi che stanno ai capi di un `contraddice` ✦ (o ● se accolto), non per
+  ogni frase affermativa né per una tensione proposta dall'AI, che conta solo con la lente aperta e porta il ◌. Un
+  `contraddice` rifiutato toglie il gesto. Un monologo trascritto (`altrui`) non è mai «penso»: le tesi d'altri non diventano dell'utente.
 - **Esempi sintetici:**
   - «aspettare non è perdere tempo, è il tempo che lavora» e, 15 giorni dopo, «mi sono rotto di aspettare» → tutte e
     due Gesto: penso (i capi di un `contraddice`).
@@ -217,7 +221,8 @@ Il senso («che cosa pensavo della fede») resta a Specchio, che espande la doma
 3. **Il punto di partenza.** Aprendo Esplora da un nodo («le frasi di attenzione») il nodo è un filtro in più, sempre
    in E e sempre visibile come prima chip. Serve per «attenzione e aspettare»: dentro l'asse Temi due temi sono in O.
 4. **Un passo di legame, più l'autore.** Mai due passi: Zarathustra non è «filosofia» perché sta vicino a qualcosa di
-   filosofico, ma perché il suo autore ha quel campo.
+   filosofico, ma perché il suo autore ha quel campo. **Una sola eccezione, per nome: la catena dell'`in`** (§1.2), che
+   porta un personaggio, e una citazione che gli attribuisco, alla sua opera; dà l'opera e il tipo, non il campo.
 5. **Il numero accanto a ogni valore** conta le frasi che resterebbero scegliendolo, calcolate sugli altri filtri attivi
    (non sul proprio asse: dentro l'asse si somma). **Conta solo i parlanti** (regola 3): gli importati sono fuori dai
    conti (regola 5).
@@ -242,11 +247,11 @@ Il senso («che cosa pensavo della fede») resta a Specchio, che espande la doma
 
 | campo | dove | tipo | obbligatorio | chi lo scrive | quando |
 |---|---|---|---|---|---|
-| `schema` | letture, nodi, restituzioni | `const: 4` | sì | tutti | ogni file nuovo; la migrazione per i vecchi |
-| **`forma`** | nodo `opere` | enum, uno | no | solo "consolida" (`aggiorna-nodo`) | la prima domenica dopo la nascita del nodo |
+| `schema` | nodi: `const: 4`; letture e restituzioni: `enum: [3, 4]` | | sì | tutti | ogni file nuovo nasce 4; la migrazione porta a 4 **solo i nodi**. Le restituzioni non si modificano mai e le letture cambiano solo per versioni: restano a 3, e lo schema le accetta |
+| **`tipo`** | nodo `opere` | enum, uno | no | solo "consolida" (`aggiorna-nodo`) | la prima domenica dopo la nascita del nodo |
 | **`specie`** | nodo `temi` | enum, uno | no (lo diventa di fatto: `mappa.md` elenca chi manca) | solo "consolida" | idem |
 | **`campo`** | nodo `persone` con `cerchia` ≠ `vita`; `opere`; `temi` con `specie: corrente` | lista di enum, 1–2, senza doppioni | no | solo "consolida" | idem |
-| `voci[].cosa` | restituzione | enum: `brano` → **`canzone`** | — | come oggi | — |
+| `voci[].cosa` | restituzione | enum: `brano` → **`canzone`** | — | come oggi | solo per i file nuovi; nessuna restituzione esistente usa `brano` (0 su 177 voci), quindi nessuna diventa invalida |
 
 Nessun campo nuovo su frammenti e letture. `parla-di` con `come: stato` esiste già: cambia solo la regola di "smista"
 (§4). Il frammento non ha `schema` e non cambia.
@@ -256,7 +261,7 @@ Nessun campo nuovo su frammenti e letture. `parla-di` con `come: stato` esiste g
 Da aggiungere a `schema/frontmatter.json`, in `$defs`:
 
 ```json
-"forma": {"enum": ["canzone", "album", "libro", "poesia", "film", "serie", "fumetto",
+"tipo": {"enum": ["canzone", "album", "libro", "poesia", "film", "serie", "fumetto",
                    "spettacolo", "immagine", "gioco", "video"]},
 "specie": {"enum": ["stato", "idea", "domanda", "corrente", "simbolo", "stile"]},
 "campo": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true,
@@ -268,7 +273,7 @@ Nel nodo, `properties`:
 
 ```json
 "schema": {"const": 4},
-"forma": {"$ref": "#/$defs/forma"},
+"tipo": {"$ref": "#/$defs/tipo"},
 "specie": {"$ref": "#/$defs/specie"},
 "campo": {"$ref": "#/$defs/campo"}
 ```
@@ -283,7 +288,7 @@ E nei vincoli per genere (`allOf`), le liste dei nomi ammessi si allungano così
  "then": {"not": {"anyOf": [{"required": ["link"]}, {"required": ["in"]}, {"required": ["campo"]}]}}},
 {"if": {"properties": {"_genere": {"const": "opere"}}},
  "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in",
-          "autore", "in", "anno", "forma", "campo"]}}},
+          "autore", "in", "anno", "tipo", "campo"]}}},
 {"if": {"properties": {"_genere": {"const": "temi"}}},
  "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in",
           "specie", "campo"]}}},
@@ -294,7 +299,7 @@ E nei vincoli per genere (`allOf`), le liste dei nomi ammessi si allungano così
 Una lapide (`fuso-in`) non porta i campi nuovi: la regola che c'è già lo garantisce.
 
 In `restituzione.voci.items.properties.cosa` la voce `brano` diventa `canzone`. In `schema/piano.json`,
-`aggiorna-nodo` accetta `forma`, `specie`, `campo`; `crea-nodo` **no** (li rifiuta: la creazione resta di "smista", che
+`aggiorna-nodo` accetta `tipo`, `specie`, `campo`; `crea-nodo` **no** (li rifiuta: la creazione resta di "smista", che
 non li scrive).
 
 ### 3.3 Che cosa controlla `verifica.mjs`
@@ -303,14 +308,20 @@ non li scrive).
    campo»).
 2. `campo` su un tema che non sia `specie: corrente`: rifiuto.
 3. Un valore fuori vocabolario: rifiuto (lo schema).
-4. **Il congelamento.** Un `aggiorna-nodo` che cambia una `forma`, `specie` o `campo` già scritti è rifiutato, salvo che
-   nello stesso piano ci sia la risposta a un `ritorna-su … come: corregge` dell'utente con `campo: forma | specie |
-   campo`. I valori chiusi non si rigenerano (letteratura §3.4: le etichette dei modelli sono instabili tra esecuzioni).
-5. In `ritorna-su … corregge`, `campo` ammette anche `forma`, `specie`, `campo` (oggi: autore, attribuita-a, in, nome).
+4. **Il congelamento.** Un `aggiorna-nodo` che cambia un `tipo`, una `specie` o un `campo` già scritti è rifiutato,
+   salvo che risponda a un `ritorna-su … come: corregge` dell'utente con `campo: tipo | specie | campo`. I valori
+   chiusi non si rigenerano (letteratura §3.4: le etichette dei modelli sono instabili tra esecuzioni).
+5. **Come l'utente corregge o rifiuta un valore.** In `ritorna-su … corregge`, `campo` ammette anche `tipo`, `specie`,
+   `campo` (oggi: autore, attribuita-a, in, nome). Il bersaglio è **il nodo stesso**, nominato nel memo («twin peaks è
+   un film, non una serie»; il gesto del sito, `progetto.md` §5, scrive `→ twin-peaks`): questi valori non stanno in
+   nessuna prosa, quindi la finestra dei 3 giorni, che vale per frammenti e restituzioni, qui non si applica, come già
+   per la correzione di un `autore`. Per `campo`, `valore` è una stringa con le voci separate da «, » («filosofia,
+   psicologia»), o vuota per toglierlo; `vecchio` idem. Il `campo` della correzione e il campo `campo` del nodo
+   coincidono nel nome: `campo: campo` è valido e voluto.
 
 ### 3.4 Che cosa calcola `contesto.mjs`
 
-- In `mappa.md`, una sezione nuova **«Da classificare»**: i nodi senza `forma` (opere), senza `specie` (temi), senza
+- In `mappa.md`, una sezione nuova **«Da classificare»**: i nodi senza `tipo` (opere), senza `specie` (temi), senza
   `campo` (persone `mondo` e `finzione`, opere, correnti). È la coda di "consolida", come le correzioni in attesa.
 - Una funzione pura **`faccette(a)`**, esportata per il sito (`progetto.md` §7.1): per ogni frase ✦, i valori dei sei
   assi, ciascuno con la voce del legame che lo dà (per la lente). Il sito non riscrive la regola del passo.
@@ -324,9 +335,9 @@ Righe proposte, da approvare; i file restano come sono fino alla porta del blocc
 
 ### 4.1 `CLAUDE.md`
 
-- §I quattro tipi, **nodo**, dopo «raccolte `scopo`»: «; opere `forma`; temi `specie`; persone (non `vita`), opere e
+- §I quattro tipi, **nodo**, dopo «raccolte `scopo`»: «; opere `tipo`; temi `specie`; persone (non `vita`), opere e
   correnti `campo` (1–2). Vocabolari chiusi in `schema/frontmatter.json`.»
-- §Un file, un solo scrittore, nella riga dei nodi, dopo «ogni altro campo»: «(anche `forma`, `specie`, `campo`, ◌,
+- §Un file, un solo scrittore, nella riga dei nodi, dopo «ogni altro campo»: «(anche `tipo`, `specie`, `campo`, ◌,
   una volta sola: poi cambiano solo per una mia correzione)».
 - §Privacy, persone `cerchia: vita`: «niente `link`, niente `campo`, niente temi proposti…».
 - §Regole di provenienza 10, in coda: «Il `campo` e la `specie` non danno nomi: i temi restano le mie parole, e
@@ -338,7 +349,7 @@ Una riga sola, nel passo **legami**:
 
 > - **stati vissuti**: quando le mie parole dicono uno stato in prima persona («mi sento…», «ho una rabbia…», «oggi
 >   malinconia»), il `parla-di` verso quel tema porta `come: stato`. Se il tema non c'è, nasce ✦ con la mia parola.
->   Non scrivere `forma`, `specie` né `campo`: li scrive "consolida".
+>   Non scrivere `tipo`, `specie` né `campo`: li scrive "consolida".
 
 Nient'altro: "smista" non classifica.
 
@@ -347,7 +358,7 @@ Nient'altro: "smista" non classifica.
 Un passo nuovo nella Fase A, dopo A3:
 
 > A3b. **Da classificare.** Per ogni nodo nella sezione «Da classificare» di `mappa.md`, `aggiorna-nodo` con:
-> - `forma` per un'opera: dal nome e dalle mie parole; se non basta, una verifica rapida sul nome `mondo` (mai su
+> - `tipo` per un'opera: dal nome e dalle mie parole; se non basta, una verifica rapida sul nome `mondo` (mai su
 >   persone `vita`). Nel dubbio, niente: resta in coda.
 > - `specie` per un tema: `stato` se l'ho usato per dire come mi sento; `domanda` se è una domanda; `corrente` se è una
 >   scuola di pensiero o di stile; `simbolo` se è una cosa, un luogo o una figura usati come immagine; `stile` se è
@@ -358,24 +369,25 @@ Un passo nuovo nella Fase A, dopo A3:
 > Una volta sola per nodo: un valore scritto non si cambia, salvo una mia correzione (A5). Nessuna proposta all'utente,
 > nessun segno nelle prose.
 
-E in A5 (correzioni): «`campo` della correzione può essere anche `forma`, `specie`, `campo`».
+E in A5 (correzioni): «`campo` della correzione può essere anche `tipo`, `specie`, `campo`».
 
 ### 4.4 `prompt/formato-piano.md`
 
-Nella tabella delle operazioni, `aggiorna-nodo` elenca `forma`, `specie`, `campo` tra i campi ammessi; `crea-nodo` no.
+Nella tabella delle operazioni, `aggiorna-nodo` elenca `tipo`, `specie`, `campo` tra i campi ammessi; `crea-nodo` no.
 
 ---
 
 ## 5. La migrazione
 
-Una migrazione `scripts/migra/004-dimensioni.mjs`, un commit «migrazione 004», una riga in `_schema.md`. Come una
-lettura di "consolida": un piano unico, applicato da `applica.mjs`, che porta tutti i file a `schema: 4` e scrive i
-valori.
+Una migrazione `scripts/migra/004-dimensioni.mjs`, un commit «migrazione 004», una riga in `_schema.md`. Come un passo
+di "consolida": un piano unico di `aggiorna-nodo`, applicato da `applica.mjs`, che porta **i nodi** a `schema: 4` e
+scrive i valori. Letture e restituzioni non si toccano (le restituzioni sono immutabili, le letture cambiano solo per
+versioni): lo schema 4 le accetta anche a 3.
 
 | che cosa | quanti | da dove si ricava |
 |---|---|---|
-| `schema: 3 → 4` | 35 letture, 52 nodi, 60 restituzioni | meccanico |
-| `forma` sulle opere | 6 | dal nome e dal vecchio percorso del `link` (`/fonti/opere/`); il resto con una verifica rapida sul nome |
+| `schema: 3 → 4` | 52 nodi (le 35 letture e le 60 restituzioni restano a 3) | meccanico |
+| `tipo` sulle opere | 6 | dal nome e dal vecchio percorso del `link` (`/fonti/opere/`); il resto con una verifica rapida sul nome |
 | `specie` sui temi | 35 | 22 dal percorso del `link`: `/emozioni/` → `stato` (10), `/domande/` → `domanda` (8), `/stile/` → `stile` (2), `/fonti/pensiero/` → `corrente` (2); 12 `/concetti/` letti uno per uno (`idea`, `simbolo` o `corrente`); 1 senza link |
 | `campo` sulle persone | 8 (7 `mondo`, 1 `finzione`) | il vecchio percorso del `link` (`/fonti/pensiero/`, `/fonti/psicologia/`, `/fonti/sacro-e-mito/`) e una verifica rapida |
 | `campo` sulle opere | 6 | idem |
@@ -402,7 +414,7 @@ Da `dimensioni-dati.md` §4. «Tocchi» = dalla barra, nel prototipo (la colonna
 | 1 | Tutto ciò che è filosofia | Campo: filosofia | le frasi che nominano filosofi, le loro opere e le correnti |
 | 2 | Le cose su un autore (Spinoza) | Persone: Baruch Spinoza; oppure la parola «spinoza» | le frasi che lo nominano, l'*Etica* per autore, le citazioni attribuite |
 | 3 | Quando mi sono sentito così (rabbia) | Temi: rabbia + Gesto: sento | le frasi in ordine di tempo; senza «sento», anche quelle in cui la rabbia è un'idea |
-| 4 | Una canzone per la malinconia | Cose: canzone + Temi: malinconia | una frase; con un altro sentimento il vuoto: «Nessuna canzone tua.» |
+| 4 | Una canzone per la malinconia | Cose: canzone + Temi: malinconia | una frase; scelta «canzone», tra i temi restano solo quelli che hanno una canzone (malinconia, quiete) |
 | 5 | La parola X | la parola | come la ricerca di oggi |
 | 6 | I miei pensieri sul dolore | Temi: dolore + Gesto: penso | le posizioni sul dolore |
 | 7 | I film o le serie che volevo vedere | Cose: film, serie + Gesto: voglio fare | O dentro Cose, E con il Gesto |
@@ -425,7 +437,7 @@ Ogni dubbio dei due documenti, con la scelta più semplice.
    ma nessuna delle 12 domande li separa, e la domanda 10 li vuole insieme («esoteriche o di mito»). L'esoterismo resta
    a parte, perché l'utente lo nomina da solo. Se un giorno servisse dividere, è una migrazione di una parola.
 2. **Le band: nodi persona con `campo: musica`.** Nessun nodo `album` nasce senza una menzione. Una canzone nominata è
-   un'opera `forma: canzone` con `autore` verso la band. Così «Deftones» e «Radiohead» restano dove sono.
+   un'opera `tipo: canzone` con `autore` verso la band. Così «Deftones» e «Radiohead» restano dove sono.
 3. **Gli importati nei conteggi: fuori dai numeri, dentro i risultati.** I numeri accanto ai valori contano solo i
    parlanti (regole 3 e 5); le frasi importate compaiono in fondo ai risultati, nel loro gruppo con la data-tetto e la
    nota una volta in testa, e il totale le dice a parte («e 2 dall'archivio d'origine, fuori dai conti»). Un valore con

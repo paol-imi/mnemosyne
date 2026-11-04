@@ -262,7 +262,7 @@ lettura (`intento`, `reazione`, `legami`, `parole`, `link`, `trascrizione`, `alt
 - La riga di risposta, se è senza file («Salvato.», «Ci sono.»), o il link alla risposta.
 - Il selettore degli strati, poi i **legami** come nomi con il loro segno (✦ per i tuoi, ◌ per i proposti, nello strato
   delle proposte).
-- La riga **«esplora»**: i valori del frammento sugli assi, calcolati a un passo (dimensioni §2): la forma delle opere
+- La riga **«esplora»**: i valori del frammento sugli assi, calcolati a un passo (dimensioni §2): il tipo delle opere
   che nomina, la specie dei suoi temi, i suoi gesti, il mese, il campo ◌ in fondo. «canzone · sentimenti · sento ·
   settembre 2026 · musica ◌». Ogni valore apre Esplora con quel filtro (`frammento-tel.png`).
 - «citato in», piegato, aperto se non è vuoto: ogni restituzione che lo cita, con il luogo («in apertura, accanto al 14
@@ -290,22 +290,23 @@ legge come una pagina, non si usa come un pannello: le tue frasi in testa, poi l
 Esplora.
 
 **Dati.** Il nodo (`nome`, `alias`, `cerchia`, `in`, `autore`, `anno`, `attribuita-a`, `citata-da`, `originale`,
-`traduzione`, `riferimento`, `esito`, `scopo`, `fuso-in`, `link`, e dallo schema 4 `forma`, `specie`, `campo`); la
+`traduzione`, `riferimento`, `esito`, `scopo`, `fuso-in`, `link`, e dallo schema 4 `tipo`, `specie`, `campo`); la
 riga di `mappa.md` § Nodi; le Correzioni in attesa; le Fruizioni; le frasi del nodo a un passo, più l'autore e l'`in`
 (`faccette(a)`, §7.1); `statoLegami` per il ●.
 
 **Disegno a 390 px** (`nodo-tel.png`, `nodo-tel-scuro.png`, `nodo-giu-tel.png`, `nodo-opera-tel.png`,
 `nodo-persona-tel.png`, `nodo-proposte-tel.png`).
 - Il nome grande; sotto, in una riga, **le faccette del nodo**, ciascuna una porta su Esplora:
-  - un tema: «tema · idea» (la specie);
-  - un'opera: «serie · David Lynch · 1990 · cinema ◌» (la forma, l'autore come nodo, l'anno, il campo ◌);
+  - un tema: «tema · idea ◌» (la specie, con il ◌: è una lettura di "consolida");
+  - un'opera: «serie · David Lynch · 1990 · cinema ◌» (il tipo, l'autore come nodo, l'anno, il campo ◌);
   - una persona: «persona · filosofia ◌»; un personaggio: «personaggio · Twin Peaks»;
   - una citazione: «citazione · attribuita a Rumi · da verificare ⚠».
   È il posto del «genere», che prima stava in fondo come «una riga tecnica»: qui sono parole da toccare, non etichette.
 - **La prima schermata è come la soglia**: due frasi ✦ grandi, datate, con l'intervallo in giorni. Sono **la prima e
   l'ultima** tua frase sul nodo (non importate): la regola è semplice e si vede («la prima e l'ultima»), e fa leggere
   come è cambiato il pensiero. Con una frase sola, una. Sotto: «tutte le frasi in Esplora →».
-- **Intorno**: tre o quattro righe di parole, ognuna un asse calcolato sulle frasi del nodo, con il numero piccolo:
+- **Intorno**: tre o quattro righe di parole, ognuna un asse calcolato sulle frasi del nodo, senza numeri (i numeri
+  stanno in Esplora; qui il giudice li leggeva come «un programma»):
   - «con» i temi che stanno nelle stesse frasi;
   - «nominano» le persone e le opere;
   - «gesti» (penso, sento, voglio fare, per i tatuaggi);
@@ -314,7 +315,8 @@ riga di `mappa.md` § Nodi; le Correzioni in attesa; le Fruizioni; le frasi del 
   temi, che dentro un asse si sommerebbero. Una riga vuota non si scrive. Sostituisce la tavola a due vicini, che il
   giudice trovava povera: dice gli stessi vicini, con le parole e i numeri, e porta oltre.
 - **Le altre**: fino a 4 frasi ✦, dalla più recente; poi gli importati, con la data-tetto e la nota una volta in testa.
-- **Dal mondo**: il ○ con il luogo, se c'è (Weil per attenzione; il passo verificato per un'opera); per una citazione,
+- **Dal mondo**: il ○ con le sue parole tra «» e il luogo, se c'è (Weil per attenzione, con il link alla lettera che l'ha
+  portata; il passo verificato per un'opera); per una citazione,
   l'`esito` (o ⚠) e la traccia della verifica.
 - In fondo, piccolo: la riga dei conti da `mappa.md` (gli importati detti a parte), e «la tavola →» **solo** se il nodo
   ha almeno tre vicini tenuti ciascuno da almeno due tue frasi (§3.5).
@@ -532,7 +534,7 @@ oppure voglio cercare una canzone, o una parola»: una vista sola per tutte ques
 vocabolari e le regole sono in [`dimensioni.md`](dimensioni.md); qui la forma.
 
 **Dati.** `faccette(a)` (§7.1): per ogni frase ✦ (parlante o importata, mai delicata non ripresa) i valori dei sei assi,
-ciascuno con la voce del legame che lo dà; i nodi con `forma`, `specie`, `campo`; l'indice della parola. Tutto in
+ciascuno con la voce del legame che lo dà; i nodi con `tipo`, `specie`, `campo`; l'indice della parola. Tutto in
 memoria: ogni scelta ricalcola risultati e numeri in meno di 50 ms (`tecnica.md` §4.3), senza «applica».
 
 **Gli assi, in quest'ordine** (dimensioni §1): **cose** (forme e opere; citazioni ed esiti) · **persone** · **temi**
@@ -557,6 +559,9 @@ sempre in E.
   frasi» in testa, un asse per sezione, i valori come pillole con il numero, i primi 8 e «altri N». Il tocco aggiunge o
   toglie un valore e tutto si ricalcola sotto e dentro il foglio; i valori a zero spariscono. In fondo, fermo, «mostra
   2 frasi», che chiude. Il foglio, non una colonna: a 390 px una colonna di faccette non ci sta accanto ai risultati.
+- **Restringi**: sotto il totale, una riga di chip che scorre con i valori degli altri assi che restringono davvero
+  (meno frasi di quelle mostrate, mai zero), con il numero: incrociare un secondo asse è un tocco, senza aprire il
+  foglio (giudice delle domande, primo giro).
 - **Dal nodo** (`esplora-da-nodo-tel.png`): «da attenzione» + «aspettare» = le frasi su attenzione **e** aspettare.
 - **La lente**, ultima riga: «anche le mie proposte ◌». Aperta, i legami ◌ contano; una frase che entra solo per un ◌
   porta sotto «entra per una mia lettura ◌: nostalgia».
@@ -581,7 +586,7 @@ delicato Esplora resta raggiungibile dalla barra, ma la soglia non lo propone co
 frasi. Le trova solo la parola (scrivendo il nome).
 
 **Segni.** ✦ sulle frasi; ◌ sul campo e sulle frasi che entrano per una proposta; ⚠ sulle citazioni senza esito; forma,
-specie e gesto senza segno (sono calcolati o scaffali). Nessuna legenda: non è una forma lunga.
+la specie con il ◌ (sentimenti ◌); tipo e gesto senza segno (un fatto del mondo verificabile; un calcolo dai tuoi campi). Nessuna legenda: non è una forma lunga.
 
 **NON mostra.** Emozioni dedotte, un tono del frammento, «correlati», «popolari», un ordinamento per reazione,
 suggerimenti, un grafico dei conteggi, valori a zero, le persone della vita nelle liste, il seme ✧ tra i risultati
@@ -673,7 +678,7 @@ vecchia. Se il modello sceglierà un campo (`da-sito`, §7), cambierà il traspo
 | nodo opera | correggi l'autore | `l'autore di <nome> è  → <slug>` | `come: corregge`, `campo: autore` |
 | nodo raccolta | dai lo scopo | `i tatuaggi servono a  → tatuaggi` | lo scopo con parole tue (A30) |
 | fruizione | fatta | `finito → <slug>` | `nomina` con `fruizione: fatta` |
-| nodo (forma, specie, campo) | correggi lo scaffale | `twin peaks è un film, non una serie → twin-peaks` | `ritorna-su`, `come: corregge`, `campo: forma` (o `specie`, `campo`; dimensioni §3.3) |
+| nodo (tipo, specie, campo) | correggi lo scaffale | `twin peaks è un film, non una serie → twin-peaks` | `ritorna-su`, `come: corregge`, `campo: tipo` (o `specie`, `campo`; bersaglio il nodo stesso, dimensioni §3.3) |
 
 Nessun gesto è un bottone "accetta/rifiuta" dentro una lista: stanno solo nel foglio di una voce o in fondo a una
 pagina, uno alla volta (nessuna coda di validazione, atlante-sito §4.2.4).
@@ -742,9 +747,9 @@ Un test `node --test` per ciascuna, sui dati sintetici di `test/`.
    accanto. Proposta: nessun campo nuovo; la seconda frase è la prima voce con `cosa: ponte | convergenza | confronto` e
    `rif` a un frammento. Se il corpo la cita solo in corsivo, `corsiviDelCorpo` la trova. Da confermare con il formato del
    piano.
-5. **Lo schema 4** (dimensioni §3): `forma` sulle opere, `specie` sui temi, `campo` su persone (non `vita`), opere e
+5. **Lo schema 4** (dimensioni §3): `tipo` sulle opere, `specie` sui temi, `campo` su persone (non `vita`), opere e
    correnti; `brano` → `canzone` in `voci[].cosa`; la sezione «Da classificare» di `mappa.md`; il congelamento in
-   `verifica.mjs`; la migrazione 004 (58 valori). Senza lo schema 4 Esplora funziona a metà: cose solo per opera,
+   `verifica.mjs`; la migrazione 004 (58 valori su 49 nodi; letture e restituzioni non si toccano). Senza lo schema 4 Esplora funziona a metà: cose solo per opera,
    temi senza specie, niente campo.
 6. **Il ritorno sul sito non consuma il ricordabile.** Il sito non scrive, quindi la frase tornata sulla soglia può
    tornare anche in una lettera. Si accetta; se disturba, la lettera può escludere il ricordabile del giorno (è

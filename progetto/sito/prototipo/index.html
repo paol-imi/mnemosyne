@@ -234,6 +234,9 @@ mark { background: none; color: inherit; text-decoration: underline; text-decora
 .chips::-webkit-scrollbar { display: none; }
 .chip { all: unset; box-sizing: border-box; cursor: pointer; flex: none; display: inline-flex; align-items: center; gap: .5em; min-height: 44px; padding: 0 1em; border: 1px solid var(--filo); border-radius: 999px; font-size: .8em; white-space: nowrap; text-decoration: none; }
 .chip.attivo { background: var(--inchiostro); color: var(--carta); border-color: var(--inchiostro); }
+.chips.restringi { margin: .4em -16px 0; padding-left: 16px; padding-right: 16px; align-items: center; }
+.chips.restringi .sc { flex: none; font-size: .72em; }
+.c-prop-l { color: var(--tenue); }
 .chip.attivo.c-prop { background: var(--tenue); border-color: var(--tenue); }
 .chip.da { border-color: var(--inchiostro); font-variant-caps: all-small-caps; letter-spacing: .05em; }
 .chip span[aria-hidden] { opacity: .7; }
@@ -243,7 +246,7 @@ mark { background: none; color: inherit; text-decoration: underline; text-decora
 .asse h2 { margin: 1.7em 0 .2em; }
 .valori { margin: 0; line-height: 1.25; }
 .valori a { display: inline-block; text-decoration: none; padding: .62em 0; margin-right: 1.05em; min-height: 44px; box-sizing: border-box; }
-.valori.secondi { font-style: italic; }
+.valori.titoli { font-style: italic; }
 .n { font-size: .66em; color: var(--tenue); margin-left: .32em; font-variant-numeric: lining-nums tabular-nums; vertical-align: .12em; font-style: normal; }
 .asse-prop h2, .asse-prop .valori a, .f-asse.asse-prop h2 { color: var(--tenue); font-weight: 350; }
 .perche { font-variant-caps: normal; letter-spacing: 0; font-size: 1.1em; font-weight: 350; }
@@ -357,7 +360,7 @@ const F = {
 };
 const SEME = { passo: 's01:7', reg: '2026-09-12', testo: 'una persona che cerca il punto in cui le cose smettono di essere rumore' };
 const CS = (t) => t.replace(/([✦✧●◌○⚠])/g, '<span class="sg">$1</span>');
-// I nodi. forma, specie e campo sono i tre campi nuovi dello schema 4 (dimensioni.md): li scrive "consolida", ◌.
+// I nodi. tipo, specie e campo sono i tre campi nuovi dello schema 4 (dimensioni.md): li scrive "consolida", ◌.
 const NODI = {
   attenzione: { nome: 'attenzione', genere: 'temi', specie: 'idea' },
   aspettare: { nome: 'aspettare', genere: 'temi', specie: 'idea' },
@@ -393,16 +396,16 @@ const NODI = {
   'il-gigante': { nome: 'il gigante', genere: 'persone', cerchia: 'finzione', in: 'twin-peaks' },
   papa: { nome: 'papà', genere: 'persone', cerchia: 'vita' },
   luca: { nome: 'Luca', genere: 'persone', cerchia: 'vita' },
-  'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', forma: 'libro', autore: 'italo-calvino', anno: 1972, campo: ['letteratura'] },
-  etica: { nome: 'Etica', genere: 'opere', forma: 'libro', autore: 'baruch-spinoza', anno: 1677, campo: ['filosofia'] },
-  'la-societa-della-stanchezza': { nome: 'La società della stanchezza', genere: 'opere', forma: 'libro', autore: 'byung-chul-han', anno: 2010, campo: ['filosofia'] },
-  'gioco-e-realta': { nome: 'Gioco e realtà', genere: 'opere', forma: 'libro', autore: 'donald-winnicott', anno: 1971, campo: ['psicologia'] },
-  'pink-moon': { nome: 'Pink Moon', genere: 'opere', forma: 'canzone', autore: 'nick-drake', anno: 1972, campo: ['musica'] },
-  'la-cura': { nome: 'La cura', genere: 'opere', forma: 'canzone', autore: 'franco-battiato', anno: 1996, campo: ['musica'] },
-  paterson: { nome: 'Paterson', genere: 'opere', forma: 'film', autore: 'jim-jarmusch', anno: 2016, campo: ['cinema'] },
-  stalker: { nome: 'Stalker', genere: 'opere', forma: 'film', autore: 'andrej-tarkovskij', anno: 1979, campo: ['cinema'] },
-  'twin-peaks': { nome: 'Twin Peaks', genere: 'opere', forma: 'serie', autore: 'david-lynch', anno: 1990, campo: ['cinema'] },
-  mushishi: { nome: 'Mushishi', genere: 'opere', forma: 'serie', anno: 2005, campo: ['cinema'] },
+  'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', tipo: 'libro', autore: 'italo-calvino', anno: 1972, campo: ['letteratura'] },
+  etica: { nome: 'Etica', genere: 'opere', tipo: 'libro', autore: 'baruch-spinoza', anno: 1677, campo: ['filosofia'] },
+  'la-societa-della-stanchezza': { nome: 'La società della stanchezza', genere: 'opere', tipo: 'libro', autore: 'byung-chul-han', anno: 2010, campo: ['filosofia'] },
+  'gioco-e-realta': { nome: 'Gioco e realtà', genere: 'opere', tipo: 'libro', autore: 'donald-winnicott', anno: 1971, campo: ['psicologia'] },
+  'pink-moon': { nome: 'Pink Moon', genere: 'opere', tipo: 'canzone', autore: 'nick-drake', anno: 1972, campo: ['musica'] },
+  'la-cura': { nome: 'La cura', genere: 'opere', tipo: 'canzone', autore: 'franco-battiato', anno: 1996, campo: ['musica'] },
+  paterson: { nome: 'Paterson', genere: 'opere', tipo: 'film', autore: 'jim-jarmusch', anno: 2016, campo: ['cinema'] },
+  stalker: { nome: 'Stalker', genere: 'opere', tipo: 'film', autore: 'andrej-tarkovskij', anno: 1979, campo: ['cinema'] },
+  'twin-peaks': { nome: 'Twin Peaks', genere: 'opere', tipo: 'serie', autore: 'david-lynch', anno: 1990, campo: ['cinema'] },
+  mushishi: { nome: 'Mushishi', genere: 'opere', tipo: 'serie', anno: 2005, campo: ['cinema'] },
   'quello-che-cerchi-ti-sta-cercando': { nome: 'Quello che cerchi ti sta cercando', genere: 'citazioni', attribuita: 'rumi', esito: null },
   'pensare-e-fermarsi': { nome: 'Pensare è fermarsi', genere: 'citazioni', attribuita: 'hannah-arendt', esito: null },
   'i-gufi-non-sono-quello-che-sembrano': { nome: 'I gufi non sono quello che sembrano', genere: 'citazioni', attribuita: 'il-gigante', esito: null },
@@ -465,7 +468,7 @@ const RACC = { tatuaggi: 'per i tatuaggi' };
 function etichetta(asse, v) {
   const [t, x] = v.includes(':') ? [v.slice(0, v.indexOf(':')), v.slice(v.indexOf(':') + 1)] : ['', v];
   if (asse === 'cose') return t === 'f' ? x : t === 'c' ? 'citazioni' : t === 'e' ? (x === 'da-verificare' ? 'da verificare ⚠' : x.replace('-', ' ')) : NODI[x].nome;
-  if (asse === 'temi') return t === 's' ? SPECIE[x] : NODI[x].nome;
+  if (asse === 'temi') return t === 's' ? SPECIE[x] + ' ◌' : NODI[x].nome;
   if (asse === 'campo') return nomeCampo(v);
   if (asse === 'gesto') return t === 'r' ? RACC[x] : v;
   if (asse === 'tempo') return v === 'origine' ? 'archivio d’origine' : `${MESI[+v.slice(5, 7) - 1]} ${v.slice(0, 4)}`;
@@ -480,7 +483,7 @@ function valori(id, lente) {
   const v = { cose: new Set(), persone: new Set(), temi: new Set(), campo: new Set(), gesto: new Set(), tempo: new Set(), nodi: new Set() };
   const campoDi = (s) => (NODI[s] && NODI[s].cerchia !== 'vita' ? NODI[s].campo || [] : []).forEach((c) => v.campo.add(c));
   const persona = (s) => { const n = NODI[s]; if (!n || n.cerchia === 'vita') return; v.persone.add(s); v.nodi.add(s); campoDi(s); if (n.in) opera(n.in, true); };
-  function opera(s, perIn) { const n = NODI[s]; v.nodi.add(s); v.cose.add('o:' + s); if (n.forma) v.cose.add('f:' + n.forma); campoDi(s); if (n.autore && !perIn) persona(n.autore); }
+  function opera(s, perIn) { const n = NODI[s]; v.nodi.add(s); v.cose.add('o:' + s); if (n.tipo) v.cose.add('f:' + n.tipo); if (!perIn) campoDi(s); if (n.autore && !perIn) persona(n.autore); }
   for (const s of f.nomina || []) {
     const n = NODI[s];
     if (n.genere === 'opere') opera(s);
@@ -488,7 +491,7 @@ function valori(id, lente) {
     else if (n.genere === 'citazioni') {
       v.nodi.add(s); v.cose.add('c:citazione'); v.cose.add('e:' + (n.esito || 'da-verificare')); v.cose.add('o:' + s);
       if (n.autore) persona(n.autore);
-      if (n.attribuita && n.attribuita !== n.autore) { const p = NODI[n.attribuita]; v.persone.add(n.attribuita); v.nodi.add(n.attribuita); if (p.in) opera(p.in, true); }
+      if (n.attribuita && n.attribuita !== n.autore) { const p = NODI[n.attribuita]; v.persone.add(n.attribuita); v.nodi.add(n.attribuita); if (!n.autore) campoDi(n.attribuita); if (p.in) opera(p.in, true); }
     }
   }
   const temi = [...(f.temi || []), ...(lente ? f.prop || [] : [])];
@@ -583,7 +586,7 @@ function nomiTrovati(ids) {
   const vuole = (s) => {
     const n = NODI[s]; if (!n || n.cerchia === 'vita') return false;
     const ok = [];
-    if (sel.cose) ok.push([...sel.cose].some((x) => x === 'o:' + s || (x === 'f:' + n.forma && n.genere === 'opere') || (x === 'c:citazione' && n.genere === 'citazioni') || (n.genere === 'citazioni' && x === 'e:' + (n.esito || 'da-verificare'))));
+    if (sel.cose) ok.push([...sel.cose].some((x) => x === 'o:' + s || (x === 'f:' + n.tipo && n.genere === 'opere') || (x === 'c:citazione' && n.genere === 'citazioni') || (n.genere === 'citazioni' && x === 'e:' + (n.esito || 'da-verificare'))));
     if (sel.persone) ok.push(sel.persone.has(s));
     if (sel.temi) ok.push([...sel.temi].some((x) => x === 't:' + s || (n.genere === 'temi' && x === 's:' + n.specie)));
     if (sel.campo) ok.push([...sel.campo].some((c) => (n.campo || []).includes(c)));
@@ -604,12 +607,17 @@ function vuotoDetto() {
   const m = { canzone: 'Nessuna canzone tua.', libro: 'Nessun libro tuo.', film: 'Nessun film tuo.', serie: 'Nessuna serie tua.', poesia: 'Nessuna poesia tua.' };
   return (f && m[f.slice(2)]) || (ESP.q ? 'Nessuna tua parola.' : 'Nessuna tua frase qui.');
 }
+// Restringere: dentro un asse già scelto un valore in più allarga (O), quindi si propongono solo gli altri assi.
+const passa2 = (x, asse) => !(ESP.sel[asse] && ESP.sel[asse].size);
 function risultatiEsplora() {
   const ids = filtrati();
   const tuoi = ids.filter((id) => !imp(id)), orig = ids.filter(imp);
   const nomi = nomiTrovati(ids);
   const delic = ESP.q ? Object.keys(F).filter((id) => F[id].delicato && norm(F[id].testo).includes(norm(ESP.q))) : [];
+  // Restringi: i valori degli altri assi che restringono davvero, a un tocco (senza aprire il foglio).
+  const restr = ids.length > 1 ? ASSI.flatMap((a) => { const m = conteggi(a.k); return ordinati(a.k, m).filter((x) => !(ESP.sel[a.k] || new Set()).has(x) && m.get(x).n > 0 && m.get(x).n < ids.filter((i) => !imp(i)).length && passa2(x, a.k)).slice(0, 3).map((x) => [a, x, m.get(x)]); }).slice(0, 10) : [];
   return `<p class="totale" aria-live="polite">${totale(ids)}${nomi.length ? ` · ${nomi.length} ${nomi.length === 1 ? 'nome' : 'nomi'}` : ''}</p>
+    ${restr.length ? `<div class="chips restringi" role="group" aria-label="Restringi"><span class="sc">restringi</span>${restr.map(([a, x, c]) => `<a class="chip${a.prop ? ' c-prop-l' : ''}" href="${conValore(a.k, x)}">${CS(esc(etichetta(a.k, x)))}${a.prop ? '&nbsp;◌' : ''}${numero(c)}</a>`).join('')}</div>` : ''}
     ${nomi.length ? `<h2>nomi</h2><p class="nomi">${nomi.map((s) => `<a href="#/nodo/${s}">${esc(NODI[s].nome)}</a>${NODI[s].genere === 'citazioni' && !NODI[s].esito ? vf : ''}`).join('<span class="sep"> · </span>')}</p>` : ''}
     ${ids.length ? `<h2>le tue frasi</h2><ul class="righe">${tuoi.map(rigaFrase).join('')}</ul>` : `<p class="vuoto">${vuotoDetto()}</p>`}
     ${orig.length ? `<p class="nota-r">${tetto(orig[0])}, ${orig.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme:</p><ul class="righe">${orig.map(rigaFrase).join('')}</ul>` : ''}
@@ -623,7 +631,7 @@ function indiceEsplora() {
     const voci = (lista) => lista.slice(0, a.k === 'persone' ? 8 : 12).map((x) => `<a href="${conValore(a.k, x)}">${CS(esc(etichetta(a.k, x)))}${numero(m.get(x))}</a>`).join('');
     if (!xs.length) return '';
     return `<section class="asse${a.prop ? ' asse-prop' : ''}"><h2>${a.nome}${a.prop ? ' ◌ <span class="perche">scelto da me, sui nomi del mondo</span>' : ''}</h2>
-      <p class="valori">${voci(xs)}</p>${extra.length ? `<p class="valori secondi">${voci(extra)}</p>` : ''}</section>`;
+      <p class="valori">${voci(xs)}</p>${extra.length ? `<p class="valori secondi${a.k === 'cose' ? ' titoli' : ''}">${voci(extra)}</p>` : ''}</section>`;
   }).join('');
 }
 V.esplora = () => {
@@ -656,6 +664,14 @@ function aggiornaEsplora() {
 }
 
 
+// La riga «esplora» della soglia: solo i valori che hanno almeno una frase (nessun vicolo cieco).
+function raccordiSoglia() {
+  const vuoto = { sel: {}, da: null, q: '', lente: false };
+  const c = (a) => conteggi(a, vuoto);
+  const xs = [['cose', 'f:canzone', 'canzoni'], ['cose', 'f:libro', 'libri'], ['cose', 'f:film', 'film'], ['temi', 's:stato', 'sentimenti ◌'], ['temi', 's:domanda', 'domande ◌'], ['campo', 'filosofia', 'filosofia ◌']]
+    .filter(([a, v]) => c(a).has(v));
+  return xs.length ? `<p class="raccordi"><span class="t">esplora</span> ${xs.map(([a, v, t]) => `<a href="${solo(a, v)}">${CS(t)}</a>`).join(' · ')}</p>` : '';
+}
 V.soglia = (stato) => {
   const delicato = stato === 'delicato';
   const ritorno = stato === 'ritorno';
@@ -687,7 +703,7 @@ V.soglia = (stato) => {
       <a class="porta" href="#/nodo/attenzione"><b>attenzione</b><span class="r">un tema tuo, vivo</span></a>
       <a class="porta" href="#/tatuaggi"><b>tatuaggi</b><span class="r">la tavola</span></a>
     </nav>
-    <p class="raccordi"><span class="t">esplora</span> <a href="${solo('cose', 'f:canzone')}">canzoni</a> · <a href="${solo('cose', 'f:libro')}">libri</a> · <a href="${solo('cose', 'f:film')}">film</a> · <a href="${solo('temi', 's:stato')}">sentimenti</a> · <a href="${solo('temi', 's:domanda')}">domande</a> · <a href="${solo('campo', 'filosofia')}">filosofia</a>&nbsp;<span class="sg">◌</span></p>`;
+    ${raccordiSoglia()}`;
   return `<div class="pagina">${testa()}<div class="soglia">${cuore}</div>${porte}</div>`;
 };
 
@@ -791,8 +807,8 @@ const da = (slug, asse, v) => indirizzo({ sel: asse ? { [asse]: new Set([v]) } :
 function faccetteNodo(slug) {
   const n = NODI[slug]; const p = [];
   const campo = () => (n.campo || []).map((c) => `<a href="${solo('campo', c)}">${nomeCampo(c)}</a>&nbsp;<span class="sg">◌</span>`);
-  if (n.genere === 'temi') { p.push(`tema · <a href="${solo('temi', 's:' + n.specie)}">${SPECIE1[n.specie]}</a>`); p.push(...campo()); }
-  if (n.genere === 'opere') { p.push(`<a href="${solo('cose', 'f:' + n.forma)}">${n.forma}</a>`); if (n.autore) p.push(`<a href="#/nodo/${n.autore}">${NODI[n.autore].nome}</a>`); if (n.anno) p.push(n.anno); p.push(...campo()); }
+  if (n.genere === 'temi') { p.push(`tema · <a href="${solo('temi', 's:' + n.specie)}">${SPECIE1[n.specie]}</a>&nbsp;<span class="sg">◌</span>`); p.push(...campo()); }
+  if (n.genere === 'opere') { p.push(`<a href="${solo('cose', 'f:' + n.tipo)}">${n.tipo}</a>`); if (n.autore) p.push(`<a href="#/nodo/${n.autore}">${NODI[n.autore].nome}</a>`); if (n.anno) p.push(n.anno); p.push(...campo()); }
   if (n.genere === 'persone') {
     if (n.cerchia === 'vita') p.push('persona della tua vita');
     else if (n.in) p.push(`personaggio · <a href="#/nodo/${n.in}">${NODI[n.in].nome}</a>`);
@@ -805,14 +821,14 @@ function faccetteNodo(slug) {
 // «Intorno»: le faccette delle frasi del nodo, in poche righe di parole. Ogni parola apre Esplora da qui.
 function intorno(slug, ids) {
   const conta = (asse, filtro) => { const m = new Map(); ids.forEach((id) => val(id, false)[asse].forEach((x) => { if (filtro(x)) m.set(x, (m.get(x) || 0) + (imp(id) ? 0 : 1)); })); return [...m].filter(([, c]) => c > 0).sort((a, b) => b[1] - a[1]); };
-  const riga = (titolo, asse, xs) => xs.length ? `<p class="intorno"><span class="t">${titolo}</span><span class="vs">${xs.map(([x, c]) => `<a href="${da(slug, asse, x)}">${esc(asse === 'tempo' ? MESI[+x.slice(5, 7) - 1] : etichetta(asse, x))}</a><span class="n">${c}</span>`).join('<span class="sep"> · </span>')}</span></p>` : '';
+  const riga = (titolo, asse, xs) => xs.length ? `<p class="intorno"><span class="t">${titolo}</span><span class="vs">${xs.map(([x]) => `<a href="${da(slug, asse, x)}">${esc(asse === 'tempo' ? MESI[+x.slice(5, 7) - 1] : etichetta(asse, x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '';
   const temi = conta('temi', (x) => x.startsWith('t:') && x !== 't:' + slug);
   const nomi = [...conta('persone', (x) => x !== slug && x !== NODI[slug].autore && x !== NODI[slug].attribuita).map(([x, c]) => ['p', x, c]), ...conta('cose', (x) => x.startsWith('o:') && x !== 'o:' + slug && NODI[x.slice(2)].genere === 'opere').map(([x, c]) => ['c', x, c])];
   const gesti = conta('gesto', () => true);
   const mesi = conta('tempo', (x) => x !== 'origine').sort((a, b) => a[0].localeCompare(b[0]));
   const out = [
     riga('con', 'temi', temi),
-    nomi.length ? `<p class="intorno"><span class="t">nominano</span><span class="vs">${nomi.map(([t, x, c]) => `<a href="${da(slug, t === 'p' ? 'persone' : 'cose', x)}">${esc(etichetta(t === 'p' ? 'persone' : 'cose', x))}</a><span class="n">${c}</span>`).join('<span class="sep"> · </span>')}</span></p>` : '',
+    nomi.length ? `<p class="intorno"><span class="t">nominano</span><span class="vs">${nomi.map(([t, x]) => `<a href="${da(slug, t === 'p' ? 'persone' : 'cose', x)}">${esc(etichetta(t === 'p' ? 'persone' : 'cose', x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '',
     riga('gesti', 'gesto', gesti),
     riga('mesi', 'tempo', mesi),
   ].join('');
@@ -827,7 +843,7 @@ V.nodo = (slug) => {
   const coppia = !x ? '' : y ? `<div class="coppia"><p class="frase">${frase(x)}</p><div class="intervallo" aria-hidden="true">${gg(F[x].reg, F[y].reg)} giorni</div><p class="frase respiro">${frase(y)}</p></div>`
     : `<div class="coppia"><p class="frase">${frase(x)}</p></div>`;
   const altre = tel.filter((id) => id !== x && id !== y).reverse();
-  const mondo = slug === 'attenzione' ? `<h2>dal mondo</h2><p class="mondo">Simone Weil${sg('mondo')}<span class="luogo">lettera del 1 novembre, voce 2 · Attente de Dieu, § 4 · verificata</span></p>`
+  const mondo = slug === 'attenzione' ? `<h2>dal mondo</h2><p class="mondo">«Soprattutto il pensiero dev’essere vuoto, in attesa» (resa mia)${sg('mondo')}<span class="luogo">Simone Weil, Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4 · verificata · dalla <a href="#/r/${LETTERA.id}">lettera del 1 novembre</a></span></p>`
     : slug === 'le-citta-invisibili' || slug === 'l-inferno-dei-viventi' ? `<h2>dal mondo</h2><p class="mondo">«cercare e saper riconoscere chi e cosa, in mezzo all’inferno, non è inferno»${sg('mondo')}<span class="luogo">Le città invisibili, parte nona, l’ultimo dialogo · verificata</span></p>`
     : n.genere === 'citazioni' && !n.esito ? `<h2>la verifica</h2><p class="servizio">${slug === 'quello-che-cerchi-ti-sta-cercando' ? RISPOSTA_RUMI.html : 'Nessuna verifica ancora. Senza esito, finché «consolida» non la verifica.'}</p>` : '';
   // La tavola si offre solo con almeno tre vicini, ciascuno tenuto da almeno due tue frasi (§9: con due vicini «non mi mostra niente»).
@@ -919,29 +935,29 @@ V.assenze = () => `<div class="pagina">${testa('assenze')}
   </ol></div>`;
 
 V.tatuaggi = (stampa) => {
-  const pezzi = ['20261008-0745-e8a0', '20260912-0000-u02', '20260912-0000-u03', '20261030-2320-w2x8', '20261020-2214-k3q1', '20261027-1302-t9v4'];
+  // I pezzi: tutti i frammenti ✦ con serve-a tatuaggi, non delicati (tavolaRaccolta). I fili: i temi in comune tra due o più pezzi.
+  const tutti = Object.keys(F).filter((id) => F[id].serve === 'tatuaggi' && !F[id].delicato && !(stampa && (F[id].vita || []).length)).sort((x, y) => F[y].reg.localeCompare(F[x].reg));
+  const fili = {}; tutti.forEach((id) => (F[id].temi || []).forEach((t) => (fili[t] ||= []).push(id)));
+  const gruppi = Object.entries(fili).filter(([, xs]) => xs.length > 1).sort((x, y) => y[1].length - x[1].length);
+  const visti = new Set(); const misura = { g: 0, m: 1, p: 2 };
+  const ordine = (xs) => xs.filter((id) => !visti.has(id)).sort((x, y) => misura[F[x].misura] - misura[F[y].misura]);
   const disegno = `<svg viewBox="0 0 200 120" aria-label="la tua foto: uno schizzo a matita"><circle cx="52" cy="60" r="22"/><circle cx="52" cy="60" r="8"/><line x1="74" y1="60" x2="168" y2="60"/><path d="M140 60 v16 M152 60 v10 M164 60 v20"/></svg>`;
   const pezzo = (id) => {
     const f = F[id];
     if (f.pin) return `<div class="pezzo p pin"><a class="data" href="#/frammento/${id}">${dataL(f.reg)} · pin</a><a href="${esc(f.testo)}" rel="noreferrer" target="_blank">${esc(f.pin)} ↗</a><span class="luogo">titolo dal link · nessuna anteprima</span></div>`;
-    const dt = imp(id) ? '' : `<span class="data">${dataL(f.reg)}</span>`;
+    const dt = imp(id) ? `<span class="data">${tetto(id)}, trascritta da Claude nel seme:</span>` : `<span class="data">${dataL(f.reg)}</span>`;
     const mondo = id === '20261030-2320-w2x8' ? `<span class="luogo">«…in mezzo all’inferno, non è inferno» ○ · Le città invisibili, parte nona, l’ultimo dialogo</span>` : '';
     return `<div class="pezzo ${f.misura}">${f.allegato ? disegno : ''}${dt}<a href="#/frammento/${id}" style="text-decoration:none"><span class="frase">${esc(f.testo)}${sg('sua')}</span></a>${mondo}</div>`;
   };
-  const importati = `<div class="filo-t" style="margin:0">${tetto('20260912-0000-u02')}, trascritte da Claude nel seme</div>`;
+  const corpo = gruppi.map(([t, xs]) => { const o = ordine(xs); o.forEach((id) => visti.add(id)); return o.length ? `<div class="filo-t">✦ ${NODI[t].nome}</div>${o.map(pezzo).join('')}` : ''; }).join('')
+    + (tutti.some((id) => !visti.has(id)) ? `<div class="filo-t" style="visibility:hidden">·</div>` : '') + ordine(tutti).map(pezzo).join('');
   return `<div class="pagina ${stampa ? 'stampa-v' : ''}" style="max-width:1180px">${testa(stampa ? 'il brief' : 'la tavola')}
     <h1>tatuaggi</h1>
     <p class="servizio" style="margin:0">senza scopo</p>
     <div class="campo-t" style="margin-top:14px">
       <p class="legenda">${sg('sua')} tue · ${sg('mondo')} mondo</p>
       <div class="pezzi">
-        ${pezzo('20261008-0745-e8a0')}
-        <div class="filo-t">✦ linea</div>
-        ${importati}
-        ${pezzo('20260912-0000-u02')}${pezzo('20260912-0000-u03')}
-        ${pezzo('20261030-2320-w2x8')}${pezzo('20261020-2214-k3q1')}
-        <div class="filo-t">✦ faro</div>
-        ${pezzo('20261027-1302-t9v4')}
+        ${corpo}
       </div>
       ${stampa ? '' : `<div class="margine"><a href="#/nodo/tatuaggi" style="color:inherit">le idee arrivate con l’importazione →</a></div>`}
     </div>

@@ -148,3 +148,11 @@ pubblicato privato (https://claude.ai/artifact/TxMwzvfVsChYNhjEnRonoG). Giudici:
 meraviglia della soglia è sì; quella del nodo è no in tutti e tre i giri (il selettore degli strati «sembra un programma»,
 la tavola con 2 vicini è povera): resta aperta, da provare nel blocco B5. 11 blocchi, circa 17 giorni; chiede a main 18
 funzioni pure e il campo `da-sito`. Si aspetta la reazione dell'utente al prototipo.
+
+### Le dimensioni (2026-11-04)
+L'utente, dopo il progetto: «la fondamentale era proprio la possibilità di navigare, filtrare e gestire i concetti […] il tuo
+compito è capire non solo come, ma come raggruppare i concetti, se magari "canzone" e "sentimento" sono dimensioni
+diverse». Il progetto entrava da una frase o da un nodo; manca lo schema delle faccette. Due sessioni in parallelo:
+letteratura (`dimensioni-letteratura.md`, session_016XqAM1S36b8cmAYQvukUpr) e dati veri + confronto col modello
+(`dimensioni-dati.md`, session_016XqAM1yM1gpT7T7uqPEoZA). Poi una sintesi: gli assi, i campi nuovi del modello, la
+navigazione a faccette nel sito e il prototipo aggiornato.

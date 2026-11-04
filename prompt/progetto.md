@@ -76,8 +76,8 @@ risposte:
   - turno: "21:04"
     risponde-a: null
     voci:
-      - {n: 1, rif: "~Radiohead · Exit Music (For a Film)", voce: mondo, cosa: brano, perche: "→ la solitudine come attesa", riferimento: "OK Computer, traccia 4"}
-      - {n: 2, rif: "~Mazzy Star · Into Dust", voce: mondo, cosa: brano, perche: "→ …", riferimento: "So Tonight That I Might See, traccia 3"}
+      - {n: 1, rif: "~Radiohead · Exit Music (For a Film)", voce: mondo, cosa: canzone, perche: "→ la solitudine come attesa", riferimento: "OK Computer, traccia 4"}
+      - {n: 2, rif: "~Mazzy Star · Into Dust", voce: mondo, cosa: canzone, perche: "→ …", riferimento: "So Tonight That I Might See, traccia 3"}
     testo: "…la risposta così come l'hai scritta…"
   - turno: "21:09"
     risponde-a: null
@@ -85,7 +85,7 @@ risposte:
     testo: "Salvata la 1."
 ```
 
-Regole: `rif` è uno slug di `mappa.md` (Alias) o `~Nome in chiaro` ("~Artista · Titolo" per un brano); mai uno slug
-inventato. `voce`: sua, seme, proposta, mondo. `cosa`: frase, tensione, vuoto, correzione, opera, brano, libro, film,
+Regole: `rif` è uno slug di `mappa.md` (Alias) o `~Nome in chiaro` ("~Artista · Titolo" per una canzone); mai uno slug
+inventato. `voce`: sua, seme, proposta, mondo. `cosa`: frase, tensione, vuoto, correzione, opera, canzone, libro, film,
 citazione, persona, ponte, convergenza, confronto, sogno, ricordo, domanda, assenza, idea. Niente memo per una risposta
 senza voci nuove e senza atti. Se non lo rimando, non succede niente: non ricordarmelo.

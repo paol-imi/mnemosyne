@@ -36,9 +36,9 @@ Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione 
 
 | op | campi | chi |
 |---|---|---|
-| `crea-nodo` | `genere`, `nome`, `alias`, e i campi del genere (`cerchia`, `in`, `autore`, `attribuita-a`, `citata-da`, `anno`, `scopo`, `esito`, `riferimento`, `originale`, `traduzione`, `link`), `nato-da` (di default il frammento letto), `corpo` | smista, specchio, consolida |
+| `crea-nodo` | `genere`, `nome`, `alias`, e i campi del genere (`cerchia`, `in`, `autore`, `attribuita-a`, `citata-da`, `anno`, `scopo`, `esito`, `riferimento`, `originale`, `traduzione`, `link`; **mai** `tipo`, `specie`, `campo`), `nato-da` (di default il frammento letto), `corpo` | smista, specchio, consolida |
 | `alias` | `nodo`, `alias` | smista, specchio, consolida |
-| `aggiorna-nodo` | `nodo`, `campi: {…}` | solo consolida |
+| `aggiorna-nodo` | `nodo`, `campi: {…}`; tra i campi anche `tipo` (opere), `specie` (temi), `campo` (persone non `vita`, opere, correnti: una lista di 1–2) | solo consolida (e `ciclo: migra`, le migrazioni dello schema) |
 | `lettura` | `frammento`, `versione` (1 all'ingresso; in "consolida" quella dopo l'ultima in vigore; se manca la mette lo script, con la stessa regola), `intento`, `reazione`, `legami`, `parole`, `trascrizione`, `altrui`, `vissuto`, `delicato`, `nota`, `risposta` (`salvato` · `ci-sono` · id esistente) | smista e specchio (v1), consolida (v ≥ 2) |
 | `restituzione` | `forma`, `per`, `copre`, `aggancio`, `testo`, `voci` (`rif`, `voce`, `cosa`, `turno`, `perche`, `esito`, `riferimento`), `legami` (con `da`) | smista, specchio, consolida, ritratto |
 | `riserva` | `file` (`ritorno` · `pronte`), `testo` (il file intero) | solo consolida |
@@ -46,7 +46,7 @@ Questa tabella è la norma di `schema/piano.json`: le chiavi di ogni operazione 
 
 **I tipi dei campi.** Stringa (slug, `@Nome` o `~Nome`): `autore`, `in`, `a`; `nodo` (di `alias`, `aggiorna-nodo` e di
 una correzione) è uno slug o `@Nome`, mai `~Nome`, perché punta a un nodo che c'è o che nasce nel piano (v3 §3.7). Elenco: `alias`,
-`attribuita-a`, `citata-da`, `nato-da`, `copre`, `parole`, `tra`, `intento`. Intero: `anno`, `n`, e `da` di un legame
+`attribuita-a`, `citata-da`, `nato-da`, `copre`, `parole`, `tra`, `intento`, `campo` (del nodo). Intero: `anno`, `n`, e `da` di un legame
 di restituzione (la voce da cui parte); nell'operazione `lapide`, `da` e `in` sono slug di due temi che esistono già, mai
 `@Nome`. `voce: seme` è ammessa in una voce (la riga ✧ di "le mie frasi"), ma nei `legami` di una restituzione solo
 nelle `eredita` dell'importazione (modello §3.5: lo schema §3.7 ha un solo elenco per tutti e due). Un mito, una tradizione, un
@@ -65,6 +65,13 @@ luogo come voce: `cosa: opera` (il racconto) o `persona` (il protagonista); l'en
   attribuisco) e, nel
   `corpo`, la traccia della verifica rapida: mai `esito`, `riferimento`, `autore`, `originale`, `traduzione`, `citata-da`,
   `link` (li scrive "consolida" con `aggiorna-nodo`; modello §3.4). Un'opera invece può nascere con `autore`, se lo dicono le mie parole.
+- **Le dimensioni** (schema 4, `progetto/sito/dimensioni.md`): `tipo` di un'opera (`canzone` · `album` · `libro` · `poesia` ·
+  `film` · `serie` · `fumetto` · `spettacolo` · `immagine` · `gioco` · `video`), `specie` di un tema (`stato` · `idea` ·
+  `domanda` · `corrente` · `simbolo` · `stile`), `campo` (`filosofia` · `psicologia` · `mito-e-religione` · `esoterismo` ·
+  `scienza` · `storia` · `letteratura` · `arte` · `musica` · `cinema`, al più 2, solo su persone non `vita`, opere e temi
+  `specie: corrente`). Li scrive solo "consolida" con `aggiorna-nodo`, una volta; un valore già scritto cambia solo per
+  un mio `ritorna-su … come: corregge` con `campo: tipo | specie | campo` (`verifica.mjs` rifiuta il resto). Nella
+  correzione di `campo`, `vecchio` e `valore` sono le voci separate da ", " (vuoto per toglierlo).
 - `parole` e `intento` sono sempre liste, anche di un solo valore (`["greci"]`, `["chiedi"]`; un popolo resta come
   l'ho scritto).
 - Nella `lettura` niente `link`: lo scrive lo script, dal frammento e dall'oEmbed. Niente nemmeno `prompt`,

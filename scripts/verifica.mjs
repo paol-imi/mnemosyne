@@ -9,7 +9,9 @@ import { pathToFileURL } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import { parse } from 'yaml';
 
-export const CONTROLLI = ['schema', 'hash', 'immutabili', 'slug', 'rif', 'smista', 'esito', 'sintetici'];
+export const CONTROLLI = ['schema', 'hash', 'immutabili', 'slug', 'rif', 'smista', 'esito', 'dimensioni', 'sintetici'];
+// Schema 4 (progetto/sito/dimensioni.md §3.3): i campi delle dimensioni, scritti una volta e poi congelati.
+export const DIMENSIONI = ['tipo', 'specie', 'campo'];
 export const GENERI = ['persone', 'opere', 'citazioni', 'temi', 'raccolte'];
 const TIPI = { frammenti: 'frammento', letture: 'lettura', restituzioni: 'restituzione' };
 const DATI = [...Object.keys(TIPI), ...GENERI];
@@ -269,6 +271,8 @@ export function verifica(radice = process.cwd(), solo = CONTROLLI) {
     }
   }
 
+  if (fa('dimensioni')) for (const m of dimensioni(radice, note, head)) err(m[0], m[1]);
+
   if (fa('sintetici') && ramo === 'main') { // piano §4: su main né l'elenco né i dati che elenca (sui rami banco/* sì)
     if (existsSync(join(radice, SINTETICI))) err(SINTETICI, 'elenco dei dati sintetici su main (piano §4)');
     const elencati = idSintetici(radice);
@@ -279,6 +283,40 @@ export function verifica(radice = process.cwd(), solo = CONTROLLI) {
     }
   }
   return errori;
+}
+
+// Il valore di una dimensione come lo scrive una correzione (§3.3.5): `campo` con le voci separate da ", ", vuoto se tolto.
+export const valoreDimensione = (v) => (Array.isArray(v) ? v.join(', ') : v ?? '');
+
+// dimensioni.md §3.3: (1) una persona della vita non ha campo; (2) il campo di un tema solo con specie corrente;
+// (3) i valori fuori vocabolario e più di 2 campi li ferma lo schema; (4) il congelamento: un tipo, una specie o un campo
+// già in HEAD che cambia vuole, nella stessa transazione (letture nuove o cambiate rispetto a HEAD), un `ritorna-su …
+// come: corregge` con lo stesso `nodo`, lo stesso `campo` e il valore nuovo in `valore`.
+function dimensioni(radice, note, head) {
+  const fuori = [];
+  for (const n of note.filter((x) => x.tipo === 'nodo')) {
+    if (n.genere === 'persone' && n.dati.cerchia === 'vita' && n.dati.campo !== undefined)
+      fuori.push([n.p, 'una persona della vita non ha campo (dimensioni.md §1.5)']);
+    if (n.genere === 'temi' && n.dati.campo !== undefined && n.dati.specie !== 'corrente')
+      fuori.push([n.p, `campo su un tema di specie ${n.dati.specie ?? 'assente'}: il campo sta solo sulle correnti (dimensioni.md §1.5)`]);
+  }
+  if (!head) return fuori;
+  const cambiate = note.filter((x) => x.tipo === 'lettura' && (!head.has(x.p) || head.get(x.p) !== blob(readFileSync(join(radice, x.p)))));
+  const correzioni = cambiate.flatMap((l) => (Array.isArray(l.dati.legami) ? l.dati.legami : [])
+    .filter((g) => g?.p === 'ritorna-su' && g.come === 'corregge' && DIMENSIONI.includes(g.campo)));
+  for (const n of note.filter((x) => x.tipo === 'nodo' && head.has(x.p))) {
+    if (head.get(n.p) === blob(readFileSync(join(radice, n.p)))) continue;
+    let prima;
+    try { prima = frontmatter(gitTesto(radice, ['show', `HEAD:${n.p}`]) ?? '').dati; } catch { continue; }
+    for (const k of DIMENSIONI) {
+      if (prima[k] === undefined) continue; // la prima volta si scrive (consolida, migra)
+      const ora = valoreDimensione(n.dati[k]);
+      if (ora === valoreDimensione(prima[k])) continue;
+      if (!correzioni.some((g) => g.nodo === n.id && g.campo === k && g.valore === ora))
+        fuori.push([n.p, `"${k}" è congelato (${valoreDimensione(prima[k])} → ${ora || 'niente'}): cambia solo per un ritorna-su … corregge dell'utente con nodo ${n.id}, campo ${k}, valore "${ora}" (dimensioni.md §3.3)`]);
+    }
+  }
+  return fuori;
 }
 
 function argomenti(argv) {

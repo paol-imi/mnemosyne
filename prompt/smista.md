@@ -58,6 +58,9 @@ passata delle 3 ore.
    - **legami**: di voce `sua` e `mondo`; **al massimo 2 `proposta`**, motivati; **nessun tema dedotto** e **nessun
      `contraddice`** (li scrive "consolida"). I **nessi miei** ("tipo X", "come X"): `converge-con` di voce `sua`, con
      `~X` se X non è un nodo; la risposta non lo smentisce.
+   - **stati vissuti**: quando le mie parole dicono uno stato in prima persona ("mi sento…", "ho una rabbia…", "oggi
+     malinconia"), il `parla-di` verso quel tema porta `come: stato`. Se il tema non c'è, nasce ✦ con la mia parola.
+     Non scrivere `tipo`, `specie` né `campo`: li scrive "consolida".
    - **link con parole mie** non è muto: niente domanda 3. Un momento detto ("dal minuto 12", "verso la fine") va in
      `momento` sul `nomina` della cosa a cui si riferisce: l'opera ("dal minuto 12") o la citazione ("la frase dell'ospite
      era verso la fine": `momento` sul `nomina` della citazione, non dello spettacolo). Se il link porta `t=`, il momento
@@ -75,7 +78,8 @@ passata delle 3 ore.
      "da bacio perugina"; `±` come dice CLAUDE.md (I quattro tipi), la sola regola: un giudizio a metà ("ci ha preso")
      o una commozione che non è entusiasmo. Senza una reazione nelle mie parole, il campo non si scrive.
    - `delicato: true` se serve, e allora niente `parole` (sono candidate a tema, e sul delicato niente temi: modello
-     §7.2.1, la prudenza); `vissuto` se il momento è diverso; `altrui: true` solo per una trascrizione; `nota`
+     §7.2.1, la prudenza); `vissuto` se il momento è diverso, solo quando le mie parole danno il tempo ("da piccolo", "nel 2009",
+     "quell'estate"), mai dedotto; `altrui: true` solo per una trascrizione; `nota`
      per il dove e il come.
    - "la 3" di un album: una ricerca leggera della tracklist, per chiedere "La 3 è X, giusto?".
    - **verifica rapida** di ogni citazione **nuova**, dentro il suo `crea-nodo`, prima di applicare: una-due ricerche

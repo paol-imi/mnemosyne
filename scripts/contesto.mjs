@@ -1,6 +1,6 @@
 // contesto.mjs (modello §6.1, §6.2; piano blocchi 2 e 5): contesto/recenti.md, contesto/parole.md (con in fondo la
 // sezione `## Seme ✧`), la copia dell'ultimo ritratto in contesto/ritratto.md (se c'è) e di contesto/mappa.md le
-// sezioni 1–5 (Stato, Nodi, Alias, Parole candidate, Conti), 8 (Correzioni) e 9 (Scarti), ciascuno con la testata
+// sezioni 1–5 (Stato, Nodi, Alias, Parole candidate, Conti), 8 (Correzioni), 9 (Scarti) e 18 (Da classificare, schema 4), ciascuno con la testata
 // aggiornato · fino-a · token-stimati (parole.md anche `tagliato:` se la finestra mobile taglia).
 // node scripts/contesto.mjs [--radice DIR]
 // Le sezioni 6, 7 e 10–17 di mappa.md arrivano al blocco 7. Una sezione senza righe resta vuota (solo il titolo).
@@ -12,6 +12,9 @@ import { pathToFileURL } from 'node:url';
 import { frontmatter, GENERI } from './verifica.mjs';
 import { chiave } from './slug.mjs';
 import { iso, oggi } from './ora.mjs';
+import { righeDaClassificare } from './faccette.mjs';
+// Le dimensioni dello schema 4 (dimensioni.md §3.4): il sito le importa da qui (tecnica.md).
+export { faccette, gesti, righeDaClassificare } from './faccette.mjs';
 
 const ID_F = /^\d{8}-\d{4}-[a-z0-9]{3,4}$/;
 const SOGLIA = { lettera: 2, sogno: 50, ritratto: 10, trimestre: 20, telefono: 30, chat: 5, restituzioni: 10, tetto: 80000 };
@@ -474,7 +477,7 @@ export function contesto(radice = process.cwd()) {
   const mappa = testata(fino, ['# Mappa\n', '## 1. Stato\n', ...stato(a, oggi()), '', '## 2. Nodi\n', ...righeNodi(a), '',
     '## 3. Alias\n', ...righeAlias(a.nodi), '', '## 4. Parole candidate\n', ...righeParole(a), '',
     '## 5. Conti\n', ...righeConti(a), '', '## 8. Correzioni\n', ...righeCorrezioni(a), '',
-    '## 9. Scarti\n', ...righeScarti(a), ''].join('\n'));
+    '## 9. Scarti\n', ...righeScarti(a), '', '## 18. Da classificare\n', ...righeDaClassificare(a), ''].join('\n'));
   const rec = testata(fino, recenti(a));
   // ritratto.md: la copia dell'ultimo ritratto, senza il suo frontmatter ([S] la copia, non la riscrive)
   const ultimo = [...a.restituzioni.values()].filter((r) => r.dati.forma === 'ritratto')
@@ -497,7 +500,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
   }
   try {
     const e = contesto(o.radice);
-    console.log(`contesto: fino a ${e.fino ?? 'nessuno'}; ${e.frammenti} frammenti, ${e.nodi} nodi (recenti.md, parole.md, mappa.md §1–5, §8–9${e.ritratto ? ', ritratto.md' : ''})`);
+    console.log(`contesto: fino a ${e.fino ?? 'nessuno'}; ${e.frammenti} frammenti, ${e.nodi} nodi (recenti.md, parole.md, mappa.md §1–5, §8–9, §18${e.ritratto ? ', ritratto.md' : ''})`);
   } catch (err) {
     console.log(`ERRORE contesto: ${err.message}`);
     process.exit(1);

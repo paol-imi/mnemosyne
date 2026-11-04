@@ -104,13 +104,13 @@ test('mappa.md: testata, Stato senza l\'importato, Nodi con ✦ ◌ ● e vicend
   assert.doesNotMatch(alias, /stare da solo/); // le lapidi non sono nodi vivi
 });
 
-test('mappa.md: le sezioni 1–5, 8 e 9 nell\'ordine del §6.1 (le altre al blocco 7); ultimo consolida senza git', (t) => {
+test('mappa.md: le sezioni 1–5, 8, 9 e 18 nell\'ordine del §6.1 (le altre al blocco 7); ultimo consolida senza git', (t) => {
   const d = archivio(t);
   conOra(() => contesto(d));
   const m = readFileSync(join(d, 'contesto/mappa.md'), 'utf8');
   if (process.env.VEDI) console.log(m);
   assert.deepEqual([...m.matchAll(/^## (.+)$/gm)].map((x) => x[1]),
-    ['1. Stato', '2. Nodi', '3. Alias', '4. Parole candidate', '5. Conti', '8. Correzioni', '9. Scarti']);
+    ['1. Stato', '2. Nodi', '3. Alias', '4. Parole candidate', '5. Conti', '8. Correzioni', '9. Scarti', '18. Da classificare']);
   assert.match(sezione(m, 'Stato'), /- ultimo consolida: nessuno ancora; l'importazione: 2026-10-05\n/);
 });
 
@@ -187,7 +187,7 @@ test('contesto.mjs da riga di comando, anche su un archivio vuoto', (t) => {
   t.after(() => rmSync(d, { recursive: true, force: true }));
   const r = spawnSync('node', [SCRIPT, '--radice', d], { encoding: 'utf8', env: { ...process.env, ATLANTE_ORA: ORA } });
   assert.equal(r.status, 0, r.stdout);
-  assert.match(r.stdout, /contesto: fino a nessuno; 0 frammenti, 0 nodi \(recenti\.md, parole\.md, mappa\.md §1–5, §8–9\)/);
+  assert.match(r.stdout, /contesto: fino a nessuno; 0 frammenti, 0 nodi \(recenti\.md, parole\.md, mappa\.md §1–5, §8–9, §18\)/);
   const m = readFileSync(join(d, 'contesto/mappa.md'), 'utf8');
   assert.match(m, /fino-a: nessuno\n/);
   assert.match(m, /## 1\. Stato\n\n- inizio: nessun frammento parlante ancora\n- giorni attivi: 0\n/);

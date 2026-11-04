@@ -59,7 +59,7 @@ test('ritratto: id dall\'ora di Roma, voci numerate nell\'ordine del corpo, conv
   assert.deepEqual(e.errori, []);
   assert.deepEqual(e.scritti, [RIT]);
   const { dati, corpo } = leggi(dir, RIT);
-  assert.deepEqual(dati, { schema: 3, forma: 'ritratto', 'letto-da': 'lettore-di-prova', registrato: '2026-11-04T09:20:30+01:00',
+  assert.deepEqual(dati, { schema: 4, forma: 'ritratto', 'letto-da': 'lettore-di-prova', registrato: '2026-11-04T09:20:30+01:00',
     aggancio: { a: F2 }, voci: VOCI_R.map((v, i) => ({ n: i + 1, ...v })),
     legami: [{ p: 'converge-con', tra: [FID, F2], voce: 'proposta', perche: 'il nichilismo detto da altri, due volte', da: 2 }] });
   assert.equal('prompt' in dati, false); // solo le letture portano `prompt` (§2.2)
@@ -99,7 +99,7 @@ test('smista: crea-nodo (@Nome → slug), alias, lettura v1 con prompt e link da
   assert.deepEqual(e.avvisi, []);
   const RISP = 'restituzioni/2026/11/r-20261104-0920-risposta.md', LETT = `letture/2026/11/${F2}.md`;
   assert.deepEqual(e.scritti.sort(), [LETT, 'persone/marco.md', 'persone/umberto-galimberti.md', RISP]);
-  assert.deepEqual(leggi(dir, 'persone/marco.md').dati, { schema: 3, nome: 'Marco', cerchia: 'vita', 'nato-da': [F2] });
+  assert.deepEqual(leggi(dir, 'persone/marco.md').dati, { schema: 4, nome: 'Marco', cerchia: 'vita', 'nato-da': [F2] });
   assert.deepEqual(leggi(dir, 'persone/umberto-galimberti.md').dati.alias, ['galimberti', 'umberto']); // per chiave, niente doppioni
   const l = leggi(dir, LETT).dati;
   assert.equal(l.versione, 1);
@@ -199,7 +199,7 @@ test('specchio: la risposta della chat sigillata toglie la bozza ingresso/ID.ris
   const e = applica(piano('specchio', [
     { op: 'lettura', frammento: CHAT, intento: ['chiedi'], legami: [] },
     { op: 'restituzione', forma: 'risposta', per: CHAT, testo: '### 21:04 · canzoni sulla solitudine\n1. *Eleanor Rigby* ○.',
-      voci: [{ rif: '~Eleanor Rigby', voce: 'mondo', cosa: 'brano', turno: '21:04' }] },
+      voci: [{ rif: '~Eleanor Rigby', voce: 'mondo', cosa: 'canzone', turno: '21:04' }] },
   ]), dir);
   assert.deepEqual(e.errori, []);
   assert.deepEqual(e.tolti, [`ingresso/${CHAT}.risposte.md`]);

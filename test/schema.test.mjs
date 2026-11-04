@@ -37,12 +37,46 @@ test('schema/*.json compila con ajv (draft 2020-12, strict di default)', () => {
   }
 });
 
-test('schema/frontmatter.json è il modello §3.7 alla lettera (title e $comment a parte)', () => {
+// Lo schema 4 (progetto/sito/dimensioni.md §3.2) tolto, campo per campo: ciò che resta è il §3.7 alla lettera.
+function senzaSchema4(s) {
+  const x = structuredClone(s), d = x.$defs, nodo = d.nodo;
+  for (const k of ['tipo', 'specie', 'campo']) { delete d[k]; delete nodo.properties[k]; }
+  d.legame.properties.campo.enum = d.legame.properties.campo.enum.filter((v) => !['tipo', 'specie', 'campo'].includes(v));
+  for (const t of [nodo, d.lettura, d.restituzione]) t.properties.schema = { const: 3 };
+  nodo.allOf = nodo.allOf.filter((r) => !r.$comment?.startsWith('schema 4') && !(r.if?.required?.includes('campo') && r.if.properties?._genere));
+  for (const r of nodo.allOf) {
+    const nomi = r.then?.propertyNames?.enum;
+    if (nomi) r.then.propertyNames.enum = nomi.filter((v) => !['tipo', 'specie', 'campo'].includes(v));
+    const no = r.then?.not?.anyOf;
+    if (no) r.then.not.anyOf = no.filter((v) => !v.required.includes('campo'));
+  }
+  const cosa = d.restituzione.properties.voci.items.properties.cosa;
+  cosa.enum = cosa.enum.map((v) => (v === 'canzone' ? 'brano' : v));
+  return x;
+}
+
+test('schema/frontmatter.json è il modello §3.7 alla lettera, più lo schema 4 di dimensioni.md §3.2', () => {
   const t = readFileSync(join(RADICE, 'progetto/pacchetto/02-modello-v3.md'), 'utf8');
   const da = t.indexOf('```json', t.indexOf('### 3.7')) + 7;
   const modello = JSON.parse(t.slice(da, t.indexOf('```', da)));
-  const { title, $comment, ...resto } = frontmatter;
+  const { title, $comment, ...resto } = senzaSchema4(frontmatter);
   assert.deepEqual(resto, modello);
+});
+
+test('schema 4: i campi delle dimensioni, dove stanno e dove no', () => {
+  const nodo = valida('nodo'), base = { schema: 4, nome: 'x', 'nato-da': ['20261004-0000-u01'] };
+  assert.equal(errori(nodo, { ...base, _genere: 'opere', tipo: 'canzone', campo: ['musica'] }), null);
+  assert.equal(errori(nodo, { ...base, _genere: 'temi', specie: 'corrente', campo: ['filosofia'] }), null);
+  assert.equal(errori(nodo, { ...base, _genere: 'persone', cerchia: 'mondo', campo: ['filosofia', 'psicologia'] }), null);
+  assert.equal(nodo({ ...base, _genere: 'persone', cerchia: 'vita', campo: ['filosofia'] }), false, 'vita senza campo');
+  assert.equal(nodo({ ...base, _genere: 'temi', specie: 'stato', campo: ['filosofia'] }), false, 'campo solo sulle correnti');
+  assert.equal(nodo({ ...base, _genere: 'temi', campo: ['filosofia'] }), false, 'campo senza specie');
+  assert.equal(nodo({ ...base, _genere: 'opere', campo: ['a', 'b'].map(() => 'arte') }), false, 'senza doppioni');
+  assert.equal(nodo({ ...base, _genere: 'opere', campo: ['arte', 'musica', 'cinema'] }), false, 'al più 2');
+  assert.equal(nodo({ ...base, _genere: 'opere', tipo: 'brano' }), false, 'vocabolario chiuso');
+  assert.equal(nodo({ ...base, _genere: 'citazioni', campo: ['filosofia'] }), false, 'mai sulle citazioni');
+  assert.equal(nodo({ ...base, schema: 3, _genere: 'opere', tipo: 'film' }), false, 'solo su un nodo a schema 4');
+  assert.equal(nodo({ ...base, _genere: 'opere', 'fuso-in': 'y', tipo: 'film' }), false, 'mai su una lapide');
 });
 
 test('§3.3: una lettura senza risposta valida solo se importata (con fonte)', () => {
@@ -61,7 +95,7 @@ const ESEMPI = [
   ['§3.4 citazione', 'citazioni/il-nichilismo-e-l-ospite-inquietante.md', 'nodo', (d) => { d['attribuita-a'] = ['Umberto Galimberti']; }],
   ['§3.4 citazione consolidata', 'consolidata/citazioni/il-nichilismo-e-l-ospite-inquietante.md', 'nodo', (d) => { d.esito = 'vera'; }],
   ['§3.4 lapide', 'temi/stare-da-solo.md', 'nodo', (d) => { d.alias = ['solo']; }],
-  ['§3.5 restituzione', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { d.voci[0].cosa = 'canzone'; }],
+  ['§3.5 restituzione', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { d.voci[0].cosa = 'brano'; }],
   ['§3.5 senza registrato', 'restituzioni/2026/11/r-20261103-2341-risposta.md', 'restituzione', (d) => { delete d.registrato; }],
 ];
 

@@ -25,6 +25,17 @@ A2. **Temi dedotti (◌).** Quelli che nomino io li ha già creati "smista". Per
 A3. **Citazioni ⚠**: per ogni citazione senza `esito` (all'ingresso nascono tutte così: l'esito lo scrivi solo tu), la verifica (CLAUDE.md), un subagent ogni 3, ≤ 5 ricerche o 10
     minuti ciascuno. `aggiorna-nodo` con `esito`, `riferimento`, `originale`, `traduzione`, e `autore` solo se
     verificato. Se non trovi, resta ⚠.
+A3b. **Da classificare** (schema 4, `progetto/sito/dimensioni.md`). Per ogni nodo nella sezione «Da classificare» di
+    `mappa.md`, `aggiorna-nodo` con:
+    - `tipo` per un'opera: dalle mie parole ("la canzone…"), o da una verifica rapida sul nome `mondo` (mai su persone
+      `vita`). Nel dubbio, niente: resta in coda.
+    - `specie` per un tema: `stato` se l'ho usato per dire come mi sento; `domanda` se è una domanda; `corrente` se è una
+      scuola di pensiero o di stile; `simbolo` se è una cosa, un luogo o una figura usati come immagine; `stile` se è
+      un'estetica grafica; altrimenti `idea`.
+    - `campo`, 1–2 valori, per persone `mondo` e `finzione`, opere e correnti; mai per persone `vita` né per temi di
+      altre specie. Su un nodo nato da un frammento delicato non ripreso («aspetta» in `mappa.md`), aspetta.
+    Una volta sola per nodo: un valore scritto non si cambia, salvo una mia correzione (A5). Nessuna proposta, nessun
+    segno nelle prose.
 A4. **Contraddizioni e accoglienze.** Dove una posizione nuova urta una vecchia o lo sguardo: `contraddice` nella
     lettura nuova del frammento più recente, verso la mia frase più vicina e il `passo`. Di voce `sua` solo se il nuovo
     nega **con parole mie** un enunciato del vecchio ("camus si sbagliava"); se esito, `come: dubbio`; proposto da te è
@@ -32,7 +43,9 @@ A4. **Contraddizioni e accoglienze.** Dove una posizione nuova urta una vecchia 
     giorni. Dove un mio pensiero torna **con altre parole** su una tua proposta (il caso Karamazov): `ritorna-su …
     come: accoglie` con `n`. Non conta averla letta né chiederne il perché.
 A5. **Correzioni e tracce.** Per ogni `ritorna-su … come: corregge` in attesa: `aggiorna-nodo` sul `nodo` (in un campo
-    lista il `vecchio` si sostituisce con il `valore`; `@Nome` fa nascere la persona giusta). **Non** riscrivere la
+    lista il `vecchio` si sostituisce con il `valore`; `@Nome` fa nascere la persona giusta). Il `campo` della correzione
+    può essere anche `tipo`, `specie`, `campo`: il valore nuovo è il `valore` (per `campo`, le voci separate da ", "; vuoto
+    toglie il campo). **Non** riscrivere la
     lettura colpita. Risolvi le tracce in sospeso ("traccia 3"): un'opera con `in: album` solo se l'ho confermata.
 A6. **Solo la prima domenica del mese: fusioni.** Dall'elenco dei temi di `mappa.md` (nome, alias, conteggio, tre frasi)
     proponi le fusioni ovvie: operazione `lapide` `{da, in, perche}`. Niente divisioni.

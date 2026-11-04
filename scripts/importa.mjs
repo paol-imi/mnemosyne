@@ -31,11 +31,11 @@ const ORDINE = {
   frammento: ['registrato', 'canale', 'voce', 'forma', 'continua', 'intento', 'allegati'],
   lettura: ['schema', 'versione', 'letto-da', 'prompt', 'intento', 'reazione', 'legami', 'parole', 'link', 'trascrizione',
     'altrui', 'vissuto', 'delicato', 'nota', 'fonte', 'risposta'],
-  nodo: ['schema', 'nome', 'alias', 'cerchia', 'in', 'autore', 'anno', 'attribuita-a', 'citata-da', 'originale', 'traduzione',
-    'riferimento', 'esito', 'scopo', 'fuso-in', 'nato-da', 'link'],
+  nodo: ['schema', 'nome', 'alias', 'cerchia', 'in', 'autore', 'anno', 'tipo', 'specie', 'campo', 'attribuita-a', 'citata-da',
+    'originale', 'traduzione', 'riferimento', 'esito', 'scopo', 'fuso-in', 'nato-da', 'link'],
   restituzione: ['schema', 'forma', 'letto-da', 'registrato', 'per', 'copre', 'aggancio', 'voci', 'legami', 'fonte'],
 };
-const FLOW = ['legami', 'voci', 'reazione', 'link', 'aggancio', 'intento', 'alias', 'nato-da', 'parole', 'attribuita-a', 'citata-da', 'copre', 'allegati'];
+const FLOW = ['legami', 'voci', 'reazione', 'link', 'aggancio', 'intento', 'alias', 'nato-da', 'parole', 'attribuita-a', 'citata-da', 'copre', 'allegati', 'campo'];
 
 const schema = JSON.parse(readFileSync(new URL('../schema/frontmatter.json', import.meta.url), 'utf8'));
 const ajv = new Ajv2020({ allErrors: true, strictTypes: false }).addSchema(schema);

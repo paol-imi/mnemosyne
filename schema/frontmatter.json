@@ -1,7 +1,7 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "memo/schema-3",
-  "title": "Frontmatter dei file del memo (modello v3, §3.7)",
+  "title": "Frontmatter dei file del memo (modello v3, §3.7; schema 4: progetto/sito/dimensioni.md §3)",
   "$comment": "Copia eseguibile del modello v3 §3.7, alla lettera (title e $comment a parte). La radice sceglie il tipo dalle chiavi (canale → frammento, _genere → nodo, versione → lettura, voci → restituzione); chi conosce il tipo dalla cartella valida memo/schema-3#/$defs/<tipo>.",
   "type": "object",
   "if": {"required": ["canale"]}, "then": {"$ref": "#/$defs/frammento"},
@@ -23,6 +23,10 @@
     "fonte": {"anyOf": [{"$ref": "#/$defs/fonte1"}, {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/fonte1"}}]},
     "modello": {"type": "string", "minLength": 3},
     "intento": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"enum": ["salva", "chiedi", "sguardo", "niente"]}},
+    "tipo": {"enum": ["canzone", "album", "libro", "poesia", "film", "serie", "fumetto", "spettacolo", "immagine", "gioco", "video"]},
+    "specie": {"enum": ["stato", "idea", "domanda", "corrente", "simbolo", "stile"]},
+    "campo": {"type": "array", "minItems": 1, "maxItems": 2, "uniqueItems": true,
+      "items": {"enum": ["filosofia", "psicologia", "mito-e-religione", "esoterismo", "scienza", "storia", "letteratura", "arte", "musica", "cinema"]}},
 
     "legame": {
       "type": "object",
@@ -42,7 +46,7 @@
         "passo": {"type": "string", "pattern": "^[a-z0-9-]+:\\d+(-\\d+)?$"},
         "turno": {"type": "string", "pattern": "^\\d{2}:\\d{2}$"},
         "nodo": {"$ref": "#/$defs/slug"},
-        "campo": {"enum": ["autore", "attribuita-a", "in", "nome"]},
+        "campo": {"enum": ["autore", "attribuita-a", "in", "nome", "tipo", "specie", "campo"]},
         "vecchio": {"type": "string"},
         "valore": {"type": "string"}
       },
@@ -98,7 +102,7 @@
       "required": ["schema", "versione", "letto-da", "prompt", "intento", "legami"],
       "additionalProperties": false,
       "properties": {
-        "schema": {"const": 3},
+        "schema": {"enum": [3, 4]},
         "versione": {"type": "integer", "minimum": 1},
         "letto-da": {"$ref": "#/$defs/modello"},
         "prompt": {"type": "string", "pattern": "^[0-9a-f]{7}$"},
@@ -126,7 +130,7 @@
       "additionalProperties": false,
       "properties": {
         "_genere": {"enum": ["persone", "opere", "citazioni", "temi", "raccolte"]},
-        "schema": {"const": 3},
+        "schema": {"enum": [3, 4]},
         "nome": {"type": "string", "minLength": 1},
         "alias": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
         "nato-da": {"type": "array", "minItems": 1, "items": {"anyOf": [{"$ref": "#/$defs/idF"}, {"$ref": "#/$defs/idR"}]}},
@@ -142,21 +146,29 @@
         "riferimento": {"type": "string"},
         "esito": {"enum": ["verificata", "simile", "errata", "non-trovata"]},
         "scopo": {"type": "string"},
-        "anno": {"type": "integer"}
+        "anno": {"type": "integer"},
+        "tipo": {"$ref": "#/$defs/tipo"},
+        "specie": {"$ref": "#/$defs/specie"},
+        "campo": {"$ref": "#/$defs/campo"}
       },
       "allOf": [
+        {"$comment": "schema 4: i campi delle dimensioni solo su un nodo già migrato",
+         "if": {"properties": {"schema": {"const": 3}}},
+         "then": {"not": {"anyOf": [{"required": ["tipo"]}, {"required": ["specie"]}, {"required": ["campo"]}]}}},
         {"if": {"required": ["fuso-in"]},
          "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "nato-da", "fuso-in"]}}},
         {"if": {"properties": {"_genere": {"const": "persone"}}, "not": {"required": ["fuso-in"]}},
-         "then": {"required": ["cerchia"], "propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "cerchia", "in"]}}},
+         "then": {"required": ["cerchia"], "propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "cerchia", "in", "campo"]}}},
         {"if": {"required": ["cerchia"], "properties": {"cerchia": {"const": "vita"}}},
-         "then": {"not": {"anyOf": [{"required": ["link"]}, {"required": ["in"]}]}}},
+         "then": {"not": {"anyOf": [{"required": ["link"]}, {"required": ["in"]}, {"required": ["campo"]}]}}},
         {"if": {"properties": {"_genere": {"const": "opere"}}},
-         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in", "autore", "in", "anno"]}}},
+         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in", "autore", "in", "anno", "tipo", "campo"]}}},
         {"if": {"properties": {"_genere": {"const": "citazioni"}}},
          "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in", "autore", "attribuita-a", "citata-da", "originale", "traduzione", "riferimento", "esito"]}}},
         {"if": {"properties": {"_genere": {"const": "temi"}}},
-         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in"]}}},
+         "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "fuso-in", "specie", "campo"]}}},
+        {"if": {"properties": {"_genere": {"const": "temi"}}, "required": ["campo"]},
+         "then": {"required": ["specie"], "properties": {"specie": {"const": "corrente"}}}},
         {"if": {"properties": {"_genere": {"const": "raccolte"}}, "not": {"required": ["fuso-in"]}},
          "then": {"propertyNames": {"enum": ["_genere", "schema", "nome", "alias", "nato-da", "link", "scopo"]}}}
       ]
@@ -167,7 +179,7 @@
       "required": ["schema", "forma", "letto-da", "registrato", "voci"],
       "additionalProperties": false,
       "properties": {
-        "schema": {"const": 3},
+        "schema": {"enum": [3, 4]},
         "forma": {"enum": ["risposta", "lettera", "ritratto", "eredita"]},
         "letto-da": {"$ref": "#/$defs/modello"},
         "registrato": {"$ref": "#/$defs/quando"},
@@ -185,7 +197,7 @@
             "estratto": {"type": "string", "maxLength": 200},
             "esito": {"enum": ["verificata", "simile", "errata", "non-trovata"]},
             "riferimento": {"type": "string"},
-            "cosa": {"enum": ["frase", "tensione", "vuoto", "correzione", "opera", "brano", "libro", "film", "citazione", "persona", "ponte", "convergenza", "confronto", "sogno", "ricordo", "domanda", "assenza", "idea"]}}}},
+            "cosa": {"enum": ["frase", "tensione", "vuoto", "correzione", "opera", "canzone", "libro", "film", "citazione", "persona", "ponte", "convergenza", "confronto", "sogno", "ricordo", "domanda", "assenza", "idea"]}}}},
         "legami": {"type": "array", "items": {"allOf": [{"$ref": "#/$defs/legame"},
           {"properties": {"voce": {"enum": ["proposta", "mondo", "seme"]}}}]}},
         "fonte": {"$ref": "#/$defs/fonte"}

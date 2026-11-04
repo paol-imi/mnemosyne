@@ -164,7 +164,7 @@ function creaNodo(o, c) {
   }
   if (campi.link) campi.link = [...new Set(campi.link.map(pulisciLink))];
   c.file.push({ tipo: 'nodo', genere, id: n.slug, percorso: `${genere}/${n.slug}.md`,
-    dati: ordina('nodo', { schema: 3, ...campi, 'nato-da': nato }), corpo });
+    dati: ordina('nodo', { schema: 4, ...campi, 'nato-da': nato }), corpo });
 }
 // Gli alias nuovi (per chiave: "Galimberti" e "galimberti" sono la stessa forma) in coda a quelli che ci sono.
 function aggiungiAlias(s, forme, c, nome) {
@@ -200,7 +200,7 @@ function restituzione(o, c) {
     if (fr && leggi(fr)?.dati.canale === 'chat' && existsSync(join(c.radice, bozza))) c.via.push(bozza);
   }
   const { op, testo, voci, ...campi } = o;
-  const dati = ordina('restituzione', { schema: 3, ...campi, 'letto-da': c.piano['letto-da'], registrato: c.registrato,
+  const dati = ordina('restituzione', { schema: 4, ...campi, 'letto-da': c.piano['letto-da'], registrato: c.registrato,
     voci: voci.map((v, i) => ({ n: i + 1, ...v })) });
   c.file.push({ tipo: 'restituzione', id, percorso: `restituzioni/${cartella(id.slice(2))}/${id}.md`, dati, corpo: testo });
 }
@@ -237,7 +237,7 @@ function lettura(o, c) {
   });
   const { op, frammento, versione, ...campi } = o;
   c.file.push({ tipo: 'lettura', id, percorso: `letture/${cartella(id)}/${id}.md`, corpo: '',
-    dati: ordina('lettura', { schema: 3, versione: 1, 'letto-da': c.piano['letto-da'], prompt: c.prompt ?? undefined, ...campi, link, risposta }) });
+    dati: ordina('lettura', { schema: 4, versione: 1, 'letto-da': c.piano['letto-da'], prompt: c.prompt ?? undefined, ...campi, link, risposta }) });
 }
 const nonAncora = (o, c) => c.err(`${o.op}: non ancora fatta da applica.mjs (la scrive "consolida", blocco 9)`);
 // L'ordine: i nodi, poi le restituzioni (la lettura ne prende l'id), poi le letture.
@@ -290,7 +290,7 @@ export function prepara(piano, radice = process.cwd()) {
 }
 
 // verifica.mjs sulla cartella di lavoro, con la storia git della radice (HEAD: immutabilità, nascite in commit smista:).
-function verificaLavoro(radice, lavoro) {
+export function verificaLavoro(radice, lavoro) {
   const env = { ...process.env };
   try {
     if (execFileSync('git', ['rev-parse', '--show-prefix'], { cwd: radice, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() === '') {

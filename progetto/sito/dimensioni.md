@@ -31,7 +31,7 @@ data: 2026-11-04
    che nomino. «Sentimento» è la **specie** di un tema (asse Temi): divide ciò di cui parlo. Si combinano in E: «una
    canzone per la malinconia» è Cose: canzone **e** Temi: malinconia.
 3. **Tre campi nuovi, solo sui nodi:** `tipo` sulle opere, `specie` sui temi, `campo` su persone (non `vita`), opere e
-   temi. Mai sui frammenti né sulle letture. Il valore di una frase si **calcola** a un passo di legame.
+   correnti (i temi di specie `corrente`). Mai sui frammenti né sulle letture. Il valore di una frase si **calcola** a un passo di legame.
 4. **Li scrive solo "consolida",** una volta per nodo, da vocabolari chiusi (11 forme, 6 specie, 10 campi), e poi non
    li tocca più, salvo una correzione dell'utente. Il `campo` è sempre ◌: una scelta dell'AI, anche sui nodi del mondo.
 5. **Il Gesto non chiede campi nuovi:** si calcola da `intento`, `vissuto`, `altrui`, `fruizione`, `come: stato`,
@@ -129,11 +129,11 @@ l'«Esito» nelle Cose (sotto «citazione»).
   | `specie` | in pagina | che cosa ci entra | dai dati veri (35 temi) |
   |---|---|---|---|
   | `stato` | sentimenti ◌ | uno stato d'animo nominato: rabbia, malinconia, quiete | 10 |
-  | `idea` | idee | un concetto: attenzione, libertà, tempo | ~9 |
-  | `domanda` | domande | una grande domanda, con il punto interrogativo | 8 |
-  | `corrente` | correnti | una corrente di pensiero o di stile nominata: stoicismo, romanticismo | 3 |
-  | `simbolo` | simboli | una cosa, un luogo o una figura usati come immagine: faro, mare, fenice | ~3 |
-  | `stile` | stili | un'estetica grafica: linea, blackwork | 2 |
+  | `idea` | idee ◌ | un concetto: attenzione, libertà, tempo | ~9 |
+  | `domanda` | domande ◌ | una grande domanda, con il punto interrogativo | 8 |
+  | `corrente` | correnti ◌ | una corrente di pensiero o di stile nominata: stoicismo, romanticismo | 3 |
+  | `simbolo` | simboli ◌ | una cosa, un luogo o una figura usati come immagine: faro, mare, fenice | ~3 |
+  | `stile` | stili ◌ | un'estetica grafica: linea, blackwork | 2 |
 
   Il file porta il valore della prima colonna; la pagina mostra la seconda, sempre la stessa. «stato» resta il valore
   del modello (come `parla-di come: stato`); «sentimenti» è la parola che l'utente usa.
@@ -245,7 +245,8 @@ Il senso («che cosa pensavo della fede») resta a Specchio, che espande la doma
     trova solo la parola.
 12. **L'ordine degli assi** è quello della domanda dell'utente: Cose, Persone, Temi, Campo ◌, Gesto, Tempo. Dentro
     Persone e Temi per numero; Cose e Campo in ordine fisso; Tempo cronologico; Gesto in ordine fisso.
-13. **L'indirizzo** tiene tutto: `#/esplora?da=attenzione&cose=canzone&temi=malinconia&campo=filosofia&q=mare&lente=proposte`.
+13. **L'indirizzo** tiene tutto: `#/esplora?da=attenzione&cose=f:canzone&temi=t:malinconia&campo=filosofia&q=mare&lente=proposte`
+    (i prefissi distinguono il tipo `f:`, l'opera `o:`, la specie `s:`, il tema `t:`, come in `progetto.md` §3.12).
 
 ---
 
@@ -311,7 +312,10 @@ Nel legame, l'enum di `campo` della correzione si allunga: `{"enum": ["autore", 
 
 In `restituzione.voci.items.properties.cosa` la voce `brano` diventa `canzone`, e così **in ogni posto che la elenca**:
 l'enum di `cosa` in `schema/piano.json` (oggi alla riga 265) e l'esempio e l'elenco di `cosa` in `prompt/progetto.md`
-(oggi alle righe 79–80 e 89), altrimenti una risposta del Progetto su una canzone sarebbe rifiutata (§4.5). In
+(oggi alle righe 79–80 e 89), altrimenti una risposta del Progetto su una canzone sarebbe rifiutata (§4.5); e il test
+`test/applica.test.mjs` (oggi alla riga 202), che usa `cosa: 'brano'` e si aspetta zero errori. Il passaggio (un memo
+del Progetto scritto prima del cambio, che i memo successivi della stessa chat devono ripetere come prefisso) è aperto:
+`revisione.md`, A2. In
 `schema/piano.json`, `ciclo` ammette anche `migra` (lo scrittore della migrazione, §5), e il vincolo che oggi tiene
 `aggiorna-nodo` solo in "consolida" si allarga a `consolida | migra`; `aggiorna-nodo` accetta `tipo`, `specie`,
 `campo`; `crea-nodo` **no**: li rifiuta, chiunque crei il nodo ("smista", Specchio o "consolida").

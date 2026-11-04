@@ -154,7 +154,7 @@ salvano": qui non si salvano nel repo, vivono solo nel blob):
 
 | vista | dati |
 |---|---|
-| **pagina di nodo** | 3–5 porte (i frammenti ✦ più forti, con la data), poi le convergenze, poi il resto per modalità (`nomina`, `parla-di`, `serve-a`…), gli sbiaditi in fondo, una voce della coda lunga; per le citazioni, `esito` o ⚠ sempre visibile |
+| **pagina di nodo** | superata da `progetto.md` §3.4: la prima e l'ultima frase ✦, le altre, l'intorno, il mondo ○ con il luogo, la lente; per le citazioni, `esito` o ⚠ sempre visibile |
 | **linea del tempo** | per mese: le Posizioni di `mappa.md` (frase, dal, messa in discussione il), i conti ✦, le date di cambio di lettore (il campo `prompt` delle letture cambia) |
 | **assenze** | al più tre, con i numeri ✦ presi da `mappa.md` (copiati, mai ricalcolati a occhio) |
 | **frammento** | il corpo alla lettera, la lettura con i segni, le risposte, i `ritorna-su` in entrata |
@@ -168,6 +168,9 @@ salvano": qui non si salvano nel repo, vivono solo nel blob):
 - nessun delicato nell'archivio principale (§5);
 - nessun nome `cerchia: vita` nel guscio, nei titoli o nei nomi dei file serviti;
 - un test `node --test` su dati sintetici, sul modello di `test/`.
+
+I messaggi d'errore del build (e ogni riga che finisce nel log di Actions) dicono la regola e l'id, mai il testo di un
+frammento né il nome di una persona: il log non è cifrato, come i messaggi di commit (`CLAUDE.md`, Privacy).
 
 ## 3. Il sito resta un lettore
 
@@ -231,8 +234,9 @@ salvano": qui non si salvano nel repo, vivono solo nel blob):
 
 ### 4.4 Offline
 
-- **Il service worker** (`vite-pwa-plugin` 2.0.0, modalità `injectManifest`) mette in precache il guscio e i blob, e
-  aggiorna i blob quando `versione.json` (hash del build) cambia.
+- **Il service worker** (`vite-pwa-plugin` 2.0.0, modalità `injectManifest`) mette in precache il guscio e
+  `archivio.bin`, e lo aggiorna quando `versione.json` (hash del build) cambia. **`delicati.bin` no**: si scarica solo
+  dopo il gesto (§5.2) e non entra nella cache; offline il gesto dice che non c'è rete.
 - **Il routing con l'hash** (`#/nodo/umberto-galimberti`):
   - l'unica navigazione verso il server è `/`;
   - il percorso letto non arriva mai a Cloudflare, quindi non finisce nei log;
@@ -265,7 +269,8 @@ salvano": qui non si salvano nel repo, vivono solo nel blob):
 ### 5.2 Come lo si nasconde (tecnicamente, non solo con il CSS)
 
 1. **Due archivi.**
-   - `archivio.bin` non contiene i delicati chiusi: ne porta solo i conti per mese e per tema.
+   - `archivio.bin` non contiene i delicati chiusi: ne porta solo i conti per mese, come `mappa.md` (i conti per tema
+     di `mappa.md` li escludono).
    - `delicati.bin` (cifrato con la stessa chiave) ha i loro testi e un indice di ricerca suo. Si scarica e si decifra
      solo dopo un gesto esplicito:
      - la vista "le mie frasi", dove la ricetta li vuole alla lettera e mai in testa;
@@ -281,8 +286,9 @@ salvano": qui non si salvano nel repo, vivono solo nel blob):
    - CSP `default-src 'self'; img-src 'self' blob:; connect-src 'self'`;
    - `Referrer-Policy: no-referrer`, `X-Robots-Tag: noindex`, `rel="noreferrer"` sui link esterni;
    - niente analytics: Cloudflare Web Analytics resta spento.
-4. **La build per gli ospiti** (in futuro): un terzo blob, con una chiave sua, senza `cerchia: vita`, senza delicati e
-   senza ritratti, e un'applicazione Access con l'elenco degli ospiti. Si spegne revocando la chiave e l'email.
+4. **La build per gli ospiti** (in futuro): un terzo blob, con una chiave sua, senza i nodi `cerchia: vita` **e senza i
+   frammenti che li nominano** (lo stesso filtro della stampa dei tatuaggi: il testo li direbbe comunque), senza
+   delicati e senza ritratti, e un'applicazione Access con l'elenco degli ospiti. Si spegne revocando la chiave e l'email.
 5. **Cloudflare vede:** chi entra (email, IP, paese, per 24 ore) e quando si scaricano i blob. Non vede che cosa si
    legge: i blob sono cifrati e il percorso sta nell'hash.
 

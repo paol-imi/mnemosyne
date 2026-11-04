@@ -439,10 +439,30 @@ const tetto = (id) => `Entro il ${dataL(F[id].reg)}, nell’archivio d’origine
 // Una frase tua: sempre letta dal frammento (transclusione), mai ricopiata.
 function frase(id, { link = true, data = true, cls = '' } = {}) {
   const f = F[id];
+  if (f.altrui) return altrui(id, { link, data });
   const daVerif = (f.nomina || []).some((s) => NODI[s].genere === 'citazioni' && !NODI[s].esito);
   const t = `<span class="sua ${cls}">${esc(f.testo)}${sg('sua')}</span>${daVerif ? vf : ''}`;
   const dt = !data ? '' : imp(id) ? `<span class="data">${tetto(id)}, trascritta da Claude nel seme:</span>` : `<span class="data">${dataL(f.reg)}</span>`;
   return `${dt}${link ? `<a href="#/frammento/${id}">${t}</a>` : t}`;
+}
+// Un testo altrui trascritto (regola 7): ✦ il gesto e il tuo commento, ○ al più una riga tra «» con opera e passo;
+// senza opera e passo la riga d'altri non c'è. Mai le parole d'altri in corsivo come tue.
+function altrui(id, { link = true, data = true } = {}) {
+  const f = F[id], a = f.altrui;
+  const dt = !data ? '' : imp(id) ? `<span class="data">${tetto(id)}, trascritta da Claude nel seme:</span>` : `<span class="data">${dataL(f.reg)}</span>`;
+  const gesto = `<span>hai trascritto ${esc(a.cosa)}</span>${sg('sua')}${a.commento ? ` <span class="sua">${esc(a.commento)}</span>${sg('sua')}` : ''}`;
+  const riga = a.riga && a.luogo ? `<span class="mondo luogo">«${esc(a.riga)}»${sg('mondo')} · ${esc(a.luogo)}</span>` : '';
+  return `${dt}${link ? `<a href="#/frammento/${id}">${gesto}</a>` : gesto}${riga}`;
+}
+// Un gruppo di importati: la nota una volta in testa; la data-tetto in testa solo se è comune, se no su ogni riga.
+// `riga(id, prima)` rende la riga senza data; `prima` è la data-tetto della riga, quando non è comune.
+function gruppoOrig(ids, riga = (id, prima) => `<li>${prima}${frase(id, { data: false })}</li>`) {
+  if (!ids.length) return '';
+  const comune = ids.every((id) => F[id].reg === F[ids[0]].reg);
+  const nota = `${ids.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme`;
+  const testa = comune ? `${tetto(ids[0])}, ${nota}:` : `Nell’archivio d’origine, ${nota}:`;
+  const prima = (id) => (comune ? '' : `<span class="data">entro il ${dataL(F[id].reg)}</span>`);
+  return `<p class="nota-r">${testa}</p><ul class="righe">${ids.map((id) => riga(id, prima(id))).join('')}</ul>`;
 }
 const scorciatoia = (testo) => `shortcuts://run-shortcut?name=Memo&input=text&text=${encodeURIComponent(testo)}`;
 const gesto = (etichetta, testo) => `<a class="gesto" href="${scorciatoia(testo)}"><b>${etichetta}</b><code>${esc(testo)}</code></a>`;
@@ -597,11 +617,11 @@ function nomiTrovati(ids) {
   if (ESP.q) Object.keys(NODI).forEach((s) => { if (norm(NODI[s].nome).includes(norm(ESP.q))) out.add(s); });
   return [...out];
 }
-function rigaFrase(id) {
+function rigaFrase(id, prima = '') {
   const prop = ESP.lente && !passa(id, { ...ESP, lente: false });
   const nomi = [...val(id, ESP.lente).nodi].filter((s) => s !== ESP.da && NODI[s].genere !== 'raccolte').slice(0, 3).map(nomeNodo);
   const via = prop ? `<span class="luogo">entra per una mia lettura ◌: ${(F[id].prop || []).map(nomeNodo).join(', ')}</span>` : nomi.length ? `<span class="luogo">${esc(nomi.join(' · '))}</span>` : '';
-  return `<li class="${prop ? 'smorzata' : ''}">${frase(id, { data: !imp(id) })}${via}</li>`;
+  return `<li class="${prop ? 'smorzata' : ''}">${prima}${frase(id, { data: !imp(id) })}${via}</li>`;
 }
 function vuotoDetto() {
   const f = [...(ESP.sel.cose || [])].find((x) => x.startsWith('f:'));
@@ -634,7 +654,7 @@ function risultatiEsplora() {
     ${riga('restringi', 'restringi', restr)}${riga('oanche', 'o anche', oanche)}
     ${nomi.length ? `<h2>nomi</h2><p class="nomi">${nomi.map((s) => `<a href="#/nodo/${s}">${esc(NODI[s].nome)}</a>${NODI[s].genere === 'citazioni' && !NODI[s].esito ? vf : ''}`).join('<span class="sep"> · </span>')}</p>` : ''}
     ${ids.length ? `<h2>le tue frasi</h2><ul class="righe">${tuoi.map(rigaFrase).join('')}</ul>` : `<p class="vuoto">${vuotoDetto()}</p>`}
-    ${orig.length ? `<p class="nota-r">${tetto(orig[0])}, ${orig.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme:</p><ul class="righe">${orig.map(rigaFrase).join('')}</ul>` : ''}
+    ${gruppoOrig(orig, rigaFrase)}
     ${delic.length ? `<button class="delic" id="delic">e ${delic.length} risultato delicato · mostralo</button>` : ''}`;
 }
 // L'indice: senza filtri, Esplora mostra gli assi come parole da toccare, con i numeri. È la parte del navigare.
@@ -693,7 +713,8 @@ V.soglia = (stato) => {
   if (delicato) {
     cuore = `<p class="quando">${dataG(OGGI)}</p>`;
   } else if (ritorno) {
-    const id = '20260921-2315-a1c4';
+    // Un ricordabile: gli importati ✦ da subito, i nuovi solo oltre 60 giorni di calendario (ti-ricordi.md).
+    const id = '20260912-0000-u01';
     cuore = `<p class="quando">${dataG(OGGI)} · dai ricordabili</p>
       <div class="coppia"><p class="frase">${frase(id)}</p></div>`;
   } else {
@@ -760,7 +781,7 @@ function foglioVoce(n) {
 V.tavolaNodo = () => {
   const vicini = [
     { s: 'aspettare', a: -90, frasi: ['20260929-2240-c2e9'] },
-    { s: 'simone-weil', a: 30, frasi: [], via: 'la lettera del 1 novembre, voce 2 ○' },
+    { s: 'simone-weil', a: 30, frasi: [], via: 'la lettera del 1 novembre, voce 2: Simone Weil ○, Attente de Dieu, «Réflexions sur le bon usage des études scolaires», § 4' },
   ];
   const W = 360, H = 360, cx = 180, cy = 180, R = 125;
   const pos = vicini.map((v) => ({ ...v, x: cx + R * Math.cos(v.a * Math.PI / 180), y: cy + R * Math.sin(v.a * Math.PI / 180) }));
@@ -794,7 +815,9 @@ V.frammento = (id) => {
   const nom = (f.nomina || []).map((t) => `<a href="#/nodo/${t}">${NODI[t].nome}</a>${sg('sua')}${NODI[t].genere === 'citazioni' && !NODI[t].esito ? vf : ''}`).join(' · ');
   return `<div class="pagina">${testa(imp(id) ? 'archivio d’origine' : f.canale)}
     <p class="data" style="margin-top:1.6em">${imp(id) ? tetto(id) + ', trascritta da Claude nel seme' : dataG(f.reg) + ' · ' + ora(f.reg)}</p>
-    <p class="corpo sua">${esc(f.testo)}${sg('sua')}</p>
+    ${f.altrui
+      ? `<p class="corpo">«${esc(f.testo)}»${f.altrui.luogo ? `${sg('mondo')}<span class="luogo">${esc(f.altrui.luogo)}</span>` : vf}</p>${f.altrui.commento ? `<p class="corpo sua">${esc(f.altrui.commento)}${sg('sua')}</p>` : ''}`
+      : `<p class="corpo sua">${esc(f.testo)}${sg('sua')}</p>`}
     ${f.canale === 'telefono' ? '<p class="servizio">Salvato.</p>' : ''}
     ${strati()}
     ${temi || nom ? `<h2>legami</h2><p>${[temi, nom].filter(Boolean).join(' · ')}</p>` : ''}
@@ -872,7 +895,7 @@ V.nodo = (slug) => {
       ${tel.length && !vita ? `<p class="servizio" style="margin-top:1.4em">${y ? 'la prima e l’ultima · ' : ''}<a href="${da(slug)}">tutte le frasi in Esplora →</a></p>` : ''}
     </div>
     ${altre.length ? `<h2>le altre</h2><ul class="righe">${altre.slice(0, vita ? 99 : 4).map((id) => `<li>${frase(id)}</li>`).join('')}</ul>` : ''}
-    ${orig.length ? `<p class="nota-r">${tetto(orig[0])}, ${orig.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme:</p><ul class="righe">${orig.map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>` : ''}
+    ${gruppoOrig(orig)}
     ${vita ? '<p class="servizio">Una persona della tua vita: le tue frasi stanno tutte qui. Niente proposte, mai un filtro, mai in una ricerca web, mai un ponte.</p>' : intorno(slug, ids)}
     ${mondo}
     ${slug === 'tatuaggi' ? '<p><a href="#/tatuaggi">la tavola dei tatuaggi →</a></p>' : ''}
@@ -898,7 +921,7 @@ V.tempo = () => {
     const del = tutti.filter((id) => F[id].delicato).length, pin = tutti.filter((id) => F[id].nonParlante).length;
     const attivi = [...new Set(tutti.filter((id) => !F[id].nonParlante).map((id) => +F[id].reg.slice(8, 10)))];
     const pos = parl.filter((id) => F[id].pos).sort((a, b) => F[a].reg.localeCompare(F[b].reg));
-    const conto = `${parl.length} frammenti parlanti${del ? ` e ${del} delicato` : ''} · ${attivi.length} giorni attivi${pin ? ` · e ${pin} link senza parole` : ''}`;
+    const conto = `${parl.length + del} frammenti parlanti${del ? `, di cui ${del} delicato` : ''} · ${attivi.length} giorni attivi${pin ? ` · e ${pin} link senza parole` : ''}`;
     const posizioni = pos.length ? `<h2 style="margin-top:1.2em">posizioni</h2>${pos.map((id) => { const t = F[id].temi[0]; const altro = pos.find((k) => k !== id && F[k].temi[0] === t); const prima = F[altro].reg < F[id].reg; return `<div class="pos">${frase(id)}<span class="luogo">${prima ? `dal ${dataL(F[id].reg)} · tensione con il ${dataL(F[altro].reg)}` : `dal ${dataL(F[id].reg)} · messa in discussione il ${dataL(F[altro].reg)}`}</span></div>`; }).join('')}` : '';
     const lettore = am === '2026-10' ? (() => { const dopo = parl.filter((id) => F[id].reg >= '2026-10-21'), prima = parl.filter((id) => F[id].reg < '2026-10-21'); return `${righe(dopo)}<div class="lettore">cambio di lettore · 21 ottobre</div>${righe(prima)}`; })() : righe(parl);
     return `<section class="mese"><h2>${MESI[m]} ${anno}${etich ? ' · ' + etich : ''}</h2>
@@ -913,8 +936,7 @@ V.tempo = () => {
     ${mese('2026-11', 'in corso')}${mese('2026-10')}${mese('2026-09', 'periodo')}
     <section class="mese"><h2>archivio d'origine</h2>
       <p class="servizio">Fuori dai conti. Le date sono un tetto.</p>
-      <p class="nota-r">${tetto(orig[0])}, trascritte da Claude nel seme:</p>
-      <ul class="righe">${orig.map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
+      ${gruppoOrig(orig)}
     </section>
   </div>`;
 };
@@ -933,8 +955,7 @@ V.frasi = () => {
     </ol>
     <details><summary>il resto · dal ${dataL(F[resto[0]].reg)} all'indietro</summary>
       <ul class="righe">${resto.map((id) => `<li>${frase(id)}</li>`).join('')}</ul>
-      <p class="nota-r">${tetto(origResto[0])}, trascritte da Claude nel seme:</p>
-      <ul class="righe">${origResto.map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>
+      ${gruppoOrig(origResto)}
       <button class="delic" id="delic">e 1 frase dell'11 ottobre, delicata · mostrala</button>
     </details>
   </div>`;
@@ -944,7 +965,7 @@ V.assenze = () => `<div class="pagina">${testa('assenze')}
   <h1>Che cosa non stai guardando</h1>
   <p class="servizio">Al più tre; oggi due. I numeri vengono da mappa.md.</p>
   <ol class="righe">
-    <li><a href="#/nodo/wislawa-szymborska">Wisława Szymborska</a>: <span class="sua">la voglio rileggere</span>${sg('sua')}, il 18 ottobre. Fruizione: da fare. Nessun ritorno.</li>
+    <li><a href="#/nodo/wislawa-szymborska">Wisława Szymborska</a>: <span class="sua">${esc(F['20261018-1120-h1m8'].testo.split('. ').pop())}</span>${sg('sua')}, il 18 ottobre. Fruizione: da fare. Nessun ritorno.</li>
     <li><a href="#/nodo/mare">mare</a>: ✦${frasiDi('mare').filter((id) => !imp(id)).length} tra il ${dataL(F[frasiDi('mare')[0]].reg)} e il ${dataL(F[frasiDi('mare').slice(-1)[0]].reg)}, poi niente.</li>
   </ol></div>`;
 

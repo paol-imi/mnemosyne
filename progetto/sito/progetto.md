@@ -95,6 +95,10 @@ Dieci, in ordine di peso. Ognuno porta la sua fonte; quando la regola è già in
     r-…#3»). Il sito è un lettore: il gesto apre il Comando rapido "Memo" con il testo già scritto.
     *Fonti:* letteratura 12 (Luhmann, Engelbart, i numeri delle tavole di Warburg) e tensione 3; tecnica §3.
 
+Un frammento `altrui`, ovunque compaia come frase (Esplora, nodo, tempo, tatuaggi, ritorno), si mostra come in «le
+mie frasi» (regola 7): il gesto ✦ con la data e il tuo commento in corsivo; le parole d'altri al più una riga, in tondo
+tra «», ○ con opera e passo, e senza luogo non ci sono. Mai il testo trascritto in corsivo come se fosse tuo.
+
 Il vuoto è un dato, e non è un principio a parte: ogni vista ha il suo stato vuoto in una riga ("Niente si aggancia
 ancora.", "Nessun ponte oggi."), mai una sezione-template vuota (atlante-sito §4.2.5: 38 «Nessun pin collegato»).
 
@@ -197,7 +201,7 @@ la soglia è la sua faccia.
 2. *Niente di fresco*: **il ritorno** (§3.10), una frase sola, con la sua data; la riga di servizio dice «dai
    ricordabili» (mai «torna», che è nella lista dei solleciti).
 3. *Periodo delicato*: solo la data e le porte. Nessuna frase, nessun ritorno, nessun nodo vivo (la porta diventa
-   «i nomi», senza riga). È la soglia sobria di `tecnica.md` §5.1.
+   «esplora», con la riga di servizio «i nomi e le cose», come sopra). È la soglia sobria di `tecnica.md` §5.1.
 
 **Vuoto.** Il primo giorno, senza restituzioni né ricordabili: la data, «Niente si aggancia ancora.», le porte.
 
@@ -259,7 +263,8 @@ lettura (`intento`, `reazione`, `legami`, `parole`, `link`, `trascrizione`, `alt
 - La data piena e l'ora, il canale in maiuscoletto (o «archivio d'origine» con la data-tetto e la nota «trascritta da
   Claude nel seme»).
 - Il corpo alla lettera, a 21 px, a capo e refusi compresi. Una chat: i tuoi turni con `[HH:MM]` in tondo piccolo.
-  Un `altrui`: il gesto ✦ e il tuo commento in corsivo; le parole d'altri in tondo, tra «», ○.
+  Un `altrui`: il gesto ✦ e il tuo commento in corsivo; le parole d'altri in tondo, tra «», ○ con l'opera e il passo
+  se la lettura li ha (`fonte`), altrimenti con ⚠ e senza ○ (mai un ○ senza luogo).
 - La riga di risposta, se è senza file («Salvato.», «Ci sono.»), o il link alla risposta.
 - Il selettore degli strati, poi i **legami** come nomi con il loro segno (✦ per i tuoi, ◌ per i proposti, nello strato
   delle proposte).
@@ -276,7 +281,8 @@ lettura (`intento`, `reazione`, `legami`, `parole`, `link`, `trascrizione`, `alt
 **Vuoto.** «Nessuna restituzione lo cita.»
 
 **Delicato.** La pagina di un delicato non ripreso ha solo la data, l'ora e il testo: nessun legame, nessun segno
-dell'AI, nessun binario, nessun vicino. Si raggiunge solo con il gesto esplicito (§3.6). Se ci torni sopra tu, i tuoi
+dell'AI, nessun binario, nessun vicino. Si raggiunge solo con il gesto esplicito («mostrala» in le mie frasi, §3.7, o
+«mostralo» dopo la parola, §3.8). Se ci torni sopra tu, i tuoi
 ritorni gli si allineano sotto, con i giorni passati, senza parole dell'AI (letteratura 10).
 
 **Segni.** ✦ sul corpo; i legami con il loro segno; ⚠ accanto a una citazione senza `esito`.
@@ -330,8 +336,9 @@ riga di `mappa.md` § Nodi; le Correzioni in attesa; le Fruizioni; le frasi del 
 
 **Vuoto.** «Niente si aggancia ancora.» al posto della coppia. Una raccolta senza `scopo`: «raccolta · senza scopo».
 
-**Delicato.** Le frasi e l'intorno non contengono delicati non ripresi, e un delicato non dà valori all'intorno; al loro
-posto, se c'è, «e 1 delicato» in fondo, che non si apre da qui.
+**Delicato.** Le frasi e l'intorno non contengono delicati non ripresi, e un delicato non dà valori all'intorno. Nessun
+conto «e 1 delicato» sul nodo: `mappa.md` conta i delicati solo per mese (i conti per tema li escludono), e un conto
+accanto a un nome direbbe di che cosa parla il delicato. I delicati si contano solo nel tempo (§3.6).
 
 **Persone `cerchia: vita`.** Il nome, «persona della tua vita», tutte le tue frasi nella pagina. Niente faccette,
 niente intorno, niente proposte, niente tavola, nessun link a Esplora (non sono un filtro), mai in un ponte, mai in
@@ -395,7 +402,8 @@ cui cambia `letto-da` o `prompt` delle letture); il conto dei delicati per mese,
   quelli riassunti).
 - **Il calendario**: quadratini tutti uguali; pieno = giorno attivo. Nessuna scala d'intensità (letteratura 6 e «Che
   cosa NON prendere»).
-- I conti in una riga di servizio, copiati da `mappa.md`: «9 frammenti parlanti e 1 delicato · 10 giorni attivi».
+- I conti in una riga di servizio, copiati da `mappa.md` (dove il totale dei parlanti comprende i delicati): «10
+  frammenti parlanti, di cui 1 delicato · 10 giorni attivi».
 - Le **posizioni**: la frase ✦ con «dal 14 ottobre · messa in discussione il 29 ottobre», o «tensione con il 14
   ottobre». Mai "superato".
 - Il **cambio di lettore**: un filo punteggiato con la data.
@@ -427,6 +435,7 @@ intero nel blob); il seme ✧ dalla sezione `## Seme ✧`; le restituzioni di `r
 - In fondo al resto, se c'è: «e 1 frase dell'11 ottobre, delicata · mostrala». Il tocco scarica e decifra
   `delicati.bin` per quella visita (`tecnica.md` §5.2) e la mostra alla lettera, mai in testa.
 - `#/frasi/<slug>`: «le mie frasi su X», le stesse regole.
+- In un periodo delicato, niente coda lunga («da tempo»): le prime 8 sono solo le più recenti (`tecnica.md` §5.1).
 - **A 1440 px**: la stessa colonna; a destra i nodi delle frasi visibili.
 
 **Vuoto.** «Nessuna frase tua ancora.»
@@ -671,6 +680,11 @@ al build dopo. Su Android il testo va negli appunti con «Incolla nel Memo».
 Il testo porta sempre il **bersaglio esplicito** (`→ id`): la regola dei 3 giorni non basta per una restituzione
 vecchia. Se il modello sceglierà un campo (`da-sito`, §7), cambierà il trasporto, non il testo.
 
+**Oggi "smista" non lo fa ancora.** `prompt/smista.md` cerca i riferimenti e le correzioni solo nei 3 giorni di
+calendario prima più oggi, in `recenti.md` (le ultime 10 restituzioni): un gesto su un bersaglio più vecchio non fa
+nessun atto e torna con «Me la riscrivi?». L'ultima colonna vale solo dopo la riga dei Confini che §7.2.1 chiede
+(`revisione.md`, A1).
+
 | dove | gesto | testo pronto | che cosa ne fa "smista" |
 |---|---|---|---|
 | voce di una restituzione | accogli | `sì alla 1 → r-20261101-2130-lettera#1` | `ritorna-su`, `n: 1`, `come: accoglie` |
@@ -724,7 +738,7 @@ Il sito deve importare le regole, non riscriverle (`tecnica.md` §2.1, §7.3). O
 | `delicatiAperti(a)` | i delicati non ancora ripresi (da escludere dall'archivio principale) | build |
 | `ricordabili(a)` | l'elenco **intero** ordinato (la `mappa.md` ne dà 20 a caso) | ritorno, soglia |
 | `codaLunga(a, elenco)` | la voce della coda lunga di un elenco | nodo, frasi, tempo |
-| `porte(a, slug)` | le 3–5 frasi ✦ più forti di un nodo | nodo, soglia |
+| `porte(a, slug)` | la prima e l'ultima frase ✦ non importata di un nodo, e le altre (al più 4, dalla più recente) | nodo |
 | `vicini(a, id)` | i vicini di un frammento (oggi in `smista.mjs vicini`) | frammento |
 | `posizioni(a)`, `conti(a)`, `fruizioni(a)`, `scarti(a)` | le sezioni di `mappa.md` come dati | tempo, assenze |
 | `dataTetto(f, l)` e `tetto(d)` | la data-tetto e la sua frase | ovunque |
@@ -732,7 +746,7 @@ Il sito deve importare le regole, non riscriverle (`tecnica.md` §2.1, §7.3). O
 | `citatoIn(a)` | per ogni frammento, le restituzioni che lo citano (voci, `aggancio`, corsivi del corpo) con il luogo | frammento |
 | `corsiviDelCorpo(testo, a)` (da `verifica.mjs`, che già controlla i corsivi) | i tratti in corsivo ✦ e il frammento e la riga da cui vengono | restituzione, soglia |
 | `frasiCheTengono(a, x, y)` | i frammenti ✦ che portano entrambi i nodi | tavola del nodo |
-| `tavolaRaccolta(a, slug)` | pezzi con misura, fili, il ◌ dei margini, i filtri della stampa | tatuaggi |
+| `tavolaRaccolta(a, slug)` | pezzi con misura, fili, i filtri della stampa (nessun ◌ in vista, §3.11) | tatuaggi |
 | `assenze(a)` | al più tre, con i numeri | assenze |
 | `faccette(a)` | per ogni frase ✦, i valori dei sei assi (un passo, più l'autore e l'`in`), ciascuno con la voce del legame | Esplora, nodo (intorno), frammento |
 | `gesti(a, id)` | i gesti di una frase (dimensioni §1.6) | Esplora |
@@ -747,8 +761,8 @@ Un test `node --test` per ciascuna, sui dati sintetici di `test/`.
 2. **Il titolo dei pin salvato.** `link[].titolo` esiste nella lettura; va garantito che "smista" lo scriva sempre
    (vista-tatuaggi §4.4), perché la build non chiama Pinterest.
 3. **Una riga in `modello-v3.md` §6.3** per due viste nuove: «la tavola di una raccolta: i frammenti ✦ con `serve-a`
-   come pezzi, misura da `reazione` e ritorni, fili dai nodi nominati in comune, al più un ◌ fuori campo; stampabile come
-   brief, senza delicati e senza persone `vita`» e «la soglia: la coppia d'aggancio dell'ultima restituzione fresca,
+   come pezzi, misura da `reazione` e ritorni, fili dai nodi nominati in comune, nessun ◌ in vista (le eredità dietro un
+   link); stampabile come brief, senza delicati e senza persone `vita`» e «la soglia: la coppia d'aggancio dell'ultima restituzione fresca,
    altrimenti un ricordabile al giorno; niente in un periodo delicato».
 4. **La coppia d'aggancio.** Oggi una restituzione ha `aggancio` (una frase) ma non dice quale seconda frase ✦ le mette
    accanto. Proposta: nessun campo nuovo; la seconda frase è la prima voce con `cosa: ponte | convergenza | confronto` e
@@ -850,7 +864,7 @@ vale no).
   etichette in parole; la persona della vita senza link a Esplora. La tavola dei tatuaggi calcolata dai dati.
 
 **Dopo il terzo giro** (non rigiudicate, perché i giri erano finiti): la sostanziale è chiusa (dimensioni §3.2 e
-§4.5); delle minori sono corrette: il vincolo di `piano.json` allargato a `migra`; `crea-nodo` rifiuta i tre campi
+§4.5), salvo il test e il passaggio che la revisione ha trovato (`revisione.md`, A2); delle minori sono corrette: il vincolo di `piano.json` allargato a `migra`; `crea-nodo` rifiuta i tre campi
 chiunque crei; `schema 3 o 4` anche per la restituzione in `CLAUDE.md`; il tipo non più «dal nome»; il bersaglio non
 delicato e non importato; come `verifica.mjs` lega il congelamento alla correzione; il refuso e il ◌ in §3.12; il
 margine ◌ dei tatuaggi; il conto di «mare» nelle assenze calcolato; il controllo `vita` sull'`attribuita-a`; «filosofia

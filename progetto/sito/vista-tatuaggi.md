@@ -1,5 +1,9 @@
 # La vista dei tatuaggi
 
+> **Superata in due punti da `progetto.md` §3.11** (la revisione, `revisione.md`): sul campo nessun ◌, neppure ai
+> margini (un'`eredita` non si rilancia, regola 5): le idee importate stanno dietro un link; i fili sono etichette ✦ (un
+> tema che i pezzi nominano), non ○. Il resto vale.
+
 > Domanda dell'utente: «la sezione tattoo, quella del repo scorso, c'è spazio per averla? magari come "vista"?»
 > Risposta breve: **sì, e quasi senza toccare il modello.** I dati ci sono già: la raccolta `tatuaggi`, i legami
 > `serve-a` e le restituzioni `eredita`. Manca solo la pagina. La forma raccomandata è **la tavola**: una pagina sola

@@ -309,10 +309,12 @@ Una lapide (`fuso-in`) non porta i campi nuovi: la regola che c'è già lo garan
 Nel legame, l'enum di `campo` della correzione si allunga: `{"enum": ["autore", "attribuita-a", "in", "nome", "tipo",
 "specie", "campo"]}`. In `lettura` e `restituzione`, `"schema": {"enum": [3, 4]}`.
 
-In `restituzione.voci.items.properties.cosa` la voce `brano` diventa `canzone`. In `schema/piano.json`, `ciclo` ammette
-anche `migra` (lo scrittore della migrazione, §5), e
-`aggiorna-nodo` accetta `tipo`, `specie`, `campo`; `crea-nodo` **no** (li rifiuta: la creazione resta di "smista", che
-non li scrive).
+In `restituzione.voci.items.properties.cosa` la voce `brano` diventa `canzone`, e così **in ogni posto che la elenca**:
+l'enum di `cosa` in `schema/piano.json` (oggi alla riga 265) e l'esempio e l'elenco di `cosa` in `prompt/progetto.md`
+(oggi alle righe 79–80 e 89), altrimenti una risposta del Progetto su una canzone sarebbe rifiutata (§4.5). In
+`schema/piano.json`, `ciclo` ammette anche `migra` (lo scrittore della migrazione, §5), e il vincolo che oggi tiene
+`aggiorna-nodo` solo in "consolida" si allarga a `consolida | migra`; `aggiorna-nodo` accetta `tipo`, `specie`,
+`campo`; `crea-nodo` **no**: li rifiuta, chiunque crei il nodo ("smista", Specchio o "consolida").
 
 ### 3.3 Che cosa controlla `verifica.mjs`
 
@@ -321,11 +323,15 @@ non li scrive).
 2. `campo` su un tema che non sia `specie: corrente`: rifiuto.
 3. Un valore fuori vocabolario: rifiuto (lo schema).
 4. **Il congelamento.** Un `aggiorna-nodo` che cambia un `tipo`, una `specie` o un `campo` già scritti è rifiutato,
-   salvo che risponda a un `ritorna-su … come: corregge` dell'utente con `campo: tipo | specie | campo`. I valori
-   chiusi non si rigenerano (letteratura §3.4: le etichette dei modelli sono instabili tra esecuzioni).
+   salvo che risponda a un `ritorna-su … come: corregge` dell'utente con `campo: tipo | specie | campo`. Come lo sa
+   `verifica.mjs`, che legge i file: confronta il nodo con HEAD e, se uno dei tre valori cambia, cerca nella stessa
+   transazione (le letture nuove o in attesa) un `corregge` con lo stesso `nodo` e lo stesso `campo`, il cui `valore`
+   è il valore nuovo; senza, rifiuta. I valori chiusi non si rigenerano (letteratura §3.4: le etichette dei modelli sono instabili tra esecuzioni).
 5. **Come l'utente corregge o rifiuta un valore.** In `ritorna-su … corregge`, `campo` ammette anche `tipo`, `specie`,
    `campo` (oggi: autore, attribuita-a, in, nome). Il nodo si nomina in `nodo`, come oggi; la `a` del `ritorna-su`
-   resta un frammento, come vuole lo schema: **il primo frammento di `nato-da` del nodo**. Questi valori non stanno in
+   resta un frammento, come vuole lo schema: **il primo frammento di `nato-da` del nodo che non sia delicato né
+   importato** (un `ritorna-su` verso un delicato lo farebbe «ripreso» senza volerlo; un importato è fuori dai conti).
+   Se non ce n'è, la correzione si fa nominando il nodo in un memo, e `a` è quel memo stesso. Questi valori non stanno in
    nessuna prosa recente, quindi per una correzione di `tipo`, `specie` o `campo` la finestra dei 3 giorni non si
    applica: è un'eccezione nuova, da scrivere nei «Confini» di `CLAUDE.md` (§4.1). Il gesto del sito (`progetto.md` §5)
    mette nel memo il nome del nodo («twin peaks è un film, non una serie → twin-peaks»); "smista" risolve lo slug e
@@ -357,7 +363,8 @@ Righe proposte, da approvare; i file restano come sono fino alla porta del blocc
 - §Un file, un solo scrittore, riga dei nodi, in coda: «e le migrazioni (ciclo `migra`)».
 - §I quattro tipi, **lettura**: «`schema: 3` o `4`»; **restituzione**, `cosa`: «canzone» al posto di «brano».
 - §Confini: «una correzione di `tipo`, `specie` o `campo` non ha la finestra dei 3 giorni: `a` è il primo frammento di
-  `nato-da` del nodo».
+  `nato-da` del nodo, non delicato e non importato».
+- §I quattro tipi, **restituzione**: «`schema: 3` o `4`».
 - §I quattro tipi, **lettura**: nessun campo nuovo. Il gesto «penso» e gli altri si calcolano.
 - §Regole di provenienza 10, in coda: «Il `campo` e la `specie` non danno nomi: i temi restano le mie parole, e
   "filosofia" nel campo non è un tema.»
@@ -379,7 +386,7 @@ Nient'altro: "smista" non classifica.
 Un passo nuovo nella Fase A, dopo A3:
 
 > A3b. **Da classificare.** Per ogni nodo nella sezione «Da classificare» di `mappa.md`, `aggiorna-nodo` con:
-> - `tipo` per un'opera: dal nome e dalle mie parole; se non basta, una verifica rapida sul nome `mondo` (mai su
+> - `tipo` per un'opera: dalle mie parole («la canzone…»), o da una verifica rapida sul nome `mondo` (mai su
 >   persone `vita`). Nel dubbio, niente: resta in coda.
 > - `specie` per un tema: `stato` se l'ho usato per dire come mi sento; `domanda` se è una domanda; `corrente` se è una
 >   scuola di pensiero o di stile; `simbolo` se è una cosa, un luogo o una figura usati come immagine; `stile` se è
@@ -396,6 +403,10 @@ E in A5 (correzioni): «`campo` della correzione può essere anche `tipo`, `spec
 
 Nella tabella delle operazioni, `aggiorna-nodo` elenca `tipo`, `specie`, `campo` tra i campi ammessi; `crea-nodo` no.
 
+### 4.5 `prompt/progetto.md`
+
+Nell'esempio e nell'elenco di `cosa` del memo del Progetto, `brano` diventa `canzone`. Nient'altro.
+
 ---
 
 ## 5. La migrazione
@@ -409,7 +420,7 @@ versioni): lo schema 4 le accetta anche a 3.
 | che cosa | quanti | da dove si ricava |
 |---|---|---|
 | `schema: 3 → 4` | 52 nodi (le 35 letture e le 60 restituzioni restano a 3) | meccanico |
-| `tipo` sulle opere | 6 | dal nome e dal vecchio percorso del `link` (`/fonti/opere/`); il resto con una verifica rapida sul nome |
+| `tipo` sulle opere | 6 | dalle parole dell'utente o da una verifica rapida sul nome (il vecchio percorso `/fonti/opere/` non dice il tipo) |
 | `specie` sui temi | 35 | 22 dal percorso del `link`: `/emozioni/` → `stato` (10), `/domande/` → `domanda` (8), `/stile/` → `stile` (2), `/fonti/pensiero/` → `corrente` (2); 12 `/concetti/` letti uno per uno (`idea`, `simbolo` o `corrente`); 1 senza link |
 | `campo` sulle persone | 8 (7 `mondo`, 1 `finzione`) | il vecchio percorso del `link` (`/fonti/pensiero/`, `/fonti/psicologia/`, `/fonti/sacro-e-mito/`) e una verifica rapida |
 | `campo` sulle opere | 6 | idem |

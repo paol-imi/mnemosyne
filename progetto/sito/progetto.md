@@ -523,7 +523,7 @@ tatuatore deve sapere che cosa è tuo). Fuori: il link alle idee importate, ogni
 `cerchia: vita`, la barra, i link. Il filtro si fa sui **dati** (la funzione esclude), non solo con il CSS. È l'unica
 uscita voluta del sito.
 
-**Vuoto.** «Nessun pezzo ancora.» e il margine ◌, se c'è.
+**Vuoto.** «Nessun pezzo ancora.» e il link alle idee importate, se c'è.
 
 **Delicato.** Un delicato con `serve-a: tatuaggi` (un tatuaggio per un lutto) non entra finché un tuo frammento non ci
 torna sopra.
@@ -553,7 +553,7 @@ sempre in E.
 - **Senza filtri, l'indice** (`esplora-tel.png`, `esplora-giu-tel.png`): sotto una riga di servizio («Tocca una parola
   per filtrare; le scelte si incrociano.»), un asse per sezione, con i valori come parole e il numero piccolo accanto:
   «canzone 2 · libro 4 · film 2 · serie 3 · citazioni 4», poi in corsivo le opere più presenti; le persone; i temi per
-  specie («sentimenti 6 · idee 8 · domande 2…») e poi i temi; il campo, smorzato, con «◌ scelto da me, sui nomi del
+  specie («sentimenti ◌ 6 · idee ◌ 8 · domande ◌ 2…») e poi i temi; il campo, smorzato, con «◌ scelto da me, sui nomi del
   mondo»; i gesti; i mesi. È la parte del **navigare**: si vede che cosa c'è prima di filtrare.
 - **Con un filtro, i risultati** (`esplora-risultati-tel.png`, `esplora-filosofia-tel.png`): la riga del totale («3
   frasi · e 1 dall'archivio d'origine, fuori dai conti · 5 nomi»), poi **nomi** (i nodi che danno il valore scelto, come
@@ -592,8 +592,8 @@ delicato Esplora resta raggiungibile dalla barra, ma la soglia non lo propone co
 **Persone `cerchia: vita`.** Non sono valori dell'asse persone e non hanno campo; non compaiono tra i nomi sotto le
 frasi. Le trova solo la parola (scrivendo il nome).
 
-**Segni.** ✦ sulle frasi; ◌ sul campo e sulle frasi che entrano per una proposta; ⚠ sulle citazioni senza esito; forma,
-la specie con il ◌ (sentimenti ◌); tipo e gesto senza segno (un fatto del mondo verificabile; un calcolo dai tuoi campi). Nessuna legenda: non è una forma lunga.
+**Segni.** ✦ sulle frasi; ◌ sul campo e sulle frasi che entrano per una proposta; ⚠ sulle citazioni senza esito, anche
+dentro la frase che le nomina; la specie con il ◌ (sentimenti ◌); tipo e gesto senza segno (un fatto del mondo verificabile; un calcolo dai tuoi campi). Nessuna legenda: non è una forma lunga.
 
 **NON mostra.** Emozioni dedotte, un tono del frammento, «correlati», «popolari», un ordinamento per reazione,
 suggerimenti, un grafico dei conteggi, valori a zero, le persone della vita nelle liste, il seme ✧ tra i risultati
@@ -794,6 +794,8 @@ rumore) e passa con **zero violazioni sostanziali**. Al più tre giri; gli esiti
 
 ## 9. Gli esiti dei giudici sul prototipo
 
+### 9.1 La soglia e il nodo vecchio (3 novembre)
+
 Due subagent separati, senza il ragionamento di questa sessione, a ogni giro. **Giudice A** (le regole): ha
 `CLAUDE.md`, il prototipo e le foto, e cerca le violazioni. **Giudice B** (la meraviglia): ha solo cinque foto
 (soglia chiara, scura, desktop; nodo; tavola del nodo) e un brief di tre righe; risponde sì o no, e «sì con riserve»
@@ -823,12 +825,54 @@ con il giudice cieco: sul nodo il selettore diventa una riga di servizio in fond
 proposte»), e la tavola del nodo si offre solo quando ha almeno tre vicini tenuti da tue frasi (con due, «non mi
 mostra niente che non sapessi già»).
 
+### 9.2 Esplora e il nodo nuovo (4 novembre)
+
+Due subagent separati per giro, senza il ragionamento della sessione. **Giudice A** (le regole): `CLAUDE.md`,
+`dimensioni.md`, le sezioni nuove di questo documento, il prototipo e le foto. **Giudice B** (l'utente): solo il
+prototipo e le 12 domande di `dimensioni-dati.md` §4 (con i nomi dei dati sintetici); a ogni domanda dice se ci arriva,
+in quanti tocchi dalla soglia, se il risultato è giusto; poi sì o no a pancia su Esplora e sul nodo («sì con riserve»
+vale no).
+
+| giro | giudice A (regole) | giudice B: domande (sì · in parte) | tocchi medi | B: Esplora | B: nodo |
+|---|---|---|---|---|---|
+| 1 | **non passa**: 3 sostanziali (la migrazione toccava le restituzioni immutabili; la correzione di un valore congelato senza bersaglio; «penso» da una tensione dell'AI senza ◌) e 8 minori | 11 · 1 (Arendt fuori da «filosofia») | 2,7 | **sì** | **sì** (il fondo «sa di programma») |
+| 2 | **non passa**: 4 sostanziali (la `a` della correzione dev'essere un frammento; «penso» con due definizioni; un'attribuzione a un personaggio inventata dall'AI; la specie senza ◌ in §3.4) e 6 minori | 10 · 2 (O dentro un asse; «da verificare» sotto «citazioni») | 2,3 | **sì** | **sì** |
+| 3 | **non passa**: 1 sostanziale (`brano` → `canzone` dimenticato in `schema/piano.json` e `prompt/progetto.md`) e 13 minori | 11 · 1 (Arendt, di nuovo) | 2,3 | **sì** | **sì** |
+
+**Che cosa è cambiato tra i giri.**
+- Lo schema 4 tocca solo i nodi: letture e restituzioni restano a 3 e lo schema le accetta (dimensioni §3, §5).
+- `forma` è diventato `tipo` (due significati di `forma` nel modello); il tipo ha sempre una fonte e non porta segno;
+  specie e campo sono ◌, in pagina.
+- «Penso» ha una definizione sola (i capi di un `contraddice` ✦ o ●; i proposti solo con la lente, con il ◌).
+- La correzione di un valore ha come `a` il primo frammento di `nato-da`, non delicato e non importato.
+- Esplora: «restringi» e «o anche» sotto il totale, senza tagli; gli esiti raffinano le citazioni; un tema raffina la
+  sua specie; la parola è una chip. Il nodo: tutte le frasi insieme prima dell'intorno; l'intorno senza numeri e con
+  etichette in parole; la persona della vita senza link a Esplora. La tavola dei tatuaggi calcolata dai dati.
+
+**Dopo il terzo giro** (non rigiudicate, perché i giri erano finiti): la sostanziale è chiusa (dimensioni §3.2 e
+§4.5); delle minori sono corrette: il vincolo di `piano.json` allargato a `migra`; `crea-nodo` rifiuta i tre campi
+chiunque crei; `schema 3 o 4` anche per la restituzione in `CLAUDE.md`; il tipo non più «dal nome»; il bersaglio non
+delicato e non importato; come `verifica.mjs` lega il congelamento alla correzione; il refuso e il ◌ in §3.12; il
+margine ◌ dei tatuaggi; il conto di «mare» nelle assenze calcolato; il controllo `vita` sull'`attribuita-a`; «filosofia
+◌» smorzata sulla soglia; l'etichetta del campo («e sulle correnti»); il ⚠ accanto a ogni frase che nomina una citazione
+senza esito; l'opera che nomina le sue citazioni; più temi nell'indice. Il giudice B, giro 3, chiedeva anche il campo
+«filosofia» per una citazione ⚠ attribuita a una filosofa: **non si fa**, per la regola del giudice A (un'attribuzione
+non verificata non dà campo); la frase si trova da Persone e da «citazioni › da verificare».
+
+**Esito.** Il giudice B ha detto sì a Esplora e al nodo in tutti e tre i giri: il nodo, bocciato tre volte nella
+sessione precedente, passa. Il giudice A non ha passato nessun giro, con le sostanziali scese da 3 a 4 a 1; l'ultima è
+chiusa ma non rigiudicata. Va rigiudicato in B5 e B7, con il giudice cieco.
+
 ---
 
 ## 10. Dubbi aperti
 
-1. **Il nodo non ha ancora la sua meraviglia** (§9): il selettore degli strati e una tavola povera. È il primo lavoro di
-   B5.
+1. **Il nodo** (§9.2) ora passa il giudice dell'utente; resta da provare su dati veri, dove un nodo può avere 40 frasi:
+   «le altre» sono 4, il resto è in Esplora. Il fondo («intorno alle tue frasi») è la parte che sa ancora un po' di
+   programma.
+8. **Una citazione ⚠ non dà campo** (dimensioni §1.5): «filosofia» non trova una frase che attribuisco a una filosofa
+   finché "consolida" non la verifica. È prudente, ma l'utente se lo aspetterebbe (giudice B, giri 1 e 3).
+9. **Lo schema 4 è una proposta** (dimensioni.md): senza, Esplora funziona a metà. Va deciso con la porta del blocco 6.
 2. **La soglia ha una sola cosa, ma due stati che si alternano** (la coppia e il ritorno). Se le restituzioni sono
    frequenti, il ritorno non compare quasi mai. Da guardare dopo un mese (B10).
 3. **Il campo scuro dei tatuaggi anche nel tema chiaro** è una scelta di forma, non di tema: va confermata dall'utente.

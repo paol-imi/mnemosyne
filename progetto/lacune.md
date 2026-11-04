@@ -31,3 +31,12 @@ Le lacune del pacchetto (il modello non dice) con la scelta fatta.
 - R01a, quinto giro (D5 no 3 su 3, D2 sì 2 su 3): la prova interna aveva lasciato passare u01–u09 perché la domanda C
   chiedeva altro dalla domanda 5 del giudice. Scelta: C riformulata ("l'aveva già fatto lui? una è la forma generale o un
   caso dell'altra?") e il perché ◌ non è una massima.
+- Letture importate e `delicato` (segnalazione del coordinatore, 2026-11-04). Il §14 del modello non dice niente del
+  delicato all'importazione. Scelta: **u01 e u19 restano senza `delicato`**, nessuna migrazione.
+  - u01: "apatia" è una voce di un elenco di battaglie interiori, scritto per un tatuaggio e chiuso da «dolore superato».
+    Racconta un attraversamento, non uno stato presente né una sera storta. È anche il nucleo dell'archivio: segnarlo
+    lo toglierebbe da ritratto, ricordo e ponti.
+  - u19: è un testo altrui trascritto (`altrui: true`), il monologo di un personaggio sull'estinzione della specie: è
+    antinatalismo, non suicidio. B25 marca una frase di Cioran perché parla di suicidio; qui non è così.
+  - Se un mio memo ci torna sopra in chiave personale, "smista" marca quel memo. Se l'utente la pensa diversamente, la
+    via è una migrazione della lettura (versione 2), mai a mano.

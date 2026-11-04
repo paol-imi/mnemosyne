@@ -343,7 +343,7 @@ const F = {
   '20261020-2214-k3q1': { reg: '2026-10-20T22:14', canale: 'telefono', testo: 'il faro spento, piccolo, sulla caviglia. da tatuare', serve: 'tatuaggi', temi: ['faro'], misura: 'm' },
   '20261021-2120-aa16': { reg: '2026-10-21T21:20', canale: 'telefono', testo: 'twin peaks rivisto, la signora del ceppo. mi fa ridere e paura insieme', nomina: ['twin-peaks', 'la-signora-del-ceppo'] },
   '20261022-0905-m2q7': { reg: '2026-10-22T09:05', canale: 'telefono', testo: 'quello che cerchi ti sta cercando. rumi credo', nomina: ['quello-che-cerchi-ti-sta-cercando'], prop: ['aspettare'] },
-  '20261023-2300-aa17': { reg: '2026-10-23T23:00', canale: 'telefono', testo: 'il gufo che non è quello che sembra, la frase di twin peaks. da tatuare? forse', nomina: ['i-gufi-non-sono-quello-che-sembrano'], serve: 'tatuaggi', misura: 'p' },
+  '20261023-2300-aa17': { reg: '2026-10-23T23:00', canale: 'telefono', testo: 'il gufo che non è quello che sembra, la frase di twin peaks. da tatuare? forse', nomina: ['i-gufi-non-sono-quello-che-sembrano', 'twin-peaks'], serve: 'tatuaggi', misura: 'p' },
   '20261024-1830-aa18': { reg: '2026-10-24T18:30', canale: 'telefono', testo: 'il caduceo di ermete trismegisto, a linea sottile. per i tatuaggi', nomina: ['ermete-trismegisto'], temi: ['linea'], serve: 'tatuaggi', misura: 'm' },
   '20261025-2215-aa19': { reg: '2026-10-25T22:15', canale: 'telefono', testo: "forse il dolore è l'unico posto dove ho imparato qualcosa", temi: ['dolore'], pos: true },
   '20261026-1840-n5r1': { reg: '2026-10-26T18:40', canale: 'telefono', testo: "a mare oggi c'era una luce che non sapevo di ricordare", temi: ['mare'] },
@@ -393,7 +393,6 @@ const NODI = {
   orfeo: { nome: 'Orfeo', genere: 'persone', cerchia: 'finzione', campo: ['mito-e-religione'] },
   'ermete-trismegisto': { nome: 'Ermete Trismegisto', genere: 'persone', cerchia: 'finzione', campo: ['esoterismo'] },
   'la-signora-del-ceppo': { nome: 'la signora del ceppo', genere: 'persone', cerchia: 'finzione', in: 'twin-peaks' },
-  'il-gigante': { nome: 'il gigante', genere: 'persone', cerchia: 'finzione', in: 'twin-peaks' },
   papa: { nome: 'papà', genere: 'persone', cerchia: 'vita' },
   luca: { nome: 'Luca', genere: 'persone', cerchia: 'vita' },
   'le-citta-invisibili': { nome: 'Le città invisibili', genere: 'opere', tipo: 'libro', autore: 'italo-calvino', anno: 1972, campo: ['letteratura'] },
@@ -408,7 +407,7 @@ const NODI = {
   mushishi: { nome: 'Mushishi', genere: 'opere', tipo: 'serie', anno: 2005, campo: ['cinema'] },
   'quello-che-cerchi-ti-sta-cercando': { nome: 'Quello che cerchi ti sta cercando', genere: 'citazioni', attribuita: 'rumi', esito: null },
   'pensare-e-fermarsi': { nome: 'Pensare è fermarsi', genere: 'citazioni', attribuita: 'hannah-arendt', esito: null },
-  'i-gufi-non-sono-quello-che-sembrano': { nome: 'I gufi non sono quello che sembrano', genere: 'citazioni', attribuita: 'il-gigante', esito: null },
+  'i-gufi-non-sono-quello-che-sembrano': { nome: 'I gufi non sono quello che sembrano', genere: 'citazioni', esito: null },
   'l-inferno-dei-viventi': { nome: 'L’inferno dei viventi', genere: 'citazioni', autore: 'italo-calvino', attribuita: 'italo-calvino', esito: 'verificata', rif: 'Le città invisibili, parte nona, l’ultimo dialogo' },
   tatuaggi: { nome: 'tatuaggi', genere: 'raccolte', scopo: null },
 };
@@ -491,7 +490,7 @@ function valori(id, lente) {
     else if (n.genere === 'citazioni') {
       v.nodi.add(s); v.cose.add('c:citazione'); v.cose.add('e:' + (n.esito || 'da-verificare')); v.cose.add('o:' + s);
       if (n.autore) persona(n.autore);
-      if (n.attribuita && n.attribuita !== n.autore) { const p = NODI[n.attribuita]; v.persone.add(n.attribuita); v.nodi.add(n.attribuita); if (!n.autore) campoDi(n.attribuita); if (p.in) opera(p.in, true); }
+      if (n.attribuita && n.attribuita !== n.autore) { const p = NODI[n.attribuita]; v.persone.add(n.attribuita); v.nodi.add(n.attribuita); if (p.in) opera(p.in, true); }
     }
   }
   const temi = [...(f.temi || []), ...(lente ? f.prop || [] : [])];
@@ -526,7 +525,7 @@ function indirizzo(st = ESP) {
   const s = p.toString();
   return '#/esplora' + (s ? '?' + s : '');
 }
-const conValore = (asse, v, st = ESP) => { const sel = { ...st.sel }; sel[asse] = new Set([...(sel[asse] || []), v]); return indirizzo({ ...st, sel }); };
+const conValore = (asse, v, st = ESP) => { const sel = { ...st.sel }; sel[asse] = new Set([...(sel[asse] || []), v]); if (v.startsWith('e:')) sel[asse].delete('c:citazione'); return indirizzo({ ...st, sel }); };
 const senzaValore = (asse, v, st = ESP) => { const sel = { ...st.sel }; const s = new Set(sel[asse]); s.delete(v); if (s.size) sel[asse] = s; else delete sel[asse]; return indirizzo({ ...st, sel }); };
 const solo = (asse, v, da) => indirizzo({ sel: { [asse]: new Set([v]) }, da: da || null, q: '', lente: false });
 
@@ -570,6 +569,7 @@ const nomeNodo = (s) => (s && NODI[s] ? NODI[s].nome : '');
 function chipAttive() {
   const xs = [];
   if (ESP.da) xs.push(`<a class="chip da" href="${indirizzo({ ...ESP, da: null })}" aria-label="togli ${esc(nomeNodo(ESP.da))}">da ${esc(nomeNodo(ESP.da))}<span aria-hidden="true">×</span></a>`);
+  if (ESP.q) xs.push(`<a class="chip attivo" href="${indirizzo({ ...ESP, q: '' })}" aria-label="togli la parola">«${esc(ESP.q)}»<span aria-hidden="true">×</span></a>`);
   for (const a of ASSI) for (const x of ESP.sel[a.k] || []) xs.push(`<a class="chip attivo${a.prop ? ' c-prop' : ''}" href="${senzaValore(a.k, x)}" aria-label="togli ${esc(etichetta(a.k, x))}">${CS(esc(etichetta(a.k, x)))}${a.prop ? '&nbsp;◌' : ''}<span aria-hidden="true">×</span></a>`);
   return xs.join('');
 }
@@ -614,10 +614,22 @@ function risultatiEsplora() {
   const tuoi = ids.filter((id) => !imp(id)), orig = ids.filter(imp);
   const nomi = nomiTrovati(ids);
   const delic = ESP.q ? Object.keys(F).filter((id) => F[id].delicato && norm(F[id].testo).includes(norm(ESP.q))) : [];
-  // Restringi: i valori degli altri assi che restringono davvero, a un tocco (senza aprire il foglio).
-  const restr = ids.length > 1 ? ASSI.flatMap((a) => { const m = conteggi(a.k); return ordinati(a.k, m).filter((x) => !(ESP.sel[a.k] || new Set()).has(x) && m.get(x).n > 0 && m.get(x).n < ids.filter((i) => !imp(i)).length && passa2(x, a.k)).slice(0, 3).map((x) => [a, x, m.get(x)]); }).slice(0, 10) : [];
+  // Restringi: i valori degli altri assi che restringono davvero; dentro un asse già scelto, «o anche» (allarga: O).
+  // Le citazioni scelte si restringono per esito. Nessun taglio: la riga scorre, e in fondo «tutti i filtri».
+  const tot = ids.filter((i) => !imp(i)).length;
+  const restr = [], oanche = [];
+  if (ids.length) for (const a of ASSI) {
+    const m = conteggi(a.k); const scelti = ESP.sel[a.k] || new Set();
+    if (a.k === 'cose' && scelti.has('c:citazione')) { const mm = conteggi('cose', { ...ESP, sel: { ...ESP.sel, cose: new Set(['c:citazione']) } }); ESITI.map((e) => 'e:' + e).filter((x) => mm.has(x) && mm.get(x).n).forEach((x) => restr.push([a, x, mm.get(x)])); }
+    for (const x of ordinati(a.k, m)) {
+      if (scelti.has(x) || !m.get(x).n) continue;
+      if (scelti.size) { if (!x.startsWith('e:') && !(x.startsWith('o:') && [...scelti].some((s) => s.startsWith('f:')))) oanche.push([a, x, m.get(x)]); }
+      else if (m.get(x).n < tot && !(a.k === 'cose' && x.startsWith('e:'))) restr.push([a, x, m.get(x)]);
+    }
+  }
+  const riga = (cls, titolo, xs) => xs.length ? `<div class="chips restringi" role="group" aria-label="${titolo}"><span class="sc">${titolo}</span>${xs.map(([a, x, c]) => `<a class="chip${a.prop ? ' c-prop-l' : ''}" href="${conValore(a.k, x)}">${CS(esc(etichetta(a.k, x)))}${a.prop ? '&nbsp;◌' : ''}${numero(c)}</a>`).join('')}<button class="chip" data-tutti>tutti i filtri</button></div>` : '';
   return `<p class="totale" aria-live="polite">${totale(ids)}${nomi.length ? ` · ${nomi.length} ${nomi.length === 1 ? 'nome' : 'nomi'}` : ''}</p>
-    ${restr.length ? `<div class="chips restringi" role="group" aria-label="Restringi"><span class="sc">restringi</span>${restr.map(([a, x, c]) => `<a class="chip${a.prop ? ' c-prop-l' : ''}" href="${conValore(a.k, x)}">${CS(esc(etichetta(a.k, x)))}${a.prop ? '&nbsp;◌' : ''}${numero(c)}</a>`).join('')}</div>` : ''}
+    ${riga('restringi', 'restringi', restr)}${riga('oanche', 'o anche', oanche)}
     ${nomi.length ? `<h2>nomi</h2><p class="nomi">${nomi.map((s) => `<a href="#/nodo/${s}">${esc(NODI[s].nome)}</a>${NODI[s].genere === 'citazioni' && !NODI[s].esito ? vf : ''}`).join('<span class="sep"> · </span>')}</p>` : ''}
     ${ids.length ? `<h2>le tue frasi</h2><ul class="righe">${tuoi.map(rigaFrase).join('')}</ul>` : `<p class="vuoto">${vuotoDetto()}</p>`}
     ${orig.length ? `<p class="nota-r">${tetto(orig[0])}, ${orig.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme:</p><ul class="righe">${orig.map(rigaFrase).join('')}</ul>` : ''}
@@ -814,25 +826,25 @@ function faccetteNodo(slug) {
     else if (n.in) p.push(`personaggio · <a href="#/nodo/${n.in}">${NODI[n.in].nome}</a>`);
     else { p.push(n.cerchia === 'finzione' ? 'figura' : 'persona'); p.push(...campo()); }
   }
-  if (n.genere === 'citazioni') { p.push(`<a href="${solo('cose', 'c:citazione')}">citazione</a>`); p.push(`attribuita a <a href="#/nodo/${n.attribuita}">${NODI[n.attribuita].nome}</a>`); p.push(n.esito ? `<a href="${solo('cose', 'e:' + n.esito)}">${n.esito}</a>` : `<a href="${solo('cose', 'e:da-verificare')}">da verificare</a>${vf}`); }
+  if (n.genere === 'citazioni') { p.push(`<a href="${solo('cose', 'c:citazione')}">citazione</a>`); if (n.attribuita) p.push(`attribuita a <a href="#/nodo/${n.attribuita}">${NODI[n.attribuita].nome}</a>`); p.push(n.esito ? `<a href="${solo('cose', 'e:' + n.esito)}">${n.esito}</a>` : `<a href="${solo('cose', 'e:da-verificare')}">da verificare</a>${vf}`); }
   if (n.genere === 'raccolte') p.push('raccolta · senza scopo');
   return `<p class="faccette">${p.join('<span class="sep"> · </span>')}</p>`;
 }
 // «Intorno»: le faccette delle frasi del nodo, in poche righe di parole. Ogni parola apre Esplora da qui.
 function intorno(slug, ids) {
   const conta = (asse, filtro) => { const m = new Map(); ids.forEach((id) => val(id, false)[asse].forEach((x) => { if (filtro(x)) m.set(x, (m.get(x) || 0) + (imp(id) ? 0 : 1)); })); return [...m].filter(([, c]) => c > 0).sort((a, b) => b[1] - a[1]); };
-  const riga = (titolo, asse, xs) => xs.length ? `<p class="intorno"><span class="t">${titolo}</span><span class="vs">${xs.map(([x]) => `<a href="${da(slug, asse, x)}">${esc(asse === 'tempo' ? MESI[+x.slice(5, 7) - 1] : etichetta(asse, x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '';
+  const riga = (titolo, asse, xs) => !xs.length ? '' : titolo === 'quando' ? `<p class="intorno"><span class="t">dentro</span><span class="vs">${xs.map(([x]) => `<a href="${da(slug, asse, x)}">${esc(etichetta(asse, x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : xs.length ? `<p class="intorno"><span class="t">${titolo}</span><span class="vs">${xs.map(([x]) => `<a href="${da(slug, asse, x)}">${esc(asse === 'tempo' ? MESI[+x.slice(5, 7) - 1] : etichetta(asse, x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '';
   const temi = conta('temi', (x) => x.startsWith('t:') && x !== 't:' + slug);
   const nomi = [...conta('persone', (x) => x !== slug && x !== NODI[slug].autore && x !== NODI[slug].attribuita).map(([x, c]) => ['p', x, c]), ...conta('cose', (x) => x.startsWith('o:') && x !== 'o:' + slug && NODI[x.slice(2)].genere === 'opere').map(([x, c]) => ['c', x, c])];
   const gesti = conta('gesto', () => true);
   const mesi = conta('tempo', (x) => x !== 'origine').sort((a, b) => a[0].localeCompare(b[0]));
   const out = [
-    riga('con', 'temi', temi),
-    nomi.length ? `<p class="intorno"><span class="t">nominano</span><span class="vs">${nomi.map(([t, x]) => `<a href="${da(slug, t === 'p' ? 'persone' : 'cose', x)}">${esc(etichetta(t === 'p' ? 'persone' : 'cose', x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '',
-    riga('gesti', 'gesto', gesti),
-    riga('mesi', 'tempo', mesi),
+    riga('insieme a', 'temi', temi),
+    nomi.length ? `<p class="intorno"><span class="t">nomini</span><span class="vs">${nomi.map(([t, x]) => `<a href="${da(slug, t === 'p' ? 'persone' : 'cose', x)}">${esc(etichetta(t === 'p' ? 'persone' : 'cose', x))}</a>`).join('<span class="sep"> · </span>')}</span></p>` : '',
+    riga('quando', 'gesto', gesti),
+    riga('ci torni in', 'tempo', mesi),
   ].join('');
-  return out ? `<h2>intorno</h2>${out}` : '';
+  return out ? `<h2>intorno alle tue frasi</h2>${out}` : '';
 }
 V.nodo = (slug) => {
   const n = NODI[slug]; if (!n) return V.vuoto();
@@ -855,11 +867,11 @@ V.nodo = (slug) => {
       <h1>${esc(n.nome)}</h1>
       ${faccetteNodo(slug)}
       ${coppia || '<p class="servizio">Niente si aggancia ancora.</p>'}
-      ${tel.length ? `<p class="servizio" style="margin-top:1.4em">${y ? 'la prima e l’ultima · ' : ''}<a href="${da(slug)}">tutte le frasi in Esplora →</a></p>` : ''}
+      ${tel.length && !vita ? `<p class="servizio" style="margin-top:1.4em">${y ? 'la prima e l’ultima · ' : ''}<a href="${da(slug)}">tutte le frasi in Esplora →</a></p>` : ''}
     </div>
-    ${vita ? '<p class="servizio">Una persona della tua vita: solo le tue frasi, niente proposte, mai in una ricerca, mai un ponte.</p>' : intorno(slug, ids)}
-    ${altre.length ? `<h2>le altre</h2><ul class="righe">${altre.slice(0, 4).map((id) => `<li>${frase(id)}</li>`).join('')}</ul>` : ''}
+    ${altre.length ? `<h2>le altre</h2><ul class="righe">${altre.slice(0, vita ? 99 : 4).map((id) => `<li>${frase(id)}</li>`).join('')}</ul>` : ''}
     ${orig.length ? `<p class="nota-r">${tetto(orig[0])}, ${orig.length > 1 ? 'trascritte' : 'trascritta'} da Claude nel seme:</p><ul class="righe">${orig.map((id) => `<li>${frase(id, { data: false })}</li>`).join('')}</ul>` : ''}
+    ${vita ? '<p class="servizio">Una persona della tua vita: le tue frasi stanno tutte qui. Niente proposte, mai un filtro, mai in una ricerca web, mai un ponte.</p>' : intorno(slug, ids)}
     ${mondo}
     ${slug === 'tatuaggi' ? '<p><a href="#/tatuaggi">la tavola dei tatuaggi →</a></p>' : ''}
     ${propIds.length && !vita ? `<div class="l2"><h2>le mie proposte</h2><ul class="righe">${propIds.map((id) => `<li class="smorzata">${frase(id)}<span class="luogo">una mia lettura ◌, non tua</span></li>`).join('')}</ul></div>` : ''}
@@ -997,7 +1009,7 @@ document.addEventListener('click', (e) => {
   const s = e.target.closest('[data-s]');
   if (s) { document.documentElement.dataset.strato = s.dataset.s; try { localStorage.setItem('mn-strato', s.dataset.s); } catch (x) {} return; }
   const v = e.target.closest('[data-voce]'); if (v) return apri(foglioVoce(v.dataset.voce));
-  if (e.target.closest('#filtra')) return apri(foglioFiltri(), 'Filtri');
+  if (e.target.closest('#filtra') || e.target.closest('[data-tutti]')) return apri(foglioFiltri(), 'Filtri');
   const fv = e.target.closest('[data-asse]');
   if (fv) { const s = new Set(ESP.sel[fv.dataset.asse] || []); s.has(fv.dataset.v) ? s.delete(fv.dataset.v) : s.add(fv.dataset.v); if (s.size) ESP.sel[fv.dataset.asse] = s; else delete ESP.sel[fv.dataset.asse]; return aggiornaEsplora(); }
   const al = e.target.closest('[data-altri]'); if (al) { al.parentNode.classList.add('tutti'); al.remove(); return; }

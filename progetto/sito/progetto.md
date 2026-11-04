@@ -183,7 +183,8 @@ la soglia è la sua faccia.
   tuo, vivo»), così non c'è una frase senza data e nel periodo delicato non resta niente di tuo da evocare (giudice
   delle regole, secondo giro). Stanno fuori dalla prima schermata perché, viste insieme alla coppia, la
   facevano sembrare un menu (giudice della meraviglia, primo giro, §9).
-- Sotto le porte, una riga **«esplora»**: canzoni · libri · film · sentimenti · domande · filosofia ◌. Sono valori, non
+- Sotto le porte, una riga **«esplora»**: canzoni · libri · film · sentimenti ◌ · domande ◌ · filosofia ◌, solo i
+  valori che hanno almeno una frase. Sono valori, non
   frasi: ognuno apre Esplora con quel filtro (§3.12). Nel periodo delicato la riga non c'è, e la porta del nodo vivo
   diventa «esplora».
 - La barra fissa in basso: oggi · tempo · frasi · esplora.
@@ -263,7 +264,7 @@ lettura (`intento`, `reazione`, `legami`, `parole`, `link`, `trascrizione`, `alt
 - Il selettore degli strati, poi i **legami** come nomi con il loro segno (✦ per i tuoi, ◌ per i proposti, nello strato
   delle proposte).
 - La riga **«esplora»**: i valori del frammento sugli assi, calcolati a un passo (dimensioni §2): il tipo delle opere
-  che nomina, la specie dei suoi temi, i suoi gesti, il mese, il campo ◌ in fondo. «canzone · sentimenti · sento ·
+  che nomina, la specie dei suoi temi, i suoi gesti, il mese, il campo ◌ in fondo. «canzone · sentimenti ◌ · sento ·
   settembre 2026 · musica ◌». Ogni valore apre Esplora con quel filtro (`frammento-tel.png`).
 - «citato in», piegato, aperto se non è vuoto: ogni restituzione che lo cita, con il luogo («in apertura, accanto al 14
   ottobre»).
@@ -305,17 +306,19 @@ riga di `mappa.md` § Nodi; le Correzioni in attesa; le Fruizioni; le frasi del 
 - **La prima schermata è come la soglia**: due frasi ✦ grandi, datate, con l'intervallo in giorni. Sono **la prima e
   l'ultima** tua frase sul nodo (non importate): la regola è semplice e si vede («la prima e l'ultima»), e fa leggere
   come è cambiato il pensiero. Con una frase sola, una. Sotto: «tutte le frasi in Esplora →».
-- **Intorno**: tre o quattro righe di parole, ognuna un asse calcolato sulle frasi del nodo, senza numeri (i numeri
-  stanno in Esplora; qui il giudice li leggeva come «un programma»):
-  - «con» i temi che stanno nelle stesse frasi;
-  - «nominano» le persone e le opere;
-  - «gesti» (penso, sento, voglio fare, per i tatuaggi);
-  - «mesi».
+- **Le altre**: subito dopo la coppia, fino a 4 frasi ✦, dalla più recente; poi gli importati, con la data-tetto e la
+  nota una volta in testa. Tutte le tue frasi stanno insieme, prima di ogni altra cosa (giudice delle domande, secondo
+  giro). Per una persona della vita, tutte.
+- **Intorno alle tue frasi**: tre o quattro righe di parole, ognuna un asse calcolato sulle frasi del nodo, senza
+  numeri (i numeri stanno in Esplora; qui il giudice li leggeva come «un programma»), con etichette in parole:
+  - «insieme a» i temi che stanno nelle stesse frasi;
+  - «nomini» le persone e le opere;
+  - «dentro» i gesti (penso, sento, voglio fare, per i tatuaggi);
+  - «ci torni in» i mesi.
   Ogni parola apre Esplora **dal nodo** con quel valore («da attenzione» + «aspettare»): è il modo per incrociare due
   temi, che dentro un asse si sommerebbero. Una riga vuota non si scrive. Sostituisce la tavola a due vicini, che il
   giudice trovava povera: dice gli stessi vicini, con le parole e i numeri, e porta oltre.
-- **Le altre**: fino a 4 frasi ✦, dalla più recente; poi gli importati, con la data-tetto e la nota una volta in testa.
-- **Dal mondo**: il ○ con le sue parole tra «» e il luogo, se c'è (Weil per attenzione, con il link alla lettera che l'ha
+- **Dal mondo**: il ○ con le sue parole tra «» e il suo luogo, e solo con il luogo (senza, la riga non c'è) (Weil per attenzione, con il link alla lettera che l'ha
   portata; il passo verificato per un'opera); per una citazione,
   l'`esito` (o ⚠) e la traccia della verifica.
 - In fondo, piccolo: la riga dei conti da `mappa.md` (gli importati detti a parte), e «la tavola →» **solo** se il nodo
@@ -330,11 +333,12 @@ riga di `mappa.md` § Nodi; le Correzioni in attesa; le Fruizioni; le frasi del 
 **Delicato.** Le frasi e l'intorno non contengono delicati non ripresi, e un delicato non dà valori all'intorno; al loro
 posto, se c'è, «e 1 delicato» in fondo, che non si apre da qui.
 
-**Persone `cerchia: vita`.** Il nome, «persona della tua vita», le tue frasi. Niente faccette, niente intorno, niente
-proposte, niente tavola, mai in un ponte; nella build degli ospiti non c'è.
+**Persone `cerchia: vita`.** Il nome, «persona della tua vita», tutte le tue frasi nella pagina. Niente faccette,
+niente intorno, niente proposte, niente tavola, nessun link a Esplora (non sono un filtro), mai in un ponte, mai in
+una ricerca web; nella build degli ospiti non c'è.
 
-**Segni.** ✦ sulle frasi; ◌ sul campo e sulle proposte, smorzato; ○ con il luogo; ⚠ sempre. Forma e specie non hanno
-segno: sono scaffali, come il genere.
+**Segni.** ✦ sulle frasi; ◌ sulla specie, sul campo e sulle proposte, smorzato; ○ con il luogo; ⚠ sempre. Il tipo
+non ha segno, come l'anno: ha sempre una fonte (dimensioni §1.2).
 
 **NON mostra.** Un grafo globale, sparkline, una scala d'intensità, il selettore a pillola, "importance", stadi di
 crescita, un "potrebbe interessarti", le persone della vita nell'intorno.
@@ -559,9 +563,12 @@ sempre in E.
   frasi» in testa, un asse per sezione, i valori come pillole con il numero, i primi 8 e «altri N». Il tocco aggiunge o
   toglie un valore e tutto si ricalcola sotto e dentro il foglio; i valori a zero spariscono. In fondo, fermo, «mostra
   2 frasi», che chiude. Il foglio, non una colonna: a 390 px una colonna di faccette non ci sta accanto ai risultati.
-- **Restringi**: sotto il totale, una riga di chip che scorre con i valori degli altri assi che restringono davvero
-  (meno frasi di quelle mostrate, mai zero), con il numero: incrociare un secondo asse è un tocco, senza aprire il
-  foglio (giudice delle domande, primo giro).
+- **Restringi** e **o anche**: sotto il totale, due righe di chip che scorrono, con il numero. «restringi»: i valori
+  degli altri assi che restringono davvero (meno frasi, mai zero), e, se sono scelte le citazioni, i loro esiti (⚠ da
+  verificare, verificata), che le raffinano. «o anche»: gli altri valori degli assi già scelti, che allargano (O:
+  esoterismo o mito e religione; film o serie). Nessun taglio silenzioso: ogni riga finisce con «tutti i filtri», che
+  apre il foglio. Incrociare o allargare è un tocco (giudice delle domande, primo e secondo giro).
+- **La parola** scritta diventa una chip «mare» con la sua ×, come gli altri filtri.
 - **Dal nodo** (`esplora-da-nodo-tel.png`): «da attenzione» + «aspettare» = le frasi su attenzione **e** aspettare.
 - **La lente**, ultima riga: «anche le mie proposte ◌». Aperta, i legami ◌ contano; una frase che entra solo per un ◌
   porta sotto «entra per una mia lettura ◌: nostalgia».

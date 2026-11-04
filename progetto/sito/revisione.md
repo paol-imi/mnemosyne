@@ -44,3 +44,10 @@ locali, sul ramo `claude/sito-revisione`; gli altri chiedono una scelta.
 - «Accesso scaduto. Rientra»: una riga di servizio sul login, non un sollecito a scrivere.
 - L'assenza «mare» senza 30 giorni attivi: i dati sintetici coprono 44 giorni; la regola è scritta in §3.9.
 - Le persone `vita` trovate dalla parola: voluto (le nomini tu, dimensioni §1.3), mai tra i valori né nei ponti.
+
+## Decisioni del coordinatore (2026-11-04)
+
+- A1: sì. Un bersaglio esplicito (`→ id`, `→ r-…#n`) vale senza la finestra dei 3 giorni; niente `da-sito`. Va nel ramo `claude/schema-4`, un solo cambio di lettore dopo la porta del blocco 6.
+- A2: sì. `voci[].cosa` resta `brano`; «canzone» è solo un `opere.tipo` e una parola in pagina.
+- A3: sì. I nodi nati solo da delicati non ripresi stanno in `delicati.bin`; lo applica la costruzione del sito.
+- A4: sì. `delicati.bin` riempito fino a una misura fissa (64 KB, poi a gradini); lo applica la costruzione del sito.

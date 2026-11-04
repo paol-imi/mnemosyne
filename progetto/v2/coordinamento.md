@@ -170,3 +170,7 @@ l'ultima sostanziale (brano→canzone in piano.json e prompt/progetto.md) chiusa
 Decisioni sui dubbi, la più semplice: una citazione ⚠ non dà campo; mito e religione un valore solo; le band sono
 persone; gli importati nei risultati ma fuori dai numeri; «penso» solo dai contraddice ✦/●.
 Dopo: due sessioni, una prepara lo schema 4 su un ramo (non su main), una rilegge il sito da avversaria contro CLAUDE.md.
+Revisione avversaria consegnata (session_016XqAM1rN5Kgopjqxq5zNQ5, `revisione.md`): 13 rilievi corretti, 4 aperti, 8
+scartati; prototipo ripubblicato. I quattro aperti decisi, tutti con l'opzione raccomandata (in fondo a `revisione.md`):
+A1 e A2 vanno nel ramo `claude/schema-4` (session_016XqAM3WHtNyCZ15LMjunX4), così dopo la porta c'è un solo cambio di
+lettore; A3 e A4 li applica la costruzione del sito.

@@ -256,7 +256,7 @@ const TEMI = [
   ['attenzione','attenzione','idea',13],['aspettare','aspettare','idea',8],['dolore','dolore','idea',6],['tempo','tempo','idea',8],
   ['liberta','libertà','idea',5],['memoria','memoria','idea',7],['silenzio','silenzio','idea',6],['corpo','corpo','idea',4],
   ['verita','verità','idea',3],['lentezza','lentezza','idea',5],['gratitudine','gratitudine','idea',2],
-  ['serve-ricordare','a che cosa serve ricordare?','domanda',3],['resta-giorno','che cosa resta di un giorno?','domanda',3],
+  ['serve-ricordare','perché tengo tutto?','domanda',3],['resta-giorno','dove va una giornata?','domanda',3],
   ['senza-paura','chi sarei senza paura?','domanda',2],['perche-rimando','perché rimando?','domanda',3],['casa-q','che cosa vuol dire casa?','domanda',4],
   ['mare','mare','simbolo',9],['faro','faro','simbolo',4],['porta','porta','simbolo',4],['luna','luna','simbolo',3],['fiume','fiume','simbolo',3],
   ['chiave','chiave','simbolo',3],['fenice','fenice','simbolo',2],['finestra','finestra','simbolo',2],['treno','treno','simbolo',3],
@@ -332,8 +332,8 @@ const OPERE = [
 ];
 // Le citazioni: [slug, testo, attribuita-a, autore (solo se verificato), esito, riferimento, testo del memo]
 const CITAZIONI = [
-  ['l-inferno-dei-viventi','L’inferno dei viventi non è qualcosa che sarà','italo-calvino','italo-calvino','verificata','Le città invisibili, parte nona, l’ultimo dialogo','da tatuare in piccolo: non è inferno. calvino'],
-  ['sisifo-felice','Bisogna immaginare Sisifo felice','albert-camus','albert-camus','verificata','Il mito di Sisifo, capitolo «Il mito di Sisifo», ultima riga','bisogna immaginare sisifo felice. camus. lo scrivo sul frigo'],
+  ['l-inferno-dei-viventi','L’inferno dei viventi non è qualcosa che sarà','italo-calvino','italo-calvino','verificata','Le città invisibili, parte nona, l’ultimo dialogo','calvino, l’inferno dei viventi. in piccolo, per i tatuaggi'],
+  ['sisifo-felice','Bisogna immaginare Sisifo felice','albert-camus','albert-camus','verificata','Il mito di Sisifo, capitolo «Il mito di Sisifo», ultima riga','camus e sisifo felice: la frase la metto sul frigo'],
   ['attenzione-generosita','L’attenzione è la forma più rara e più pura della generosità','simone-weil','simone-weil','verificata','lettera a Joë Bousquet, 13 aprile 1942','simone weil: l’attenzione è la forma più rara della generosità. o qualcosa del genere'],
   ['diventa-cio-che-sei','Diventa ciò che sei','friedrich-nietzsche','friedrich-nietzsche','verificata','La gaia scienza, § 270','diventa ciò che sei. nietzsche, credo. ma prima di lui qualcun altro'],
   ['il-cuore-ha-le-sue-ragioni','Il cuore ha le sue ragioni, che la ragione non conosce','blaise-pascal','blaise-pascal','verificata','Pensieri, fr. 277 (Brunschvicg)','il cuore ha le sue ragioni. pascal. abusata ma vera'],
@@ -345,9 +345,9 @@ const CITAZIONI = [
   ['amor-fati','Amor fati','friedrich-nietzsche','friedrich-nietzsche','verificata','La gaia scienza, § 276','amor fati. da tatuare, forse, in piccolo'],
   ['stessa-sostanza-dei-sogni','Siamo fatti della stessa sostanza dei sogni','william-shakespeare','william-shakespeare','verificata','La tempesta, atto IV, scena 1','siamo fatti della stessa sostanza dei sogni. shakespeare. stanotte ci credo'],
   ['nessun-uomo-e-un-isola','Nessun uomo è un’isola','john-donne','john-donne','verificata','Devotions upon Emergent Occasions, Meditazione XVII','nessun uomo è un’isola. john donne. me l’hanno detto a pranzo'],
-  ['quello-che-cerchi','Quello che cerchi ti sta cercando','rumi','',null,null,'quello che cerchi ti sta cercando. rumi credo'],
-  ['pensare-e-fermarsi','Pensare è fermarsi','hannah-arendt','',null,null,'chi è che diceva che pensare è fermarsi? arendt credo'],
-  ['i-gufi','I gufi non sono quello che sembrano','david-lynch','',null,null,'il gufo che non è quello che sembra, la frase di twin peaks. da tatuare? forse'],
+  ['quello-che-cerchi','La ferita è il punto da cui entra la luce','rumi','',null,null,'la ferita è il punto da cui entra la luce. rumi, mi sembra'],
+  ['pensare-e-fermarsi','Pensare vuol dire interrompersi','hannah-arendt','',null,null,'pensare vuol dire interrompersi: di chi era? mi pare arendt'],
+  ['i-gufi','I gufi non sono quello che sembrano','david-lynch','',null,null,'la battuta sui gufi di twin peaks. per i tatuaggi, magari'],
 ];
 const RACCOLTE = [['tatuaggi','tatuaggi','per i tatuaggi'],['la-stanza','la stanza','per la parete della stanza']];
 
@@ -370,62 +370,62 @@ const AFF = {
 
 // Le frasi a mano (dal prototipo, senza delicati e senza persone della vita).
 const MANO = [
-  ['origine', "l'attenzione è l'unica cosa che posso regalare davvero", { temi: ['attenzione'] }],
-  ['origine', 'niente colore. solo linea.', { temi: ['linea'], serve: 'tatuaggi' }],
-  ['origine', 'spinoza e la gioia come passaggio a qualcosa di più grande', { nomina: ['baruch-spinoza'], temi: ['gioia'] }],
-  ['origine', 'ogni tatuaggio una parola sola, e il braccio come una frase che si scrive negli anni', { serve: 'tatuaggi' }],
-  ['origine', 'il mare mi rimette in ordine le cose senza che io faccia niente', { temi: ['mare'] }],
-  ['origine', 'leggere seneca la mattina come lavarsi la faccia', { nomina: ['seneca'], temi: ['stoicismo'] }],
-  ['origine', 'tutte le canzoni di nick drake sembrano scritte alle cinque del pomeriggio', { nomina: ['nick-drake'], temi: ['malinconia'] }],
-  ['2025-10-14', "il mare d'inverno è l'unico posto dove nn devo spiegare niente a nessuno", { temi: ['mare'], prop: ['solitudine'] }],
-  ['2025-11-03', 'nick drake stamattina, pink moon in loop. malinconia buona', { nomina: ['pink-moon'], temi: ['malinconia'], stato: true }],
-  ['2025-11-20', 'letto la fine delle città invisibili in treno. mi ha spaccato', { nomina: ['le-citta-invisibili'], temi: ['treno'] }],
-  ['2025-12-02', "rileggo spinoza, l'etica, il libro quarto. le passioni come cose da capire non da vincere", { nomina: ['baruch-spinoza','etica'] }],
-  ['2025-12-18', 'stasera ho capito che nn faccio attenzione, aspetto solo il mio turno per parlare', { temi: ['attenzione','aspettare'], prop: ['ascolto'] }],
-  ['2026-01-09', 'la rabbia è energia che non ha ancora trovato la sua forma', { temi: ['rabbia'] }],
-  ['2026-01-21', 'fare attenzione a una persona è diverso da guardarla', { temi: ['attenzione'] }],
-  ['2026-02-06', 'il dolore non insegna niente. è solo dolore', { temi: ['dolore'], pos: true }],
-  ['2026-02-17', 'la società della stanchezza di han. tutti stanchi di essere liberi', { nomina: ['la-societa-della-stanchezza'], temi: ['stanchezza','liberta'] }],
-  ['2026-03-01', 'questa la voglio. una chiave senza porta, solo linea', { temi: ['chiave','linea'], serve: 'tatuaggi' }],
-  ['2026-03-14', 'aspettare non è perdere tempo, è il tempo che lavora', { temi: ['aspettare','tempo'], pos: true }],
-  ['2026-03-30', 'orfeo che si volta. sul polpaccio, da tatuare', { nomina: ['orfeo'], serve: 'tatuaggi', acc: ['soglia'] }],
-  ['2026-04-11', 'battiato, la cura, in macchina col finestrino giù. una quiete strana', { nomina: ['la-cura'], temi: ['quiete'], stato: true }],
-  ['2026-04-27', "da piccolo pensavo che il mare d'inverno fosse un altro mare", { temi: ['mare'], prop: ['nostalgia'], vissuto: true }],
-  ['2026-05-08', 'stalker di tarkovskij, visto finalmente. la stanza che esaudisce i desideri veri, non quelli che dici', { nomina: ['stalker'], acc: ['soglia'], prop: ['desiderio'] }],
-  ['2026-05-22', 'una poesia della szymborska che dice che niente succede due volte. la voglio rileggere', { nomina: ['niente-due-volte'], fru: 'da-fare' }],
-  ['2026-06-04', 'che cosa resta di un giorno se nessuno lo racconta?', { temi: ['resta-giorno'], chiedi: true }],
-  ['2026-06-19', 'il faro spento, piccolo, sulla caviglia. da tatuare', { temi: ['faro'], serve: 'tatuaggi' }],
-  ['2026-07-02', 'twin peaks rivisto, la signora del ceppo. mi fa ridere e paura insieme', { nomina: ['twin-peaks','la-signora-del-ceppo'], temi: ['paura'] }],
-  ['2026-07-25', 'il caduceo di ermete trismegisto, a linea sottile. per i tatuaggi', { nomina: ['ermete-trismegisto'], temi: ['linea'], serve: 'tatuaggi' }],
-  ['2026-08-12', 'paterson di jarmusch, rivisto. ogni giorno uguale e ogni giorno una poesia', { nomina: ['paterson'], temi: ['lentezza'] }],
-  ['2026-09-09', 'una porta socchiusa disegnata sul quaderno. la soglia mi interessa più della stanza', { temi: ['porta'], acc: ['soglia'] }],
-  ['2026-10-25', "forse il dolore è l'unico posto dove ho imparato qualcosa", { temi: ['dolore'], pos: true }],
-  ["2026-10-26", "a mare oggi c'era una luce che non sapevo di ricordare", { temi: ['mare','memoria'] }],
-  ['2026-10-28', "l'epicureismo che ho studiato a scuola era una caricatura. il piacere come assenza di dolore è una cosa seria", { temi: ['epicureismo','dolore'] }],
-  ['2026-10-29', 'mi sono rotto di aspettare. aspettare è una scusa', { temi: ['aspettare'], pos: true }],
-  ['2026-10-31', 'stasera malinconia. nn triste, malinconia', { temi: ['malinconia'], stato: true }],
-  ['2026-11-01', 'nostalgia di una casa che nn ho mai avuto', { temi: ['nostalgia','casa-q'], stato: true, prop: ['radici'] }],
-  ['2026-11-02', 'wabi sabi: la crepa come parte del vaso. da tatuare, forse', { temi: ['wabi-sabi'], serve: 'tatuaggi', prop: ['impermanenza'] }],
-  ['2026-11-03', 'sogno: una città fatta solo di porte', { temi: ['porta'] }],
+  ['origine', "guardare bene qualcuno costa più che parlargli", { temi: ['attenzione'] }],
+  ['origine', 'tutto in nero, tratti sottili, niente ombre', { temi: ['linea'], serve: 'tatuaggi' }],
+  ['origine', 'spinoza dice che la gioia allarga. oggi mi torna', { nomina: ['baruch-spinoza'], temi: ['gioia'] }],
+  ['origine', 'vorrei che i segni sul braccio si leggessero in fila, piano, uno ogni estate', { serve: 'tatuaggi' }],
+  ['origine', 'davanti all’acqua i pensieri si mettono in fila da soli', { temi: ['mare'] }],
+  ['origine', 'due righe di seneca col caffè e la giornata parte dritta', { nomina: ['seneca'], temi: ['stoicismo'] }],
+  ['origine', 'nick drake ha la luce delle giornate corte', { nomina: ['nick-drake'], temi: ['malinconia'] }],
+  ['2025-10-14', "la spiaggia vuota a gennaio non mi chiede niente", { temi: ['mare'], prop: ['solitudine'] }],
+  ['2025-11-03', 'pink moon tre volte di fila prima di uscire. una malinconia che tiene compagnia', { nomina: ['pink-moon'], temi: ['malinconia'], stato: true }],
+  ['2025-11-20', 'le ultime pagine delle città invisibili tra due fermate. sono sceso tardi', { nomina: ['le-citta-invisibili'], temi: ['treno'] }],
+  ['2025-12-02', "l'etica, quarta parte: capire una passione la sgonfia. provo", { nomina: ['baruch-spinoza','etica'] }],
+  ['2025-12-18', 'a cena ascoltavo solo per rispondere. me ne sono accorto tardi', { temi: ['attenzione','aspettare'], prop: ['ascolto'] }],
+  ['2026-01-09', 'la rabbia di oggi era tutta nelle mani, non sapevo dove appoggiarla', { temi: ['rabbia'] }],
+  ['2026-01-21', 'si può fissare qualcuno senza vederlo affatto', { temi: ['attenzione'] }],
+  ['2026-02-06', 'non credo che soffrire migliori qualcuno', { temi: ['dolore'], pos: true }],
+  ['2026-02-17', 'han ha ragione: ci sfiniamo da soli, e lo chiamiamo libertà', { nomina: ['la-societa-della-stanchezza'], temi: ['stanchezza','liberta'] }],
+  ['2026-03-01', 'una chiave piccola, senza serratura, a tratto unico', { temi: ['chiave','linea'], serve: 'tatuaggi' }],
+  ['2026-03-14', 'certe cose maturano solo se le lasci stare', { temi: ['aspettare','tempo'], pos: true }],
+  ['2026-03-30', 'orfeo un attimo prima di girarsi. lo vorrei sulla schiena', { nomina: ['orfeo'], serve: 'tatuaggi', acc: ['soglia'] }],
+  ['2026-04-11', 'la cura di battiato al semaforo rosso. una calma che non mi aspettavo', { nomina: ['la-cura'], temi: ['quiete'], stato: true }],
+  ['2026-04-27', "a otto anni credevo che d'inverno il mare se ne andasse altrove", { temi: ['mare'], prop: ['nostalgia'], vissuto: true }],
+  ['2026-05-08', 'stalker, finalmente. la zona come un posto che ti legge dentro', { nomina: ['stalker'], acc: ['soglia'], prop: ['desiderio'] }],
+  ['2026-05-22', 'la poesia della szymborska sul fatto che ogni giorno capita una volta sola. da rileggere', { nomina: ['niente-due-volte'], fru: 'da-fare' }],
+  ['2026-06-04', 'dove va una giornata se non la scrivo?', { temi: ['resta-giorno'], chiedi: true }],
+  ['2026-06-19', 'un faro minuscolo vicino al malleolo, per i tatuaggi', { temi: ['faro'], serve: 'tatuaggi' }],
+  ['2026-07-02', 'ripreso twin peaks: la signora col ceppo mi inquieta e mi diverte', { nomina: ['twin-peaks','la-signora-del-ceppo'], temi: ['paura'] }],
+  ['2026-07-25', 'un caduceo, quello di ermete trismegisto, fino fino. per i tatuaggi', { nomina: ['ermete-trismegisto'], temi: ['linea'], serve: 'tatuaggi' }],
+  ['2026-08-12', 'paterson di nuovo: la stessa strada, un verso diverso', { nomina: ['paterson'], temi: ['lentezza'] }],
+  ['2026-09-09', 'ho disegnato uno stipite senza muro intorno. mi piace il punto di passaggio', { temi: ['porta'], acc: ['soglia'] }],
+  ['2026-10-25', "però le cose che so davvero le ho imparate stando male", { temi: ['dolore'], pos: true }],
+  ["2026-10-26", "sul molo una luce che conoscevo, senza sapere da dove", { temi: ['mare','memoria'] }],
+  ['2026-10-28', "epicuro non parlava di banchetti. parlava di stare senza turbamento", { temi: ['epicureismo','dolore'] }],
+  ['2026-10-29', 'basta rimandare. l’attesa era un alibi', { temi: ['aspettare'], pos: true }],
+  ['2026-10-31', 'serata malinconica, ma senza peso', { temi: ['malinconia'], stato: true }],
+  ['2026-11-01', 'mi manca una cucina in cui non ho mai abitato', { temi: ['nostalgia','casa-q'], stato: true, prop: ['radici'] }],
+  ['2026-11-02', 'wabi sabi: la ciotola rotta vale di più dopo. idea per un tatuaggio', { temi: ['wabi-sabi'], serve: 'tatuaggi', prop: ['impermanenza'] }],
+  ['2026-11-03', 'sognato un paese di scale che non portano da nessuna parte', { temi: ['porta'] }],
   // trascrizioni (regola 7): il gesto e il commento sono tuoi ✦; le parole d'altri ○, una riga, con opera e passo
   ['2026-02-24', 'Da ricordare ogni lunedì.', { altrui: { cosa: 'l’apertura delle Lettere a Lucilio', riga: 'Vindica te tibi', luogo: 'Seneca, Lettere a Lucilio, I, 1' }, nomina: ['lettere-a-lucilio'], temi: ['tempo'] }],
   ['2026-06-30', 'Questa la terrei sul braccio, piccola.', { altrui: { cosa: 'un passo delle Lettere a un giovane poeta', riga: 'abbi pazienza verso tutto ciò che è irrisolto nel tuo cuore (resa mia)', luogo: 'Rilke, Lettere a un giovane poeta, lettera IV, 16 luglio 1903' }, nomina: ['lettere-a-un-giovane-poeta'], temi: ['aspettare'], serve: 'tatuaggi' }],
 ];
-const SEME = [{ nodi: ['attenzione','mare'], testo: 'una persona che cerca il punto in cui le cose smettono di essere rumore' }];
+const SEME = [{ nodi: ['attenzione','mare'], testo: 'qualcuno che vuole togliere il superfluo finché resta la voce' }];
 
 // I modelli dei memo sintetici, per genere. {n} = il nome come lo scrivi tu.
 const MOD = {
   stato: ['stasera {n}. nn so da dove arriva', '{n}, di nuovo. ma meno di ieri', 'mi sono svegliato con addosso {n}', 'oggi tutto sapeva di {n}', '{n} in treno, guardando fuori', 'scrivo solo per dire: {n}. e basta', 'una {n} che nn fa male, stranamente'],
   idea: ['{n}: ci torno sempre, da qualsiasi parte parto', 'forse {n} è la parola che cercavo da settimane', 'pensavo a {n} in treno. nn ne vengo a capo', 'tutto quello che leggo ultimamente parla di {n}', '{n} non si spiega, si pratica', 'ho scritto {n} sul margine del quaderno e l’ho cerchiato due volte'],
   domanda: ['{n} ci penso da giorni', 'ancora: {n}', '{n} stamattina la risposta mi sembrava ovvia. stasera no', 'me lo chiedo di nuovo: {n}'],
-  simbolo: ['{n} visto in sogno, di nuovo', 'ho disegnato {n} sul quaderno senza pensarci', '{n} come immagine di tutto questo mese', '{n}. nn so perché mi torna in mente', 'da piccolo {n} mi sembrava un’altra cosa'],
+  simbolo: ['{n} visto in sogno, di nuovo', 'ho disegnato {n} sul quaderno senza pensarci', '{n} come immagine di tutto questo mese', '{n}. nn so perché mi torna in mente', 'da bambino {n} mi faceva un altro effetto'],
   corrente: ['{n}: più ci leggo meno mi sembra una dottrina', '{n} spiegato bene, finalmente', 'a scuola {n} era una pagina del manuale. adesso è un modo di stare'],
-  stile: ['{n}, solo {n}. per i tatuaggi', 'niente colore. {n}. per i tatuaggi'],
-  canzone: ['{n} in loop stamattina', '{n} in macchina col finestrino giù', '{n} alle due di notte, in cuffia', 'riascoltata {n}. sempre la stessa fitta'],
+  stile: ['{n}, solo {n}. per i tatuaggi', 'solo nero, {n}. per i tatuaggi'],
+  canzone: ['{n} in loop stamattina', '{n} guidando verso casa', '{n} alle due di notte, in cuffia', 'riascoltata {n}. sempre la stessa fitta'],
   album: ['riascoltato {n} tutto di fila', '{n} mentre cucinavo. perfetto'],
-  libro: ['finito {n}. mi ha spaccato', '{n}, da leggere', 'sottolineato mezzo {n}', '{n} in treno, tre pagine e poi guardavo fuori', 'ripreso {n} dopo anni. è un altro libro'],
+  libro: ['finito {n}. sono rimasto zitto un bel po', '{n}, da leggere', 'sottolineato mezzo {n}', '{n} in treno, tre pagine e poi guardavo fuori', 'ripreso {n} dopo anni. è un altro libro'],
   poesia: ['{n}, letta ad alta voce in cucina', '{n}: la voglio sapere a memoria'],
-  film: ['visto {n} stasera. ci penserò', '{n}, da vedere', 'rivisto {n}. il finale mi ha distrutto'],
+  film: ['visto {n} stasera. ci penserò', '{n}, da vedere', 'rivisto {n}. il finale mi è rimasto addosso'],
   serie: ['{n}, un episodio a sera', '{n} finita. mi manca già'],
   fumetto: ['{n}, letto tutto in una notte'], immagine: ['{n}: ci sono rimasto davanti dieci minuti', '{n} come sfondo del telefono, da oggi'],
   gioco: ['{n} finito alle tre di notte. nn me l’aspettavo'],
@@ -506,7 +506,7 @@ for (const [id, , , cerchia, campo, peso] of PERSONE) {
 // le citazioni: un memo che la nomina
 for (const c of CITAZIONI) {
   const [id, , , , , , memo] = c; if (F.some((f) => f.nomina.includes(id))) continue;
-  const tt = temiDi(id); const o = { nomina: [id], serve: memo.includes('tatuare') ? 'tatuaggi' : null, chiedi: memo.includes('?') };
+  const tt = temiDi(id); const o = { nomina: [id], serve: /tatua/.test(memo) ? 'tatuaggi' : null, chiedi: memo.includes('?') };
   if (tt.length) o.temi = [tt[0]];
   if (id === 'i-gufi') o.nomina.push('twin-peaks');
   if (id === 'l-inferno-dei-viventi') o.nomina.push('le-citta-invisibili');

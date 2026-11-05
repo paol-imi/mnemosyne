@@ -1,0 +1,1176 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Il cielo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+<style>
+:root {
+  --notte: #0a0f1c; --notte2: #121a2c; --vetro: rgba(16,22,38,.86); --vetro2: rgba(24,32,52,.94);
+  --testo: #ece5d3; --tenue: #9aa0ad; --filo: rgba(236,229,211,.16);
+  --luce: #f6e7bd;          /* ✦ e ● : la luce */
+  --prop: #8c96ab;          /* ◌ : più quieto */
+  --avviso: #e2a43c;        /* ⚠ : ambra, mai rosso */
+  --mondo: #b7c5d4;         /* ○ */
+  --sans: ui-sans-serif, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --segni: "Noto Sans Symbols 2", "Source Serif 4", serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: var(--notte); color: var(--testo); }
+body { font: 400 16px/1.45 var(--serif); -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; }
+button { font: inherit; color: inherit; background: none; border: 0; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--luce); outline-offset: 2px; }
+.sg { font-family: var(--segni); font-style: normal; }
+.vf { font-family: var(--segni); color: var(--avviso); font-style: normal; }
+
+#cielo { position: fixed; inset: 0; width: 100%; height: 100%; touch-action: none; display: block; cursor: grab; }
+#cielo:active { cursor: grabbing; }
+
+/* testa */
+#testa { position: fixed; top: 0; left: 0; right: 0; z-index: 5; padding: max(8px, env(safe-area-inset-top)) 12px 0;
+  background: linear-gradient(var(--notte) 62%, rgba(10,15,28,.7) 80%, rgba(10,15,28,0)); pointer-events: none; }
+#testa > * { pointer-events: auto; }
+.riga1 { display: flex; align-items: center; gap: 4px; min-height: 44px; }
+.marchio { font-variant-caps: all-small-caps; letter-spacing: .1em; font-size: 15px; color: var(--tenue); margin-right: auto; padding-left: 4px; }
+@media (max-width: 480px) { .marchio .sub { display: none; } }
+.marchio b { color: var(--testo); font-weight: 500; letter-spacing: .06em; }
+.tasto { min-width: 44px; height: 44px; border-radius: 22px; display: inline-flex; align-items: center; justify-content: center;
+  padding: 0 12px; font: 500 13.5px/1 var(--sans); color: var(--testo); background: rgba(236,229,211,.06); border: 1px solid var(--filo); }
+.tasto[aria-pressed="true"] { background: rgba(125,135,156,.22); border-color: var(--prop); }
+.tasto .sg { font-size: 15px; }
+#lente .sg { color: var(--prop); }
+.riga2 { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+#livelli { display: inline-flex; background: rgba(236,229,211,.05); border: 1px solid var(--filo); border-radius: 22px; padding: 2px; }
+#livelli button { height: 40px; padding: 0 11px; border-radius: 20px; font: 500 12.5px/1 var(--sans); color: var(--tenue); }
+#livelli button[aria-current="true"] { background: rgba(246,231,189,.14); color: var(--luce); }
+#salto { margin-left: auto; }
+#salto .sg { color: var(--luce); margin-right: 6px; }
+#filo { display: flex; align-items: center; gap: 6px; margin-top: 6px; overflow-x: auto; scrollbar-width: none; font: 500 12.5px/1 var(--sans); color: var(--tenue); white-space: nowrap; }
+#filo:empty { display: none; }
+#filo::-webkit-scrollbar { display: none; }
+#filo .nome { color: var(--testo); padding: 0 2px; min-height: 32px; display: inline-flex; align-items: center; }
+#filo .trat { opacity: .5; }
+#filo .via { margin-left: 2px; min-width: 32px; min-height: 32px; color: var(--tenue); }
+
+#ultima { position: fixed; left: 0; top: 0; z-index: 4; max-width: min(300px, 78vw); text-align: left; padding: 10px 14px 11px; border-radius: 12px;
+  background: rgba(10,15,28,.62); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border: 1px solid var(--filo); min-height: 44px; }
+#ultima[hidden] { display: none; }
+#ultima .data { display: block; font: 500 11.5px/1.3 var(--sans); color: var(--tenue); margin-bottom: 2px; }
+#ultima em { font-size: 17px; line-height: 1.3; color: var(--testo); }
+#ultima .sg { color: var(--luce); font-size: 12px; }
+/* il dock */
+#dock { position: fixed; left: 0; right: 0; bottom: 0; z-index: 6; padding: 0 0 max(6px, env(safe-area-inset-bottom));
+  background: linear-gradient(rgba(10,15,28,0), var(--notte) 34%); }
+#servizio { display: flex; align-items: baseline; gap: 10px; padding: 14px 16px 4px; font: 400 13px/1.35 var(--sans); color: var(--tenue); }
+#servizio b { color: var(--testo); font-weight: 500; }
+#servizio button { margin-left: auto; font: 500 13px/1 var(--sans); color: var(--luce); min-height: 36px; padding: 0 2px; white-space: nowrap; }
+.fila { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; padding: 6px 16px; scroll-padding: 16px; }
+.fila::-webkit-scrollbar { display: none; }
+.chip { flex: none; min-height: 40px; padding: 0 14px; border-radius: 20px; border: 1px solid var(--filo); background: rgba(236,229,211,.05);
+  font: 500 13.5px/1 var(--sans); color: var(--testo); display: inline-flex; align-items: center; gap: 7px; white-space: nowrap; }
+.chip .n { color: var(--tenue); font-weight: 400; font-variant-numeric: tabular-nums; }
+.chip[aria-pressed="true"] { background: var(--luce); color: #18140a; border-color: var(--luce); }
+.chip[aria-pressed="true"] .n { color: #5a4f33; }
+.chip .sg { font-size: 13px; }
+.chip.prop { color: #c3c8d3; }
+.chip .forma { width: 14px; height: 14px; flex: none; }
+#assi { display: flex; gap: 0; padding: 2px 6px 0; overflow-x: auto; scrollbar-width: none; }
+#assi::-webkit-scrollbar { display: none; }
+#assi button { flex: 1 0 auto; min-height: 44px; padding: 0 7px; font: 500 13.5px/1 var(--sans); color: var(--tenue); border-bottom: 2px solid transparent; position: relative; }
+#assi button[aria-expanded="true"] { color: var(--testo); border-bottom-color: var(--luce); }
+#assi button.attivo::after { content: ""; position: absolute; top: 9px; right: 3px; width: 6px; height: 6px; border-radius: 3px; background: var(--luce); }
+#assi .sg { color: #9aa3b6; font-size: 13px; margin-left: 3px; }
+#attivi { padding-top: 0; padding-bottom: 2px; }
+#attivi[hidden] { display: none; }
+#attivi .via { flex: none; min-height: 36px; padding: 0 12px; border-radius: 18px; background: rgba(246,231,189,.14); color: var(--luce); font: 500 13px/1 var(--sans); white-space: nowrap; }
+#tempo { display: flex; align-items: center; gap: 10px; padding: 4px 16px; }
+#tempo[hidden], #valori[hidden] { display: none; }
+#gioca { flex: none; }
+#mese { flex: 1; min-width: 0; height: 44px; accent-color: var(--luce); }
+#meseL { flex: none; min-width: 100px; text-align: right; font: 500 13px/1.25 var(--sans); color: var(--testo); }
+#meseL small { display: block; color: var(--tenue); font-weight: 400; font-size: 11.5px; }
+
+/* il foglio */
+#foglio { position: fixed; z-index: 8; left: 0; right: 0; bottom: 0; max-height: 54vh; overflow-y: auto; overscroll-behavior: contain;
+  background: var(--vetro2); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-top: 1px solid var(--filo); border-radius: 18px 18px 0 0; padding: 6px 20px max(24px, env(safe-area-inset-bottom));
+  transform: translateY(105%); transition: transform .32s cubic-bezier(.2,.8,.2,1); box-shadow: 0 -10px 40px rgba(0,0,0,.45); }
+#foglio.aperto { transform: none; }
+.maniglia { width: 40px; height: 4px; border-radius: 2px; background: var(--filo); margin: 4px auto 6px; }
+#chiudi { position: absolute; top: 4px; right: 6px; width: 44px; height: 44px; font-size: 22px; color: var(--tenue); font-family: var(--sans); }
+.occhiello { font: 500 12px/1.3 var(--sans); letter-spacing: .04em; color: var(--tenue); display: flex; align-items: center; gap: 7px; margin: 6px 44px 2px 0; }
+.occhiello svg { width: 16px; height: 16px; flex: none; }
+#foglio h2 { font-weight: 500; font-size: 27px; line-height: 1.12; margin: 2px 40px 4px 0; letter-spacing: -.01em; }
+#foglio h2 .sg { font-size: 17px; vertical-align: 3px; margin-left: 4px; color: var(--luce); }
+#foglio h2 .sg.p { color: var(--prop); }
+.meta { font: 400 13.5px/1.4 var(--sans); color: var(--tenue); margin: 0 0 14px; }
+.frase { margin: 0 0 14px; }
+.frase .data { display: block; font: 500 12px/1.3 var(--sans); color: var(--tenue); letter-spacing: .02em; margin-bottom: 3px; }
+.frase em { font-size: 21px; line-height: 1.32; }
+.frase .sg { color: var(--luce); margin-left: 4px; font-size: 14px; }
+.altre { list-style: none; padding: 0; margin: 0 0 12px; border-top: 1px solid var(--filo); }
+.altre li { padding: 9px 0 7px; border-bottom: 1px solid var(--filo); }
+.altre .data { font: 500 11.5px/1.3 var(--sans); color: var(--tenue); display: block; margin-bottom: 1px; }
+.altre em { font-size: 16.5px; }
+.altre .sg { color: var(--luce); font-size: 12px; margin-left: 3px; }
+.nota-r { font: 400 12.5px/1.35 var(--sans); color: var(--tenue); margin: 0 0 2px; }
+.seme { font-size: 15px; color: #d9d2c0; margin: 6px 0 14px; padding-left: 12px; border-left: 1px solid var(--filo); }
+.seme .sg { color: var(--luce); }
+.mondo-r { font-size: 15.5px; margin: 0 0 14px; color: var(--mondo); }
+.mondo-r .luogo { display: block; font: 400 12.5px/1.35 var(--sans); color: var(--tenue); margin-top: 2px; }
+.mondo-r .sg { color: var(--mondo); }
+.avviso { font: 400 13.5px/1.4 var(--sans); color: #e8c58a; margin: 0 0 14px; }
+.prop-r { font: 400 14px/1.4 var(--serif); color: #aab1c0; margin: 0 0 12px; }
+.prop-r .sg { color: var(--prop); }
+.acc-r .sg { color: var(--luce); }
+.tutte { font: 500 13px/1 var(--sans); color: var(--luce); min-height: 44px; padding: 0; }
+#foglio h3 { font: 500 12px/1 var(--sans); letter-spacing: .06em; color: var(--tenue); margin: 16px 0 8px; font-variant-caps: all-small-caps; font-size: 14px; }
+.vicini { display: flex; flex-wrap: wrap; gap: 8px; }
+.vicini .chip { min-height: 44px; }
+
+/* elenco e legenda */
+.velo { position: fixed; inset: 0; z-index: 9; background: rgba(4,6,12,.55); display: none; }
+.velo.aperto { display: block; }
+.pannello { position: fixed; z-index: 10; left: 50%; top: 50%; transform: translate(-50%,-50%); width: min(560px, calc(100% - 24px)); max-height: 82vh;
+  overflow: auto; background: var(--vetro2); border: 1px solid var(--filo); border-radius: 16px; padding: 16px 18px 18px; display: none; }
+.pannello.aperto { display: block; }
+.pannello h2 { font-weight: 500; font-size: 20px; margin: 0 0 10px; }
+.pannello .x { position: absolute; top: 6px; right: 6px; width: 44px; height: 44px; font: 22px var(--sans); color: var(--tenue); }
+#cerca { width: 100%; height: 44px; border-radius: 10px; border: 1px solid var(--filo); background: rgba(236,229,211,.05); color: var(--testo);
+  font: 400 16px var(--sans); padding: 0 12px; margin-bottom: 10px; }
+#lista h3 { font: 500 13px/1 var(--sans); color: var(--tenue); font-variant-caps: all-small-caps; letter-spacing: .06em; font-size: 15px; margin: 14px 0 4px; }
+#lista button { display: flex; width: 100%; text-align: left; min-height: 44px; align-items: center; gap: 10px; border-bottom: 1px solid var(--filo); font-size: 16px; }
+#lista button .n { margin-left: auto; font: 400 12.5px var(--sans); color: var(--tenue); }
+#lista button.spento { opacity: .45; }
+.leg { list-style: none; padding: 0; margin: 0; font: 400 14px/1.4 var(--sans); }
+.leg li { display: flex; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--filo); }
+.leg .k { width: 30px; text-align: center; flex: none; font-size: 18px; }
+.leg svg { width: 24px; height: 24px; }
+.leg small { color: var(--tenue); }
+
+/* il desktop: il foglio diventa una scheda di lato */
+@media (min-width: 900px) {
+  #foglio { left: auto; top: 64px; bottom: 12px; right: 12px; width: 400px; max-height: none; border-radius: 16px; border: 1px solid var(--filo);
+    transform: translateX(110%); padding: 14px 24px 24px; }
+  #foglio .maniglia { display: none; }
+  #testa { padding-left: 20px; padding-right: 20px; }
+  #dock { padding-left: 8px; padding-right: 8px; }
+  #dock.stretto { right: 424px; }
+  .frase em { font-size: 23px; }
+  #assi { justify-content: flex-start; }
+  #assi button { flex: 0 0 auto; padding: 0 16px; }
+}
+@media (prefers-reduced-motion: reduce) { #foglio { transition: none; } }
+</style>
+</head>
+<body>
+<canvas id="cielo" role="img" aria-label="Il cielo dei concetti: una mappa. L'elenco testuale è nel tasto Elenco."></canvas>
+
+<button id="ultima" hidden aria-label="La tua frase più recente"></button>
+<header id="testa">
+  <div class="riga1">
+    <span class="marchio"><b>Mnemosyne</b><span class="sub"> · il cielo</span></span>
+    <button class="tasto" id="apriElenco" aria-haspopup="dialog" title="Elenco e ricerca">Elenco</button>
+    <button class="tasto" id="apriLegenda" aria-haspopup="dialog" aria-label="Legenda dei segni">?</button>
+    <button class="tasto" id="lente" aria-pressed="false" title="anche le mie proposte"><span class="sg">◌</span>&nbsp;proposte</button>
+  </div>
+  <div class="riga2">
+    <div id="livelli" role="group" aria-label="Distanza">
+      <button data-l="1">regioni</button><button data-l="2">temi</button><button data-l="3">nomi</button><button data-l="4">frasi</button>
+    </div>
+    <button class="tasto" id="salto" title="Una stella a caso"><span class="sg">✦</span>salto</button>
+  </div>
+  <div id="filo" aria-label="Il filo: i nodi che hai visitato"></div>
+</header>
+
+<div id="dock">
+  <div id="servizio" aria-live="polite"></div>
+  <div id="attivi" class="fila" hidden aria-label="Filtri attivi"></div>
+  <div id="valori" class="fila" hidden role="group"></div>
+  <div id="tempo" hidden>
+    <button class="tasto" id="gioca" aria-label="Fai nascere le stelle mese per mese">▷</button>
+    <input type="range" id="mese" min="0" max="14" step="1" aria-label="Fino a quale mese">
+    <span id="meseL"></span>
+  </div>
+  <nav id="assi" aria-label="Filtri sugli assi"></nav>
+</div>
+
+<aside id="foglio" role="dialog" aria-label="Scheda del nodo"><div class="maniglia"></div><button id="chiudi" aria-label="Chiudi">×</button><div id="foglioC"></div></aside>
+
+<div class="velo" id="velo"></div>
+<section class="pannello" id="elenco" role="dialog" aria-label="Elenco" aria-modal="true">
+  <button class="x" data-chiudi aria-label="Chiudi">×</button>
+  <h2>Elenco</h2>
+  <input id="cerca" type="search" placeholder="la parola, alla lettera" autocomplete="off" aria-label="Cerca un nome o una parola">
+  <div id="lista"></div>
+</section>
+<section class="pannello" id="legenda" role="dialog" aria-label="Legenda" aria-modal="true">
+  <button class="x" data-chiudi aria-label="Chiudi">×</button>
+  <h2>Come si legge il cielo</h2>
+  <ul class="leg" id="legL"></ul>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script>
+'use strict';
+/* =====================================================================
+   DATI SINTETICI. Inventati per il prototipo: nessun dato del repository.
+   Nessun frammento delicato, nessuna persona «cerchia: vita».
+   ===================================================================== */
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const R = mulberry32(20261105);
+const pick = (a) => a[Math.floor(R() * a.length)];
+const USATI = {}; // un modello una volta sola per nodo
+function modello(id, xs) { const u = USATI[id] ||= new Set(); let c = xs.filter((x) => !u.has(x)); if (!c.length) return null; const m = pick(c); u.add(m); return m; }
+
+// I mesi: 0 = l'archivio d'origine (entro il 12 settembre 2025), poi da ottobre 2025 a novembre 2026.
+const MESI = ['gennaio','febbraio','marzo','aprile','maggio','giugno','luglio','agosto','settembre','ottobre','novembre','dicembre'];
+const MS = ['origine']; for (let i = 0; i < 14; i++) { const y = 2025 + Math.floor((9 + i) / 12), m = (9 + i) % 12; MS.push(`${y}-${String(m + 1).padStart(2, '0')}`); }
+const meseL = (i) => i === 0 ? 'archivio d’origine' : `${MESI[+MS[i].slice(5) - 1]} ${MS[i].slice(0, 4)}`;
+const TETTO = '2025-09-12';
+
+// Le specie dei temi e i campi: vocabolari chiusi (dimensioni.md §1.4, §1.5). Sono scelte di "consolida": ◌.
+const SPECIE = { stato: 'sentimenti', idea: 'idee', domanda: 'domande', simbolo: 'simboli', corrente: 'correnti', stile: 'stili' };
+const SPECIE1 = { stato: 'sentimento', idea: 'idea', domanda: 'domanda', simbolo: 'simbolo', corrente: 'corrente', stile: 'stile' };
+const CAMPI = ['filosofia','psicologia','mito-e-religione','esoterismo','scienza','storia','letteratura','arte','musica','cinema'];
+const TIPI = ['canzone','album','libro','poesia','film','serie','fumetto','spettacolo','immagine','gioco','video'];
+const GESTI = ['penso','sento','chiedo','ricordo','voglio fare','trascrivo'];
+const nomeCampo = (c) => c.replace(/-/g, ' ');
+
+// I colori. Tinte quiete su notte; nessun rosso. La luce (alfa e grandezza) dice quante volte l'hai detto.
+const COL_SPECIE = { stato: '#f6cfa6', idea: '#f8ebc4', domanda: '#eef0f3', simbolo: '#e4e8cf', corrente: '#ece0e8', stile: '#bdbdb8' };
+const COL_CAMPO = { filosofia: '#d8b874', psicologia: '#d49aa8', 'mito-e-religione': '#a894d4', esoterismo: '#86b0a0', scienza: '#78b0d0',
+  storia: '#bea27e', letteratura: '#9ab6d8', arte: '#d4a07e', musica: '#a8c884', cinema: '#bcaee0' };
+
+// [slug, nome, specie, peso ✦, campo?]
+const TEMI = [
+  ['malinconia','malinconia','stato',10],['rabbia','rabbia','stato',5],['quiete','quiete','stato',6],['nostalgia','nostalgia','stato',7],
+  ['stanchezza','stanchezza','stato',5],['gioia','gioia','stato',4],['paura','paura','stato',3],['tenerezza','tenerezza','stato',3],
+  ['noia','noia','stato',2],['vergogna','vergogna','stato',2],
+  ['attenzione','attenzione','idea',13],['aspettare','aspettare','idea',8],['dolore','dolore','idea',6],['tempo','tempo','idea',8],
+  ['liberta','libertà','idea',5],['memoria','memoria','idea',7],['silenzio','silenzio','idea',6],['corpo','corpo','idea',4],
+  ['verita','verità','idea',3],['lentezza','lentezza','idea',5],['gratitudine','gratitudine','idea',2],
+  ['serve-ricordare','a che cosa serve ricordare?','domanda',3],['resta-giorno','che cosa resta di un giorno?','domanda',3],
+  ['senza-paura','chi sarei senza paura?','domanda',2],['perche-rimando','perché rimando?','domanda',3],['casa-q','che cosa vuol dire casa?','domanda',4],
+  ['mare','mare','simbolo',9],['faro','faro','simbolo',4],['porta','porta','simbolo',4],['luna','luna','simbolo',3],['fiume','fiume','simbolo',3],
+  ['chiave','chiave','simbolo',3],['fenice','fenice','simbolo',2],['finestra','finestra','simbolo',2],['treno','treno','simbolo',3],
+  ['stoicismo','stoicismo','corrente',5,['filosofia']],['epicureismo','epicureismo','corrente',3,['filosofia']],['esistenzialismo','esistenzialismo','corrente',3,['filosofia']],
+  ['romanticismo','romanticismo','corrente',2,['letteratura']],['wabi-sabi','wabi sabi','corrente',3,['arte']],['zen','zen','corrente',2,['mito-e-religione']],
+  ['linea','linea','stile',5],['blackwork','blackwork','stile',2],['dotwork','dotwork','stile',2],
+];
+// I temi dedotti (◌): letture mie, spente di default. «soglia» è stata accolta: ●.
+const TEMI_PROP = [
+  ['solitudine','solitudine','stato',['mare','faro','il-cielo-sopra-berlino']],['cura','cura','idea',['attenzione','donald-winnicott']],
+  ['ritorno','ritorno','idea',['orfeo','nostalgia']],['ascolto','ascolto','idea',['attenzione','silenzio']],
+  ['impermanenza','impermanenza','idea',['wabi-sabi','fiume','tempo']],['desiderio','desiderio','stato',['stalker']],
+  ['radici','radici','simbolo',['casa-q','still-walking']],['ombra','ombra','simbolo',['carl-gustav-jung']],
+  ['soglia','soglia','simbolo',['porta','stalker','orfeo'],'acc'],
+];
+// [slug, nome, detto, cerchia, campi, peso diretto, in?]
+const PERSONE = [
+  ['baruch-spinoza','Baruch Spinoza','spinoza','mondo',['filosofia'],3],['hannah-arendt','Hannah Arendt','arendt','mondo',['filosofia'],2],
+  ['byung-chul-han','Byung-Chul Han','han','mondo',['filosofia'],2],['simone-weil','Simone Weil','simone weil','mondo',['filosofia'],4],
+  ['friedrich-nietzsche','Friedrich Nietzsche','nietzsche','mondo',['filosofia'],2],['albert-camus','Albert Camus','camus','mondo',['filosofia','letteratura'],3],
+  ['seneca','Seneca','seneca','mondo',['filosofia'],3],['epicuro','Epicuro','epicuro','mondo',['filosofia'],1],['blaise-pascal','Blaise Pascal','pascal','mondo',['filosofia'],1],
+  ['arthur-schopenhauer','Arthur Schopenhauer','schopenhauer','mondo',['filosofia'],1],['eraclito','Eraclito','eraclito','mondo',['filosofia'],2],
+  ['giordano-bruno','Giordano Bruno','giordano bruno','mondo',['filosofia','esoterismo'],1],
+  ['donald-winnicott','Donald Winnicott','winnicott','mondo',['psicologia'],1],['carl-gustav-jung','Carl Gustav Jung','jung','mondo',['psicologia'],2],
+  ['james-hillman','James Hillman','hillman','mondo',['psicologia'],1],['massimo-recalcati','Massimo Recalcati','recalcati','mondo',['psicologia'],2],
+  ['italo-calvino','Italo Calvino','calvino','mondo',['letteratura'],3],['wislawa-szymborska','Wisława Szymborska','szymborska','mondo',['letteratura'],2],
+  ['rumi','Rumi','rumi','mondo',['letteratura','mito-e-religione'],1],['fedor-dostoevskij','Fëdor Dostoevskij','dostoevskij','mondo',['letteratura'],1],
+  ['antoine-de-saint-exupery','Antoine de Saint-Exupéry','saint-exupéry','mondo',['letteratura'],0],['cesare-pavese','Cesare Pavese','pavese','mondo',['letteratura'],2],
+  ['rainer-maria-rilke','Rainer Maria Rilke','rilke','mondo',['letteratura'],3],['william-shakespeare','William Shakespeare','shakespeare','mondo',['letteratura'],0],
+  ['john-donne','John Donne','john donne','mondo',['letteratura'],0],['giacomo-leopardi','Giacomo Leopardi','leopardi','mondo',['letteratura'],3],
+  ['giuseppe-ungaretti','Giuseppe Ungaretti','ungaretti','mondo',['letteratura'],1],['marguerite-yourcenar','Marguerite Yourcenar','yourcenar','mondo',['letteratura','storia'],1],
+  ['nick-drake','Nick Drake','nick drake','mondo',['musica'],3],['franco-battiato','Franco Battiato','battiato','mondo',['musica'],3],
+  ['brian-eno','Brian Eno','brian eno','mondo',['musica'],2],['arvo-part','Arvo Pärt','arvo pärt','mondo',['musica'],3],['fabrizio-de-andre','Fabrizio De André','de andré','mondo',['musica'],2],
+  ['jim-jarmusch','Jim Jarmusch','jarmusch','mondo',['cinema'],2],['andrej-tarkovskij','Andrej Tarkovskij','tarkovskij','mondo',['cinema'],3],
+  ['david-lynch','David Lynch','lynch','mondo',['cinema'],2],['hayao-miyazaki','Hayao Miyazaki','miyazaki','mondo',['cinema'],3],
+  ['wim-wenders','Wim Wenders','wenders','mondo',['cinema'],2],['hirokazu-kore-eda','Hirokazu Kore-eda','kore-eda','mondo',['cinema'],2],
+  ['katsushika-hokusai','Katsushika Hokusai','hokusai','mondo',['arte'],1],['mark-rothko','Mark Rothko','rothko','mondo',['arte'],2],['giorgio-morandi','Giorgio Morandi','morandi','mondo',['arte'],2],
+  ['carlo-rovelli','Carlo Rovelli','rovelli','mondo',['scienza'],2],['oliver-sacks','Oliver Sacks','oliver sacks','mondo',['scienza','psicologia'],1],
+  ['tucidide','Tucidide','tucidide','mondo',['storia'],1],['carlo-ginzburg','Carlo Ginzburg','ginzburg','mondo',['storia'],1],
+  ['gipi','Gipi','gipi','mondo',['arte','letteratura'],1],
+  ['orfeo','Orfeo','orfeo','finzione',['mito-e-religione'],3],['sisifo','Sisifo','sisifo','finzione',['mito-e-religione'],2],
+  ['ulisse','Ulisse','ulisse','finzione',['mito-e-religione','letteratura'],2],['ermete-trismegisto','Ermete Trismegisto','ermete trismegisto','finzione',['esoterismo'],2],
+  ['la-signora-del-ceppo','la signora del ceppo','la signora del ceppo','finzione',[],1,'twin-peaks'],
+  ['il-piccolo-principe-p','il piccolo principe','il piccolo principe','finzione',[],1,'il-piccolo-principe'],
+];
+// [slug, nome, tipo, autore, anno, campi, peso]
+const OPERE = [
+  ['le-citta-invisibili','Le città invisibili','libro','italo-calvino',1972,['letteratura'],3],['etica','Etica','libro','baruch-spinoza',1677,['filosofia'],2],
+  ['la-societa-della-stanchezza','La società della stanchezza','libro','byung-chul-han',2010,['filosofia'],3],['gioco-e-realta','Gioco e realtà','libro','donald-winnicott',1971,['psicologia'],2],
+  ['il-mito-di-sisifo','Il mito di Sisifo','libro','albert-camus',1942,['filosofia'],2],['lettere-a-un-giovane-poeta','Lettere a un giovane poeta','libro','rainer-maria-rilke',1929,['letteratura'],3],
+  ['la-gaia-scienza','La gaia scienza','libro','friedrich-nietzsche',1882,['filosofia'],1],['lettere-a-lucilio','Lettere a Lucilio','libro','seneca',null,['filosofia'],3],
+  ['l-idiota','L’idiota','libro','fedor-dostoevskij',1869,['letteratura'],2],['il-piccolo-principe','Il piccolo principe','libro','antoine-de-saint-exupery',1943,['letteratura'],2],
+  ['il-mestiere-di-vivere','Il mestiere di vivere','libro','cesare-pavese',1952,['letteratura'],2],['l-ordine-del-tempo','L’ordine del tempo','libro','carlo-rovelli',2017,['scienza'],3],
+  ['memorie-di-adriano','Memorie di Adriano','libro','marguerite-yourcenar',1951,['letteratura','storia'],2],['il-codice-dell-anima','Il codice dell’anima','libro','james-hillman',1996,['psicologia'],1],
+  ['pensieri','Pensieri','libro','blaise-pascal',1670,['filosofia'],1],['il-formaggio-e-i-vermi','Il formaggio e i vermi','libro','carlo-ginzburg',1976,['storia'],1],
+  ['l-infinito','L’infinito','poesia','giacomo-leopardi',1819,['letteratura'],3],['niente-due-volte','Niente due volte','poesia','wislawa-szymborska',1957,['letteratura'],2],
+  ['mattina','Mattina','poesia','giuseppe-ungaretti',1917,['letteratura'],1],
+  ['pink-moon','Pink Moon','canzone','nick-drake',1972,['musica'],4],['river-man','River Man','canzone','nick-drake',1969,['musica'],2],
+  ['la-cura','La cura','canzone','franco-battiato',1996,['musica'],4],['prospettiva-nevski','Prospettiva Nevski','canzone','franco-battiato',1980,['musica'],2],
+  ['il-suonatore-jones','Il suonatore Jones','canzone','fabrizio-de-andre',1971,['musica'],2],['spiegel-im-spiegel','Spiegel im Spiegel','canzone','arvo-part',1978,['musica'],3],
+  ['an-ending','An Ending (Ascent)','canzone','brian-eno',1983,['musica'],2],
+  ['bryter-layter','Bryter Layter','album','nick-drake',1970,['musica'],1],['music-for-airports','Music for Airports','album','brian-eno',1978,['musica'],2],
+  ['tabula-rasa','Tabula rasa','album','arvo-part',1984,['musica'],1],
+  ['paterson','Paterson','film','jim-jarmusch',2016,['cinema'],3],['stalker','Stalker','film','andrej-tarkovskij',1979,['cinema'],3],
+  ['lo-specchio','Lo specchio','film','andrej-tarkovskij',1975,['cinema'],2],['il-cielo-sopra-berlino','Il cielo sopra Berlino','film','wim-wenders',1987,['cinema'],2],
+  ['perfect-days','Perfect Days','film','wim-wenders',2023,['cinema'],4],['still-walking','Still Walking','film','hirokazu-kore-eda',2008,['cinema'],2],
+  ['la-citta-incantata','La città incantata','film','hayao-miyazaki',2001,['cinema'],3],['il-ragazzo-e-l-airone','Il ragazzo e l’airone','film','hayao-miyazaki',2023,['cinema'],2],
+  ['twin-peaks','Twin Peaks','serie','david-lynch',1990,['cinema'],3],['mushishi','Mushishi','serie',null,2005,['cinema'],3],
+  ['la-terra-dei-figli','La terra dei figli','fumetto','gipi',2016,['arte','letteratura'],1],
+  ['la-grande-onda','La grande onda','immagine','katsushika-hokusai',1831,['arte'],2],['rust-and-blue','No. 61 (Rust and Blue)','immagine','mark-rothko',1953,['arte'],1],
+  ['natura-morta-1956','Natura morta, 1956','immagine','giorgio-morandi',1956,['arte'],1],
+  ['journey','Journey','gioco',null,2012,['arte'],1],['outer-wilds','Outer Wilds','gioco',null,2019,['scienza'],1],
+];
+// Le citazioni: [slug, testo, attribuita-a, autore (solo se verificato), esito, riferimento, testo del memo]
+const CITAZIONI = [
+  ['l-inferno-dei-viventi','L’inferno dei viventi non è qualcosa che sarà','italo-calvino','italo-calvino','verificata','Le città invisibili, parte nona, l’ultimo dialogo','da tatuare in piccolo: non è inferno. calvino'],
+  ['sisifo-felice','Bisogna immaginare Sisifo felice','albert-camus','albert-camus','verificata','Il mito di Sisifo, capitolo «Il mito di Sisifo», ultima riga','bisogna immaginare sisifo felice. camus. lo scrivo sul frigo'],
+  ['attenzione-generosita','L’attenzione è la forma più rara e più pura della generosità','simone-weil','simone-weil','verificata','lettera a Joë Bousquet, 13 aprile 1942','simone weil: l’attenzione è la forma più rara della generosità. o qualcosa del genere'],
+  ['diventa-cio-che-sei','Diventa ciò che sei','friedrich-nietzsche','friedrich-nietzsche','verificata','La gaia scienza, § 270','diventa ciò che sei. nietzsche, credo. ma prima di lui qualcun altro'],
+  ['il-cuore-ha-le-sue-ragioni','Il cuore ha le sue ragioni, che la ragione non conosce','blaise-pascal','blaise-pascal','verificata','Pensieri, fr. 277 (Brunschvicg)','il cuore ha le sue ragioni. pascal. abusata ma vera'],
+  ['tutto-scorre','Tutto scorre','eraclito','','simile','Platone, Cratilo 402a: la formula è un riassunto, non un frammento','tutto scorre, diceva eraclito. sul fiume stamattina'],
+  ['si-vede-bene','Si vede bene solo con il cuore','antoine-de-saint-exupery','antoine-de-saint-exupery','verificata','Il piccolo principe, capitolo XXI','si vede bene solo con il cuore. il piccolo principe, letto a mia nipote'],
+  ['cio-che-non-mi-uccide','Ciò che non mi uccide mi rende più forte','friedrich-nietzsche','friedrich-nietzsche','verificata','Crepuscolo degli idoli, «Detti e frecce», § 8','ciò che non mi uccide mi rende più forte. nietzsche. nn ci credo del tutto'],
+  ['conosci-te-stesso','Conosci te stesso','socrate','','errata','iscrizione del tempio di Apollo a Delfi; Platone, Carmide 164d','conosci te stesso, socrate. da lì parte tutto'],
+  ['la-bellezza-salvera','La bellezza salverà il mondo','fedor-dostoevskij','fedor-dostoevskij','verificata','L’idiota, parte terza, capitolo V','la bellezza salverà il mondo. dostoevskij. nn so se ci credo ma vorrei'],
+  ['amor-fati','Amor fati','friedrich-nietzsche','friedrich-nietzsche','verificata','La gaia scienza, § 276','amor fati. da tatuare, forse, in piccolo'],
+  ['stessa-sostanza-dei-sogni','Siamo fatti della stessa sostanza dei sogni','william-shakespeare','william-shakespeare','verificata','La tempesta, atto IV, scena 1','siamo fatti della stessa sostanza dei sogni. shakespeare. stanotte ci credo'],
+  ['nessun-uomo-e-un-isola','Nessun uomo è un’isola','john-donne','john-donne','verificata','Devotions upon Emergent Occasions, Meditazione XVII','nessun uomo è un’isola. john donne. me l’hanno detto a pranzo'],
+  ['quello-che-cerchi','Quello che cerchi ti sta cercando','rumi','',null,null,'quello che cerchi ti sta cercando. rumi credo'],
+  ['pensare-e-fermarsi','Pensare è fermarsi','hannah-arendt','',null,null,'chi è che diceva che pensare è fermarsi? arendt credo'],
+  ['i-gufi','I gufi non sono quello che sembrano','david-lynch','',null,null,'il gufo che non è quello che sembra, la frase di twin peaks. da tatuare? forse'],
+];
+const RACCOLTE = [['tatuaggi','tatuaggi','per i tatuaggi'],['la-stanza','la stanza','per la parete della stanza']];
+
+// Le affinità: con chi ogni tema tende a stare nello stesso memo (fanno le costellazioni).
+const AFF = {
+  attenzione: ['simone-weil','paterson','perfect-days','natura-morta-1956','attenzione-generosita'], aspettare: ['mushishi','lettere-a-un-giovane-poeta','stalker','il-cielo-sopra-berlino'],
+  dolore: ['il-mito-di-sisifo','epicuro','cio-che-non-mi-uccide'], tempo: ['l-ordine-del-tempo','eraclito','tutto-scorre','memorie-di-adriano'],
+  mare: ['la-grande-onda','il-mestiere-di-vivere','ulisse'], malinconia: ['pink-moon','river-man','bryter-layter','il-suonatore-jones','rust-and-blue'],
+  quiete: ['la-cura','music-for-airports','spiegel-im-spiegel','natura-morta-1956'], nostalgia: ['still-walking','lo-specchio','l-infinito'],
+  memoria: ['lo-specchio','memorie-di-adriano','oliver-sacks','il-formaggio-e-i-vermi'], silenzio: ['spiegel-im-spiegel','tabula-rasa','stalker','an-ending'],
+  liberta: ['la-societa-della-stanchezza','albert-camus','lettere-a-lucilio'], stanchezza: ['la-societa-della-stanchezza','byung-chul-han'],
+  gioia: ['etica','baruch-spinoza','amor-fati'], corpo: ['gioco-e-realta','oliver-sacks'], lentezza: ['paterson','perfect-days','mushishi','journey'],
+  verita: ['pensieri','la-bellezza-salvera'], paura: ['twin-peaks','la-citta-incantata','la-terra-dei-figli'], tenerezza: ['il-ragazzo-e-l-airone','il-piccolo-principe'],
+  porta: ['le-citta-invisibili','stalker'], fiume: ['eraclito','tutto-scorre'], luna: ['pink-moon','prospettiva-nevski'], treno: ['la-citta-incantata','perfect-days'],
+  finestra: ['rainer-maria-rilke','l-infinito'], stoicismo: ['seneca','lettere-a-lucilio'], epicureismo: ['epicuro'], esistenzialismo: ['albert-camus','il-mito-di-sisifo','sisifo'],
+  romanticismo: ['giacomo-leopardi','l-infinito'], 'wabi-sabi': ['giorgio-morandi','mushishi'], zen: ['journey','music-for-airports'], linea: ['katsushika-hokusai'],
+  fenice: ['friedrich-nietzsche'], 'casa-q': ['still-walking'], 'serve-ricordare': ['lo-specchio'], 'resta-giorno': ['paterson','mattina'], 'senza-paura': ['outer-wilds'],
+  'perche-rimando': ['il-mestiere-di-vivere'], gratitudine: ['niente-due-volte'], noia: ['la-societa-della-stanchezza'], verg: [],
+};
+
+// Le frasi a mano (dal prototipo, senza delicati e senza persone della vita).
+const MANO = [
+  ['origine', "l'attenzione è l'unica cosa che posso regalare davvero", { temi: ['attenzione'] }],
+  ['origine', 'niente colore. solo linea.', { temi: ['linea'], serve: 'tatuaggi' }],
+  ['origine', 'spinoza e la gioia come passaggio a qualcosa di più grande', { nomina: ['baruch-spinoza'], temi: ['gioia'] }],
+  ['origine', 'ogni tatuaggio una parola sola, e il braccio come una frase che si scrive negli anni', { serve: 'tatuaggi' }],
+  ['origine', 'il mare mi rimette in ordine le cose senza che io faccia niente', { temi: ['mare'] }],
+  ['origine', 'leggere seneca la mattina come lavarsi la faccia', { nomina: ['seneca'], temi: ['stoicismo'] }],
+  ['origine', 'tutte le canzoni di nick drake sembrano scritte alle cinque del pomeriggio', { nomina: ['nick-drake'], temi: ['malinconia'] }],
+  ['2025-10-14', "il mare d'inverno è l'unico posto dove nn devo spiegare niente a nessuno", { temi: ['mare'], prop: ['solitudine'] }],
+  ['2025-11-03', 'nick drake stamattina, pink moon in loop. malinconia buona', { nomina: ['pink-moon'], temi: ['malinconia'], stato: true }],
+  ['2025-11-20', 'letto la fine delle città invisibili in treno. mi ha spaccato', { nomina: ['le-citta-invisibili'], temi: ['treno'] }],
+  ['2025-12-02', "rileggo spinoza, l'etica, il libro quarto. le passioni come cose da capire non da vincere", { nomina: ['baruch-spinoza','etica'] }],
+  ['2025-12-18', 'stasera ho capito che nn faccio attenzione, aspetto solo il mio turno per parlare', { temi: ['attenzione','aspettare'], prop: ['ascolto'] }],
+  ['2026-01-09', 'la rabbia è energia che non ha ancora trovato la sua forma', { temi: ['rabbia'] }],
+  ['2026-01-21', 'fare attenzione a una persona è diverso da guardarla', { temi: ['attenzione'] }],
+  ['2026-02-06', 'il dolore non insegna niente. è solo dolore', { temi: ['dolore'], pos: true }],
+  ['2026-02-17', 'la società della stanchezza di han. tutti stanchi di essere liberi', { nomina: ['la-societa-della-stanchezza'], temi: ['stanchezza','liberta'] }],
+  ['2026-03-01', 'questa la voglio. una chiave senza porta, solo linea', { temi: ['chiave','linea'], serve: 'tatuaggi' }],
+  ['2026-03-14', 'aspettare non è perdere tempo, è il tempo che lavora', { temi: ['aspettare','tempo'], pos: true }],
+  ['2026-03-30', 'orfeo che si volta. sul polpaccio, da tatuare', { nomina: ['orfeo'], serve: 'tatuaggi', acc: ['soglia'] }],
+  ['2026-04-11', 'battiato, la cura, in macchina col finestrino giù. una quiete strana', { nomina: ['la-cura'], temi: ['quiete'], stato: true }],
+  ['2026-04-27', "da piccolo pensavo che il mare d'inverno fosse un altro mare", { temi: ['mare'], prop: ['nostalgia'], vissuto: true }],
+  ['2026-05-08', 'stalker di tarkovskij, visto finalmente. la stanza che esaudisce i desideri veri, non quelli che dici', { nomina: ['stalker'], acc: ['soglia'], prop: ['desiderio'] }],
+  ['2026-05-22', 'una poesia della szymborska che dice che niente succede due volte. la voglio rileggere', { nomina: ['niente-due-volte'], fru: 'da-fare' }],
+  ['2026-06-04', 'che cosa resta di un giorno se nessuno lo racconta?', { temi: ['resta-giorno'], chiedi: true }],
+  ['2026-06-19', 'il faro spento, piccolo, sulla caviglia. da tatuare', { temi: ['faro'], serve: 'tatuaggi' }],
+  ['2026-07-02', 'twin peaks rivisto, la signora del ceppo. mi fa ridere e paura insieme', { nomina: ['twin-peaks','la-signora-del-ceppo'], temi: ['paura'] }],
+  ['2026-07-25', 'il caduceo di ermete trismegisto, a linea sottile. per i tatuaggi', { nomina: ['ermete-trismegisto'], temi: ['linea'], serve: 'tatuaggi' }],
+  ['2026-08-12', 'paterson di jarmusch, rivisto. ogni giorno uguale e ogni giorno una poesia', { nomina: ['paterson'], temi: ['lentezza'] }],
+  ['2026-09-09', 'una porta socchiusa disegnata sul quaderno. la soglia mi interessa più della stanza', { temi: ['porta'], acc: ['soglia'] }],
+  ['2026-10-25', "forse il dolore è l'unico posto dove ho imparato qualcosa", { temi: ['dolore'], pos: true }],
+  ["2026-10-26", "a mare oggi c'era una luce che non sapevo di ricordare", { temi: ['mare','memoria'] }],
+  ['2026-10-28', "l'epicureismo che ho studiato a scuola era una caricatura. il piacere come assenza di dolore è una cosa seria", { temi: ['epicureismo','dolore'] }],
+  ['2026-10-29', 'mi sono rotto di aspettare. aspettare è una scusa', { temi: ['aspettare'], pos: true }],
+  ['2026-10-31', 'stasera malinconia. nn triste, malinconia', { temi: ['malinconia'], stato: true }],
+  ['2026-11-01', 'nostalgia di una casa che nn ho mai avuto', { temi: ['nostalgia','casa-q'], stato: true, prop: ['radici'] }],
+  ['2026-11-02', 'wabi sabi: la crepa come parte del vaso. da tatuare, forse', { temi: ['wabi-sabi'], serve: 'tatuaggi', prop: ['impermanenza'] }],
+  ['2026-11-03', 'sogno: una città fatta solo di porte', { temi: ['porta'] }],
+  // trascrizioni (regola 7): il gesto e il commento sono tuoi ✦; le parole d'altri ○, una riga, con opera e passo
+  ['2026-02-24', 'Da ricordare ogni lunedì.', { altrui: { cosa: 'l’apertura delle Lettere a Lucilio', riga: 'Vindica te tibi', luogo: 'Seneca, Lettere a Lucilio, I, 1' }, nomina: ['lettere-a-lucilio'], temi: ['tempo'] }],
+  ['2026-06-30', 'Un candidato se vorrò fare testi lunghi.', { altrui: { cosa: 'un passo delle Lettere a un giovane poeta', riga: 'abbi pazienza verso tutto ciò che è irrisolto nel tuo cuore (resa mia)', luogo: 'Rilke, Lettere a un giovane poeta, lettera IV, 16 luglio 1903' }, nomina: ['lettere-a-un-giovane-poeta'], temi: ['aspettare'], serve: 'tatuaggi' }],
+];
+const SEME = [{ nodi: ['attenzione','mare'], testo: 'una persona che cerca il punto in cui le cose smettono di essere rumore' }];
+
+// I modelli dei memo sintetici, per genere. {n} = il nome come lo scrivi tu.
+const MOD = {
+  stato: ['stasera {n}. nn so da dove arriva', '{n}, di nuovo. ma meno di ieri', 'mi sono svegliato con addosso {n}', 'oggi tutto sapeva di {n}', '{n} in treno, guardando fuori', 'scrivo solo per dire: {n}. e basta', 'una {n} che nn fa male, stranamente'],
+  idea: ['{n}: ci torno sempre, da qualsiasi parte parto', 'forse {n} è la parola che cercavo da settimane', 'pensavo a {n} in treno. nn ne vengo a capo', 'tutto quello che leggo ultimamente parla di {n}', '{n} non si spiega, si pratica', 'ho scritto {n} sul margine del quaderno e l’ho cerchiato due volte'],
+  domanda: ['{n} ci penso da giorni', 'ancora: {n}', '{n} stamattina la risposta mi sembrava ovvia. stasera no', 'me lo chiedo di nuovo: {n}'],
+  simbolo: ['{n} visto in sogno, di nuovo', 'ho disegnato {n} sul quaderno senza pensarci', '{n} come immagine di tutto questo mese', '{n}. nn so perché mi torna in mente', 'da piccolo {n} mi sembrava un’altra cosa'],
+  corrente: ['{n}: più ci leggo meno mi sembra una dottrina', '{n} spiegato bene, finalmente', 'a scuola {n} era una pagina del manuale. adesso è un modo di stare'],
+  stile: ['{n}, solo {n}. per i tatuaggi', 'niente colore. {n}. per i tatuaggi'],
+  canzone: ['{n} in loop stamattina', '{n} in macchina col finestrino giù', '{n} alle due di notte, in cuffia', 'riascoltata {n}. sempre la stessa fitta'],
+  album: ['riascoltato {n} tutto di fila', '{n} mentre cucinavo. perfetto'],
+  libro: ['finito {n}. mi ha spaccato', '{n}, da leggere', 'sottolineato mezzo {n}', '{n} in treno, tre pagine e poi guardavo fuori', 'ripreso {n} dopo anni. è un altro libro'],
+  poesia: ['{n}, letta ad alta voce in cucina', '{n}: la voglio sapere a memoria'],
+  film: ['visto {n} stasera. ci penserò', '{n}, da vedere', 'rivisto {n}. il finale mi ha distrutto'],
+  serie: ['{n}, un episodio a sera', '{n} finita. mi manca già'],
+  fumetto: ['{n}, letto tutto in una notte'], immagine: ['{n}: ci sono rimasto davanti dieci minuti', '{n} come sfondo del telefono, da oggi'],
+  gioco: ['{n} finito alle tre di notte. nn me l’aspettavo'],
+  persona: ['{n} dice esattamente quello che nn riuscivo a dire', 'sto leggendo {n} a piccole dosi', '{n}, ancora. nn me lo tolgo di testa', 'un’intervista a {n}. calmo, preciso'],
+  musica: ['{n} tutta la mattina', '{n} in cuffia sul treno delle sette'], cinema: ['tutto {n} da recuperare', '{n}: ogni inquadratura sta ferma il tempo giusto'],
+  finzione: ['{n}. ci penso da quando l’ho riletto', '{n} come immagine per i tatuaggi'],
+  coda: ['. parla di {n}, in fondo', '. e poi {n}, per tutta la sera', '. c’entra {n}, nn so ancora come'],
+};
+
+/* ===== Costruzione del grafo ===== */
+const N = {}; // i nodi
+for (const [id, nome, specie, peso, campo] of TEMI) N[id] = { id, nome, genere: 'tema', specie, campo: campo || [], peso, voce: 'sua' };
+for (const [id, nome, specie, da, voce] of TEMI_PROP) N[id] = { id, nome, genere: 'tema', specie, campo: [], peso: 0, voce: voce === 'acc' ? 'acc' : 'prop', da };
+for (const [id, nome, detto, cerchia, campo, peso, inn] of PERSONE) N[id] = { id, nome, detto, genere: 'persona', cerchia, campo, peso, in: inn };
+N.socrate = { id: 'socrate', nome: 'Socrate', detto: 'socrate', genere: 'persona', cerchia: 'mondo', campo: ['filosofia'], peso: 0 };
+const DETTO_O = { 'natura-morta-1956': 'la natura morta di morandi', 'rust-and-blue': 'il rothko blu e ruggine', 'la-grande-onda': 'la grande onda di hokusai', 'an-ending': 'an ending di eno' };
+for (const [id, nome, tipo, autore, anno, campo, peso] of OPERE) N[id] = { id, nome, genere: 'opera', tipo, autore, anno, campo, peso, detto: DETTO_O[id] };
+for (const [id, testo, attr, autore, esito, rif, memo] of CITAZIONI) N[id] = { id, nome: testo, genere: 'citazione', attribuita: attr, autore, esito, rif, memo, campo: [], peso: 1 };
+for (const [id, nome, scopo] of RACCOLTE) N[id] = { id, nome, genere: 'raccolta', scopo, campo: [], peso: 0 };
+
+const F = []; // i frammenti
+const hex = () => Math.floor(R() * 65536).toString(16).padStart(4, '0');
+function dataIn(mi) {
+  if (mi === 0) return TETTO;
+  const [y, m] = MS[mi].split('-'); const max = mi === 14 ? 4 : 28;
+  const g = 1 + Math.floor(R() * max), h = 7 + Math.floor(R() * 17), mm = Math.floor(R() * 60);
+  return `${y}-${m}-${String(g).padStart(2, '0')}T${String(h).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
+}
+function nuovo(reg, testo, o = {}) {
+  const imp = reg === 'origine' || reg === TETTO;
+  const r = imp ? TETTO : reg.length === 10 ? reg + 'T21:' + String(10 + Math.floor(R() * 49)) : reg;
+  const id = imp ? `${TETTO.replace(/-/g, '')}-0000-u${String(F.filter((f) => f.imp).length + 1).padStart(2, '0')}` : `${r.slice(0, 10).replace(/-/g, '')}-${r.slice(11, 16).replace(':', '')}-${hex()}`;
+  const mi = imp ? 0 : MS.indexOf(r.slice(0, 7));
+  F.push({ id, reg: r, mi, imp, testo, nomina: o.nomina || [], temi: o.temi || [], prop: o.prop || [], acc: o.acc || [], serve: o.serve || null,
+    stato: !!o.stato, pos: !!o.pos, chiedi: !!o.chiedi, vissuto: !!o.vissuto, fru: o.fru || null, altrui: o.altrui || null });
+}
+for (const [reg, t, o] of MANO) nuovo(reg, t, o);
+// un mese, pesato verso il recente, non prima della nascita
+const meseDa = (nascita) => { const m = Math.min(13, nascita + Math.floor(Math.pow(R(), 0.85) * (14 - nascita))); return m === 13 && R() < .12 ? 14 : m; };
+const nascita = {};
+const ids = Object.keys(N); ids.forEach((id, i) => { nascita[id] = R() < 0.12 ? 0 : 1 + Math.floor(Math.pow(R(), 1.3) * 12); });
+const detto = (id) => { const n = N[id]; return n.detto || (n.genere === 'tema' ? n.nome : n.nome.toLowerCase()); };
+function coda(id) { const p = (AFF[id] || []).filter((x) => N[x] && N[x].genere !== 'citazione'); return p.length && R() < 0.45 ? pick(p) : null; }
+// i temi ✦
+for (const [id, , specie, peso] of TEMI) {
+  const giaMano = F.filter((f) => f.temi.includes(id)).length;
+  for (let k = giaMano; k < peso; k++) {
+    const mm = modello(id, MOD[specie]); if (!mm) break; let t = mm.replaceAll('{n}', N[id].nome);
+    const o = { temi: [id], stato: specie === 'stato', chiedi: specie === 'domanda' && R() < 0.5, vissuto: t.startsWith('da piccolo'), serve: specie === 'stile' ? 'tatuaggi' : null };
+    const p = coda(id);
+    if (p) { t += N[p].genere === 'persona' ? `. ${pick(['anche', 'come dice', 'pensando a'])} ${detto(p)}` : `. ${pick(['pensando a', 'dopo', 'per via di'])} ${detto(p)}`; o.nomina = [p]; }
+    nuovo(dataIn(meseDa(nascita[id])), t, o);
+  }
+}
+// le opere
+const temiDi = (x) => Object.keys(AFF).filter((t) => N[t] && AFF[t].includes(x));
+for (const [id, , tipo, , , , peso] of OPERE) {
+  const gia = F.filter((f) => f.nomina.includes(id)).length;
+  for (let k = gia; k < peso; k++) {
+    const mm = modello(id, MOD[tipo]); if (!mm) break; let t = mm.replaceAll('{n}', detto(id));
+    const o = { nomina: [id], fru: /da (leggere|vedere)/.test(t) ? 'da-fare' : null };
+    const tt = temiDi(id); if (tt.length && R() < 0.5) { const x = pick(tt); t += pick(MOD.coda).replaceAll('{n}', N[x].nome); o.temi = [x]; }
+    if (tipo === 'immagine' && R() < .5) o.serve = 'la-stanza';
+    nuovo(dataIn(meseDa(nascita[id])), t, o);
+  }
+}
+// le persone
+for (const [id, , , cerchia, campo, peso] of PERSONE) {
+  const gia = F.filter((f) => f.nomina.includes(id)).length;
+  for (let k = gia; k < peso; k++) {
+    const m = cerchia === 'finzione' ? MOD.finzione : campo[0] === 'musica' && R() < .6 ? MOD.musica : campo[0] === 'cinema' && R() < .6 ? MOD.cinema : MOD.persona;
+    const mm = modello(id, m) || modello(id, MOD.persona); if (!mm) break; let t = mm.replaceAll('{n}', detto(id));
+    const o = { nomina: [id], fru: t.includes('da recuperare') ? 'da-fare' : null, serve: t.includes('tatuaggi') ? 'tatuaggi' : null };
+    const tt = temiDi(id); if (tt.length && R() < 0.5) { const x = pick(tt); t += pick(MOD.coda).replaceAll('{n}', N[x].nome); o.temi = [x]; }
+    nuovo(dataIn(meseDa(nascita[id])), t, o);
+  }
+}
+// le citazioni: un memo che la nomina
+for (const c of CITAZIONI) {
+  const [id, , , , , , memo] = c; if (F.some((f) => f.nomina.includes(id))) continue;
+  const tt = temiDi(id); const o = { nomina: [id], serve: memo.includes('tatuare') ? 'tatuaggi' : null, chiedi: memo.includes('?') };
+  if (tt.length) o.temi = [tt[0]];
+  if (id === 'i-gufi') o.nomina.push('twin-peaks');
+  if (id === 'l-inferno-dei-viventi') o.nomina.push('le-citta-invisibili');
+  nuovo(dataIn(meseDa(nascita[id])), memo, o);
+}
+// le proposte ◌: un tema dedotto su 2–3 memo dove compaiono le sue sorgenti
+for (const [id, , , da, voce] of TEMI_PROP) {
+  const cand = F.filter((f) => !f.imp && da.some((s) => f.nomina.includes(s) || f.temi.includes(s)) && !f.prop.includes(id) && !f.acc.includes(id));
+  const quanti = voce === 'acc' ? 0 : 2 + Math.floor(R() * 2);
+  for (let k = 0; k < quanti && cand.length; k++) cand.splice(Math.floor(R() * cand.length), 1)[0].prop.push(id);
+}
+// l'autore è anche nominato (un passo in più, dimensioni.md §1.3)
+F.sort((a, b) => a.reg.localeCompare(b.reg));
+
+/* ===== Indici: il valore dei sei assi per frase, i legami dei nodi ===== */
+const parlante = (f) => !f.imp && f.testo.split(/\s+/).length >= 3;
+function valori(f, lente) {
+  const v = { cose: new Set(), persone: new Set(), temi: new Set(), campo: new Set(), gesto: new Set(), tempo: new Set(), nodi: new Set(), nodiP: new Set() };
+  const campi = (id) => (N[id].campo || []).forEach((c) => v.campo.add(c));
+  const persona = (id) => { if (!N[id]) return; v.persone.add(id); v.nodi.add(id); campi(id); if (N[id].in) { v.nodi.add(N[id].in); v.cose.add('f:' + N[N[id].in].tipo); } };
+  for (const id of f.nomina) {
+    const n = N[id];
+    if (n.genere === 'opera') { v.nodi.add(id); v.cose.add('f:' + n.tipo); campi(id); if (n.autore) persona(n.autore); }
+    else if (n.genere === 'persona') persona(id);
+    else if (n.genere === 'citazione') {
+      v.nodi.add(id); v.cose.add('c'); v.cose.add('e:' + (n.esito || 'da-verificare'));
+      if (n.autore) persona(n.autore); else if (n.attribuita && N[n.attribuita]) { v.persone.add(n.attribuita); v.nodi.add(n.attribuita); }
+    }
+  }
+  for (const t of [...f.temi, ...f.acc]) { v.nodi.add(t); v.temi.add('t:' + t); v.temi.add('s:' + N[t].specie); campi(t); }
+  for (const t of f.prop) { v.nodiP.add(t); if (lente) { v.temi.add('t:' + t); v.temi.add('s:' + N[t].specie); } }
+  if (f.pos) v.gesto.add('penso');
+  if (f.stato) v.gesto.add('sento');
+  if (f.chiedi) v.gesto.add('chiedo');
+  if (f.vissuto) v.gesto.add('ricordo');
+  if (f.fru === 'da-fare') v.gesto.add('voglio fare');
+  if (f.altrui) v.gesto.add('trascrivo');
+  if (f.serve) { v.gesto.add('r:' + f.serve); v.nodi.add(f.serve); }
+  v.tempo.add(String(f.mi));
+  return v;
+}
+const VAL = [F.map((f) => valori(f, false)), F.map((f) => valori(f, true))];
+// per nodo: i frammenti ✦ (diretti o a un passo), e quelli ◌
+for (const id in N) { N[id].fr = []; N[id].frP = []; }
+F.forEach((f, i) => { VAL[0][i].nodi.forEach((id) => N[id].fr.push(i)); VAL[0][i].nodiP.forEach((id) => N[id].frP.push(i)); });
+for (const id in N) { const n = N[id]; n.voce ||= 'sua'; n.nato = n.fr.length ? Math.min(...n.fr.map((i) => F[i].mi)) : n.frP.length ? Math.min(...n.frP.map((i) => F[i].mi)) : 99; }
+// tolgo i nodi senza frasi (Socrate resta: è nominato da una citazione)
+for (const id in N) if (!N[id].fr.length && !N[id].frP.length) delete N[id];
+const NODI = Object.values(N);
+// i legami: stare nello stesso memo (✦), l'autore, l'«in»; i ◌ a parte
+const LEG = new Map(); // "a|b" -> {a,b,w,prop}
+const kk = (a, b) => (a < b ? a + '|' + b : b + '|' + a);
+function lega(a, b, prop) { if (a === b || !N[a] || !N[b]) return; const k = kk(a, b); const l = LEG.get(k) || { a: a < b ? a : b, b: a < b ? b : a, w: 0, prop: true }; l.w++; if (!prop) l.prop = false; LEG.set(k, l); }
+F.forEach((f, i) => {
+  const xs = [...VAL[0][i].nodi]; for (let p = 0; p < xs.length; p++) for (let q = p + 1; q < xs.length; q++) lega(xs[p], xs[q], false);
+  for (const t of VAL[0][i].nodiP) for (const x of xs) lega(t, x, true);
+});
+for (const n of NODI) { if (n.autore && N[n.autore]) lega(n.id, n.autore, false); if (n.in) lega(n.id, n.in, false); if (n.attribuita && N[n.attribuita]) lega(n.id, n.attribuita, false); }
+const LEGAMI = [...LEG.values()];
+const VIC = {}; for (const n of NODI) VIC[n.id] = [];
+for (const l of LEGAMI) { VIC[l.a].push(l); VIC[l.b].push(l); }
+
+/* ===== Lo stato ===== */
+const S = { lente: false, sel: {}, aperto: null, mese: 14, nodo: null, filo: [], tutte: false };
+const RIDOTTO = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DESK = () => innerWidth >= 900;
+
+// Le frasi che passano i filtri (E tra assi, O dentro l'asse). `salta` = l'asse di cui si contano i valori.
+function passa(i, salta) {
+  const v = VAL[+S.lente][i];
+  if (F[i].mi > S.mese) return false;
+  for (const a in S.sel) { if (a === salta || !S.sel[a].size) continue; if (![...S.sel[a]].some((x) => v[a].has(x))) return false; }
+  return true;
+}
+const filtri = () => Object.values(S.sel).some((s) => s.size);
+let ACCESI = null, CONTA = {};
+function ricalcola() {
+  const lit = new Set(); let n = 0, imp = 0; CONTA = {};
+  F.forEach((f, i) => {
+    if (!passa(i)) return;
+    if (parlante(f)) n++; else if (f.imp) imp++;
+    VAL[0][i].nodi.forEach((id) => { lit.add(id); CONTA[id] = (CONTA[id] || 0) + 1; });
+    if (S.lente) VAL[1][i].nodiP.forEach((id) => { lit.add(id); CONTA[id] = (CONTA[id] || 0) + 0.5; });
+  });
+  // un valore scelto resta acceso anche se è un nodo
+  for (const a in S.sel) for (const x of S.sel[a]) { const id = x.replace(/^[a-z]:/, ''); if (N[id]) lit.add(id); }
+  ACCESI = filtri() ? lit : null;
+  S.totale = { n, imp };
+}
+const visibile = (n) => (n.voce === 'prop' ? S.lente : true) && n.nato <= S.mese;
+const quante = (n) => n.fr.filter((i) => F[i].mi <= S.mese).length;
+
+/* ===== Il layout: le regioni del campo in cerchio, le tue parole al centro ===== */
+const REG = {}; CAMPI.forEach((c, i) => { const a = -Math.PI / 2 + (i / CAMPI.length) * Math.PI * 2; REG[c] = { x: Math.cos(a) * 820, y: Math.sin(a) * 700, a }; });
+function ancora(n) {
+  const cs = n.campo || [];
+  if (cs.length) { const x = d3.mean(cs, (c) => REG[c].x), y = d3.mean(cs, (c) => REG[c].y); return { x, y, s: 0.3 }; }
+  if (n.genere === 'citazione') { const a = N[n.autore] || N[n.attribuita]; if (a && a.campo.length) return { x: REG[a.campo[0]].x * .82, y: REG[a.campo[0]].y * .82, s: 0.06 }; }
+  return { x: 0, y: 0, s: n.genere === 'tema' ? 0.08 : 0.05 };
+}
+NODI.forEach((n, i) => { const a = ancora(n); n.ax = a.x; n.ay = a.y; n.as = a.s; const t = (i * 2.399963); const r = n.genere === 'tema' ? 120 + (i % 7) * 30 : 60; n.x = a.x + Math.cos(t) * r; n.y = a.y + Math.sin(t) * r; });
+const rMondo = (n) => 10 + Math.sqrt(n.fr.length) * 7;
+d3.forceSimulation(NODI)
+  .force('l', d3.forceLink(LEGAMI.filter((l) => !l.prop).map((l) => ({ source: l.a, target: l.b, w: l.w }))).id((d) => d.id).distance((l) => 90 + 40 / l.w).strength((l) => Math.min(0.25, 0.02 * l.w)))
+  .force('x', d3.forceX((d) => d.ax).strength((d) => d.as))
+  .force('y', d3.forceY((d) => d.ay).strength((d) => d.as))
+  .force('c', d3.forceCollide((d) => rMondo(d) + 18).iterations(2))
+  .force('q', d3.forceManyBody().strength(-60).distanceMax(260))
+  .stop().tick(420);
+// le regioni: il baricentro dei loro nodi, per le etichette e le nebulose
+for (const c of CAMPI) { const ns = NODI.filter((n) => n.campo[0] === c); if (ns.length) { REG[c].cx = d3.mean(ns, (n) => n.x); REG[c].cy = d3.mean(ns, (n) => n.y); REG[c].r = Math.max(120, d3.max(ns, (n) => Math.hypot(n.x - REG[c].cx, n.y - REG[c].cy)) + 30); REG[c].n = ns.length; } }
+const CENTRO = (() => { const ns = NODI.filter((n) => n.genere === 'tema' && !n.campo.length); return { x: d3.mean(ns, (n) => n.x), y: d3.mean(ns, (n) => n.y), top: d3.quantile(ns.map((n) => n.y).sort(d3.ascending), .04) }; })();
+// polvere di fondo, fissa
+const POLVERE = Array.from({ length: 900 }, () => ({ x: (R() - .5) * 4200, y: (R() - .5) * 3800, r: R() * 1.1 + .2, a: R() * .35 + .05 }));
+
+/* ===== Il disegno ===== */
+const cv = document.getElementById('cielo'), cx = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1, T = d3.zoomIdentity, KFIT = 1;
+function insets() {
+  const top = document.getElementById('testa').getBoundingClientRect().bottom + 6;
+  const dock = document.getElementById('dock').getBoundingClientRect();
+  const fo = document.getElementById('foglio');
+  let bottom = H - dock.top + 6, right = 0;
+  if (fo.classList.contains('aperto')) { if (DESK()) right = 424; else bottom = Math.max(bottom, fo.getBoundingClientRect().height + 8); }
+  return { top, bottom, right };
+}
+function misura() {
+  DPR = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+  cv.width = W * DPR; cv.height = H * DPR; cx.setTransform(DPR, 0, 0, DPR, 0, 0);
+}
+function adatta() {
+  const xs = NODI.map((n) => n.x), ys = NODI.map((n) => n.y);
+  const [x0, x1] = d3.extent(xs), [y0, y1] = d3.extent(ys);
+  const { top, bottom } = insets(); const h = H - top - bottom, w = W;
+  KFIT = Math.min(w / (x1 - x0 + 120), h / (y1 - y0 + 160));
+  return d3.zoomIdentity.translate(w / 2, top + h / 2).scale(KFIT).translate(-(x0 + x1) / 2, -(y0 + y1) / 2);
+}
+const rel = () => T.k / KFIT;
+const SOGLIE = [0, 1.75, 3.1, 5.4];
+const livello = () => (rel() >= SOGLIE[3] ? 4 : rel() >= SOGLIE[2] ? 3 : rel() >= SOGLIE[1] ? 2 : 1);
+const sc = () => Math.min(2.6, Math.pow(Math.max(1, rel()), 0.55));
+function raggio(n) {
+  const q = quante(n) + (S.lente ? n.frP.filter((i) => F[i].mi <= S.mese).length * .5 : 0);
+  const base = { tema: 3.4, opera: 3.2, persona: 3.2, citazione: 2.6, raccolta: 3.6 }[n.genere];
+  return (base + Math.sqrt(q) * 1.55) * sc();
+}
+function colore(n) {
+  if (n.voce === 'prop') return '#8f99ae';
+  if (n.genere === 'tema') return COL_SPECIE[n.specie];
+  if (n.campo && n.campo.length) return COL_CAMPO[n.campo[0]];
+  if (n.genere === 'citazione') { const a = N[n.autore]; return a ? COL_CAMPO[a.campo[0]] : '#d8d2c2'; }
+  return '#e6dfcd';
+}
+function stella(c, x, y, r) { // 4 punte: un tema
+  const i = r * .32; c.beginPath();
+  for (let k = 0; k < 8; k++) { const a = -Math.PI / 2 + k * Math.PI / 4, rr = k % 2 ? i : r * 1.35; c.lineTo(x + Math.cos(a) * rr, y + Math.sin(a) * rr); }
+  c.closePath();
+}
+function esagono(c, x, y, r) { c.beginPath(); for (let k = 0; k < 6; k++) { const a = Math.PI / 6 + k * Math.PI / 3; c.lineTo(x + Math.cos(a) * r, y + Math.sin(a) * r); } c.closePath(); }
+function glifo(c, tipo, x, y, r) { // il piccolo segno del tipo dentro il disco dell'opera
+  c.save(); c.translate(x, y); const s = r * .5; c.lineWidth = Math.max(1, r * .14); c.strokeStyle = c.fillStyle = 'rgba(12,16,28,.82)'; c.beginPath();
+  switch (tipo) {
+    case 'canzone': c.arc(-s * .3, s * .45, s * .32, 0, 7); c.fill(); c.beginPath(); c.moveTo(s * .02, s * .45); c.lineTo(s * .02, -s * .8); c.lineTo(s * .55, -s * .5); c.stroke(); break;
+    case 'album': c.arc(0, 0, s * .75, 0, 7); c.stroke(); c.beginPath(); c.arc(0, 0, s * .18, 0, 7); c.fill(); break;
+    case 'libro': c.moveTo(0, -s * .55); c.lineTo(0, s * .65); c.moveTo(-s * .8, -s * .45); c.lineTo(0, -s * .55); c.lineTo(s * .8, -s * .45); c.lineTo(s * .8, s * .55); c.lineTo(0, s * .65); c.lineTo(-s * .8, s * .55); c.closePath(); c.stroke(); break;
+    case 'poesia': for (const k of [-.45, 0, .45]) { c.moveTo(-s * .7, s * k); c.lineTo(s * (k === 0 ? .3 : .7), s * k); } c.stroke(); break;
+    case 'film': c.moveTo(-s * .45, -s * .65); c.lineTo(s * .7, 0); c.lineTo(-s * .45, s * .65); c.closePath(); c.fill(); break;
+    case 'serie': c.rect(-s * .75, -s * .5, s * .6, s); c.rect(s * .15, -s * .5, s * .6, s); c.fill(); break;
+    case 'fumetto': c.ellipse(0, -s * .1, s * .8, s * .55, 0, 0, 7); c.moveTo(-s * .2, s * .4); c.lineTo(-s * .45, s * .8); c.lineTo(s * .1, s * .42); c.stroke(); break;
+    case 'immagine': c.moveTo(-s * .8, s * .55); c.lineTo(-s * .2, -s * .3); c.lineTo(s * .15, s * .15); c.lineTo(s * .4, -s * .1); c.lineTo(s * .8, s * .55); c.closePath(); c.fill(); break;
+    case 'gioco': c.moveTo(0, -s * .7); c.lineTo(0, s * .7); c.moveTo(-s * .7, 0); c.lineTo(s * .7, 0); c.stroke(); break;
+    default: c.arc(0, 0, s * .3, 0, 7); c.fill();
+  }
+  c.restore();
+}
+function forma(c, n, x, y, r, a) { // la forma dice l'asse
+  const col = colore(n); c.globalAlpha = a;
+  if (n.voce === 'prop') { c.setLineDash([2, 2.5]); c.strokeStyle = col; c.lineWidth = 1.1; c.beginPath(); c.arc(x, y, Math.max(3, r * .85), 0, 7); c.stroke(); c.setLineDash([]); return; }
+  switch (n.genere) {
+    case 'tema': stella(c, x, y, r); c.fillStyle = col; c.fill(); if (n.voce === 'acc') { c.beginPath(); c.arc(x, y, r * .3, 0, 7); c.fillStyle = '#0c1220'; c.fill(); } break;
+    case 'opera': c.beginPath(); c.arc(x, y, r, 0, 7); c.fillStyle = col; c.fill(); if (r > 5.5 && livello() >= 3) glifo(c, n.tipo, x, y, r); break;
+    case 'persona': c.beginPath(); c.arc(x, y, r * .92, 0, 7); c.strokeStyle = col; c.lineWidth = Math.max(1.3, r * .28);
+      if (n.cerchia === 'finzione') { c.lineWidth = Math.max(1, r * .14); c.stroke(); c.beginPath(); c.arc(x, y, r * .3, 0, 7); c.fillStyle = col; c.fill(); } else c.stroke(); break;
+    case 'citazione': c.save(); c.translate(x, y); c.rotate(Math.PI / 4); c.fillStyle = col; c.fillRect(-r * .7, -r * .7, r * 1.4, r * 1.4); c.restore();
+      if (!n.esito) { // ⚠: un triangolo ambra accanto, non rosso
+        const t = Math.max(4, r * .75), tx = x + r * 1.2, ty = y - r * 1.05; c.beginPath(); c.moveTo(tx, ty - t); c.lineTo(tx + t * .9, ty + t * .6); c.lineTo(tx - t * .9, ty + t * .6); c.closePath();
+        c.strokeStyle = getV('--avviso'); c.lineWidth = 1.3; c.stroke(); }
+      break;
+    case 'raccolta': esagono(c, x, y, r * 1.05); c.strokeStyle = col; c.lineWidth = 1.4; c.stroke(); break;
+  }
+}
+const VARS = {}; const getV = (k) => (VARS[k] ||= getComputedStyle(document.documentElement).getPropertyValue(k).trim());
+const NATI = new Map(); // id -> momento della nascita (per la pulsazione nel tempo)
+let tempo0 = performance.now();
+function wrap(c, t, maxW) { const ws = t.split(' '); const rs = []; let r = ''; for (const w of ws) { const p = r ? r + ' ' + w : w; if (c.measureText(p).width > maxW && r) { rs.push(r); r = w; } else r = p; } if (r) rs.push(r); return rs; }
+const sovrapp = (a, b) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+
+function disegna(now = performance.now()) {
+  const L = livello(), k = rel();
+  cx.clearRect(0, 0, W, H);
+  // il fondo
+  const g = cx.createRadialGradient(W * .5, H * .42, 0, W * .5, H * .42, Math.max(W, H) * .8);
+  g.addColorStop(0, '#141d33'); g.addColorStop(1, '#090d18'); cx.fillStyle = g; cx.fillRect(0, 0, W, H);
+  cx.save(); cx.translate(T.x * .35, T.y * .35); // polvere in parallasse
+  for (const p of POLVERE) { const x = p.x * KFIT * .9 + W * .32, y = p.y * KFIT * .9 + H * .32; if (x < -5 || y < -5 || x > W + 5 - T.x * .35 + W || y > H * 2) continue; cx.globalAlpha = p.a; cx.fillStyle = '#cfd6e6'; cx.fillRect(x, y, p.r, p.r); }
+  cx.restore();
+  // i cerchi del cielo, appena
+  cx.globalAlpha = .06; cx.strokeStyle = '#cfd6e6'; cx.lineWidth = 1;
+  for (const r of [380, 760, 1150]) { const [x, y] = T.apply([0, 0]); cx.beginPath(); cx.arc(x, y, r * T.k, 0, 7); cx.stroke(); }
+  // le nebulose del campo
+  for (const c of CAMPI) { const R0 = REG[c]; if (!R0.n) continue; const [x, y] = T.apply([R0.cx, R0.cy]); const r = R0.r * T.k * 1.15;
+    const ng = cx.createRadialGradient(x, y, 0, x, y, r); ng.addColorStop(0, COL_CAMPO[c] + '22'); ng.addColorStop(1, COL_CAMPO[c] + '00');
+    cx.globalAlpha = ACCESI ? .5 : 1; cx.fillStyle = ng; cx.beginPath(); cx.arc(x, y, r, 0, 7); cx.fill(); }
+  { const [x, y] = T.apply([CENTRO.x, CENTRO.y]); const r = 380 * T.k; const ng = cx.createRadialGradient(x, y, 0, x, y, r); ng.addColorStop(0, 'rgba(246,231,189,.07)'); ng.addColorStop(1, 'rgba(246,231,189,0)'); cx.globalAlpha = 1; cx.fillStyle = ng; cx.beginPath(); cx.arc(x, y, r, 0, 7); cx.fill(); }
+
+  const vis = NODI.filter(visibile);
+  const sel = S.nodo && N[S.nodo] && visibile(N[S.nodo]) ? N[S.nodo] : null;
+  const vicini = new Set(); if (sel) for (const l of VIC[sel.id]) if (!l.prop || S.lente) vicini.add(l.a === sel.id ? l.b : l.a);
+  const alfa = (n) => { let a = 1; if (ACCESI && !ACCESI.has(n.id)) a = .1; if (sel && n !== sel && !vicini.has(n.id)) a = Math.min(a, .2); if (n.voce === 'prop') a *= .6; return a; };
+
+  // i legami: tenui sempre (da vicino), accesi nella costellazione
+  if (L >= 2 && !sel) {
+    cx.lineWidth = 1; cx.strokeStyle = '#e8dfc4';
+    for (const l of LEGAMI) { const a = N[l.a], b = N[l.b]; if (!visibile(a) || !visibile(b)) continue; if (l.prop && !S.lente) continue;
+      if (ACCESI && !(ACCESI.has(a.id) && ACCESI.has(b.id))) continue; if (L === 2 && l.w < 2 && !ACCESI) continue;
+      const [x1, y1] = T.apply([a.x, a.y]), [x2, y2] = T.apply([b.x, b.y]); if (L === 2 && Math.hypot(x2 - x1, y2 - y1) > W * .35) continue;
+      cx.globalAlpha = (l.prop ? .05 : Math.min(.16, .035 * l.w + .03)) * (ACCESI ? 2 : 1); if (l.prop) cx.setLineDash([3, 4]);
+      cx.beginPath(); cx.moveTo(x1, y1); cx.lineTo(x2, y2); cx.stroke(); cx.setLineDash([]); }
+  }
+  if (sel) {
+    const [sx, sy] = T.apply([sel.x, sel.y]);
+    for (const l of VIC[sel.id]) { if (l.prop && !S.lente) continue; const o = N[l.a === sel.id ? l.b : l.a]; if (!visibile(o)) continue; const [x, y] = T.apply([o.x, o.y]);
+      cx.globalAlpha = l.prop ? .35 : Math.min(.85, .35 + .12 * l.w); cx.strokeStyle = l.prop ? getV('--prop') : getV('--luce'); cx.lineWidth = l.prop ? 1 : 1.2;
+      if (l.prop) cx.setLineDash([3, 4]); cx.beginPath(); cx.moveTo(sx, sy); cx.lineTo(x, y); cx.stroke(); cx.setLineDash([]); }
+  }
+  // il filo: i nodi visitati, una linea sottile
+  if (S.filo.length > 1) {
+    cx.globalAlpha = .55; cx.strokeStyle = '#cfd6e6'; cx.lineWidth = 1; cx.setLineDash([1.5, 4]); cx.beginPath();
+    S.filo.forEach((id, i) => { const [x, y] = T.apply([N[id].x, N[id].y]); i ? cx.lineTo(x, y) : cx.moveTo(x, y); }); cx.stroke(); cx.setLineDash([]);
+  }
+  // i nodi
+  const piccoli = []; const scintilla = !RIDOTTO;
+  const ord = vis.slice().sort((a, b) => (a.voce === 'prop') - (b.voce === 'prop') || quante(a) - quante(b));
+  for (const n of ord) {
+    const [x, y] = T.apply([n.x, n.y]); if (x < -60 || y < -60 || x > W + 60 || y > H + 60) continue;
+    const r = raggio(n); let a = alfa(n);
+    const q = quante(n);
+    if (scintilla && n.genere === 'tema' && n.voce !== 'prop') a *= .86 + .14 * Math.sin(now / 900 + n.x * .013 + n.y * .007);
+    // l'alone: la luce di ciò che hai detto tante volte
+    if (q >= 3 && n.voce !== 'prop') { const ha = cx.createRadialGradient(x, y, 0, x, y, r * 4.2); ha.addColorStop(0, colore(n) + '55'); ha.addColorStop(1, colore(n) + '00'); cx.globalAlpha = a * Math.min(1, .35 + q * .06); cx.fillStyle = ha; cx.beginPath(); cx.arc(x, y, r * 4.2, 0, 7); cx.fill(); }
+    forma(cx, n, x, y, r, a);
+    if (n === sel) { cx.globalAlpha = .9; cx.strokeStyle = getV('--luce'); cx.lineWidth = 1.2; cx.beginPath(); cx.arc(x, y, r * 1.9 + 6, 0, 7); cx.stroke(); }
+    const t0 = NATI.get(n.id); if (t0 && now - t0 < 1400 && !RIDOTTO) { const p = (now - t0) / 1400; cx.globalAlpha = (1 - p) * .8; cx.strokeStyle = colore(n); cx.lineWidth = 1.3; cx.beginPath(); cx.arc(x, y, r + p * 26, 0, 7); cx.stroke(); }
+  }
+  cx.globalAlpha = 1;
+
+  // le etichette: lo zoom semantico
+  const posti = [];
+  for (const n of vis) { if ((ACCESI && !ACCESI.has(n.id) && n !== sel) || (sel && n !== sel && !vicini.has(n.id))) continue; const [x, y] = T.apply([n.x, n.y]); const r = raggio(n); posti.push({ x: x - r, y: y - r, w: r * 2, h: r * 2, nodo: n.id }); }
+  // 1. le regioni del campo, grandi, leggibili da lontano
+  const aReg = L === 1 ? (ACCESI ? .45 : .92) : 0;
+  const { top: iTop, bottom: iBot, right: iRight } = insets();
+  cx.textAlign = 'center'; cx.textBaseline = 'middle';
+  const etReg = [];
+  posaUltima(L, etReg); const ulB = ULT.hidden ? null : etReg[0];
+  for (const c of CAMPI) { const R0 = REG[c]; if (!R0.n || !aReg) continue;
+    // l'etichetta sta sul lato esterno della regione, lontana dal centro
+    const dx = R0.cx - CENTRO.x, dy = R0.cy - CENTRO.y, dd = Math.hypot(dx, dy) || 1;
+    let [x, y] = T.apply([R0.cx + dx / dd * (R0.r + 30), R0.cy + dy / dd * (R0.r + 30)]);
+    const fs = L === 1 ? (W < 500 ? 12.5 : 15) : 13 + Math.min(20, (k - 2) * 3);
+    cx.font = `600 ${fs}px ${getV('--sans')}`; cx.letterSpacing = (fs * .16) + 'px';
+    const parole = nomeCampo(c).toUpperCase().split(' '); const righe = parole.length > 1 && W < 700 ? [parole.slice(0, -1).join(' '), parole.at(-1)] : [parole.join(' ')];
+    const w = Math.max(...righe.map((r) => cx.measureText(r).width)), h = righe.length * fs * 1.25;
+    const xC = Math.min(W - w / 2 - 8, Math.max(w / 2 + 8, x)); if (ulB && sovrapp(ulB, { x: xC - w / 2, y: y - h / 2, w, h })) y = ulB.y - h / 2 - 6; if (L <= 2) etReg.push({ x: xC - w / 2, y: y - h / 2, w, h });
+    cx.globalAlpha = aReg * (R0.n < 5 ? .62 : 1); cx.fillStyle = COL_CAMPO[c]; cx.shadowColor = '#090d18'; cx.shadowBlur = 8;
+    righe.forEach((r, i) => cx.fillText(r, xC, y - h / 2 + fs * .62 + i * fs * 1.25)); cx.shadowBlur = 0; }
+  cx.letterSpacing = '0px';
+  if (L >= 2) { // i segnavia: le regioni fuori campo, al bordo, con una freccia verso di loro
+    const mx = W - iRight, cxs = mx / 2, cys = (iTop + H - iBot) / 2;
+    cx.font = `600 12px ${getV('--sans')}`; cx.letterSpacing = '1.4px'; cx.textBaseline = 'middle';
+    for (const c of CAMPI) { const R0 = REG[c]; if (!R0.n) continue; const [x, y] = T.apply([R0.cx, R0.cy]);
+      if (x > 30 && x < mx - 30 && y > iTop + 20 && y < H - iBot - 20) continue;
+      const dx = x - cxs, dy = y - cys; const sx = (mx / 2 - 18) / Math.abs(dx || 1e-6), sy = ((H - iBot - iTop) / 2 - 14) / Math.abs(dy || 1e-6); const t = Math.min(sx, sy);
+      const ex = cxs + dx * t, ey = cys + dy * t; const a = Math.atan2(dy, dx); const et = nomeCampo(c).toUpperCase(); const w = cx.measureText(et).width;
+      const lato = t === sx ? (dx < 0 ? 'l' : 'r') : (dy < 0 ? 't' : 'b');
+      let lx, ly = ey, al = 'center';
+      if (lato === 'l') { lx = 18; al = 'left'; ly = Math.min(H - iBot - 14, Math.max(iTop + 14, ey)); }
+      else if (lato === 'r') { lx = mx - 18; al = 'right'; ly = Math.min(H - iBot - 14, Math.max(iTop + 14, ey)); }
+      else { lx = Math.min(mx - w / 2 - 12, Math.max(w / 2 + 12, ex)); ly = lato === 't' ? iTop + 16 : H - iBot - 14; }
+      const bx = al === 'left' ? lx : al === 'right' ? lx - w : lx - w / 2;
+      const box = { x: bx - 16, y: ly - 9, w: w + 32, h: 18 }; if (etReg.some((u) => sovrapp(u, box))) continue; etReg.push(box);
+      cx.globalAlpha = .6; cx.fillStyle = COL_CAMPO[c]; cx.textAlign = al; cx.shadowColor = '#090d18'; cx.shadowBlur = 6; cx.fillText(et, lx, ly); cx.shadowBlur = 0;
+      const axp = lato === 'l' ? 8 : lato === 'r' ? mx - 8 : ex, ayp = lato === 't' ? iTop + 4 : lato === 'b' ? H - iBot - 3 : ly; cx.save(); cx.translate(axp, ayp); cx.rotate(a); cx.beginPath(); cx.moveTo(4, 0); cx.lineTo(-4, -4); cx.lineTo(-4, 4); cx.closePath(); cx.fill(); cx.restore(); }
+    cx.letterSpacing = '0px'; cx.textBaseline = 'alphabetic';
+  }
+  // 2. i nomi: a ogni distanza, i più detti per primi; nessuna etichetta sopra un'altra
+  const cand = vis.filter((n) => {
+    if (n === sel || vicini.has(n.id)) return true;
+    if (ACCESI && !ACCESI.has(n.id)) return false;
+    if (L === 1) return ACCESI ? true : n.genere === 'tema' && n.voce !== 'prop';
+    if (L === 2) return n.genere === 'tema' || n.genere === 'opera' || n.genere === 'raccolta';
+    return true;
+  }).sort((a, b) => (b === sel) - (a === sel) || vicini.has(b.id) - vicini.has(a.id) || (b.voce !== 'prop') - (a.voce !== 'prop') || (b.genere === 'tema') - (a.genere === 'tema') || quante(b) - quante(a));
+  const usati = [...etReg]; let messe = 0; const maxL1 = ACCESI ? (W < 500 ? 7 : 12) : (W < 500 ? 5 : 8);
+  cx.textAlign = 'left'; cx.textBaseline = 'alphabetic';
+  for (const n of cand) {
+    if (L === 1 && !sel && messe >= maxL1) break;
+    const [x, y] = T.apply([n.x, n.y]); if (x < -20 || y < iTop + 8 || x > W - iRight || y > H - iBot - 6) continue;
+    const r = raggio(n), tema = n.genere === 'tema';
+    const fs = tema ? Math.min(19, 14 + Math.sqrt(quante(n)) * 1.2) : n.genere === 'citazione' ? 12 : 12.5;
+    cx.font = tema ? `italic ${n.voce === 'prop' ? 400 : 500} ${fs}px ${getV('--serif')}` : n.genere === 'citazione' ? `italic 400 ${fs}px ${getV('--serif')}` : `500 ${fs}px ${getV('--sans')}`;
+    let testo = n.genere === 'citazione' ? `«${n.nome}»` : n.nome;
+    if (n.genere === 'citazione' && L < 4 && testo.length > 28) testo = testo.slice(0, 26).trimEnd() + '…»';
+    const w = cx.measureText(testo).width; const box = { x: x + r * 1.4 + 4, y: y - fs * .8, w, h: fs * 1.15 };
+    if (box.x + w > W - iRight - 4) box.x = x - r * 1.4 - 4 - w;
+    if (usati.some((u) => sovrapp(u, box)) || posti.some((p) => p.nodo !== n.id && sovrapp(p, box))) continue;
+    usati.push(box); messe++;
+    cx.globalAlpha = n.voce === 'prop' ? Math.max(.6, alfa(n)) : Math.max(alfa(n), n === sel || vicini.has(n.id) ? 1 : 0);
+    cx.fillStyle = n.voce === 'prop' ? '#aab1c0' : tema ? colore(n) : '#e6dfcd'; cx.shadowColor = '#090d18'; cx.shadowBlur = 6;
+    cx.fillText(testo, box.x, y + fs * .32); cx.shadowBlur = 0;
+    // 3. da vicinissimo, la frase ✦ più recente, alla lettera
+    if (L === 4 && n.voce !== 'prop') {
+      const fi = ultimaFrase(n); if (fi == null) continue; const f = F[fi];
+      cx.font = `italic 400 14px ${getV('--serif')}`; const rr = wrap(cx, f.testo, Math.min(230, W * .55));
+      const dl = dataBreve(f); const bh = 15 + rr.length * 17; const bb = { x: box.x, y: y + fs * .55, w: Math.min(240, W * .56), h: bh };
+      if (bb.x + bb.w > W) bb.x = W - bb.w - 6;
+      if (bb.y + bb.h > H - iBot || usati.some((u) => sovrapp(u, bb)) || posti.some((p) => p.nodo !== n.id && sovrapp(p, bb))) continue;
+      usati.push(bb);
+      cx.globalAlpha = .85 * alfa(n); cx.font = `500 12px ${getV('--sans')}`; cx.fillStyle = '#b8bdc8'; cx.fillText(dl, bb.x, bb.y + 10);
+      cx.font = `italic 400 14px ${getV('--serif')}`; cx.fillStyle = '#ece5d3';
+      rr.forEach((r, i) => { cx.fillText(r, bb.x, bb.y + 26 + i * 17); });
+      const ul = rr.at(-1); cx.font = `12px ${getV('--segni')}`; cx.fillStyle = getV('--luce'); cx.font = `italic 400 14px ${getV('--serif')}`;
+      const wl = cx.measureText(ul).width; cx.font = `11px ${getV('--segni')}`; cx.fillText('✦', bb.x + wl + 4, bb.y + 26 + (rr.length - 1) * 17);
+    }
+  }
+  cx.globalAlpha = 1;
+  // il livello nei tasti
+  document.querySelectorAll('#livelli button').forEach((b) => b.setAttribute('aria-current', String(+b.dataset.l === L)));
+}
+// All'apertura, al centro: la tua frase più recente, datata, alla lettera. La prima cosa che vedi è tua.
+const ULT = document.getElementById('ultima');
+function posaUltima(L, etReg) {
+  const ok = L === 1 && !ACCESI && !S.nodo;
+  const xs = F.map((f, i) => i).filter((i) => parlante(F[i]) && !F[i].altrui && F[i].temi.length && F[i].mi <= S.mese);
+  if (!ok || !xs.length) { ULT.hidden = true; return; }
+  const i = xs.at(-1); const f = F[i];
+  if (ULT.dataset.i !== String(i)) { ULT.dataset.i = i; ULT.innerHTML = `<span class="data">${dataL(f)}</span><em>${esc(f.testo)}</em><span class="sg"> ✦</span>`; }
+  ULT.hidden = false;
+  const b = ULT.getBoundingClientRect(); const w = b.width || 240, h = b.height || 60;
+  const lx = 12, ly = H - insets().bottom - h - 4;
+  ULT.style.transform = `translate(${lx}px, ${ly}px)`; etReg.push({ x: lx, y: ly, w, h });
+}
+document.getElementById('ultima').onclick = () => { const f = F[+ULT.dataset.i]; const v = VAL[0][+ULT.dataset.i]; const id = [...v.nodi].sort((a, b) => (N[b].genere === 'tema') - (N[a].genere === 'tema'))[0]; if (id) apri(id); };
+let rafId = 0; function pianifica() { if (!rafId) rafId = requestAnimationFrame((t) => { rafId = 0; disegna(t); }); }
+
+
+/* ===== Le parole ===== */
+
+function dataL(f) { if (f.imp) return 'entro il 12 settembre 2025, nell’archivio d’origine'; const d = new Date(f.reg.slice(0, 10) + 'T12:00'); return `${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`; }
+function dataBreve(f) { if (f.imp) return 'entro il 12 settembre 2025'; const d = new Date(f.reg.slice(0, 10) + 'T12:00'); return `${d.getDate()} ${MESI[d.getMonth()]} ${d.getFullYear()}`; }
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+function frasiDi(n) { // le tue frasi del nodo, dalla più recente; prima quelle che passano i filtri
+  const xs = [...n.fr, ...n.frP.filter((i) => S.lente && !n.fr.includes(i))].filter((i) => F[i].mi <= S.mese && !F[i].altrui || F[i].mi <= S.mese);
+  const ok = (i) => (filtri() ? passa(i) : true);
+  return [...new Set(xs)].sort((a, b) => ok(b) - ok(a) || F[b].reg.localeCompare(F[a].reg));
+}
+function ultimaFrase(n) { const xs = frasiDi(n).filter((i) => n.fr.includes(i)); return xs.length ? xs[0] : null; }
+function rigaFrase(i, grande) {
+  const f = F[i];
+  if (f.altrui) { // regola 7: il gesto e il commento ✦, le parole d'altri ○ con il luogo
+    return `<span class="data">${dataL(f)}</span><span>hai trascritto ${esc(f.altrui.cosa)}</span><span class="sg"> ✦</span> <em>${esc(f.testo)}</em><span class="sg">✦</span>`
+      + `<span class="mondo-r" style="display:block;margin:4px 0 0">«${esc(f.altrui.riga)}»<span class="sg"> ○</span><span class="luogo">${esc(f.altrui.luogo)}</span></span>`;
+  }
+  const verif = f.nomina.some((id) => N[id] && N[id].genere === 'citazione' && !N[id].esito);
+  const nota = f.imp ? '<span class="nota-r" style="display:block">Entro il 12 settembre 2025, nell’archivio d’origine, trascritta da Claude nel seme:</span>' : `<span class="data">${dataL(f)}</span>`;
+  return `${nota}<em>${esc(f.testo)}</em><span class="sg" aria-label="tua">✦</span>${verif ? ' <span class="vf" aria-label="da verificare">⚠</span>' : ''}`;
+}
+const ICONA = {
+  tema: '<svg viewBox="-8 -8 16 16"><path d="M0-7.5L1.6-1.6 7.5 0 1.6 1.6 0 7.5-1.6 1.6-7.5 0-1.6-1.6Z" fill="currentColor"/></svg>',
+  opera: '<svg viewBox="-8 -8 16 16"><circle r="6" fill="currentColor"/></svg>',
+  persona: '<svg viewBox="-8 -8 16 16"><circle r="5" fill="none" stroke="currentColor" stroke-width="2.2"/></svg>',
+  citazione: '<svg viewBox="-8 -8 16 16"><rect x="-4" y="-4" width="8" height="8" transform="rotate(45)" fill="currentColor"/></svg>',
+  raccolta: '<svg viewBox="-8 -8 16 16"><path d="M0-6.5 5.6-3.2 5.6 3.2 0 6.5-5.6 3.2-5.6-3.2Z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
+  prop: '<svg viewBox="-8 -8 16 16"><circle r="5.5" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="2 2.4"/></svg>',
+};
+function occhiello(n) {
+  if (n.genere === 'tema') return `tema · ${SPECIE1[n.specie]} <span class="sg" style="color:var(--prop)">◌</span>${n.campo.length ? ' · ' + n.campo.map(nomeCampo).join(', ') + ' <span class="sg" style="color:var(--prop)">◌</span>' : ''}`;
+  if (n.genere === 'opera') return `opera · ${n.tipo}${n.campo.length ? ' · ' + nomeCampo(n.campo[0]) + ' <span class="sg" style="color:var(--prop)">◌</span>' : ''}`;
+  if (n.genere === 'persona') return `persona${n.cerchia === 'finzione' ? ' · finzione' : ''}${n.campo.length ? ' · ' + n.campo.map(nomeCampo).join(', ') + ' <span class="sg" style="color:var(--prop)">◌</span>' : ''}`;
+  if (n.genere === 'citazione') return 'citazione';
+  return 'raccolta';
+}
+function scheda(n) {
+  const fs = frasiDi(n); const mie = fs.filter((i) => n.fr.includes(i));
+  const segno = n.genere === 'tema' ? (n.voce === 'prop' ? '<span class="sg p" aria-label="mia">◌</span>' : n.voce === 'acc' ? '<span class="sg" aria-label="accolta">●</span>' : '<span class="sg" aria-label="tua">✦</span>') : '';
+  let h = `<div class="occhiello" style="color:${colore(n)}">${n.voce === 'prop' ? ICONA.prop : ICONA[n.genere]}<span style="color:var(--tenue)">${occhiello(n)}</span></div>`;
+  h += `<h2>${n.genere === 'citazione' ? '«' + esc(n.nome) + '»' : esc(n.nome)}${segno}</h2>`;
+  const meta = [];
+  if (n.genere === 'opera') { if (n.autore && N[n.autore]) meta.push(`<a href="#" data-va="${n.autore}" style="color:inherit">${esc(N[n.autore].nome)}</a>`); if (n.anno) meta.push(n.anno); }
+  if (n.in && N[n.in]) meta.push(`in <a href="#" data-va="${n.in}" style="color:inherit">${esc(N[n.in].nome)}</a>`);
+  const q = quante(n); if (q) meta.push(`detto ${q === 1 ? 'una volta' : q + ' volte'} <span class="sg">✦</span>, dal ${meseL(n.nato).replace('archivio d’origine', 'l’archivio d’origine')}`);
+  if (meta.length) h += `<p class="meta">${meta.join(' · ')}</p>`;
+  // la frase: si arriva sempre alle parole
+  if (mie.length) {
+    h += `<p class="frase">${rigaFrase(mie[0], true)}</p>`;
+    const altre = mie.slice(1, S.tutte ? 99 : 4);
+    if (altre.length) h += `<ul class="altre">${altre.map((i) => `<li>${rigaFrase(i)}</li>`).join('')}</ul>`;
+    if (!S.tutte && mie.length > 4) h += `<button class="tutte" id="tutte">e altre ${mie.length - 4}</button>`;
+  }
+  if (n.voce === 'prop') {
+    h += `<p class="prop-r">Una lettura mia, non detta da te<span class="sg"> ◌</span>: l’ho vista in ${n.frP.length} ${n.frP.length === 1 ? 'memo' : 'memo'}. Eccone uno:</p>`;
+    const i = n.frP.slice().sort((a, b) => F[b].reg.localeCompare(F[a].reg))[0]; h += `<p class="frase">${rigaFrase(i)}</p>`;
+  }
+  if (n.voce === 'acc') h += `<p class="prop-r acc-r">Era una mia proposta; l’hai accolta tu<span class="sg"> ●</span>. Il nome resta il mio, in tondo.</p>`;
+  // il seme ✧, sempre a parte
+  const se = SEME.find((s) => s.nodi.includes(n.id)); if (se) h += `<p class="nota-r">Entro il 12 settembre 2025, nell’archivio d’origine:</p><p class="seme"><em>${esc(se.testo)}</em> <span class="sg">✧</span></p>`;
+  // il mondo ○: sempre con opera e passo; senza, ⚠
+  if (n.genere === 'citazione') {
+    if (n.esito && n.rif) {
+      const chi = n.autore && N[n.autore] ? N[n.autore].nome : 'autore ignoto';
+      const es = { verificata: 'verificata', simile: 'simile: non alla lettera', errata: n.autore ? 'errata: è di un altro' : 'errata: non è di ' + (N[n.attribuita] ? N[n.attribuita].nome : '') }[n.esito];
+      h += `<p class="mondo-r">${esc(chi)}, ${es}<span class="sg"> ○</span><span class="luogo">${esc(n.rif)}</span></p>`;
+    } else h += `<p class="avviso"><span class="vf">⚠</span> Da verificare. L’attribuzione a ${esc(N[n.attribuita] ? N[n.attribuita].nome : '?')} è tua; la cerca «consolida».</p>`;
+  }
+  // i vicini: la costellazione, toccabile
+  const vic = VIC[n.id].filter((l) => (!l.prop || S.lente)).map((l) => ({ id: l.a === n.id ? l.b : l.a, w: l.w, prop: l.prop })).filter((v) => visibile(N[v.id])).sort((a, b) => a.prop - b.prop || b.w - a.w).slice(0, 14);
+  if (vic.length) h += `<h3>la costellazione</h3><div class="vicini">${vic.map((v) => `<button class="chip${v.prop ? ' prop' : ''}" data-va="${v.id}"><span class="forma" style="color:${colore(N[v.id])}">${N[v.id].voce === 'prop' ? ICONA.prop : ICONA[N[v.id].genere]}</span>${esc(N[v.id].genere === 'citazione' ? '«' + N[v.id].nome.slice(0, 22) + (N[v.id].nome.length > 22 ? '…' : '') + '»' : N[v.id].nome)}${v.prop ? ' <span class="sg">◌</span>' : ''}</button>`).join('')}</div>`;
+  return h;
+}
+
+/* ===== I gesti ===== */
+const zoom = d3.zoom().scaleExtent([0.05, 80]).clickDistance(8).on('zoom', (e) => { T = e.transform; pianifica(); });
+const sCv = d3.select(cv).call(zoom).on('dblclick.zoom', null);
+function vola(t, dur = 750) { if (RIDOTTO || !dur) sCv.call(zoom.transform, t); else sCv.transition().duration(dur).ease(d3.easeCubicInOut).call(zoom.transform, t); }
+function verso(n, kRel) {
+  const k = Math.max(T.k, KFIT * (kRel || 2.6)); const { top, bottom, right } = insets();
+  const cxp = (W - right) / 2, cyp = top + (H - top - bottom) * .45;
+  return d3.zoomIdentity.translate(cxp, cyp).scale(k).translate(-n.x, -n.y);
+}
+function costellazione(n) {
+  const vic = VIC[n.id].filter((l) => !l.prop || S.lente).map((l) => N[l.a === n.id ? l.b : l.a]).filter(visibile).sort((a, b) => Math.hypot(a.x - n.x, a.y - n.y) - Math.hypot(b.x - n.x, b.y - n.y)).slice(0, 10);
+  if (!vic.length) return verso(n);
+  const { top, bottom, right } = insets(); const w = W - right, h = H - top - bottom;
+  const dx = d3.max(vic, (v) => Math.abs(v.x - n.x)) + 70, dy = d3.max(vic, (v) => Math.abs(v.y - n.y)) + 50;
+  const k = Math.min(KFIT * 4.2, Math.max(KFIT * 1.8, Math.min((w / 2 - 20) / dx, (h / 2 - 16) / dy)));
+  return d3.zoomIdentity.translate(w / 2, top + h / 2).scale(k).translate(-n.x, -n.y);
+}
+function apri(id, { volo = true, filo = true } = {}) {
+  const n = N[id]; if (!n) return;
+  if (n.voce === 'prop' && !S.lente) { S.lente = true; aggiornaLente(); }
+  S.nodo = id; S.tutte = false;
+  if (filo && S.filo.at(-1) !== id) { S.filo = S.filo.filter((x) => x !== id); S.filo.push(id); if (S.filo.length > 12) S.filo.shift(); }
+  document.getElementById('foglioC').innerHTML = scheda(n);
+  const fo = document.getElementById('foglio'); fo.classList.add('aperto'); fo.scrollTop = 0;
+  document.getElementById('dock').classList.add('stretto');
+  history.replaceState(null, '', '#nodo=' + id + (S.lente ? '&lente=proposte' : ''));
+  disegnaFilo();
+  requestAnimationFrame(() => { if (volo) vola(costellazione(n)); pianifica(); });
+}
+function chiudi() { S.nodo = null; document.getElementById('foglio').classList.remove('aperto'); document.getElementById('dock').classList.remove('stretto'); history.replaceState(null, '', location.pathname + location.search); pianifica(); }
+document.getElementById('chiudi').onclick = chiudi;
+document.getElementById('foglio').addEventListener('click', (e) => {
+  const v = e.target.closest('[data-va]'); if (v) { e.preventDefault(); apri(v.dataset.va); }
+  if (e.target.id === 'tutte') { S.tutte = true; document.getElementById('foglioC').innerHTML = scheda(N[S.nodo]); }
+});
+// il tocco: il nodo più vicino entro 22 px (bersaglio da 44)
+cv.addEventListener('click', (e) => {
+  const r = cv.getBoundingClientRect(); const px = e.clientX - r.left, py = e.clientY - r.top;
+  let best = null, bd = 1e9;
+  for (const n of NODI) { if (!visibile(n)) continue; const [x, y] = T.apply([n.x, n.y]); const d = Math.hypot(x - px, y - py); const lim = Math.max(22, raggio(n) + 8);
+    const peso = ACCESI && !ACCESI.has(n.id) ? 1.6 : 1; if (d < lim && d * peso < bd) { bd = d * peso; best = n; } }
+  if (best) apri(best.id); else if (S.nodo) chiudi();
+});
+// i livelli: un tocco porta alla distanza
+document.getElementById('livelli').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return; const l = +b.dataset.l;
+  const target = [1, 1, 2.2, 3.9, 6.6][l]; const { top, bottom, right } = insets();
+  const c = S.nodo ? [N[S.nodo].x, N[S.nodo].y] : T.invert([(W - right) / 2, top + (H - top - bottom) / 2]);
+  if (l === 1 && !S.nodo) { vola(adatta()); return; }
+  vola(d3.zoomIdentity.translate((W - right) / 2, top + (H - top - bottom) * .45).scale(KFIT * target).translate(-c[0], -c[1]));
+});
+// il salto: una stella a caso tra quelle accese, che porta a una frase
+document.getElementById('salto').onclick = () => {
+  const xs = NODI.filter((n) => visibile(n) && n.voce !== 'prop' && n.fr.some((i) => F[i].mi <= S.mese) && (!ACCESI || ACCESI.has(n.id)));
+  const n = xs[Math.floor(Math.random() * xs.length)]; if (n) apri(n.id);
+};
+// la tastiera
+addEventListener('keydown', (e) => {
+  if (e.target.matches('input')) { if (e.key === 'Escape') chiudiPannelli(); return; }
+  if (e.key === 'Escape') { if (document.querySelector('.pannello.aperto')) chiudiPannelli(); else chiudi(); }
+  const p = 80; const m = { ArrowLeft: [p, 0], ArrowRight: [-p, 0], ArrowUp: [0, p], ArrowDown: [0, -p] }[e.key];
+  if (m && !e.target.closest('#dock,#foglio')) { sCv.call(zoom.translateBy, m[0] / T.k, m[1] / T.k); e.preventDefault(); }
+  if (e.key === '+' || e.key === '=') sCv.call(zoom.scaleBy, 1.4); if (e.key === '-') sCv.call(zoom.scaleBy, 1 / 1.4);
+  if (e.key === '/') { e.preventDefault(); apriPannello('elenco'); }
+});
+
+/* ===== Il filo ===== */
+function disegnaFilo() {
+  const el = document.getElementById('filo');
+  if (!S.filo.length) { el.innerHTML = ''; return; }
+  el.innerHTML = '<span>filo</span>' + S.filo.map((id, i) => `${i ? '<span class="trat">—</span>' : ''}<button class="nome" data-va="${id}">${esc(N[id].genere === 'citazione' ? '«' + N[id].nome.slice(0, 14) + '…»' : N[id].nome)}</button>`).join('') + '<button class="via" aria-label="Cancella il filo">×</button>';
+  el.scrollLeft = 1e5;
+}
+document.getElementById('filo').addEventListener('click', (e) => {
+  if (e.target.closest('.via')) { S.filo = []; disegnaFilo(); pianifica(); return; }
+  const b = e.target.closest('[data-va]'); if (b) apri(b.dataset.va, { filo: false });
+});
+
+/* ===== I filtri sugli assi, sulla mappa ===== */
+const ASSI = [{ k: 'cose', nome: 'cose' }, { k: 'persone', nome: 'persone' }, { k: 'temi', nome: 'temi' }, { k: 'campo', nome: 'campo', prop: true }, { k: 'gesto', nome: 'gesto' }, { k: 'tempo', nome: 'tempo' }];
+function valoriAsse(a) {
+  const out = [];
+  const conta = (pred) => { let n = 0, imp = 0; F.forEach((f, i) => { if (!passa(i, a)) return; if (!pred(VAL[+S.lente][i])) return; if (parlante(f)) n++; else if (f.imp) imp++; }); return { n, imp }; };
+  const add = (v, et, extra = {}) => { const c = conta((x) => x[a].has(v)); if (c.n || c.imp || (S.sel[a] && S.sel[a].has(v))) out.push({ v, et, ...c, ...extra }); };
+  if (a === 'cose') { for (const t of TIPI) add('f:' + t, t, { ic: 'opera' }); add('c', 'citazioni', { ic: 'citazione' }); for (const e of ['verificata', 'simile', 'errata']) add('e:' + e, e, { ic: 'citazione' }); add('e:da-verificare', 'da verificare', { ic: 'citazione', vf: true }); }
+  if (a === 'persone') { NODI.filter((n) => n.genere === 'persona').forEach((n) => add(n.id, n.nome, { ic: 'persona' })); out.sort((x, y) => y.n - x.n); }
+  if (a === 'temi') { for (const s in SPECIE) add('s:' + s, SPECIE[s], { prop: true, ic: 'tema', col: COL_SPECIE[s] }); const ts = []; NODI.filter((n) => n.genere === 'tema' && (n.voce !== 'prop' || S.lente)).forEach((n) => { const c = conta((x) => x.temi.has('t:' + n.id)); if (c.n || c.imp) ts.push({ v: 't:' + n.id, et: n.nome, ...c, ic: n.voce === 'prop' ? 'prop' : 'tema', col: colore(n), p: n.voce === 'prop' }); }); ts.sort((x, y) => y.n - x.n); out.push(...ts); }
+  if (a === 'campo') for (const c of CAMPI) add(c, nomeCampo(c), { col: COL_CAMPO[c], ic: 'pallino' });
+  if (a === 'gesto') { for (const g of GESTI) add(g, g); for (const [id, , sc] of RACCOLTE) add('r:' + id, sc, { ic: 'raccolta' }); }
+  return out;
+}
+function disegnaAssi() {
+  document.getElementById('assi').innerHTML = ASSI.map((a) => `<button data-a="${a.k}" aria-expanded="${S.aperto === a.k}" class="${(S.sel[a.k] && S.sel[a.k].size) || (a.k === 'tempo' && S.mese < 14) ? 'attivo' : ''}">${a.nome}${a.prop ? '<span class="sg">◌</span>' : ''}</button>`).join('');
+}
+function disegnaValori() {
+  const el = document.getElementById('valori'), tm = document.getElementById('tempo');
+  el.hidden = !S.aperto || S.aperto === 'tempo'; tm.hidden = S.aperto !== 'tempo';
+  if (S.aperto && S.aperto !== 'tempo') {
+    const xs = valoriAsse(S.aperto); const sel = S.sel[S.aperto] || new Set();
+    el.setAttribute('aria-label', 'Valori di ' + S.aperto);
+    el.innerHTML = xs.length ? xs.map((x) => {
+      const ic = x.ic === 'pallino' ? `<svg class="forma" viewBox="-8 -8 16 16"><circle r="5" fill="currentColor"/></svg>` : x.ic ? `<span class="forma">${ICONA[x.ic]}</span>` : '';
+      return `<button class="chip${x.p ? ' prop' : ''}" data-v="${esc(x.v)}" aria-pressed="${sel.has(x.v)}" style="${x.col && !sel.has(x.v) ? '--c:' + x.col : ''}">${ic ? `<span style="color:${x.col || 'var(--tenue)'};display:inline-flex">${ic}</span>` : ''}${esc(x.et)}${x.prop || x.p ? ' <span class="sg" style="color:var(--prop)">◌</span>' : ''}${x.vf ? ' <span class="vf">⚠</span>' : ''}<span class="n">${x.n || ''}</span></button>`;
+    }).join('') : '<span style="color:var(--tenue);font:400 13px var(--sans);padding:12px 0">Niente qui, con questi filtri.</span>';
+  }
+  if (S.aperto === 'tempo') aggiornaMese();
+}
+function disegnaServizio() {
+  const { n, imp } = S.totale; const el = document.getElementById('servizio');
+  const fil = filtri() || S.mese < 14;
+  const parti = [];
+  const chips = [];
+  for (const a of ASSI) { if (!S.sel[a.k] || !S.sel[a.k].size) continue; parti.push([...S.sel[a.k]].map((v) => etichettaV(a.k, v)).join(' o ')); for (const v of S.sel[a.k]) chips.push(`<button class="via" data-a="${a.k}" data-v="${esc(v)}" aria-label="Togli ${esc(etichettaV(a.k, v))}">${esc(etichettaV(a.k, v))} ×</button>`); }
+  if (S.mese < 14 && S.aperto !== 'tempo') parti.push('fino a ' + meseL(S.mese));
+  const accese = ACCESI ? [...ACCESI].filter((id) => N[id] && visibile(N[id])).length : NODI.filter(visibile).length;
+  el.innerHTML = n === 0 && imp === 0 ? `<span>Niente si accende${parti.length ? ': ' + esc(parti.join(' e ')) : ''}.</span>${fil ? '<button id="togli">togli i filtri</button>' : ''}`
+    : `<span><b>${n} ${n === 1 ? 'frase' : 'frasi'}</b>${imp ? ` · e ${imp} dall’archivio d’origine, fuori dai conti` : ''}${W >= 600 ? ` · ${accese} stelle` : ''}${S.mese < 14 && S.aperto !== 'tempo' ? ' · fino a ' + meseL(S.mese) : ''}</span>${fil ? '<button id="togli">togli tutto</button>' : ''}`;
+  el.insertAdjacentHTML('afterend', '');
+  document.getElementById('attivi').innerHTML = chips.join(''); document.getElementById('attivi').hidden = !chips.length;
+}
+function etichettaV(a, v) {
+  if (a === 'cose') return v === 'c' ? 'citazioni' : v.startsWith('f:') ? v.slice(2) : v === 'e:da-verificare' ? 'da verificare ⚠' : v.slice(2);
+  if (a === 'temi') return v.startsWith('s:') ? SPECIE[v.slice(2)] : N[v.slice(2)].nome;
+  if (a === 'campo') return nomeCampo(v);
+  if (a === 'gesto') return v.startsWith('r:') ? RACCOLTE.find((r) => r[0] === v.slice(2))[2] : v;
+  return N[v] ? N[v].nome : v;
+}
+function inquadra() {
+  if (!ACCESI || S.nodo) return; const xs = [...ACCESI].map((id) => N[id]).filter((n) => n && visibile(n)); if (!xs.length) return;
+  const [x0, x1] = d3.extent(xs, (n) => n.x), [y0, y1] = d3.extent(xs, (n) => n.y); const { top, bottom, right } = insets(); const w = W - right, h = H - top - bottom;
+  const k = Math.min(KFIT * 2.4, Math.max(KFIT, Math.min(w / (x1 - x0 + 260), h / (y1 - y0 + 220))));
+  vola(d3.zoomIdentity.translate(w / 2, top + h / 2).scale(k).translate(-(x0 + x1) / 2, -(y0 + y1) / 2), 600);
+}
+function tutto() { ricalcola(); disegnaAssi(); disegnaValori(); disegnaServizio(); if (S.nodo) document.getElementById('foglioC').innerHTML = scheda(N[S.nodo]); pianifica(); scriviIndirizzo(); }
+document.getElementById('assi').addEventListener('click', (e) => { const b = e.target.closest('button'); if (!b) return; S.aperto = S.aperto === b.dataset.a ? null : b.dataset.a; disegnaAssi(); disegnaValori(); });
+document.getElementById('valori').addEventListener('click', (e) => {
+  const b = e.target.closest('[data-v]'); if (!b) return; const a = S.aperto, v = b.dataset.v;
+  const s = S.sel[a] ||= new Set();
+  // gli esiti raffinano «citazioni»: sceglierne uno sostituisce la voce generale
+  if (a === 'cose' && v.startsWith('e:')) s.delete('c'); if (a === 'cose' && v === 'c') [...s].filter((x) => x.startsWith('e:')).forEach((x) => s.delete(x));
+  s.has(v) ? s.delete(v) : s.add(v); const sl = document.getElementById('valori').scrollLeft; tutto(); document.getElementById('valori').scrollLeft = sl; inquadra();
+});
+document.getElementById('attivi').addEventListener('click', (e) => { const b = e.target.closest('[data-v]'); if (!b) return; S.sel[b.dataset.a].delete(b.dataset.v); tutto(); inquadra(); });
+document.getElementById('servizio').addEventListener('click', (e) => { if (e.target.id === 'togli') { S.sel = {}; S.mese = 14; document.getElementById('mese').value = 14; ferma(); tutto(); } });
+document.getElementById('lente').onclick = () => { S.lente = !S.lente; aggiornaLente(); tutto(); };
+function aggiornaLente() { document.getElementById('lente').setAttribute('aria-pressed', String(S.lente)); }
+
+/* ===== Il tempo: le stelle nascono nell'ordine in cui le hai nominate ===== */
+const inM = document.getElementById('mese'); inM.value = 14;
+function aggiornaMese() {
+  const nate = NODI.filter((n) => n.voce !== 'prop' && n.nato <= S.mese).length;
+  const nuove = NODI.filter((n) => n.voce !== 'prop' && n.nato === S.mese).length;
+  document.getElementById('meseL').innerHTML = `${S.mese === 14 ? 'fino a oggi' : 'fino a ' + meseL(S.mese)}<small>${nate} stelle${nuove ? ` · ${nuove} nuove` : ''}</small>`;
+}
+function vaiMese(m) {
+  const prima = S.mese; S.mese = m; inM.value = m;
+  const ora = performance.now(); NODI.forEach((n) => { if (n.nato > prima && n.nato <= m) NATI.set(n.id, ora); });
+  tutto();
+}
+inM.addEventListener('input', () => vaiMese(+inM.value));
+let corsa = null;
+function ferma() { clearInterval(corsa); corsa = null; document.getElementById('gioca').textContent = '▷'; }
+document.getElementById('gioca').onclick = () => {
+  if (corsa) { ferma(); return; }
+  if (S.mese >= 14) vaiMese(0);
+  document.getElementById('gioca').textContent = '❙❙';
+  corsa = setInterval(() => { if (S.mese >= 14) { ferma(); return; } vaiMese(S.mese + 1); }, RIDOTTO ? 1600 : 1100);
+};
+
+/* ===== Elenco (l'alternativa testuale) e legenda ===== */
+function apriPannello(id) { document.getElementById('velo').classList.add('aperto'); document.getElementById(id).classList.add('aperto'); if (id === 'elenco') { lista(); document.getElementById('cerca').focus(); } }
+function chiudiPannelli() { document.getElementById('velo').classList.remove('aperto'); document.querySelectorAll('.pannello').forEach((p) => p.classList.remove('aperto')); }
+document.getElementById('apriElenco').onclick = () => apriPannello('elenco');
+document.getElementById('apriLegenda').onclick = () => apriPannello('legenda');
+document.getElementById('velo').onclick = chiudiPannelli;
+document.querySelectorAll('[data-chiudi]').forEach((b) => (b.onclick = chiudiPannelli));
+const norm = (s) => s.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase();
+function lista() {
+  const q = norm(document.getElementById('cerca').value.trim());
+  const gruppi = [['tema', 'temi'], ['opera', 'opere'], ['persona', 'persone'], ['citazione', 'citazioni'], ['raccolta', 'raccolte']];
+  let h = '';
+  // la parola cerca anche nelle frasi, alla lettera
+  const perFrase = q.length >= 3 ? new Set(F.flatMap((f, i) => (norm(f.testo).includes(q) ? [...VAL[0][i].nodi] : []))) : new Set();
+  for (const [g, nome] of gruppi) {
+    const xs = NODI.filter((n) => n.genere === g && visibile(n) && (!q || norm(n.nome).includes(q) || perFrase.has(n.id))).sort((a, b) => quante(b) - quante(a));
+    if (!xs.length) continue;
+    h += `<h3>${nome}</h3>` + xs.map((n) => `<button data-va="${n.id}" class="${ACCESI && !ACCESI.has(n.id) ? 'spento' : ''}"><span style="color:${colore(n)};display:inline-flex;width:16px">${n.voce === 'prop' ? ICONA.prop : ICONA[n.genere]}</span>${esc(n.genere === 'citazione' ? '«' + n.nome + '»' : n.nome)}${n.voce === 'prop' ? ' <span class="sg" style="color:var(--prop)">◌</span>' : ''}${n.genere === 'citazione' && !n.esito ? ' <span class="vf">⚠</span>' : ''}<span class="n">${quante(n) || ''}</span></button>`).join('');
+  }
+  document.getElementById('lista').innerHTML = h || '<p style="color:var(--tenue);font:400 14px var(--sans)">Niente, alla lettera.</p>';
+}
+document.getElementById('cerca').addEventListener('input', lista);
+document.getElementById('lista').addEventListener('click', (e) => { const b = e.target.closest('[data-va]'); if (b) { chiudiPannelli(); apri(b.dataset.va); } });
+document.getElementById('legL').innerHTML = [
+  ['<span class="sg" style="color:var(--luce)">✦</span>', 'tue: le tue parole, e ciò che nomini', 'la luce e la grandezza dicono quante volte'],
+  ['<span class="sg" style="color:var(--luce)">✧</span>', 'seme', 'dall’archivio d’origine, sempre a parte'],
+  ['<span class="sg" style="color:var(--luce)">●</span>', 'accolte', 'una mia proposta che hai preso'],
+  ['<span class="sg" style="color:var(--prop)">◌</span>', 'mie: proposte, spente di default', 'tratteggiate, più quiete; il campo e la specie sono ◌'],
+  ['<span class="sg" style="color:var(--mondo)">○</span>', 'mondo', 'sempre con opera e passo'],
+  ['<span class="vf">⚠</span>', 'da verificare', 'un triangolo ambra, mai nascosto'],
+  [`<span style="color:${COL_SPECIE.idea}">${ICONA.tema}</span>`, 'stella: un tema', 'il colore è la specie (sentimento, idea, domanda…)'],
+  [`<span style="color:${COL_CAMPO.letteratura}">${ICONA.opera}</span>`, 'disco: un’opera', 'dentro, il segno del tipo: canzone, libro, film…'],
+  [`<span style="color:${COL_CAMPO.filosofia}">${ICONA.persona}</span>`, 'anello: una persona', 'sottile e con un punto dentro se è un personaggio'],
+  [`<span style="color:#d8d2c2">${ICONA.citazione}</span>`, 'rombo: una citazione', ''],
+  [`<span style="color:#e6dfcd">${ICONA.raccolta}</span>`, 'esagono: una raccolta', ''],
+  ['<span style="color:var(--tenue);font:600 11px var(--sans);letter-spacing:.1em">ARTE</span>', 'le regioni sono il campo ◌', 'il centro sono le tue parole; vicino vuol dire legato'],
+].map(([k, a, b]) => `<li><span class="k">${k}</span><span>${a}${b ? `<br><small>${b}</small>` : ''}</span></li>`).join('');
+
+/* ===== L'indirizzo ===== */
+function scriviIndirizzo() {
+  const p = new URLSearchParams(); if (S.nodo) p.set('nodo', S.nodo); if (S.lente) p.set('lente', 'proposte');
+  for (const a in S.sel) if (S.sel[a].size) p.set(a, [...S.sel[a]].join(',')); if (S.mese < 14) p.set('fino', MS[S.mese]);
+  history.replaceState(null, '', p.toString() ? '#' + p.toString() : location.pathname + location.search);
+}
+function leggiIndirizzo() {
+  const p = new URLSearchParams(location.hash.slice(1));
+  S.lente = p.get('lente') === 'proposte'; aggiornaLente();
+  for (const a of ASSI) if (p.get(a.k)) S.sel[a.k] = new Set(p.get(a.k).split(','));
+  if (p.get('fino')) { const m = MS.indexOf(p.get('fino')); if (m >= 0) { S.mese = m; inM.value = m; } }
+  if (p.get('aperto')) S.aperto = p.get('aperto');
+  return p.get('nodo');
+}
+
+/* ===== Avvio ===== */
+function avvio() {
+  misura(); const z0 = +new URLSearchParams(location.hash.slice(1)).get('zoom'); const n0 = leggiIndirizzo(); tutto();
+  T = adatta(); sCv.call(zoom.transform, T); if (filtri()) { const d = RIDOTTO; inquadra(); }
+  if (n0 && N[n0]) apri(n0);
+  if (z0) { const z = z0; const c = T.invert([W / 2, H / 2]); const { top, bottom } = insets(); sCv.call(zoom.transform, d3.zoomIdentity.translate(W / 2, top + (H - top - bottom) / 2).scale(KFIT * z).translate(-c[0], -c[1])); }
+  pianifica();
+  if (!RIDOTTO) (function giro(t) { disegna(t); requestAnimationFrame(giro); })(performance.now());
+}
+addEventListener('resize', () => { const r = rel(); misura(); const t0 = adatta(); KFIT = t0.k; pianifica(); });
+(document.fonts ? document.fonts.ready : Promise.resolve()).then(avvio);
+window.__cielo = { N, F, NODI, S, apri, vaiMese, tutto };
+</script>
+</body>
+</html>

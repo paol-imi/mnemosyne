@@ -181,3 +181,11 @@ dentro; migrazione 004 non applicata. Prova a secco sul repo vero: 52 nodi a 4, 
 `node scripts/contesto.mjs`, `node scripts/verifica.mjs`, commit «migrazione 004». Cambia l'hash `prompt` (cambio di
 lettore voluto). Al blocco 9, `aggiorna-nodo` deve portare il nodo a schema 4 e accettare tipo/specie/campo.
 
+
+### 2026-11-05 — Il sito torna grafico
+- L'utente, sul prototipo tipografico: «ti ho esplicitamente chiesto un qualcosa di grafico come c'era prima».
+  **Cade** la decisione «niente mappa globale» (`letteratura.md`): la mappa visiva dei concetti torna la vista
+  d'ingresso, come l'Atlante (Tavole/Ruota/Firmamento), con il contenuto rovesciato (✦● luce, ◌ spento e quieto).
+- Tre direzioni in parallelo, a dati sintetici, ciascuna su un suo ramo e in `progetto/sito/grafico-<nome>/`:
+  `cielo` (session_016XqALyJhm7DNNCswg6oWy7), `ruota` (session_016XqAM28BapTTKoQRwBponZ),
+  `muro` (session_016XqAM3jMxCPCkHLqfWQsAY). Le tre si pubblicano come artifact; sceglie l'utente.

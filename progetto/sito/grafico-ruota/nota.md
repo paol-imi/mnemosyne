@@ -4,7 +4,9 @@
 allinea. Il foglio mostra la tua frase ✦ che tiene insieme quelle cose, e un segno d'oro la indica sulla linea. Toccando
 un nodo, l'anello lo porta a mezzogiorno e si apre la sua Tavola: biglietti con le frasi, opere, persone e citazioni ○
 disposti su un piano scuro alla Warburg, con i fili tra loro. Il file è uno solo (`index.html`), senza librerie: SVG fatto
-a mano e font da Google Fonts. I dati sono sintetici: 228 nodi e 431 frammenti, nessun delicato, nessuna persona `vita`.
+a mano e font da Google Fonts. I dati sono sintetici: 228 nodi e 431 frammenti, nessun delicato, nessuna persona `vita`. Le frasi sono tutte
+inventate. Sono confrontate con `frammenti/`, `CLAUDE.md` e il resto del repository: nessuna sequenza di 5 parole in comune,
+e quelle di 4 sono titoli o modi di dire.
 
 ## I gesti
 - **Trascinare un anello**: lo gira. Lasciato, ha un po' d'inerzia e poi si ferma con un nodo esattamente a mezzogiorno.

@@ -312,7 +312,7 @@ const GESTI = ['penso', 'sento', 'chiedo', 'ricordo', 'voglio fare', 'trascrivo'
 [
   ['Baruch Spinoza', 'filosofia'], ['Hannah Arendt', 'filosofia'], ['Byung-Chul Han', 'filosofia'], ['Simone Weil', 'filosofia'], ['Marco Aurelio', 'filosofia'],
   ['Seneca', 'filosofia'], ['Epicuro', 'filosofia'], ['Friedrich Nietzsche', 'filosofia'], ['Albert Camus', 'filosofia letteratura'], ['Søren Kierkegaard', 'filosofia'],
-  ['Eraclito', 'filosofia'], ['Umberto Galimberti', 'filosofia'], ['Donald Winnicott', 'psicologia'], ['Carl Gustav Jung', 'psicologia'], ['James Hillman', 'psicologia'],
+  ['Eraclito', 'filosofia'], ['Emma Dante', 'arte'], ['Donald Winnicott', 'psicologia'], ['Carl Gustav Jung', 'psicologia'], ['James Hillman', 'psicologia'],
   ['Giordano Bruno', 'esoterismo filosofia'], ['Erodoto', 'storia'], ['Tiziano Terzani', 'storia'],
   ['Italo Calvino', 'letteratura'], ['Wisława Szymborska', 'letteratura'], ['Rumi', 'letteratura mito-e-religione'], ['Jorge Luis Borges', 'letteratura'],
   ['Fernando Pessoa', 'letteratura'], ['Rainer Maria Rilke', 'letteratura'], ['Giacomo Leopardi', 'letteratura'], ['Eugenio Montale', 'letteratura'], ['Franz Kafka', 'letteratura'],
@@ -352,7 +352,7 @@ const GESTI = ['penso', 'sento', 'chiedo', 'ricordo', 'voglio fare', 'trascrivo'
   ['la-citta-incantata', 'La città incantata', 'film', 'hayao-miyazaki', 2001], ['lo-specchio', 'Lo specchio', 'film', 'andrej-tarkovskij', 1975],
   ['twin-peaks', 'Twin Peaks', 'serie', 'david-lynch', 1990], ['mushishi', 'Mushishi', 'serie', null, 2005],
   ['corto-maltese', 'Corto Maltese', 'fumetto', 'hugo-pratt', 1967], ['sandman', 'Sandman', 'fumetto', 'neil-gaiman', 1989], ['vagabond', 'Vagabond', 'fumetto', 'takehiko-inoue', 1998],
-  ['lo-spettacolo-di-galimberti', 'lo spettacolo di Galimberti', 'spettacolo', 'umberto-galimberti', 2026],
+  ['bestie-di-scena', 'Bestie di scena', 'spettacolo', 'emma-dante', 2017],
   ['la-grande-onda', 'La grande onda', 'immagine', 'katsushika-hokusai', 1831], ['rothko-chapel', 'Rothko Chapel', 'immagine', 'mark-rothko', 1971],
   ['viandante', 'Viandante sul mare di nebbia', 'immagine', 'caspar-david-friedrich', 1818],
   ['journey', 'Journey', 'gioco', null, 2012], ['outer-wilds', 'Outer Wilds', 'gioco', null, 2019],
@@ -375,9 +375,9 @@ const CIT = [
   ['ascia-mare-gelato', 'L’ascia per il mare gelato', 'franz-kafka', 'franz-kafka', 'verificata', 'un libro dev’essere l’ascia per il mare gelato dentro di noi', 'lettera a Oskar Pollak, 27 gennaio 1904 (resa mia)'],
   ['piacere-assenza', 'Il piacere come assenza di dolore', 'epicuro', 'epicuro', 'verificata', 'non soffrire nel corpo e non essere turbati nell’anima', 'Lettera a Meneceo, 131 (resa mia)'],
   ['ermo-colle', 'Sempre caro mi fu quest’ermo colle', 'giacomo-leopardi', 'giacomo-leopardi', 'verificata', 'Sempre caro mi fu quest’ermo colle', 'L’infinito, v. 1 (Canti, XII)'],
-  ['pensare-e-fermarsi', 'Pensare è fermarsi', null, 'hannah-arendt', null, null, null],
-  ['quello-che-cerchi', 'Quello che cerchi ti sta cercando', null, 'rumi', null, null, null],
-  ['i-gufi', 'I gufi non sono quello che sembrano', null, null, null, null, null],
+  ['dialogo-silenzioso', 'Pensare è un dialogo silenzioso con sé', null, 'hannah-arendt', null, null, null],
+  ['ferita-luce', 'La ferita è il punto da cui entra la luce', null, 'rumi', null, null, null],
+  ['caffe-mezzanotte', 'Un caffè nero come la mezzanotte', null, null, null, null, null],
 ].forEach(([id, n, autore, attr, esito, testo, rif]) => nodo(id, { nome: n, gen: 'citazione', tipo: 'citazione', autore, attribuita: attr, esito, testo, rif, ring: 'cose' }));
 
 GESTI.forEach((g) => nodo('ge-' + slug(g), { nome: g, gen: 'gesto', ring: 'gesto' }));
@@ -390,22 +390,22 @@ const TETTO = '2026-02-28';
    legami: slug = nomina / parla-di ✦; ~slug = parla-di proposto ◌; +slug = proposto e accolto ●;
    !pos (capo di un contraddice), !chiedi, !vissuto, !tat (serve-a tatuaggi), !fare:slug, !altrui:citazione */
 const SCRITTI = `
-I|l'attenzione è l'unica cosa che posso regalare davvero|attenzione
-I|ogni tatuaggio una parola sola, e il braccio come una frase che si scrive negli anni|!tat
-I|niente colore. solo linea.|linea !tat
-I|spinoza e la gioia come passaggio a qualcosa di più grande|baruch-spinoza gioia
+I|guardare bene qualcuno è il regalo che costa di più|attenzione
+I|un segno ogni anno, e alla fine la pelle racconta in ordine|!tat
+I|nero e basta. il colore distrae.|linea !tat
+I|con spinoza la contentezza diventa un movimento, non uno stato|baruch-spinoza gioia
 I|il mare come la cosa che non finisce mai di arrivare|mare
-I|vai con la mappa|
+I|proviamo a disegnarlo|
 0302 0812|ho cominciato a scrivere qui. vediamo quanto dura|abitudine
 0305 2240|marco aurelio la sera prima di dormire. due pagine, non di più|pensieri stoicismo
 0308 0730|l'ostacolo è la via. lo so a memoria e non lo faccio mai|ostacolo-via !pos
-0311 2215|la rabbia è energia che non ha ancora trovato la sua forma|rabbia
-0314 1900|stalker di tarkovskij, visto finalmente. la stanza che esaudisce i desideri veri, non quelli che dici|stalker desiderio
+0311 2215|la collera è una corrente senza argini, per ora|rabbia
+0314 1900|stalker, tre ore di erba bagnata e alla fine non entra nessuno|stalker desiderio
 0317 2300|si può scegliere che cosa desiderare?|si-puo-scegliere desiderio !chiedi
 0320 0815|music for airports mentre piove. il tempo si allarga|music-for-airports tempo quiete
 0322 1340|journey finito in silenzio. nessuno parla e capisci tutto|journey silenzio
-0325 2210|rileggo spinoza, l'etica, il libro quarto. le passioni come cose da capire non da vincere|etica
-0327 1915|oggi una rabbia che non so dove mettere|rabbia
+0325 2210|l'etica, quarta parte, a matita. capire invece di combattere|etica
+0327 1915|una rabbia sorda tutto il giorno, senza indirizzo|rabbia
 0330 2250|il labirinto non è un posto dove ti perdi, è un posto dove cammini|labirinto +cammino
 0402 0745|seneca: rivendica te stesso a te stesso. lo voglio sul polso|vindica-te-tibi !tat
 0404 2120|il cielo sopra berlino. gli angeli che vorrebbero solo sentire il freddo delle mani|il-cielo-sopra-berlino corpo
@@ -418,7 +418,7 @@ I|vai con la mappa|
 0424 0820|quello che non dico pesa più di quello che dico|silenzio !pos
 0426 1910|viaggio a tokyo. i figli che non hanno tempo, e nessuno è cattivo|viaggio-a-tokyo tempo
 0429 2300|il libro dell'inquietudine aperto a caso. pessoa ha già scritto tutto quello che penso alle undici di sera|libro-dell-inquietudine inquietudine
-0502 0730|sogno: una porta in mezzo al mare, senza muro intorno|porta mare
+0502 0730|sognato una porta sulla spiaggia, aperta sul niente|porta mare
 0505 2215|la gioia non si cerca. ti trova mentre fai altro|gioia !pos
 0508 1300|outer wilds: tutto ricomincia ogni ventidue minuti e alla fine va bene così|outer-wilds tempo +ritorno
 0511 2240|leopardi, l'infinito. la siepe è la cosa più importante della poesia|l-infinito
@@ -430,12 +430,12 @@ I|vai con la mappa|
 0529 2220|kafka: un libro dev'essere l'ascia per il mare gelato. sì ma quale libro|ascia-mare-gelato
 0601 1015|perfect days. la stessa giornata ogni giorno e non è mai la stessa|perfect-days abitudine
 0603 2245|chi sono quando nessuno guarda?|chi-sono !chiedi
-0606 1830|wabi sabi: la crepa come parte del vaso. da tatuare, forse|wabi-sabi !tat
+0606 1830|wabi sabi, il bordo sbeccato che resta. sul gomito, forse|wabi-sabi !tat
 0609 2210|il codice dell'anima di hillman, la ghianda. ci credo a metà|il-codice-dell-anima
 0612 0750|by this river e la finestra aperta. quiete|by-this-river quiete
-0613 2130|un candidato se vorrò fare un testo lungo sulla schiena|lettere-a-lucilio !altrui:vindica-te-tibi !tat
+0613 2130|copiato a mano, piano, due volte|lettere-a-lucilio !altrui:vindica-te-tibi !tat
 0615 2300|rilke: amare le domande stesse. è la frase che mi serve quest'anno|amare-le-domande
-0618 1900|nostalgia di una casa che nn ho mai avuto|nostalgia casa
+0618 1900|nostalgia per una cucina che nn ricordo|nostalgia casa
 0621 1120|vagabond, musashi che impara a non vincere|vagabond coraggio
 0624 2235|epicuro non era quello delle feste. la lettera a meneceo è severissima|lettera-a-meneceo epicureismo
 0627 0905|stupore per una cosa piccola: le formiche sul davanzale in fila|stupore
@@ -443,66 +443,66 @@ I|vai con la mappa|
 0703 2300|la città incantata. il nome rubato. chi ti ricorda il nome ti salva|la-citta-incantata memoria
 0706 0820|async di sakamoto, il pianoforte annegato. bellezza rotta|async bellezza
 0709 1930|l'ordine del tempo. il tempo non scorre, siamo noi che… non l'ho capito ma mi piace|l-ordine-del-tempo tempo
-0712 2240|da piccolo pensavo che il mare d'inverno fosse un altro mare|mare ~nostalgia !vissuto
+0712 2240|da bambino il mare di novembre mi sembrava di un altro paese|mare ~nostalgia !vissuto
 0715 1800|sisifo felice. ci provo da anni|sisifo-felice sisifo esistenzialismo
 0718 2215|la paura è una porta chiusa che nessuno ha chiuso|paura porta
 0721 0930|wild geese di mary oliver. non devi essere buono|wild-geese
 0724 2300|forse il coraggio è solo fare la cosa con la paura addosso|coraggio paura
 0727 1400|joni mitchell, blue, tutto il pomeriggio|blue
-0730 2210|il dolore non insegna niente. è solo dolore|dolore !pos
-0802 1130|gioco e realtà di winnicott, da leggere. dicono che spiega tutto|gioco-e-realta gioco !fare:gioco-e-realta
+0730 2210|soffrire non migliora nessuno, è una favola|dolore !pos
+0802 1130|winnicott, gioco e realtà, in lista. lo citano tutti|gioco-e-realta gioco !fare:gioco-e-realta
 0805 2245|lo spazio tra il gioco e la realtà è dove abito meglio|gioco
-0808 0745|questa la voglio. una chiave senza porta, solo linea|chiave linea !tat
-0811 2230|orfeo che si volta. sul polpaccio, da tatuare|orfeo !tat
-0814 1045|battiato, la cura, in macchina col finestrino giù. una quiete strana|la-cura quiete
+0808 0745|una chiave sola, senza serratura, un tratto unico|chiave linea !tat
+0811 2230|orfeo di spalle, sulla coscia. da fare|orfeo !tat
+0814 1045|la cura in autostrada, di notte. calma da galleria|la-cura quiete
 0817 2155|una gratitudine improvvisa per niente in particolare|gratitudine
-0820 0912|chi è che diceva che pensare è fermarsi? arendt credo|pensare-e-fermarsi !chiedi
+0820 0912|pensare come parlare da soli in silenzio. arendt, mi pare|dialogo-silenzioso !chiedi
 0823 2350|itaca: non affrettare il viaggio. la rileggo ogni estate|itaca viaggio
 0826 1320|il viandante sul mare di nebbia, ma girato verso di me|viandante specchio
-0829 2210|che cosa resta di un giorno se nessuno lo racconta?|che-cosa-resta !chiedi
-0901 0740|la società della stanchezza di han. tutti stanchi di essere liberi|la-societa-della-stanchezza libertà
+0829 2210|un giorno che nessuno racconta, dove va a finire?|che-cosa-resta !chiedi
+0901 0740|han, la società della stanchezza. liberi fino allo sfinimento|la-societa-della-stanchezza libertà
 0903 2215|noia della domenica, quella che era bella da bambino|noia !vissuto
 0906 1810|il mago di terramare: il vero nome delle cose. ged che insegue la sua ombra|il-mago-di-terramare ged
 0909 2300|la fenice sulla scapola, ma piccola, una linea sola|fenice linea !tat +trasformazione
 0910 0800|la tengo sul frigo|l-infinito !altrui:ermo-colle
 0912 0830|lo specchio di tarkovskij. non ho capito niente e l'ho sentito tutto|lo-specchio specchio
 0915 2245|für alina e basta, stasera nient'altro|fur-alina
-0918 1730|l'epicureismo che ho studiato a scuola era una caricatura. il piacere come assenza di dolore è una cosa seria|epicureismo dolore piacere-assenza
-0921 2315|il mare d'inverno è l'unico posto dove nn devo spiegare niente a nessuno|mare
-0922 0730|nick drake stamattina, pink moon in loop. malinconia buona|pink-moon malinconia
-0924 0810|letto la fine delle città invisibili in treno. mi ha spaccato|le-citta-invisibili
+0918 1730|epicuro a scuola sembrava un oste. invece è il più sobrio di tutti|epicureismo dolore piacere-assenza
+0921 2315|davanti al mare vuoto nn devo giustificarmi con nessuno|mare
+0922 0730|pink moon tre volte di fila a colazione. malinconia gentile|pink-moon malinconia
+0924 0810|finito le città invisibili sul regionale. mi ha steso|le-citta-invisibili
 0927 1915|la verità detta male fa più danni di una bugia detta bene. o no?|verità !pos
-0929 2240|stasera ho capito che nn faccio attenzione, aspetto solo il mio turno per parlare|attenzione aspettare
+0929 2240|a cena ho notato che nn ascolto, preparo la mia risposta|attenzione aspettare
 1001 2200|weil: l'attenzione come generosità. ecco cosa intendevo a settembre|attenzione-generosita attenzione
-1002 2300|a che cosa serve ricordare?|a-che-cosa-serve memoria !chiedi
-1003 1930|fare attenzione a una persona è diverso da guardarla|attenzione
-1005 1310|paterson di jarmusch, da vedere. me l'hanno consigliato in tre|paterson !fare:paterson
+1002 2300|perché tenere le cose a mente?|a-che-cosa-serve memoria !chiedi
+1003 1930|stare attento a qualcuno nn è tenerlo d'occhio|attenzione
+1005 1310|paterson di jarmusch in lista, lo nominano tutti|paterson !fare:paterson
 1007 1800|il ponte tra quello che penso e quello che faccio è lunghissimo|ponte !pos
 1009 1915|questa la rileggo quando rimando|pensieri !altrui:ostacolo-via
 1010 2115|la fede come un'abitudine che non sai più perché hai|fede abitudine
 1012 0900|zen e l'arte di lavare i piatti. sul serio|zen lavoro
-1014 2201|aspettare non è perdere tempo, è il tempo che lavora|aspettare !pos
+1014 2201|nell'attesa le cose maturano da sole|aspettare !pos
 1016 1930|ho rivisto stalker. la seconda volta la stanza fa più paura|stalker paura
-1017 2205|mushishi, da guardare un episodio a sera|mushishi !fare:mushishi
-1018 1120|una poesia della szymborska che dice che niente succede due volte. la voglio rileggere|nulla-due-volte !fare:nulla-due-volte
+1017 2205|mushishi, uno a sera, lento|mushishi !fare:mushishi
+1018 1120|nulla due volte della szymborska, da ritrovare|nulla-due-volte !fare:nulla-due-volte
 1019 0700|eraclito e il fiume. ogni mattina un altro me che si lava la faccia|due-volte-fiume
-1020 2214|il faro spento, piccolo, sulla caviglia. da tatuare|faro !tat
-1021 2120|twin peaks rivisto, la signora del ceppo. mi fa ridere e paura insieme|twin-peaks la-signora-del-ceppo paura
-1022 0905|quello che cerchi ti sta cercando. rumi credo|quello-che-cerchi ~aspettare
-1023 2300|il gufo che non è quello che sembra, la frase di twin peaks. da tatuare? forse|i-gufi twin-peaks !tat
-1024 1830|il caduceo di ermete trismegisto, a linea sottile. per i tatuaggi|ermete-trismegisto linea !tat
-1025 2215|forse il dolore è l'unico posto dove ho imparato qualcosa|dolore !pos
-1026 1840|a mare oggi c'era una luce che non sapevo di ricordare|mare +memoria
-1027 2240|lo spettacolo di galimberti ieri sera. la tecnica come ambiente, non come strumento|lo-spettacolo-di-galimberti
+1020 2214|un faro piccolo, senza luce, dietro l'orecchio|faro !tat
+1021 2120|twin peaks di nuovo, la signora del ceppo. comica e inquietante|twin-peaks la-signora-del-ceppo paura
+1022 0905|la ferita da cui entra la luce, rumi forse|ferita-luce ~aspettare
+1023 2300|il caffè nero come la mezzanotte, la frase di twin peaks. tatuaggio? ci penso|caffe-mezzanotte twin-peaks !tat
+1024 1830|ermete trismegisto e il suo bastone, tratto fine, per la pelle|ermete-trismegisto linea !tat
+1025 2215|le cose che so le ho imparate stando male, purtroppo|dolore !pos
+1026 1840|sulla spiaggia una luce che conoscevo senza saperlo|mare +memoria
+1027 2240|bestie di scena, attori nudi che non dicono quasi niente. ancora addosso|bestie-di-scena
 1028 0810|nietzsche, zarathustra, il cammello il leone il bambino. sono ancora cammello|cosi-parlo-zarathustra ~trasformazione
-1029 2305|mi sono rotto di aspettare. aspettare è una scusa|aspettare !pos
-1030 2320|da tatuare in piccolo: non è inferno. calvino|inferno-dei-viventi !tat
-1031 2245|stasera malinconia. nn triste, malinconia|malinconia
+1029 2305|basta attese. l'attesa è un alibi|aspettare !pos
+1030 2320|calvino, quello che inferno non è. piccolo, sul polso|inferno-dei-viventi !tat
+1031 2245|malinconia leggera stasera, nn tristezza|malinconia
 1101 0930|blackwork pieno sul polpaccio o niente. niente mezze misure|blackwork !tat
 1101 2200|fun to imagine, feynman che spiega il fuoco. il sole che esce dal legno|fun-to-imagine stupore
 1102 0900|il silenzio dopo una canzone è parte della canzone|silenzio
 1102 2214|spiegel im spiegel, due note e basta. la cura come gesto minimo|spiegel-im-spiegel cura
-1103 0750|sogno: una città fatta solo di porte|porta
+1103 0750|sognato un paese di soli usci|porta
 1104 0815|la libertà forse è solo poter cambiare idea senza vergogna|libertà vergogna !pos
 `;
 
@@ -511,7 +511,7 @@ const lc = (id) => N[id].nome.toLowerCase();
 const MODELLI = {
   canzone: ['{O} in loop stamattina', '{O} di {A} in macchina. {s}', 'rimesso {O} dopo anni', '{O} a volume basso mentre lavoro', '{O}, e fuori piove', '{O} mentre cucino. {s}'],
   album: ['{O} tutto di fila, senza saltare niente', 'riascoltato {O} dall’inizio alla fine', '{O} in cuffia sul treno. {s}'],
-  libro: ['rileggo {O}. {t} ovunque', '{O}, finito. mi ha colpito tanto', '{O} sul comodino da settimane', 'sottolineato mezzo {O}', '{O} di {A}, da leggere', 'tre pagine di {O} in metro. {t}', '{O}: un capitolo e poi fermo a pensare'],
+  libro: ['rileggo {O}. {t} ovunque', '{O}, finito. mi resta addosso', '{O} sul comodino da settimane', 'sottolineato mezzo {O}', '{O} di {A}, da leggere', 'tre pagine di {O} in metro. {t}', '{O}: un capitolo e poi fermo a pensare'],
   poesia: ['{O} quasi a memoria ormai', 'riletta {O} ad alta voce, da solo', '{O} copiata a mano sul quaderno'],
   film: ['{O} di {A}, visto stasera', 'rivisto {O}. {s}', '{O}, da vedere', '{O}: la scena finale non me la tolgo di dosso', '{O} di nuovo. {t}'],
   serie: ['{O}, un episodio a sera', 'finita {O}. {s}', '{O}: la puntata di ieri sul {t}'],
@@ -580,7 +580,7 @@ SCRITTI.trim().split('\n').forEach((riga) => {
 });
 // copertura: ogni nodo nominabile ha almeno due frasi; poi il resto per popolarità, con la crescita nei mesi
 {
-  const nominabili = Object.values(N).filter((n) => ['tema', 'persona', 'opera', 'citazione'].includes(n.gen) && !n.dedotto && n.id !== 'i-gufi' && n.id !== 'pensare-e-fermarsi' && n.id !== 'quello-che-cerchi');
+  const nominabili = Object.values(N).filter((n) => ['tema', 'persona', 'opera', 'citazione'].includes(n.gen) && !n.dedotto && n.id !== 'caffe-mezzanotte' && n.id !== 'dialogo-silenzioso' && n.id !== 'ferita-luce');
   const uso = {}; FR.forEach((f) => f.luce.forEach((id) => (uso[id] = (uso[id] || 0) + 1)));
   const coda = [];
   nominabili.forEach((n) => { for (let i = uso[n.id] || 0; i < 2; i++) coda.push(n.id); });
@@ -679,7 +679,7 @@ const S = {
   rot: Object.fromEntries(RIDS.map((k) => [k, 0])), k: 1, tx: 0, ty: 0,
   sel: {}, lente: false, fino: MESI_ID.length - 1, fuoco: null, filo: [], vassoio: null, anelloTastiera: 5,
 };
-const FIRST = FR.find((f) => f.testo.startsWith('nick drake stamattina'));
+const FIRST = FR.find((f) => f.testo.startsWith('pink moon tre volte'));
 
 /* --- che cosa passa i filtri */
 const inTempo = (f) => f.mi <= S.fino;

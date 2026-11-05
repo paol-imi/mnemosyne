@@ -1,0 +1,1551 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>La ruota</title>
+<script>
+  // Anti-lampo: il tema segue il sistema; ?tema= serve solo alle foto del prototipo.
+  (function () {
+    var t = new URLSearchParams(location.search).get('tema');
+    if (t === 'scuro') document.documentElement.dataset.theme = 'dark';
+    if (t === 'chiaro') document.documentElement.dataset.theme = 'light';
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..700;1,8..60,300..700&family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
+<style>
+:root {
+  --carta: #f3eee3; --carta-2: #ebe4d6; --carta-3: #ded5c3; --ink: #221f1b; --ink-2: #4e473e; --tenue: #81796c; --filo: #cfc5b2;
+  --luce: #f2c463; --halo: rgba(242,196,99,.55); --oro: #9a6c17;
+  --c-gesto: #575b93; --c-sent: #985a79; --c-temi: #a07018; --c-campo: #8d9188; --c-pers: #2a7868; --c-cose: #2e5b8a; --c-tempo: #8a6a48;
+  --warn: #c8962a; --tavola: #1d1b19; --tavola-2: #26231f; --biglietto: #f6f0e3; --biglietto-2: #e9e2d2;
+  --ombra: 0 -10px 30px rgba(40,30,20,.14);
+  --serif: "Source Serif 4", "Iowan Old Style", Georgia, serif;
+  --segni: "Noto Sans Symbols 2", "Segoe UI Symbol", sans-serif;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --carta: #121318; --carta-2: #1a1c22; --carta-3: #262832; --ink: #ece6da; --ink-2: #c6bfb2; --tenue: #8f897e; --filo: #34363f;
+    --luce: #f6cf73; --halo: rgba(246,207,115,.42); --oro: #e3b45a;
+    --c-gesto: #9ea2e6; --c-sent: #d99ab8; --c-temi: #e2b257; --c-campo: #8f958c; --c-pers: #62c4ad; --c-cose: #7fabe0; --c-tempo: #c7a27c;
+    --warn: #e2b04a; --ombra: 0 -10px 30px rgba(0,0,0,.5); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --carta: #121318; --carta-2: #1a1c22; --carta-3: #262832; --ink: #ece6da; --ink-2: #c6bfb2; --tenue: #8f897e; --filo: #34363f;
+  --luce: #f6cf73; --halo: rgba(246,207,115,.42); --oro: #e3b45a;
+  --c-gesto: #9ea2e6; --c-sent: #d99ab8; --c-temi: #e2b257; --c-campo: #8f958c; --c-pers: #62c4ad; --c-cose: #7fabe0; --c-tempo: #c7a27c;
+  --warn: #e2b04a; --ombra: 0 -10px 30px rgba(0,0,0,.5); color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--carta); color: var(--ink); font: 400 17px/1.45 var(--serif); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.sg { font-family: var(--segni); font-style: normal; font-size: .72em; vertical-align: .1em; margin-left: .18em; }
+.sg.w { color: var(--warn); }
+.sg.p { color: var(--tenue); }
+.vh { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* testata */
+.testa { display: flex; align-items: center; gap: 10px; height: 52px; padding: 0 16px; border-bottom: 1px solid var(--filo); }
+.marchio { font-variant-caps: all-small-caps; letter-spacing: .08em; color: var(--tenue); font-size: 15px; }
+.titolo { font-size: 19px; font-weight: 500; letter-spacing: -.005em; }
+.titolo i { font-weight: 400; color: var(--oro); }
+.testa .sp { flex: 1; }
+
+/* scena */
+.scena { position: relative; }
+.ruota-box { position: relative; width: 100%; height: min(100vw, 62vh); touch-action: none; user-select: none; -webkit-user-select: none; }
+#ruota { width: 100%; height: 100%; display: block; cursor: grab; outline: none; }
+#ruota:focus-visible { outline: 2px dashed var(--tenue); outline-offset: -4px; }
+#ruota.trascina { cursor: grabbing; }
+.zoom { position: absolute; right: 6px; bottom: 4px; display: flex; flex-direction: row; gap: 4px; }
+.zoom #zre { position: absolute; right: auto; left: calc(-100vw + 112px); }
+@media (min-width: 960px) { .zoom { flex-direction: column; right: 10px; bottom: 10px; gap: 6px; } .zoom #zre { position: static; } }
+.zoom button { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--filo); background: color-mix(in srgb, var(--carta) 88%, transparent); font-size: 20px; line-height: 1; cursor: pointer; }
+.zoom button:disabled { opacity: .35; }
+.aiuto { display: none; position: absolute; left: 12px; bottom: 8px; font-size: 12.5px; color: var(--tenue); max-width: 46%; line-height: 1.3; pointer-events: none; }
+
+.pannello { padding: 4px 16px 200px; }
+.servizio { font-size: 14.5px; color: var(--ink-2); display: flex; flex-wrap: wrap; gap: 4px 10px; align-items: baseline; min-height: 26px; }
+.servizio .vuoto { color: var(--ink); }
+.attivi { display: flex; flex-wrap: wrap; gap: 6px; margin: 6px 0 0; }
+.attivi:empty { display: none; }
+.chip { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; padding: 4px 12px; border-radius: 18px; border: 1px solid var(--filo); background: var(--carta-2); font-size: 14.5px; cursor: pointer; white-space: nowrap; }
+.chip .x { color: var(--tenue); font-size: 15px; }
+.chip .n { color: var(--tenue); font-size: 12.5px; font-variant-numeric: lining-nums; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--carta); border-color: var(--ink); }
+.chip[aria-pressed="true"] .n { color: var(--carta-3); }
+.chip .pt { width: 9px; height: 9px; border-radius: 50%; background: currentColor; flex: none; }
+.chip svg { flex: none; }
+.togli { background: none; border: 0; color: var(--tenue); text-decoration: underline; text-underline-offset: .2em; font-size: 14px; min-height: 36px; cursor: pointer; padding: 0 4px; }
+
+.anelli { display: flex; gap: 6px; overflow-x: auto; padding: 10px 0 4px; scrollbar-width: none; margin: 0 -16px; padding-left: 16px; padding-right: 16px; }
+.anelli::-webkit-scrollbar { display: none; }
+.anello { flex: none; min-height: 44px; padding: 0 14px; border-radius: 22px; border: 1px solid var(--filo); background: transparent; display: inline-flex; align-items: center; gap: 8px; font-size: 15.5px; cursor: pointer; }
+.anello .pt { width: 10px; height: 10px; border-radius: 50%; }
+.anello.quieto { color: var(--tenue); }
+.anello[aria-expanded="true"] { background: var(--carta-2); border-color: var(--ink-2); }
+.anello.ha { font-weight: 600; }
+.anello.ha::after { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--ink); }
+.vassoio { padding: 10px 0 4px; }
+.vassoio h3 { margin: 0 0 6px; font-weight: 400; font-size: 13.5px; color: var(--tenue); }
+.vassoio .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.tempo { margin-top: 12px; }
+.tempo .riga { display: flex; align-items: center; gap: 10px; }
+.tempo .play { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--filo); background: var(--carta-2); cursor: pointer; font-size: 15px; flex: none; }
+.tempo svg { display: block; width: 100%; height: 64px; overflow: visible; }
+.tempo .bar { cursor: pointer; }
+.tempo .cap { font-size: 13.5px; color: var(--ink-2); margin: 2px 0 0 54px; min-height: 20px; }
+.tempo input[type=range] { width: 100%; margin: 0; accent-color: var(--c-tempo); height: 28px; }
+.lente { display: flex; align-items: center; gap: 10px; margin-top: 10px; min-height: 44px; background: none; border: 0; padding: 0; cursor: pointer; color: var(--tenue); font-size: 15px; }
+.lente .sw { width: 38px; height: 22px; border-radius: 11px; background: var(--carta-3); position: relative; transition: background .2s; flex: none; }
+.lente .sw::after { content: ""; position: absolute; left: 3px; top: 3px; width: 16px; height: 16px; border-radius: 50%; background: var(--carta); transition: left .2s; box-shadow: 0 1px 2px rgba(0,0,0,.2); }
+.lente[aria-pressed="true"] .sw { background: var(--tenue); }
+.lente[aria-pressed="true"] .sw::after { left: 19px; }
+.legenda { font-size: 13px; color: var(--tenue); margin-top: 6px; }
+
+/* il foglio: dal basso sul telefono, di lato sul desktop */
+.foglio { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; background: var(--carta); box-shadow: var(--ombra); border-radius: 16px 16px 0 0; border-top: 1px solid var(--filo);
+  max-height: 78vh; display: flex; flex-direction: column; transform: translateY(calc(100% - var(--sbircia, 178px))); transition: transform .28s ease; }
+.foglio.aperto { transform: translateY(0); }
+.maniglia { flex: none; height: 26px; display: flex; justify-content: center; align-items: center; cursor: pointer; border: 0; background: none; width: 100%; }
+.maniglia::before { content: ""; width: 40px; height: 4px; border-radius: 2px; background: var(--filo); }
+.foglio-c { overflow-y: auto; padding: 0 18px 22px; }
+.etic { font-size: 12.5px; letter-spacing: .07em; font-variant-caps: all-small-caps; color: var(--tenue); display: flex; align-items: center; gap: 8px; }
+.etic .pt { width: 8px; height: 8px; border-radius: 50%; }
+.data { display: block; font-size: 13.5px; color: var(--tenue); font-variant-numeric: lining-nums; }
+.frase { font-size: 21px; line-height: 1.3; margin: 2px 0 8px; }
+.frase i { font-style: italic; }
+.mondo { font-size: 16px; margin: 0 0 6px; }
+.luogo { display: block; font-size: 13px; color: var(--tenue); }
+.foglio h2 { margin: 2px 0 4px; font-size: 25px; font-weight: 500; line-height: 1.15; }
+.allineati { list-style: none; padding: 0; margin: 10px 0 8px; display: grid; grid-template-columns: auto 1fr; gap: 0 12px; font-size: 15px; }
+.allineati li { display: contents; }
+.allineati .a { color: var(--tenue); font-size: 13px; padding: 6px 0; border-top: 1px solid var(--filo); display: flex; gap: 6px; align-items: center; }
+.allineati .v { padding: 6px 0; border-top: 1px solid var(--filo); }
+.allineati .fuori { color: var(--tenue); }
+.allineati .dentro { font-weight: 600; }
+.azioni { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.bott { min-height: 44px; padding: 0 16px; border-radius: 22px; border: 1px solid var(--ink-2); background: var(--ink); color: var(--carta); font-size: 15.5px; cursor: pointer; }
+.bott.leggero { background: transparent; color: var(--ink); border-color: var(--filo); }
+.conto { font-size: 14px; color: var(--ink-2); }
+
+/* desktop */
+@media (min-width: 960px) {
+  .scena { display: grid; grid-template-columns: 1fr 440px; height: calc(100vh - 52px); }
+  .ruota-box { height: 100%; }
+    .pannello > * { flex: none; }
+  .anelli { flex-wrap: wrap; overflow: visible; margin: 0; padding: 10px 0 4px; }
+  .pannello { overflow-y: auto; border-left: 1px solid var(--filo); padding: 16px 22px 24px; display: flex; flex-direction: column; }
+  .foglio { position: static; transform: none; box-shadow: none; border-radius: 0; border: 0; border-top: 1px solid var(--filo); margin: 14px -22px 0; max-height: none; order: -1; border-top: 0; border-bottom: 1px solid var(--filo); margin-top: -16px; padding-top: 10px; }
+  .maniglia { display: none; }
+  .foglio-c { overflow: visible; padding: 0 22px 16px; }
+  .aiuto { display: block; max-width: 300px; font-size: 13.5px; }
+}
+
+/* la tavola */
+.tavola { position: fixed; inset: 0; z-index: 50; background: var(--tavola); color: #efe7d8; display: flex; flex-direction: column;
+  background-image: radial-gradient(rgba(255,255,255,.025) 1px, transparent 1px); background-size: 5px 5px; }
+.tavola[hidden] { display: none; }
+.tavola .tt { display: flex; align-items: center; gap: 10px; padding: 0 8px 0 16px; height: 56px; border-bottom: 1px solid rgba(255,255,255,.08); flex: none; }
+.tavola .tt .marchio { color: #a49a88; }
+.tavola .filo-a { flex: 1; overflow-x: auto; white-space: nowrap; font-size: 14px; color: #a49a88; scrollbar-width: none; }
+.tavola .filo-a button { background: none; border: 0; color: #cfc4b0; min-height: 44px; padding: 0 2px; cursor: pointer; font-size: 14px; }
+.tavola .filo-a button[aria-current="true"] { color: #fff; }
+.tavola .chiudi { width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(255,255,255,.18); background: none; color: #efe7d8; font-size: 20px; cursor: pointer; flex: none; }
+.tavola .corpo { flex: 1; overflow: auto; position: relative; -webkit-overflow-scrolling: touch; }
+.tavola .asse { position: relative; margin: 0 auto; }
+.tavola svg.fili { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; }
+.tavola .piede { flex: none; display: flex; gap: 8px; padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); border-top: 1px solid rgba(255,255,255,.08); background: rgba(0,0,0,.25); overflow-x: auto; }
+.tavola .piede .bott { background: #efe7d8; color: #1d1b19; border-color: #efe7d8; white-space: nowrap; }
+.tavola .piede .bott.leggero { background: transparent; color: #efe7d8; border-color: rgba(255,255,255,.25); }
+.c { position: absolute; left: 0; top: 0; color: #24201b; transform-origin: 50% 50%; transition: opacity .2s; }
+.c.spento { opacity: .25; }
+button.c { font: inherit; text-align: left; cursor: pointer; border: 0; }
+.c-titolo { color: #efe7d8; text-align: center; width: 300px; }
+.c-titolo .k { font-size: 12.5px; letter-spacing: .08em; font-variant-caps: all-small-caps; color: #a49a88; }
+.c-titolo h2 { font-size: 34px; font-weight: 500; margin: 2px 0 2px; line-height: 1.05; }
+.c-titolo .n { font-size: 14px; color: #c9bfae; }
+.c-frase { background: var(--biglietto); padding: 12px 16px 12px; box-shadow: 0 8px 22px rgba(0,0,0,.45); border-radius: 2px; }
+.c-frase .data { color: #7b7264; font-size: 12.5px; }
+.c-frase p { margin: 2px 0 0; font-size: 18px; line-height: 1.3; }
+.c-frase.porta p { font-size: 25px; line-height: 1.22; }
+.c-frase.porta { padding: 16px 20px 18px; }
+.c-frase .mondo { font-size: 14px; margin-top: 8px; color: #3c362e; }
+.c-opera { background: #2b2824; color: #efe7d8; padding: 10px 12px 10px; border: 1px solid rgba(255,255,255,.14); border-radius: 3px; width: 160px; box-shadow: 0 6px 16px rgba(0,0,0,.4); }
+.c-opera .gl { display: block; margin-bottom: 6px; }
+.c-opera i { font-size: 16.5px; line-height: 1.2; display: block; }
+.c-opera small { display: block; color: #a49a88; font-size: 12.5px; margin-top: 3px; }
+.c-persona { width: 104px; height: 104px; border-radius: 50%; background: #e3dccd; display: flex !important; align-items: center; justify-content: center; text-align: center !important; font-size: 15px; line-height: 1.15; padding: 10px; box-shadow: 0 6px 16px rgba(0,0,0,.4); }
+.c-tema { background: none; color: var(--c-temi-t, #e7bf6a); font-size: 21px; padding: 8px 4px; display: flex !important; align-items: center; gap: 8px; }
+.c-tema .pt { width: 10px; height: 10px; border-radius: 50%; background: currentColor; box-shadow: 0 0 12px currentColor; }
+.c-cit { background: #d9d3c6; padding: 12px 14px; width: 250px; box-shadow: 0 6px 16px rgba(0,0,0,.4); border-radius: 2px; }
+.c-cit p { margin: 0; font-size: 16px; line-height: 1.3; }
+.c-cit .luogo { color: #5f574b; margin-top: 6px; }
+.c-cit.dub { background: #3a352d; color: #efe7d8; border: 1px dashed #e2b04a; }
+.c-cit.dub .luogo { color: #c9bfae; }
+.c-prop { opacity: .55; border: 1px dashed rgba(255,255,255,.4); background: transparent !important; color: #cfc4b0 !important; box-shadow: none !important; }
+.c-mese { color: #c9bfae; font-size: 15px; padding: 6px; }
+.tavola .vuoto-t { color: #c9bfae; padding: 24px; text-align: center; }
+
+@media (min-width: 960px) {
+  .tavola { inset: 3vh 3vw; border-radius: 10px; box-shadow: 0 30px 80px rgba(0,0,0,.5); }
+  .velo-t { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 49; }
+}
+.velo-t[hidden] { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+/* svg */
+.alidada { fill: var(--carta); opacity: .72; }
+.lbl { font-family: var(--serif); fill: var(--ink); paint-order: stroke; stroke: var(--carta); stroke-width: 3.2px; stroke-linejoin: round; }
+.lbl.anel { fill: var(--tenue); font-size: 11px; letter-spacing: .04em; }
+.lbl.mezzo { font-size: 12.5px; font-weight: 600; }
+.lbl.mezzo.it { font-style: italic; }
+.lbl.mezzo.fuori { font-weight: 400; fill: var(--ink-2); }
+.lbl.nodo { font-size: 11.5px; fill: var(--ink-2); }
+.lbl.nodo.it { font-style: italic; }
+.lbl.mese { font-size: 10.5px; fill: var(--tenue); }
+.lbl.arco { font-size: 10px; fill: var(--ink-2); }
+.hub-t { font-family: var(--serif); fill: var(--ink); text-anchor: middle; }
+</style>
+</head>
+<body>
+<header class="testa">
+  <span class="marchio">Mnemosyne</span><span class="titolo">la <i>ruota</i></span><span class="sp"></span>
+</header>
+<div class="scena">
+  <section class="ruota-box" id="box">
+    <svg id="ruota" role="application" aria-label="La ruota: sette anelli, dal centro gesto, sentimenti, temi, campo, persone, cose, tempo. Trascina un anello per girarlo; tocca un nodo per aprire la sua tavola. Frecce: gira l'anello scelto; su e giù: cambia anello; Invio: apri ciò che sta a mezzogiorno." tabindex="0"></svg>
+    <p class="aiuto" id="aiuto">Trascina un anello per girarlo. Ciò che sta sulla linea di mezzogiorno si allinea.</p>
+    <div class="zoom"><button id="zin" aria-label="Avvicina">+</button><button id="zout" aria-label="Allontana">−</button><button id="zre" aria-label="Rimetti al centro">◎</button></div>
+  </section>
+  <aside class="pannello" id="pannello">
+    <div class="servizio" id="servizio" aria-live="polite"></div>
+    <div class="attivi" id="attivi"></div>
+    <div class="anelli" id="anelli" role="toolbar" aria-label="Gli anelli: tocca un nome per restringerlo"></div>
+    <div class="vassoio" id="vassoio" hidden></div>
+    <div class="tempo" id="tempo"></div>
+    <button class="lente" id="lente" aria-pressed="false"><span class="sw"></span><span>anche le mie proposte <span class="sg p">◌</span></span></button>
+    <p class="legenda" id="legenda"></p>
+    <div class="foglio" id="foglio" role="region" aria-label="Lettura"><button class="maniglia" id="maniglia" aria-label="Apri o chiudi il foglio"></button><div class="foglio-c" id="foglio-c"></div></div>
+  </aside>
+</div>
+<div class="velo-t" id="velo-t" hidden></div>
+<div class="tavola" id="tavola" hidden role="dialog" aria-modal="true" aria-label="Tavola">
+  <div class="tt"><span class="marchio">tavola</span><div class="filo-a" id="filo"></div><button class="chiudi" id="chiudi" aria-label="Chiudi la tavola">×</button></div>
+  <div class="corpo" id="tcorpo"><div class="asse" id="asse"><svg class="fili" id="tfili"></svg></div></div>
+  <div class="piede" id="tpiede"></div>
+</div>
+
+<script>
+'use strict';
+/* =====================================================================
+   DATI SINTETICI. Inventati per il prototipo: nessun frammento, nessuna
+   persona, nessuna data del repository. Niente delicati, niente persone
+   della vita (cerchia: vita), niente testi di canzoni.
+   ===================================================================== */
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function mulberry32(a) { return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+const rnd = mulberry32(20261105);
+const pick = (a) => a[Math.floor(rnd() * a.length)];
+const slug = (s) => s.replace(/ø/g, 'o').replace(/ł/g, 'l').normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const MESI = ['gennaio', 'febbraio', 'marzo', 'aprile', 'maggio', 'giugno', 'luglio', 'agosto', 'settembre', 'ottobre', 'novembre', 'dicembre'];
+const MESI3 = ['gen', 'feb', 'mar', 'apr', 'mag', 'giu', 'lug', 'ago', 'set', 'ott', 'nov', 'dic'];
+
+// Gli anelli, dal centro: prima ciò che faccio con le parole e ciò che sento, poi di che cosa parlo,
+// il campo (◌, quieto), chi, che cosa nomino; fuori, sottile, il tempo.
+const RINGS = [
+  { k: 'gesto', nome: 'gesto', r0: .165, r1: .245, arco: true, col: '--c-gesto' },
+  { k: 'sent', nome: 'sentimenti', r0: .265, r1: .365, col: '--c-sent', base: 5.2 },
+  { k: 'temi', nome: 'temi', r0: .385, r1: .525, col: '--c-temi', base: 4.6 },
+  { k: 'campo', nome: 'campo', prop: true, r0: .545, r1: .6, arco: true, col: '--c-campo', quieto: true },
+  { k: 'pers', nome: 'persone', r0: .62, r1: .765, col: '--c-pers', base: 4.2 },
+  { k: 'cose', nome: 'cose', r0: .785, r1: .94, col: '--c-cose', base: 4.4 },
+  { k: 'tempo', nome: 'tempo', r0: .958, r1: 1.0, arco: true, col: '--c-tempo' },
+];
+const RK = Object.fromEntries(RINGS.map((r, i) => [r.k, Object.assign(r, { i, nodi: [] })]));
+
+const N = {};
+function nodo(id, o) { if (N[id]) console.warn('doppio', id); return (N[id] = Object.assign({ id }, o)); }
+const TIPI = ['canzone', 'album', 'libro', 'poesia', 'film', 'serie', 'fumetto', 'spettacolo', 'immagine', 'gioco', 'video', 'citazione'];
+const TIPI_PL = { canzone: 'canzoni', album: 'album', libro: 'libri', poesia: 'poesie', film: 'film', serie: 'serie', fumetto: 'fumetti', spettacolo: 'spettacoli', immagine: 'immagini', gioco: 'giochi', video: 'video', citazione: 'citazioni' };
+const SPECIE = ['idea', 'simbolo', 'domanda', 'corrente', 'stile'];
+const SPECIE_PL = { idea: 'idee', simbolo: 'simboli', domanda: 'domande', corrente: 'correnti', stile: 'stili', stato: 'sentimenti' };
+const CAMPI = ['filosofia', 'psicologia', 'mito-e-religione', 'esoterismo', 'scienza', 'storia', 'letteratura', 'arte', 'musica', 'cinema'];
+const GESTI = ['penso', 'sento', 'chiedo', 'ricordo', 'voglio fare', 'trascrivo', 'per i tatuaggi'];
+
+// --- temi (nominati da me ✦; la specie è una lettura ◌)
+'attenzione aspettare dolore tempo libertà silenzio memoria corpo fede lavoro gioco verità cura solitudine casa viaggio desiderio coraggio bellezza abitudine'
+  .split(' ').forEach((n) => nodo(slug(n), { nome: n, gen: 'tema', specie: 'idea', ring: 'temi' }));
+[['mare', 'il'], ['faro', 'il'], ['porta', 'la'], ['chiave', 'la'], ['fenice', 'la'], ['labirinto', 'il'], ['specchio', 'lo'], ['ponte', 'il'], ['luna', 'la'], ['filo', 'il']]
+  .forEach(([n, art]) => nodo(n, { nome: n, art, gen: 'tema', specie: 'simbolo', ring: 'temi' }));
+[['a-che-cosa-serve', 'a che cosa serve ricordare?'], ['che-cosa-resta', 'che cosa resta di un giorno?'], ['chi-sono', 'chi sono quando nessuno guarda?'], ['si-puo-scegliere', 'si può scegliere che cosa desiderare?']]
+  .forEach(([id, n]) => nodo(id, { nome: n, gen: 'tema', specie: 'domanda', ring: 'temi' }));
+[['epicureismo', 'filosofia'], ['stoicismo', 'filosofia'], ['wabi sabi', 'arte'], ['esistenzialismo', 'filosofia'], ['zen', 'mito-e-religione']]
+  .forEach(([n, c]) => nodo(slug(n), { nome: n, gen: 'tema', specie: 'corrente', campo: [c], ring: 'temi' }));
+'linea blackwork puntinato'.split(' ').forEach((n) => nodo(n, { nome: n, gen: 'tema', specie: 'stile', ring: 'temi' }));
+'malinconia rabbia quiete nostalgia gioia stupore noia paura gratitudine inquietudine tenerezza vergogna'
+  .split(' ').forEach((n) => nodo(n, { nome: n, gen: 'tema', specie: 'stato', ring: 'sent' }));
+// temi dedotti da me (◌): non li hai nominati; spenti di default
+[['soglia', 'simbolo'], ['ritorno', 'idea'], ['trasformazione', 'idea'], ['ascolto', 'idea'], ['misura', 'idea'], ['rumore', 'idea'], ['cammino', 'simbolo']]
+  .forEach(([n, s]) => nodo(n, { nome: n, gen: 'tema', specie: s, ring: 'temi', dedotto: true }));
+
+// --- persone (solo mondo e finzione)
+[
+  ['Baruch Spinoza', 'filosofia'], ['Hannah Arendt', 'filosofia'], ['Byung-Chul Han', 'filosofia'], ['Simone Weil', 'filosofia'], ['Marco Aurelio', 'filosofia'],
+  ['Seneca', 'filosofia'], ['Epicuro', 'filosofia'], ['Friedrich Nietzsche', 'filosofia'], ['Albert Camus', 'filosofia letteratura'], ['Søren Kierkegaard', 'filosofia'],
+  ['Eraclito', 'filosofia'], ['Umberto Galimberti', 'filosofia'], ['Donald Winnicott', 'psicologia'], ['Carl Gustav Jung', 'psicologia'], ['James Hillman', 'psicologia'],
+  ['Giordano Bruno', 'esoterismo filosofia'], ['Erodoto', 'storia'], ['Tiziano Terzani', 'storia'],
+  ['Italo Calvino', 'letteratura'], ['Wisława Szymborska', 'letteratura'], ['Rumi', 'letteratura mito-e-religione'], ['Jorge Luis Borges', 'letteratura'],
+  ['Fernando Pessoa', 'letteratura'], ['Rainer Maria Rilke', 'letteratura'], ['Giacomo Leopardi', 'letteratura'], ['Eugenio Montale', 'letteratura'], ['Franz Kafka', 'letteratura'],
+  ['Mary Oliver', 'letteratura'], ['Ursula K. Le Guin', 'letteratura'], ['Konstantinos Kavafis', 'letteratura'], ['Omero', 'letteratura'], ['Neil Gaiman', 'letteratura'],
+  ['Nick Drake', 'musica'], ['Franco Battiato', 'musica'], ['Joni Mitchell', 'musica'], ['Brian Eno', 'musica'], ['Arvo Pärt', 'musica'], ['Ryuichi Sakamoto', 'musica'], ['Fabrizio De André', 'musica'],
+  ['Jim Jarmusch', 'cinema'], ['Andrej Tarkovskij', 'cinema'], ['David Lynch', 'cinema'], ['Wim Wenders', 'cinema'], ['Yasujirō Ozu', 'cinema'], ['Ingmar Bergman', 'cinema'], ['Hayao Miyazaki', 'cinema'],
+  ['Katsushika Hokusai', 'arte'], ['Mark Rothko', 'arte'], ['Caspar David Friedrich', 'arte'], ['Hugo Pratt', 'arte'], ['Takehiko Inoue', 'arte'],
+  ['Carlo Rovelli', 'scienza'], ['Richard Feynman', 'scienza'], ['Oliver Sacks', 'scienza'],
+].forEach(([n, c]) => nodo(slug(n), { nome: n, gen: 'persona', cerchia: 'mondo', campo: c.split(' '), ring: 'pers' }));
+[['Orfeo', 'mito-e-religione'], ['Sisifo', 'mito-e-religione'], ['Ulisse', 'mito-e-religione', 'odissea'], ['Ermete Trismegisto', 'esoterismo'],
+  ['la signora del ceppo', 'cinema', 'twin-peaks'], ['Ginko', 'cinema', 'mushishi'], ['Ged', 'letteratura', 'il-mago-di-terramare']]
+  .forEach(([n, c, inn]) => nodo(slug(n), { nome: n, gen: 'persona', cerchia: 'finzione', campo: [c], in: inn, ring: 'pers' }));
+
+// --- opere: [id, titolo, tipo, autore, anno]
+[
+  ['pink-moon', 'Pink Moon', 'canzone', 'nick-drake', 1972], ['la-cura', 'La cura', 'canzone', 'franco-battiato', 1996], ['river', 'River', 'canzone', 'joni-mitchell', 1971],
+  ['both-sides-now', 'Both Sides Now', 'canzone', 'joni-mitchell', 1969], ['spiegel-im-spiegel', 'Spiegel im Spiegel', 'canzone', 'arvo-part', 1978], ['fur-alina', 'Für Alina', 'canzone', 'arvo-part', 1976],
+  ['by-this-river', 'By This River', 'canzone', 'brian-eno', 1977], ['merry-christmas-mr-lawrence', 'Merry Christmas Mr. Lawrence', 'canzone', 'ryuichi-sakamoto', 1983],
+  ['smisurata-preghiera', 'Smisurata preghiera', 'canzone', 'fabrizio-de-andre', 1996], ['prospettiva-nevski', 'Prospettiva Nevski', 'canzone', 'franco-battiato', 1980],
+  ['blue', 'Blue', 'album', 'joni-mitchell', 1971], ['music-for-airports', 'Music for Airports', 'album', 'brian-eno', 1978], ['async', 'async', 'album', 'ryuichi-sakamoto', 2017],
+  ['anime-salve', 'Anime salve', 'album', 'fabrizio-de-andre', 1996], ['la-voce-del-padrone', 'La voce del padrone', 'album', 'franco-battiato', 1981],
+  ['le-citta-invisibili', 'Le città invisibili', 'libro', 'italo-calvino', 1972], ['etica', 'Etica', 'libro', 'baruch-spinoza', 1677], ['la-societa-della-stanchezza', 'La società della stanchezza', 'libro', 'byung-chul-han', 2010],
+  ['gioco-e-realta', 'Gioco e realtà', 'libro', 'donald-winnicott', 1971], ['pensieri', 'Pensieri', 'libro', 'marco-aurelio', null], ['lettere-a-lucilio', 'Lettere a Lucilio', 'libro', 'seneca', null],
+  ['il-mito-di-sisifo', 'Il mito di Sisifo', 'libro', 'albert-camus', 1942], ['lettere-a-un-giovane-poeta', 'Lettere a un giovane poeta', 'libro', 'rainer-maria-rilke', 1929],
+  ['finzioni', 'Finzioni', 'libro', 'jorge-luis-borges', 1944], ['libro-dell-inquietudine', 'Il libro dell’inquietudine', 'libro', 'fernando-pessoa', 1982],
+  ['l-ordine-del-tempo', 'L’ordine del tempo', 'libro', 'carlo-rovelli', 2017], ['l-uomo-che-scambio', 'L’uomo che scambiò sua moglie per un cappello', 'libro', 'oliver-sacks', 1985],
+  ['un-altro-giro-di-giostra', 'Un altro giro di giostra', 'libro', 'tiziano-terzani', 2004], ['la-gravita-e-la-grazia', 'L’ombra e la grazia', 'libro', 'simone-weil', 1947],
+  ['il-codice-dell-anima', 'Il codice dell’anima', 'libro', 'james-hillman', 1996], ['lettera-a-meneceo', 'Lettera a Meneceo', 'libro', 'epicuro', null],
+  ['cosi-parlo-zarathustra', 'Così parlò Zarathustra', 'libro', 'friedrich-nietzsche', 1883], ['il-processo', 'Il processo', 'libro', 'franz-kafka', 1925],
+  ['timore-e-tremore', 'Timore e tremore', 'libro', 'soren-kierkegaard', 1843], ['il-mago-di-terramare', 'Il mago di Terramare', 'libro', 'ursula-k-le-guin', 1968],
+  ['odissea', 'Odissea', 'libro', 'omero', null], ['storie', 'Storie', 'libro', 'erodoto', null], ['de-umbris-idearum', 'De umbris idearum', 'libro', 'giordano-bruno', 1582],
+  ['il-libro-rosso', 'Il libro rosso', 'libro', 'carl-gustav-jung', 2009],
+  ['nulla-due-volte', 'Nulla due volte', 'poesia', 'wislawa-szymborska', 1957], ['l-infinito', 'L’infinito', 'poesia', 'giacomo-leopardi', 1819],
+  ['meriggiare', 'Meriggiare pallido e assorto', 'poesia', 'eugenio-montale', 1925], ['wild-geese', 'Wild Geese', 'poesia', 'mary-oliver', 1986], ['itaca', 'Itaca', 'poesia', 'konstantinos-kavafis', 1911],
+  ['paterson', 'Paterson', 'film', 'jim-jarmusch', 2016], ['stalker', 'Stalker', 'film', 'andrej-tarkovskij', 1979], ['il-cielo-sopra-berlino', 'Il cielo sopra Berlino', 'film', 'wim-wenders', 1987],
+  ['perfect-days', 'Perfect Days', 'film', 'wim-wenders', 2023], ['viaggio-a-tokyo', 'Viaggio a Tokyo', 'film', 'yasujiro-ozu', 1953], ['il-posto-delle-fragole', 'Il posto delle fragole', 'film', 'ingmar-bergman', 1957],
+  ['la-citta-incantata', 'La città incantata', 'film', 'hayao-miyazaki', 2001], ['lo-specchio', 'Lo specchio', 'film', 'andrej-tarkovskij', 1975],
+  ['twin-peaks', 'Twin Peaks', 'serie', 'david-lynch', 1990], ['mushishi', 'Mushishi', 'serie', null, 2005],
+  ['corto-maltese', 'Corto Maltese', 'fumetto', 'hugo-pratt', 1967], ['sandman', 'Sandman', 'fumetto', 'neil-gaiman', 1989], ['vagabond', 'Vagabond', 'fumetto', 'takehiko-inoue', 1998],
+  ['lo-spettacolo-di-galimberti', 'lo spettacolo di Galimberti', 'spettacolo', 'umberto-galimberti', 2026],
+  ['la-grande-onda', 'La grande onda', 'immagine', 'katsushika-hokusai', 1831], ['rothko-chapel', 'Rothko Chapel', 'immagine', 'mark-rothko', 1971],
+  ['viandante', 'Viandante sul mare di nebbia', 'immagine', 'caspar-david-friedrich', 1818],
+  ['journey', 'Journey', 'gioco', null, 2012], ['outer-wilds', 'Outer Wilds', 'gioco', null, 2019],
+  ['fun-to-imagine', 'Fun to Imagine', 'video', 'richard-feynman', 1983],
+].forEach(([id, n, tipo, autore, anno]) => nodo(id, { nome: n, gen: 'opera', tipo, autore, anno, ring: 'cose',
+  campo: autore ? [...N[autore].campo] : tipo === 'gioco' ? ['arte'] : ['cinema'] }));
+N['journey'].campo = ['arte']; N['outer-wilds'].campo = ['arte'];
+
+// --- citazioni: ○ solo verificate, con opera e passo; senza esito = ⚠
+const CIT = [
+  ['inferno-dei-viventi', 'L’inferno dei viventi', 'italo-calvino', 'italo-calvino', 'verificata', 'L’inferno dei viventi non è qualcosa che sarà; se ce n’è uno, è quello che è già qui', 'Le città invisibili, parte nona, il dialogo finale'],
+  ['ostacolo-via', 'Ciò che sta sulla via diventa la via', 'marco-aurelio', 'marco-aurelio', 'verificata', 'Ciò che ostacola l’azione fa avanzare l’azione. Ciò che sta sulla via diventa la via', 'Pensieri, V, 20 (resa mia)'],
+  ['sisifo-felice', 'Bisogna immaginare Sisifo felice', 'albert-camus', 'albert-camus', 'verificata', 'Bisogna immaginare Sisifo felice', 'Il mito di Sisifo, «Il mito di Sisifo», ultima riga'],
+  ['amare-le-domande', 'Amare le domande', 'rainer-maria-rilke', 'rainer-maria-rilke', 'verificata', 'cercate di amare le domande stesse', 'Lettere a un giovane poeta, lettera IV, 16 luglio 1903 (resa mia)'],
+  ['attenzione-generosita', 'L’attenzione è generosità', 'simone-weil', 'simone-weil', 'verificata', 'L’attenzione è la forma più rara e più pura della generosità', 'lettera a Joë Bousquet, 13 aprile 1942 (resa mia)'],
+  ['vindica-te-tibi', 'Rivendica te stesso a te stesso', 'seneca', 'seneca', 'verificata', 'rivendica te stesso a te stesso', 'Lettere a Lucilio, I, 1 (resa mia)'],
+  ['gioia-passaggio', 'La gioia come passaggio', 'baruch-spinoza', 'baruch-spinoza', 'verificata', 'La gioia è il passaggio dell’uomo da una minore a una maggiore perfezione', 'Etica, III, definizioni degli affetti, II'],
+  ['due-volte-fiume', 'Due volte nello stesso fiume', 'eraclito', 'eraclito', 'verificata', 'Non si può discendere due volte nello stesso fiume', 'fr. 91 Diels-Kranz, in Plutarco, Sulla E di Delfi, 18'],
+  ['tempo-sostanza', 'Il tempo è la sostanza di cui sono fatto', 'jorge-luis-borges', 'jorge-luis-borges', 'verificata', 'Il tempo è la sostanza di cui sono fatto', 'Nuova confutazione del tempo, in Altre inquisizioni (1952)'],
+  ['ascia-mare-gelato', 'L’ascia per il mare gelato', 'franz-kafka', 'franz-kafka', 'verificata', 'un libro dev’essere l’ascia per il mare gelato dentro di noi', 'lettera a Oskar Pollak, 27 gennaio 1904 (resa mia)'],
+  ['piacere-assenza', 'Il piacere come assenza di dolore', 'epicuro', 'epicuro', 'verificata', 'non soffrire nel corpo e non essere turbati nell’anima', 'Lettera a Meneceo, 131 (resa mia)'],
+  ['ermo-colle', 'Sempre caro mi fu quest’ermo colle', 'giacomo-leopardi', 'giacomo-leopardi', 'verificata', 'Sempre caro mi fu quest’ermo colle', 'L’infinito, v. 1 (Canti, XII)'],
+  ['pensare-e-fermarsi', 'Pensare è fermarsi', null, 'hannah-arendt', null, null, null],
+  ['quello-che-cerchi', 'Quello che cerchi ti sta cercando', null, 'rumi', null, null, null],
+  ['i-gufi', 'I gufi non sono quello che sembrano', null, null, null, null, null],
+].forEach(([id, n, autore, attr, esito, testo, rif]) => nodo(id, { nome: n, gen: 'citazione', tipo: 'citazione', autore, attribuita: attr, esito, testo, rif, ring: 'cose' }));
+
+GESTI.forEach((g) => nodo('ge-' + slug(g), { nome: g, gen: 'gesto', ring: 'gesto' }));
+CAMPI.forEach((c) => nodo('ca-' + c, { nome: c.replace(/-/g, ' '), gen: 'campo', ring: 'campo', campoId: c }));
+const MESI_ID = ['origine', '2026-03', '2026-04', '2026-05', '2026-06', '2026-07', '2026-08', '2026-09', '2026-10', '2026-11'];
+MESI_ID.forEach((m, i) => nodo('me-' + m, { nome: m === 'origine' ? 'archivio d’origine' : `${MESI[+m.slice(5) - 1]} ${m.slice(0, 4)}`, corto: m === 'origine' ? 'orig.' : MESI3[+m.slice(5) - 1], gen: 'mese', ring: 'tempo', mi: i }));
+const TETTO = '2026-02-28';
+
+/* --- i frammenti scritti a mano. Formato: «MMGG HHMM|testo|legami».
+   legami: slug = nomina / parla-di ✦; ~slug = parla-di proposto ◌; +slug = proposto e accolto ●;
+   !pos (capo di un contraddice), !chiedi, !vissuto, !tat (serve-a tatuaggi), !fare:slug, !altrui:citazione */
+const SCRITTI = `
+I|l'attenzione è l'unica cosa che posso regalare davvero|attenzione
+I|ogni tatuaggio una parola sola, e il braccio come una frase che si scrive negli anni|!tat
+I|niente colore. solo linea.|linea !tat
+I|spinoza e la gioia come passaggio a qualcosa di più grande|baruch-spinoza gioia
+I|il mare come la cosa che non finisce mai di arrivare|mare
+I|vai con la mappa|
+0302 0812|ho cominciato a scrivere qui. vediamo quanto dura|abitudine
+0305 2240|marco aurelio la sera prima di dormire. due pagine, non di più|pensieri stoicismo
+0308 0730|l'ostacolo è la via. lo so a memoria e non lo faccio mai|ostacolo-via !pos
+0311 2215|la rabbia è energia che non ha ancora trovato la sua forma|rabbia
+0314 1900|stalker di tarkovskij, visto finalmente. la stanza che esaudisce i desideri veri, non quelli che dici|stalker desiderio
+0317 2300|si può scegliere che cosa desiderare?|si-puo-scegliere desiderio !chiedi
+0320 0815|music for airports mentre piove. il tempo si allarga|music-for-airports tempo quiete
+0322 1340|journey finito in silenzio. nessuno parla e capisci tutto|journey silenzio
+0325 2210|rileggo spinoza, l'etica, il libro quarto. le passioni come cose da capire non da vincere|etica
+0327 1915|oggi una rabbia che non so dove mettere|rabbia
+0330 2250|il labirinto non è un posto dove ti perdi, è un posto dove cammini|labirinto +cammino
+0402 0745|seneca: rivendica te stesso a te stesso. lo voglio sul polso|vindica-te-tibi !tat
+0404 2120|il cielo sopra berlino. gli angeli che vorrebbero solo sentire il freddo delle mani|il-cielo-sopra-berlino corpo
+0407 2330|stasera una malinconia buona, quella che non chiede niente|malinconia
+0409 1810|borges, finzioni, la biblioteca. un labirinto fatto di libri|finzioni labirinto
+0412 0900|il lavoro mi mangia l'attenzione come un animale|lavoro attenzione
+0415 2205|rumi a pezzi prima di dormire. ogni tanto una riga mi apre|rumi ~soglia
+0418 1640|la grande onda: il fuji piccolissimo dietro. la cosa grande è sempre l'altra|la-grande-onda mare
+0421 2200|pink moon e un po' di vergogna per quanto mi piace stare da solo|pink-moon vergogna solitudine
+0424 0820|quello che non dico pesa più di quello che dico|silenzio !pos
+0426 1910|viaggio a tokyo. i figli che non hanno tempo, e nessuno è cattivo|viaggio-a-tokyo tempo
+0429 2300|il libro dell'inquietudine aperto a caso. pessoa ha già scritto tutto quello che penso alle undici di sera|libro-dell-inquietudine inquietudine
+0502 0730|sogno: una porta in mezzo al mare, senza muro intorno|porta mare
+0505 2215|la gioia non si cerca. ti trova mentre fai altro|gioia !pos
+0508 1300|outer wilds: tutto ricomincia ogni ventidue minuti e alla fine va bene così|outer-wilds tempo +ritorno
+0511 2240|leopardi, l'infinito. la siepe è la cosa più importante della poesia|l-infinito
+0514 0810|stoicismo da colazione. funziona fino alle dieci|stoicismo
+0517 2130|tenerezza per le persone che fanno le cose piano|tenerezza
+0520 1915|corto maltese, la ballata del mare salato. voglio una vita così e non la voglio per niente|corto-maltese mare desiderio
+0523 2305|il corpo sa prima di me quando una cosa è finita|corpo !pos
+0526 0700|il faro non cerca le navi. sta lì|faro
+0529 2220|kafka: un libro dev'essere l'ascia per il mare gelato. sì ma quale libro|ascia-mare-gelato
+0601 1015|perfect days. la stessa giornata ogni giorno e non è mai la stessa|perfect-days abitudine
+0603 2245|chi sono quando nessuno guarda?|chi-sono !chiedi
+0606 1830|wabi sabi: la crepa come parte del vaso. da tatuare, forse|wabi-sabi !tat
+0609 2210|il codice dell'anima di hillman, la ghianda. ci credo a metà|il-codice-dell-anima
+0612 0750|by this river e la finestra aperta. quiete|by-this-river quiete
+0613 2130|un candidato se vorrò fare un testo lungo sulla schiena|lettere-a-lucilio !altrui:vindica-te-tibi !tat
+0615 2300|rilke: amare le domande stesse. è la frase che mi serve quest'anno|amare-le-domande
+0618 1900|nostalgia di una casa che nn ho mai avuto|nostalgia casa
+0621 1120|vagabond, musashi che impara a non vincere|vagabond coraggio
+0624 2235|epicuro non era quello delle feste. la lettera a meneceo è severissima|lettera-a-meneceo epicureismo
+0627 0905|stupore per una cosa piccola: le formiche sul davanzale in fila|stupore
+0630 2210|il lavoro come un posto dove nascondersi dalla libertà|lavoro libertà !pos
+0703 2300|la città incantata. il nome rubato. chi ti ricorda il nome ti salva|la-citta-incantata memoria
+0706 0820|async di sakamoto, il pianoforte annegato. bellezza rotta|async bellezza
+0709 1930|l'ordine del tempo. il tempo non scorre, siamo noi che… non l'ho capito ma mi piace|l-ordine-del-tempo tempo
+0712 2240|da piccolo pensavo che il mare d'inverno fosse un altro mare|mare ~nostalgia !vissuto
+0715 1800|sisifo felice. ci provo da anni|sisifo-felice sisifo esistenzialismo
+0718 2215|la paura è una porta chiusa che nessuno ha chiuso|paura porta
+0721 0930|wild geese di mary oliver. non devi essere buono|wild-geese
+0724 2300|forse il coraggio è solo fare la cosa con la paura addosso|coraggio paura
+0727 1400|joni mitchell, blue, tutto il pomeriggio|blue
+0730 2210|il dolore non insegna niente. è solo dolore|dolore !pos
+0802 1130|gioco e realtà di winnicott, da leggere. dicono che spiega tutto|gioco-e-realta gioco !fare:gioco-e-realta
+0805 2245|lo spazio tra il gioco e la realtà è dove abito meglio|gioco
+0808 0745|questa la voglio. una chiave senza porta, solo linea|chiave linea !tat
+0811 2230|orfeo che si volta. sul polpaccio, da tatuare|orfeo !tat
+0814 1045|battiato, la cura, in macchina col finestrino giù. una quiete strana|la-cura quiete
+0817 2155|una gratitudine improvvisa per niente in particolare|gratitudine
+0820 0912|chi è che diceva che pensare è fermarsi? arendt credo|pensare-e-fermarsi !chiedi
+0823 2350|itaca: non affrettare il viaggio. la rileggo ogni estate|itaca viaggio
+0826 1320|il viandante sul mare di nebbia, ma girato verso di me|viandante specchio
+0829 2210|che cosa resta di un giorno se nessuno lo racconta?|che-cosa-resta !chiedi
+0901 0740|la società della stanchezza di han. tutti stanchi di essere liberi|la-societa-della-stanchezza libertà
+0903 2215|noia della domenica, quella che era bella da bambino|noia !vissuto
+0906 1810|il mago di terramare: il vero nome delle cose. ged che insegue la sua ombra|il-mago-di-terramare ged
+0909 2300|la fenice sulla scapola, ma piccola, una linea sola|fenice linea !tat +trasformazione
+0910 0800|la tengo sul frigo|l-infinito !altrui:ermo-colle
+0912 0830|lo specchio di tarkovskij. non ho capito niente e l'ho sentito tutto|lo-specchio specchio
+0915 2245|für alina e basta, stasera nient'altro|fur-alina
+0918 1730|l'epicureismo che ho studiato a scuola era una caricatura. il piacere come assenza di dolore è una cosa seria|epicureismo dolore piacere-assenza
+0921 2315|il mare d'inverno è l'unico posto dove nn devo spiegare niente a nessuno|mare
+0922 0730|nick drake stamattina, pink moon in loop. malinconia buona|pink-moon malinconia
+0924 0810|letto la fine delle città invisibili in treno. mi ha spaccato|le-citta-invisibili
+0927 1915|la verità detta male fa più danni di una bugia detta bene. o no?|verità !pos
+0929 2240|stasera ho capito che nn faccio attenzione, aspetto solo il mio turno per parlare|attenzione aspettare
+1001 2200|weil: l'attenzione come generosità. ecco cosa intendevo a settembre|attenzione-generosita attenzione
+1002 2300|a che cosa serve ricordare?|a-che-cosa-serve memoria !chiedi
+1003 1930|fare attenzione a una persona è diverso da guardarla|attenzione
+1005 1310|paterson di jarmusch, da vedere. me l'hanno consigliato in tre|paterson !fare:paterson
+1007 1800|il ponte tra quello che penso e quello che faccio è lunghissimo|ponte !pos
+1009 1915|questa la rileggo quando rimando|pensieri !altrui:ostacolo-via
+1010 2115|la fede come un'abitudine che non sai più perché hai|fede abitudine
+1012 0900|zen e l'arte di lavare i piatti. sul serio|zen lavoro
+1014 2201|aspettare non è perdere tempo, è il tempo che lavora|aspettare !pos
+1016 1930|ho rivisto stalker. la seconda volta la stanza fa più paura|stalker paura
+1017 2205|mushishi, da guardare un episodio a sera|mushishi !fare:mushishi
+1018 1120|una poesia della szymborska che dice che niente succede due volte. la voglio rileggere|nulla-due-volte !fare:nulla-due-volte
+1019 0700|eraclito e il fiume. ogni mattina un altro me che si lava la faccia|due-volte-fiume
+1020 2214|il faro spento, piccolo, sulla caviglia. da tatuare|faro !tat
+1021 2120|twin peaks rivisto, la signora del ceppo. mi fa ridere e paura insieme|twin-peaks la-signora-del-ceppo paura
+1022 0905|quello che cerchi ti sta cercando. rumi credo|quello-che-cerchi ~aspettare
+1023 2300|il gufo che non è quello che sembra, la frase di twin peaks. da tatuare? forse|i-gufi twin-peaks !tat
+1024 1830|il caduceo di ermete trismegisto, a linea sottile. per i tatuaggi|ermete-trismegisto linea !tat
+1025 2215|forse il dolore è l'unico posto dove ho imparato qualcosa|dolore !pos
+1026 1840|a mare oggi c'era una luce che non sapevo di ricordare|mare +memoria
+1027 2240|lo spettacolo di galimberti ieri sera. la tecnica come ambiente, non come strumento|lo-spettacolo-di-galimberti
+1028 0810|nietzsche, zarathustra, il cammello il leone il bambino. sono ancora cammello|cosi-parlo-zarathustra ~trasformazione
+1029 2305|mi sono rotto di aspettare. aspettare è una scusa|aspettare !pos
+1030 2320|da tatuare in piccolo: non è inferno. calvino|inferno-dei-viventi !tat
+1031 2245|stasera malinconia. nn triste, malinconia|malinconia
+1101 0930|blackwork pieno sul polpaccio o niente. niente mezze misure|blackwork !tat
+1101 2200|fun to imagine, feynman che spiega il fuoco. il sole che esce dal legno|fun-to-imagine stupore
+1102 0900|il silenzio dopo una canzone è parte della canzone|silenzio
+1102 2214|spiegel im spiegel, due note e basta. la cura come gesto minimo|spiegel-im-spiegel cura
+1103 0750|sogno: una città fatta solo di porte|porta
+1104 0815|la libertà forse è solo poter cambiare idea senza vergogna|libertà vergogna !pos
+`;
+
+/* --- i frammenti generati da modelli: riempiono la ruota (qualche centinaio), sempre sintetici */
+const lc = (id) => N[id].nome.toLowerCase();
+const MODELLI = {
+  canzone: ['{O} in loop stamattina', '{O} di {A} in macchina. {s}', 'rimesso {O} dopo anni', '{O} a volume basso mentre lavoro', '{O}, e fuori piove', '{O} mentre cucino. {s}'],
+  album: ['{O} tutto di fila, senza saltare niente', 'riascoltato {O} dall’inizio alla fine', '{O} in cuffia sul treno. {s}'],
+  libro: ['rileggo {O}. {t} ovunque', '{O}, finito. mi ha colpito tanto', '{O} sul comodino da settimane', 'sottolineato mezzo {O}', '{O} di {A}, da leggere', 'tre pagine di {O} in metro. {t}', '{O}: un capitolo e poi fermo a pensare'],
+  poesia: ['{O} quasi a memoria ormai', 'riletta {O} ad alta voce, da solo', '{O} copiata a mano sul quaderno'],
+  film: ['{O} di {A}, visto stasera', 'rivisto {O}. {s}', '{O}, da vedere', '{O}: la scena finale non me la tolgo di dosso', '{O} di nuovo. {t}'],
+  serie: ['{O}, un episodio a sera', 'finita {O}. {s}', '{O}: la puntata di ieri sul {t}'],
+  fumetto: ['{O} riletto in treno', '{O}, le tavole senza parole sono le migliori'],
+  spettacolo: ['{O}: due ore e non ho guardato il telefono'],
+  immagine: ['{O} come sfondo del telefono da un mese', '{O} vista dal vero. più piccola di come la ricordavo', '{O}: {t} senza parole'],
+  gioco: ['{O} finito. {s} alla fine', '{O} di nuovo da capo'],
+  video: ['{O}, guardato due volte di fila'],
+  citazione: ['«{C}» di nuovo, oggi serviva', '«{C}». me lo ripeto da giorni'],
+  persona: ['{P} anche oggi', 'leggo {P} a pezzi, la sera', '{P} dice cose che sapevo già ma non così', 'una cosa di {P} che non mi lascia'],
+  idea: ['{T} è una cosa che si allena', 'oggi tutto parlava di {T}', '{T} e {T2}: stessa radice?', 'più ci penso più {T} mi sembra una forma di {T2}', 'il {T} degli altri lo vedo subito, il mio no'.replace('il {T}', '{T}'), '{T}, scritto in grande sul quaderno'],
+  simbolo: ['{ART} di nuovo in un sogno', 'disegnato {ART} sul quaderno senza pensarci', '{ART} come immagine per quello che sto facendo'],
+  domanda: ['{Q} di nuovo', '{Q} me lo chiedo in coda alla posta'],
+  corrente: ['{T} spiegato male su un video. lo voglio capire meglio', 'un po’ di {T} prima di dormire'],
+  stile: ['{T}, solo {T}. per i tatuaggi', 'visto un lavoro in {T} bellissimo, per i tatuaggi'],
+  stato: ['stasera {S}', '{S} senza un motivo preciso', 'oggi {S}. poi è passata', '{S}, e non so da dove arriva'],
+};
+const IDEE = Object.values(N).filter((n) => n.gen === 'tema' && n.specie === 'idea' && !n.dedotto).map((n) => n.id);
+const STATI = Object.values(N).filter((n) => n.specie === 'stato').map((n) => n.id);
+const DEDOTTI = Object.values(N).filter((n) => n.dedotto).map((n) => n.id);
+const PREFERITI = { attenzione: 5, mare: 5, aspettare: 4, malinconia: 4, dolore: 3, tempo: 4, linea: 3, silenzio: 3, quiete: 3, memoria: 3, 'le-citta-invisibili': 3, 'pink-moon': 2, stalker: 2, 'italo-calvino': 2, 'baruch-spinoza': 2, faro: 2, porta: 2, 'twin-peaks': 2, nostalgia: 3, libertà: 2, liberta: 2 };
+function genera(id) {
+  const n = N[id]; const toks = [id]; const flags = {};
+  let chiave = n.gen === 'opera' ? n.tipo : n.gen === 'citazione' ? 'citazione' : n.gen === 'persona' ? 'persona' : n.specie;
+  let m = pick(MODELLI[chiave]);
+  const s = pick(STATI), t = pick(IDEE), t2 = pick(IDEE.filter((x) => x !== t && x !== id));
+  if (m.includes('{s}')) toks.push(s);
+  if (m.includes('{t}')) toks.push(t);
+  if (m.includes('{T2}')) toks.push(t2);
+  if (/da vedere|da leggere/.test(m)) flags.fare = id;
+  if (chiave === 'domanda') flags.chiedi = true;
+  if (chiave === 'stile' || (n.gen === 'tema' && n.specie === 'simbolo' && rnd() < .2)) flags.tat = true;
+  const txt = m.replace('{O}', lc(id)).replace('{A}', n.autore ? lc(n.autore) : '').replace('{C}', n.nome.toLowerCase())
+    .replace('{P}', lc(id)).replace(/\{T\}/g, n.nome).replace('{T2}', N[t2].nome).replace('{ART}', (n.art === 'l’' ? 'l’' : (n.art || 'il') + ' ') + n.nome)
+    .replace('{Q}', n.nome).replace('{S}', n.nome).replace('{s}', N[s].nome).replace('{t}', N[t].nome).replace(/ di \./, '.').replace(/ +/g, ' ');
+  if (rnd() < .2) toks.push('~' + pick(rnd() < .7 ? DEDOTTI : IDEE));
+  if (rnd() < .035) toks.push('+' + pick(['ritorno', 'trasformazione', 'cammino']));
+  return { txt: txt.charAt(0).toLowerCase() + txt.slice(1), toks, flags };
+}
+
+/* --- i frammenti: si leggono e si derivano i valori dei sette anelli (un passo, più l'autore e la catena dell'«in») */
+const FR = [];
+const rid = () => Array.from({ length: 4 }, () => 'abcdefghijkmnpqrstuvwxyz0123456789'[Math.floor(rnd() * 34)]).join('');
+function nuovo(reg, testo, toks, flags = {}, gen = false) {
+  const imp = reg === null;
+  const f = { reg: imp ? TETTO : reg, imp, testo, gen, luce: new Set(), acc: new Set(), prop: new Set(), flags };
+  f.id = imp ? `20260228-0000-u${String(FR.filter((x) => x.imp).length + 1).padStart(2, '0')}` : `${reg.slice(0, 10).replace(/-/g, '')}-${reg.slice(11, 16).replace(':', '')}-${rid()}`;
+  for (let t of toks) {
+    if (!t) continue;
+    if (t[0] === '!') { const [k, v] = t.slice(1).split(':'); f.flags[k] = v || true; continue; }
+    let dove = f.luce;
+    if (t[0] === '~') { dove = f.prop; t = t.slice(1); } else if (t[0] === '+') { f.acc.add(t.slice(1)); t = t.slice(1); }
+    const id = N[t] ? t : N[slug(t)] ? slug(t) : null;
+    if (!id) { console.warn('nodo assente', t); continue; }
+    dove.add(id);
+  }
+  if (f.flags.altrui) { f.luce.add(f.flags.altrui); }
+  f.mi = imp ? 0 : MESI_ID.indexOf(f.reg.slice(0, 7));
+  f.parlante = !imp && f.testo.replace(/https?:\S+/g, '').trim().split(/\s+/).length >= 3;
+  FR.push(f); return f;
+}
+SCRITTI.trim().split('\n').forEach((riga) => {
+  const [qd, testo, leg = ''] = riga.split('|');
+  const reg = qd === 'I' ? null : `2026-${qd.slice(0, 2)}-${qd.slice(2, 4)}T${qd.slice(5, 7)}:${qd.slice(7, 9)}`;
+  nuovo(reg, testo, leg.split(/\s+/));
+});
+// copertura: ogni nodo nominabile ha almeno due frasi; poi il resto per popolarità, con la crescita nei mesi
+{
+  const nominabili = Object.values(N).filter((n) => ['tema', 'persona', 'opera', 'citazione'].includes(n.gen) && !n.dedotto && n.id !== 'i-gufi' && n.id !== 'pensare-e-fermarsi' && n.id !== 'quello-che-cerchi');
+  const uso = {}; FR.forEach((f) => f.luce.forEach((id) => (uso[id] = (uso[id] || 0) + 1)));
+  const coda = [];
+  nominabili.forEach((n) => { for (let i = uso[n.id] || 0; i < 2; i++) coda.push(n.id); });
+  const peso = nominabili.map((n) => [n.id, (PREFERITI[n.id] || 0) * 2 + Math.pow(rnd(), 3) * 3 + (n.gen === 'persona' ? .25 : .6)]);
+  const tot = peso.reduce((a, [, w]) => a + w, 0);
+  const estrai = () => { let r = rnd() * tot; for (const [id, w] of peso) { if ((r -= w) <= 0) return id; } return peso[0][0]; };
+  const PER_MESE = { '2026-03': 14, '2026-04': 18, '2026-05': 20, '2026-06': 22, '2026-07': 24, '2026-08': 22, '2026-09': 30, '2026-10': 40, '2026-11': 5 };
+  const giorni = { '2026-03': 31, '2026-04': 30, '2026-05': 31, '2026-06': 30, '2026-07': 31, '2026-08': 31, '2026-09': 30, '2026-10': 31, '2026-11': 4 };
+  coda.sort(() => rnd() - .5);
+  for (const [m, quanti] of Object.entries(PER_MESE)) {
+    for (let i = 0; i < quanti; i++) {
+      const id = coda.length && rnd() < .55 ? coda.pop() : estrai();
+      const g = genera(id);
+      const gg = 1 + Math.floor(rnd() * giorni[m]);
+      const h = Math.min(23, 7 + Math.floor(Math.pow(rnd(), .6) * 17));
+      const reg = `${m}-${String(gg).padStart(2, '0')}T${String(h).padStart(2, '0')}:${String(Math.floor(rnd() * 60)).padStart(2, '0')}`;
+      nuovo(reg, g.txt, g.toks, g.flags, true);
+    }
+  }
+  while (coda.length) { const id = coda.pop(); const g = genera(id); nuovo(`2026-10-${String(2 + Math.floor(rnd() * 28)).padStart(2, '0')}T21:${String(Math.floor(rnd() * 60)).padStart(2, '0')}`, g.txt, g.toks, g.flags, true); }
+}
+FR.sort((a, b) => (a.reg < b.reg ? -1 : a.reg > b.reg ? 1 : 0));
+FR.forEach((f) => f.acc.forEach((id) => (N[id].accolto = true)));
+const segnoNodo = (n) => n.dedotto ? (n.accolto ? '<span class="sg" aria-label="accolto">●</span>' : '<span class="sg p" aria-label="proposto">◌</span>') : '';
+
+// i valori per anello: R (✦ e ●), P (solo ◌), G (i gruppi)
+const RIDS = RINGS.map((r) => r.k);
+function deriva(f) {
+  const R = {}, P = {};
+  RIDS.forEach((k) => { R[k] = new Set(); P[k] = new Set(); });
+  const passo = (dest, id) => {
+    const n = N[id]; const add = (k, x) => dest[k].add(x);
+    const campo = (c) => (c || []).forEach((x) => add('campo', 'ca-' + x));
+    if (n.gen === 'tema') { add(n.ring, id); if (n.specie === 'corrente') campo(n.campo); }
+    else if (n.gen === 'opera') { add('cose', id); campo(n.campo); if (n.autore) { add('pers', n.autore); campo(N[n.autore].campo); } }
+    else if (n.gen === 'persona') { add('pers', id); campo(n.campo); if (n.in) add('cose', n.in); }
+    else if (n.gen === 'citazione') { add('cose', id); if (n.autore) { add('pers', n.autore); campo(N[n.autore].campo); } if (n.attribuita && n.attribuita !== n.autore) add('pers', n.attribuita); }
+  };
+  f.luce.forEach((id) => passo(R, id));
+  f.prop.forEach((id) => passo(P, id));
+  RIDS.forEach((k) => R[k].forEach((x) => P[k].delete(x)));
+  const g = (x) => R.gesto.add('ge-' + slug(x));
+  if (f.flags.pos) g('penso');
+  if ([...f.luce].some((id) => N[id].specie === 'stato')) g('sento');
+  if (f.flags.chiedi) g('chiedo');
+  if (f.flags.vissuto) g('ricordo');
+  if (f.flags.fare) g('voglio fare');
+  if (f.flags.altrui) g('trascrivo');
+  if (f.flags.tat) g('per i tatuaggi');
+  R.tempo.add('me-' + MESI_ID[f.mi]);
+  f.R = R; f.P = P;
+  f.tutti = new Set(RIDS.flatMap((k) => [...R[k]]));
+  f.tuttiP = new Set(RIDS.flatMap((k) => [...P[k]]));
+  f.diretti = new Set(f.luce);
+}
+FR.forEach(deriva);
+
+// il gruppo di un nodo dentro il suo anello (l'ordine è fisso: le scelte non saltano)
+function gruppo(n) {
+  if (n.ring === 'cose') return n.tipo;
+  if (n.ring === 'temi') return n.specie;
+  if (n.ring === 'pers') return n.campo[0];
+  return null;
+}
+const ORD = { cose: TIPI, temi: SPECIE, pers: CAMPI };
+// nascita (prima frase) e peso totale
+Object.values(N).forEach((n) => { n.nati = null; n.tot = 0; });
+FR.forEach((f) => { f.tutti.forEach((id) => { const n = N[id]; if (!n.nati || f.reg < n.nati) n.nati = f.reg; if (f.parlante) n.tot++; }); f.tuttiP.forEach((id) => { const n = N[id]; if (!n.natiP || f.reg < n.natiP) n.natiP = f.reg; }); });
+// i nodi entrano nell'anello: per gruppo, e dentro il gruppo il più luminoso al centro (una piccola montagna)
+for (const r of RINGS) {
+  let nodi = Object.values(N).filter((n) => n.ring === r.k && (n.nati || n.natiP));
+  if (r.k === 'gesto') nodi.sort((a, b) => GESTI.indexOf(a.nome) - GESTI.indexOf(b.nome));
+  else if (r.k === 'campo') nodi.sort((a, b) => CAMPI.indexOf(a.campoId) - CAMPI.indexOf(b.campoId));
+  else if (r.k === 'tempo') nodi.sort((a, b) => a.mi - b.mi);
+  else {
+    const gruppi = r.k === 'sent' ? [null] : ORD[r.k];
+    const fuori = [];
+    nodi = gruppi.flatMap((g) => {
+      const xs = nodi.filter((n) => gruppo(n) === g).sort((a, b) => b.tot - a.tot || (a.dedotto ? 1 : 0) - (b.dedotto ? 1 : 0));
+      const m = []; xs.forEach((n, i) => (i % 2 ? m.push(n) : m.unshift(n)));
+      if (m.length) fuori.push(null);
+      return [...m, null];
+    });
+  }
+  // gli slot vuoti (null) separano i gruppi
+  const slots = nodi.length;
+  r.slot = (Math.PI * 2) / slots;
+  r.nodi = [];
+  nodi.forEach((n, i) => { if (!n) return; n.base = i * r.slot; n.R = r; r.nodi.push(n); });
+}
+
+/* =====================================================================
+   STATO
+   ===================================================================== */
+const S = {
+  rot: Object.fromEntries(RIDS.map((k) => [k, 0])), k: 1, tx: 0, ty: 0,
+  sel: {}, lente: false, fino: MESI_ID.length - 1, fuoco: null, filo: [], vassoio: null, anelloTastiera: 5,
+};
+const FIRST = FR.find((f) => f.testo.startsWith('nick drake stamattina'));
+
+/* --- che cosa passa i filtri */
+const inTempo = (f) => f.mi <= S.fino;
+function haToken(f, k, t) {
+  if (t.startsWith('grp:')) { const g = t.slice(4); const ok = (set) => [...set].some((id) => gruppo(N[id]) === g || (g === 'da-verificare' && N[id].gen === 'citazione' && !N[id].esito)); return ok(f.R[k]) || (S.lente && ok(f.P[k])); }
+  return f.R[k].has(t) || (S.lente && f.P[k].has(t));
+}
+function passa(f, tranne) {
+  if (!inTempo(f)) return false;
+  for (const k in S.sel) { if (k === tranne) continue; const toks = S.sel[k]; if (!toks || !toks.size) continue; let ok = false; for (const t of toks) if (haToken(f, k, t)) { ok = true; break; } if (!ok) return false; }
+  return true;
+}
+let PASSANO = [];
+const PESO = {}; // id -> {luce, prop, imp}
+function calcola() {
+  PASSANO = FR.filter((f) => passa(f));
+  Object.keys(N).forEach((id) => (PESO[id] = { luce: 0, prop: 0, imp: 0, solo: 0 }));
+  for (const f of PASSANO) {
+    f.tutti.forEach((id) => { if (f.parlante) PESO[id].luce++; else PESO[id].imp++; });
+    if (S.lente) f.tuttiP.forEach((id) => PESO[id].prop++);
+  }
+  for (const r of RINGS) r.max = Math.max(1, ...r.nodi.map((n) => PESO[n.id].luce));
+}
+const nFiltri = () => Object.values(S.sel).reduce((a, s) => a + (s ? s.size : 0), 0);
+
+/* =====================================================================
+   LA RUOTA (SVG a mano: niente librerie)
+   ===================================================================== */
+const svg = document.getElementById('ruota');
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs = {}, parent) => { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; };
+const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+let W = 0, H = 0, CX = 0, CY = 0, RAD = 0;
+const NOON = -Math.PI / 2;
+const TAU = Math.PI * 2;
+const norm = (a) => { a %= TAU; if (a > Math.PI) a -= TAU; if (a < -Math.PI) a += TAU; return a; };
+
+// i glifi, in coordinate unitarie: la forma dice il tipo della cosa
+const GLIFI = {
+  canzone: 'M0,-1A1,1 0 1,1 0,1A1,1 0 1,1 0,-1Z',
+  album: 'M0,-1.05A1.05,1.05 0 1,1 0,1.05A1.05,1.05 0 1,1 0,-1.05ZM0,-.38A.38,.38 0 1,0 0,.38A.38,.38 0 1,0 0,-.38Z',
+  libro: 'M-.85,-1H.85V1H-.85Z',
+  poesia: 'M0,-1.2L.85,0L0,1.2L-.85,0Z',
+  film: 'M0,-1.1L1.05,.85H-1.05Z',
+  serie: 'M-1.2,-.75H1.2V.75H-1.2Z',
+  fumetto: 'M-1,-.85H1V.5H-.1L-.6,1.05V.5H-1Z',
+  spettacolo: 'M0,-1.15L.3,-.38L1.1,-.36L.48,.14L.7,.95L0,.48L-.7,.95L-.48,.14L-1.1,-.36L-.3,-.38Z',
+  immagine: 'M-1,-1H1V1H-1ZM-.5,-.5V.5H.5V-.5Z',
+  gioco: 'M0,-1.1L.95,-.55V.55L0,1.1L-.95,.55V-.55Z',
+  video: 'M-.75,-1L1.05,0L-.75,1Z',
+  citazione: 'M-.95,-.15A.42,.42 0 1,1 -.15,-.15C-.15,.45 -.5,.8 -.9,.95C-.65,.6 -.6,.35 -.95,-.15ZM.15,-.15A.42,.42 0 1,1 .95,-.15C.95,.45 .6,.8 .2,.95C.45,.6 .5,.35 .15,-.15Z',
+  persona: 'M0,-.72A.72,.72 0 1,1 0,.72A.72,.72 0 1,1 0,-.72Z',
+  tema: 'M0,-1A1,1 0 1,1 0,1A1,1 0 1,1 0,-1Z',
+};
+const glifo = (n) => (n.gen === 'opera' || n.gen === 'citazione' ? GLIFI[n.tipo] : n.gen === 'persona' ? GLIFI.persona : GLIFI.tema);
+const glifoSVG = (tipo, col, s = 12) => `<svg width="${s + 4}" height="${s + 4}" viewBox="-1.4 -1.4 2.8 2.8" aria-hidden="true"><path d="${GLIFI[tipo]}" fill="${col}" fill-rule="evenodd"/></svg>`;
+
+let G = {};
+function costruisci() {
+  svg.innerHTML = '';
+  const defs = el('defs', {}, svg);
+  const rg = el('radialGradient', { id: 'luce' }, defs);
+  el('stop', { offset: '0', 'stop-color': css('--luce'), 'stop-opacity': '.85' }, rg);
+  el('stop', { offset: '.45', 'stop-color': css('--luce'), 'stop-opacity': '.32' }, rg);
+  el('stop', { offset: '1', 'stop-color': css('--luce'), 'stop-opacity': '0' }, rg);
+  G.mondo = el('g', {}, svg);
+  G.fondi = el('g', {}, G.mondo);
+  G.fili = el('g', { fill: 'none' }, G.mondo);
+  G.anelli = el('g', {}, G.mondo);
+  G.raggio = el('g', {}, G.mondo);
+  G.hub = el('g', { style: 'cursor:pointer' }, G.mondo);
+  G.etic = el('g', { 'pointer-events': 'none' }, svg); // etichette in coordinate di schermo
+  // fondi degli anelli
+  for (const r of RINGS) {
+    r.fondo = el('path', { 'fill-rule': 'evenodd' }, G.fondi);
+    r.g = el('g', {}, G.anelli);
+    r.el = {};
+    for (const n of r.nodi) {
+      const g = el('g', {}, r.g);
+      if (r.arco) {
+        const p = el('path', {}, g);
+        r.el[n.id] = { g, p };
+      } else {
+        const halo = el('circle', { r: 2.6, fill: 'url(#luce)', opacity: 0 }, g);
+        const p = el('path', { d: glifo(n), 'fill-rule': 'evenodd', 'vector-effect': 'non-scaling-stroke' }, g);
+        const w = n.gen === 'citazione' && !n.esito ? el('path', { d: 'M1.05,-1.65L1.75,-.45H.35Z', fill: css('--warn'), stroke: css('--carta'), 'stroke-width': .9, 'vector-effect': 'non-scaling-stroke' }, g) : null;
+        r.el[n.id] = { g, p, halo, w };
+      }
+    }
+  }
+  // la linea di mezzogiorno: un'alidada, una riga che legge gli anelli
+  G.alidada = el('rect', { class: 'alidada' }, G.fondi);
+  G.linea = el('line', { 'stroke-dasharray': '2 3' }, G.raggio);
+  G.punta = el('path', {}, G.raggio);
+  G.conv = el('g', {}, G.raggio);
+  G.hubC = el('circle', {}, G.hub);
+  G.hubT1 = el('text', { class: 'hub-t' }, G.hub);
+  G.hubT2 = el('text', { class: 'hub-t' }, G.hub);
+  misura();
+}
+function misura() {
+  const b = svg.getBoundingClientRect();
+  W = b.width; H = b.height;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  const largo = W >= 700;
+  RAD = Math.min(W, H) / 2 - (largo ? 34 : 16);
+  CX = W / 2; CY = H / 2 + (largo ? 4 : 0);
+  disegnaStatico();
+  applicaVista();
+  aggiorna(true);
+}
+const arcoPath = (r0, r1, a0, a1) => {
+  const p = (r, a) => `${(Math.cos(a) * r).toFixed(2)},${(Math.sin(a) * r).toFixed(2)}`;
+  const large = a1 - a0 > Math.PI ? 1 : 0;
+  return `M${p(r1, a0)}A${r1},${r1} 0 ${large},1 ${p(r1, a1)}L${p(r0, a1)}A${r0},${r0} 0 ${large},0 ${p(r0, a0)}Z`;
+};
+function disegnaStatico() {
+  G.mondo.setAttribute('transform', '');
+  for (const r of RINGS) {
+    const r0 = r.r0 * RAD, r1 = r.r1 * RAD;
+    r.fondo.setAttribute('d', `M${r1},0A${r1},${r1} 0 1,1 ${-r1},0A${r1},${r1} 0 1,1 ${r1},0ZM${r0},0A${r0},${r0} 0 1,0 ${-r0},0A${r0},${r0} 0 1,0 ${r0},0Z`);
+    r.fondo.setAttribute('fill', css(r.col)); r.fondo.setAttribute('fill-opacity', r.quieto ? .05 : .075);
+    r.mid = (r.r0 + r.r1) / 2 * RAD;
+    for (const n of r.nodi) {
+      const e = r.el[n.id];
+      if (r.arco) {
+        const pad = Math.min(.03, r.slot * .08);
+        e.p.setAttribute('d', arcoPath(r0 + 1, r1 - 1, n.base - r.slot / 2 + pad, n.base + r.slot / 2 - pad));
+      } else {
+        e.pos = [Math.cos(n.base) * r.mid, Math.sin(n.base) * r.mid];
+      }
+    }
+  }
+  const lineaR = RAD * 1.0 + 10;
+  G.linea.setAttribute('x1', 0); G.linea.setAttribute('y1', -RAD * .14); G.linea.setAttribute('x2', 0); G.linea.setAttribute('y2', -lineaR);
+  G.linea.setAttribute('stroke', css('--oro')); G.linea.setAttribute('stroke-width', 1);
+  G.linea.setAttribute('vector-effect', 'non-scaling-stroke');
+  G.punta.setAttribute('d', `M-6,${-lineaR - 9}L6,${-lineaR - 9}L0,${-lineaR + 1}Z`);
+  G.punta.setAttribute('fill', css('--oro'));
+  G.alidada.setAttribute('x', -10); G.alidada.setAttribute('width', 20); G.alidada.setAttribute('y', -RAD * 1.0); G.alidada.setAttribute('height', RAD * .86);
+  G.hubC.setAttribute('r', RAD * .14); G.hubC.setAttribute('fill', css('--carta-2')); G.hubC.setAttribute('stroke', css('--filo'));
+  const fs = Math.max(11, RAD * .055);
+  G.hubT1.setAttribute('y', -fs * .15); G.hubT1.setAttribute('font-size', fs * 1.25); G.hubT1.textContent = '✦';
+  G.hubT1.setAttribute('style', `font-family:var(--segni)`);
+  G.hubT2.setAttribute('y', fs * 1.15); G.hubT2.setAttribute('font-size', fs * .95); G.hubT2.textContent = 'gira';
+}
+function applicaVista() {
+  G.mondo.setAttribute('transform', `translate(${S.tx + CX * S.k - CX + CX},${S.ty + CY * S.k - CY + CY}) scale(${S.k})`);
+  // la vista: mondo = translate(CX,CY) poi pan/zoom
+  G.mondo.setAttribute('transform', `translate(${CX + S.tx},${CY + S.ty}) scale(${S.k})`);
+  document.getElementById('zout').disabled = S.k <= 1.001;
+  document.getElementById('zre').disabled = S.k <= 1.001 && !S.tx && !S.ty;
+}
+const aSchermo = (x, y) => [CX + S.tx + x * S.k, CY + S.ty + y * S.k];
+const daSchermo = (sx, sy) => [(sx - CX - S.tx) / S.k, (sy - CY - S.ty) / S.k];
+
+// lo stato visivo di ogni nodo: dimensione, luce, opacità (si muove verso il bersaglio, fotogramma per fotogramma)
+const VIS = {};
+function bersagli() {
+  const ha = nFiltri() > 0 || S.fino < MESI_ID.length - 1;
+  for (const r of RINGS) {
+    const stretto = S.sel[r.k] && S.sel[r.k].size;
+    if (r.fondo) { r.fondo.setAttribute('fill-opacity', stretto ? .13 : r.quieto ? .05 : .075); r.fondo.setAttribute('stroke', stretto ? css(r.col) : 'none'); r.fondo.setAttribute('stroke-width', 1.2); r.fondo.setAttribute('vector-effect', 'non-scaling-stroke'); }
+    for (const n of r.nodi) {
+      const p = PESO[n.id];
+      const nato = n.nati && MESI_ID.indexOf(n.nati.slice(0, 7)) <= S.fino || (n.nati === TETTO);
+      const natoP = S.lente && n.natiP && MESI_ID.indexOf(n.natiP.slice(0, 7)) <= S.fino;
+      const luce = p.luce, vivo = luce > 0 || p.imp > 0;
+      const soloP = !vivo && p.prop > 0;
+      const frac = Math.sqrt(luce / r.max);
+      let t;
+      if (vivo) t = { s: (r.base || 1) * (.55 + .75 * frac), o: .42 + .58 * frac, h: frac > .45 ? (frac - .3) : 0, tipo: 'luce' };
+      else if (soloP) t = { s: (r.base || 1) * .78, o: .7, h: 0, tipo: 'prop' };
+      else if (nato || natoP) t = { s: (r.base || 1) * .45, o: ha ? .1 : 0, h: 0, tipo: 'spento' };
+      else t = { s: 0, o: 0, h: 0, tipo: 'assente' };
+      if (n.dedotto && !p.luce && !S.lente) t = { s: 0, o: 0, h: 0, tipo: 'assente' };
+      if (r.arco) t.o = vivo ? .22 + .78 * frac : soloP ? .2 : (nato ? .07 : 0);
+      if (r.quieto && vivo) t.o *= .62;
+      n.t = t;
+      if (!VIS[n.id]) VIS[n.id] = { s: 0, o: 0, h: 0 };
+    }
+  }
+}
+let animando = false;
+function anima() {
+  if (animando) return; animando = true;
+  const passo = () => {
+    let ancora = false;
+    for (const r of RINGS) for (const n of r.nodi) {
+      const v = VIS[n.id], t = n.t; if (!t) continue;
+      for (const k of ['s', 'o', 'h']) {
+        const d = t[k] - v[k];
+        if (Math.abs(d) > .002) { v[k] = RM ? t[k] : v[k] + d * .18; ancora = true; } else v[k] = t[k];
+      }
+    }
+    dipingiNodi();
+    if (ancora && !RM) requestAnimationFrame(passo); else { animando = false; etichette(); }
+  };
+  requestAnimationFrame(passo);
+}
+function dipingiNodi() {
+  const kf = Math.pow(S.k, -.62); // da vicino i punti crescono meno della ruota: si legge, non si ingrassa
+  for (const r of RINGS) {
+    const col = css(r.col);
+    for (const n of r.nodi) {
+      const e = r.el[n.id], v = VIS[n.id], t = n.t; if (!t) continue;
+      const scelto = S.sel[r.k] && S.sel[r.k].has(n.id);
+      if (r.arco) {
+        e.p.setAttribute('fill', col); e.p.setAttribute('opacity', v.o.toFixed(3));
+        e.p.setAttribute('stroke', scelto ? css('--ink') : 'none'); e.p.setAttribute('stroke-width', scelto ? 1.6 / S.k : 0);
+        continue;
+      }
+      const s = v.s * kf;
+      e.g.setAttribute('transform', `translate(${e.pos[0].toFixed(2)},${e.pos[1].toFixed(2)}) scale(${s.toFixed(3)})`);
+      e.g.setAttribute('opacity', v.o.toFixed(3));
+      e.halo.setAttribute('opacity', (Math.min(1, v.h * 1.6)).toFixed(3));
+      if (t.tipo === 'prop') {
+        e.p.setAttribute('fill', 'none'); e.p.setAttribute('stroke', css('--tenue')); e.p.setAttribute('stroke-width', 1.1); e.p.setAttribute('stroke-dasharray', '2 2');
+      } else {
+        e.p.setAttribute('fill', col); e.p.removeAttribute('stroke-dasharray');
+        e.p.setAttribute('stroke', scelto || S.fuoco === n.id ? css('--ink') : 'none'); e.p.setAttribute('stroke-width', scelto || S.fuoco === n.id ? 2 : 0);
+      }
+    }
+  }
+}
+function ruota() { for (const r of RINGS) r.g.setAttribute('transform', `rotate(${(S.rot[r.k] * 180 / Math.PI).toFixed(3)})`); disegnaFili(); }
+
+/* --- mezzogiorno: che cosa sta sulla linea */
+function aMezzogiorno(r) {
+  let best = null, bd = Infinity;
+  for (const n of r.nodi) {
+    if (!n.t || n.t.tipo === 'assente' || n.t.tipo === 'spento') continue;
+    const d = Math.abs(norm(n.base + S.rot[r.k] - NOON));
+    if (d < bd) { bd = d; best = n; }
+  }
+  return bd <= r.slot * .55 ? best : null;
+}
+const FORTI = new Set(['sent', 'temi', 'pers', 'cose']);
+function convergenza() {
+  const al = RINGS.map((r) => ({ r, n: aMezzogiorno(r) }));
+  const ids = al.filter((a) => a.n).map((a) => a.n.id);
+  let best = null;
+  for (const f of PASSANO) {
+    if (f.imp && !f.flags) continue;
+    const hit = ids.filter((id) => f.tutti.has(id));
+    // la convergenza banale si tace: un'opera e il suo autore non fanno due cose
+    const forti = hit.filter((id) => FORTI.has(N[id].ring));
+    const opere = new Set(forti.filter((id) => N[id].gen === 'opera').map((id) => N[id].autore));
+    const fortiVeri = forti.filter((id) => !(N[id].gen === 'persona' && opere.has(id)));
+    const score = fortiVeri.length * 3 + hit.length + (f.gen ? 0 : .5);
+    if (fortiVeri.length >= 2 && (!best || score > best.score || (score === best.score && f.reg > best.f.reg))) best = { f, hit, score };
+  }
+  return { al, best };
+}
+
+/* --- le etichette: lo zoom semantico. Da lontano solo la lettura di mezzogiorno; da vicino i nomi che ci stanno */
+let ETIC_ANELLI = [];
+function etichette(nascondiNodi = false) {
+  G.etic.innerHTML = ''; ETIC_ANELLI = [];
+  const boxes = [];
+  const libero = (b) => !boxes.some((o) => b.x < o.x + o.w && b.x + b.w > o.x && b.y < o.y + o.h && b.y + b.h > o.y);
+  const tw = (t, fs) => t.length * fs * .53 + 4;
+  const { al, best } = convergenza();
+  const dentro = new Set(best ? best.hit : []);
+  // l'alidada: a sinistra il nome dell'anello, a destra ciò che vi sta allineato
+  const [ox] = aSchermo(0, 0);
+  for (const { r, n } of al) {
+    const [, y] = aSchermo(0, -(r.arco && r.k === 'tempo' ? r.r1 * RAD + 9 / S.k : r.mid / 1));
+    if (y < 6 || y > H - 6) continue;
+    const yy = y + 4;
+    const nomeA = r.nome + (r.prop ? ' ◌' : '');
+    const t1 = el('text', { class: 'lbl anel', x: ox - 15, y: yy, 'text-anchor': 'end' }, G.etic); t1.textContent = nomeA;
+    const bA = { x: ox - 15 - tw(nomeA, 11), y: yy - 11, w: tw(nomeA, 11), h: 14 };
+    boxes.push(bA); ETIC_ANELLI.push({ k: r.k, ...bA });
+    if (n) {
+      let nome = n.nome; const max = W < 500 ? 24 : 34;
+      if (nome.length > max) nome = nome.slice(0, max - 1) + '…';
+      const cls = `lbl mezzo${n.gen === 'opera' ? ' it' : ''}${best && !dentro.has(n.id) ? ' fuori' : ''}`;
+      const t2 = el('text', { class: cls, x: ox + 15, y: yy }, G.etic);
+      t2.textContent = nome + (n.dedotto ? (n.accolto ? ' ●' : ' ◌') : '') + (n.gen === 'citazione' && !n.esito ? ' ⚠' : '');
+      boxes.push({ x: ox + 15, y: yy - 12, w: tw(nome, 12.5) + 10, h: 15 });
+    }
+  }
+  // i mesi fuori dall'anello del tempo (sempre: è la scala)
+  const rt = RK.tempo;
+  for (const n of rt.nodi) {
+    const a = n.base + S.rot.tempo;
+    if (Math.abs(norm(a - NOON)) < rt.slot * .5) continue;
+    const rr = rt.r1 * RAD + 11 / S.k;
+    const [x, y] = aSchermo(Math.cos(a) * rr, Math.sin(a) * rr);
+    if (x < 0 || x > W || y < 0 || y > H) continue;
+    const t = el('text', { class: 'lbl mese', x, y: y + 3.5, 'text-anchor': 'middle' }, G.etic); t.textContent = n.corto;
+    boxes.push({ x: x - 12, y: y - 7, w: 24, h: 13 });
+  }
+  if (nascondiNodi) return;
+  // i nomi dei nodi: per luce, se ci stanno
+  const cand = [];
+  for (const r of RINGS) {
+    if (r.k === 'tempo') continue;
+    for (const n of r.nodi) {
+      const v = VIS[n.id]; if (!n.t || n.t.tipo === 'assente' || n.t.tipo === 'spento' || v.o < .2) continue;
+      const a = n.base + S.rot[r.k];
+      if (Math.abs(norm(a - NOON)) < r.slot * .6) continue;
+      cand.push({ n, r, a, w: PESO[n.id].luce + (S.fuoco === n.id ? 999 : 0) + (dentro.has(n.id) ? 500 : 0) });
+    }
+  }
+  cand.sort((a, b) => b.w - a.w);
+  // pochi nodi accesi (un filtro stretto): tutti i nomi; tanti: solo quelli che ci stanno, per luce
+  const limite = cand.length <= (W < 500 ? 10 : 24) ? 999 : S.k < 1.4 ? (W < 500 ? 0 : 14) : S.k < 2.2 ? (W < 500 ? 10 : 40) : 999;
+  let messi = 0;
+  for (const c of cand) {
+    if (messi >= limite && S.fuoco !== c.n.id) continue;
+    const { n, r, a } = c;
+    const fs = r.arco ? 10 : 11.5;
+    let nome = n.nome; if (nome.length > 26) nome = nome.slice(0, 25) + '…';
+    const w = tw(nome, fs);
+    // un arco (gesto, campo): il nome sta dentro l'arco, se l'arco è abbastanza lungo
+    if (r.arco) {
+      const lung = r.slot * r.mid * S.k;
+      if (lung < w + 6 || (r.r1 - r.r0) * RAD * S.k < 10) continue;
+      const [x, y] = aSchermo(Math.cos(a) * r.mid, Math.sin(a) * r.mid);
+      if (x < 0 || x > W || y < 0 || y > H) continue;
+      let deg = a * 180 / Math.PI + 90; if (Math.sin(a) > 0) deg -= 180;
+      const th = deg * Math.PI / 180, bw = Math.abs(w * Math.cos(th)) + Math.abs(12 * Math.sin(th)), bh = Math.abs(w * Math.sin(th)) + Math.abs(12 * Math.cos(th));
+      const b = { x: x - bw / 2, y: y - bh / 2, w: bw, h: bh };
+      if (!libero(b)) continue; boxes.push(b);
+      const t = el('text', { class: 'lbl arco', x, y: y + 3.4, 'text-anchor': 'middle', transform: `rotate(${deg.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})` }, G.etic);
+      t.textContent = nome + (r.prop ? '' : '');
+      continue;
+    }
+    const v = VIS[n.id];
+    const off = v.s * Math.pow(S.k, .38) + 5;
+    const [nx, ny] = aSchermo(Math.cos(a) * r.mid, Math.sin(a) * r.mid);
+    const cx = Math.cos(a), sy = Math.sin(a);
+    const x = nx + cx * off, y = ny + sy * off;
+    const anchor = cx > .35 ? 'start' : cx < -.35 ? 'end' : 'middle';
+    const bx = anchor === 'start' ? x : anchor === 'end' ? x - w : x - w / 2;
+    const by = y + (sy > .35 ? 2 : sy < -.35 ? -12 : -6);
+    const b = { x: bx, y: by, w, h: 13 };
+    if (bx < 2 || bx + w > W - 2 || by < 2 || by + 13 > H - 2) continue;
+    if (!libero(b)) continue;
+    boxes.push(b); messi++;
+    const t = el('text', { class: `lbl nodo${n.gen === 'opera' ? ' it' : ''}`, x: anchor === 'middle' ? x : x, y: by + 10, 'text-anchor': anchor }, G.etic);
+    t.textContent = nome + (n.dedotto ? (n.accolto ? ' ●' : ' ◌') : '') + (n.gen === 'citazione' && !n.esito ? ' ⚠' : '');
+    if (n.dedotto) t.setAttribute('fill', css('--tenue'));
+  }
+}
+
+/* --- i fili: dal nodo nel fuoco, alle cose che stanno nelle stesse frasi tue */
+function disegnaFili() {
+  G.fili.innerHTML = '';
+  G.conv.innerHTML = '';
+  const posA = (n) => { const a = n.base + S.rot[n.R.k]; return [Math.cos(a) * n.R.mid, Math.sin(a) * n.R.mid]; };
+  if (S.fuoco && N[S.fuoco].R) {
+    const n = N[S.fuoco];
+    const co = {};
+    for (const f of PASSANO) if (f.tutti.has(n.id)) f.tutti.forEach((id) => { if (id !== n.id && N[id].R && !N[id].R.arco) co[id] = (co[id] || 0) + 1; });
+    const top = Object.entries(co).sort((a, b) => b[1] - a[1]).slice(0, 16);
+    const mx = top.length ? top[0][1] : 1;
+    const [x0, y0] = n.R.arco ? (() => { const a = n.base + S.rot[n.R.k]; return [Math.cos(a) * n.R.mid, Math.sin(a) * n.R.mid]; })() : posA(n);
+    for (const [id, c] of top) {
+      const [x1, y1] = posA(N[id]);
+      const mx2 = (x0 + x1) * .32, my2 = (y0 + y1) * .32;
+      el('path', { d: `M${x0},${y0}Q${mx2},${my2} ${x1},${y1}`, stroke: css(N[id].R.col), 'stroke-width': (0.8 + 2.2 * c / mx), opacity: (.25 + .6 * c / mx).toFixed(2), 'vector-effect': 'non-scaling-stroke', 'stroke-linecap': 'round' }, G.fili);
+    }
+  }
+  // la convergenza: un segno d'oro su ciò che la frase tiene insieme, sulla linea
+  const { best } = convergenza();
+  if (best) {
+    const ys = best.hit.map((id) => -N[id].R.mid).sort((a, b) => a - b);
+    el('line', { x1: 0, x2: 0, y1: ys[0], y2: ys[ys.length - 1], stroke: css('--luce'), 'stroke-width': 4, 'stroke-linecap': 'round', opacity: .9, 'vector-effect': 'non-scaling-stroke' }, G.conv);
+    for (const id of best.hit) el('circle', { cx: 0, cy: -N[id].R.mid, r: (N[id].R.arco ? 4.5 : 7.5) / Math.pow(S.k, .62), fill: 'none', stroke: css('--oro'), 'stroke-width': 1.6, 'vector-effect': 'non-scaling-stroke' }, G.conv);
+  }
+}
+
+/* --- aggiornare tutto */
+function aggiorna(subito) {
+  calcola(); bersagli();
+  if (subito || RM) { for (const r of RINGS) for (const n of r.nodi) Object.assign(VIS[n.id], n.t); dipingiNodi(); etichette(); }
+  else anima();
+  ruota();
+  G.hubT2.textContent = 'gira';
+  pannello();
+}
+
+/* =====================================================================
+   I GESTI: girare un anello, avvicinarsi, toccare
+   ===================================================================== */
+const ptr = new Map();
+let gesto = null, inerzia = null;
+const angolo = (sx, sy) => { const [cx, cy] = aSchermo(0, 0); return Math.atan2(sy - cy, sx - cx); };
+function anelloA(sx, sy) {
+  const [wx, wy] = daSchermo(sx, sy); const d = Math.hypot(wx, wy) / RAD;
+  if (d < .145) return 'hub';
+  let best = null, bd = Infinity;
+  for (const r of RINGS) { const m = (r.r0 + r.r1) / 2; const dd = Math.abs(d - m) - (r.r1 - r.r0) / 2; if (dd < bd) { bd = dd; best = r; } }
+  return bd < .03 ? best : null;
+}
+const pt = (e) => { const b = svg.getBoundingClientRect(); return [e.clientX - b.left, e.clientY - b.top]; };
+svg.addEventListener('pointerdown', (e) => {
+  svg.setPointerCapture(e.pointerId);
+  const [x, y] = pt(e); ptr.set(e.pointerId, [x, y]);
+  ferma();
+  if (ptr.size === 1) {
+    const r = anelloA(x, y);
+    gesto = { tipo: null, x0: x, y0: y, t0: performance.now(), r: r && r !== 'hub' ? r : null, hub: r === 'hub', a0: angolo(x, y), rot0: r && r !== 'hub' ? S.rot[r.k] : 0, tx0: S.tx, ty0: S.ty, v: 0, ta: performance.now(), al: angolo(x, y) };
+  } else if (ptr.size === 2) {
+    const [a, b] = [...ptr.values()];
+    gesto = { tipo: 'pizzico', d0: Math.hypot(a[0] - b[0], a[1] - b[1]), k0: S.k, m0: [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2], tx0: S.tx, ty0: S.ty };
+    etichette(true);
+  }
+});
+svg.addEventListener('pointermove', (e) => {
+  if (!ptr.has(e.pointerId) || !gesto) return;
+  const [x, y] = pt(e); ptr.set(e.pointerId, [x, y]);
+  if (gesto.tipo === 'pizzico' && ptr.size >= 2) {
+    const [a, b] = [...ptr.values()];
+    const d = Math.hypot(a[0] - b[0], a[1] - b[1]); const m = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
+    const k = Math.max(1, Math.min(7, gesto.k0 * d / gesto.d0));
+    // il punto sotto il centro delle dita resta sotto le dita
+    const wx = (gesto.m0[0] - CX - gesto.tx0) / gesto.k0, wy = (gesto.m0[1] - CY - gesto.ty0) / gesto.k0;
+    S.k = k; S.tx = m[0] - CX - wx * k; S.ty = m[1] - CY - wy * k; limita();
+    applicaVista(); dipingiNodi(); disegnaFili(); etichette(true);
+    return;
+  }
+  const dx = x - gesto.x0, dy = y - gesto.y0;
+  if (!gesto.tipo && Math.hypot(dx, dy) > 7) {
+    gesto.tipo = gesto.r ? 'giro' : (S.k > 1.01 ? 'pan' : 'nulla');
+    if (gesto.tipo === 'giro') { svg.classList.add('trascina'); S.fuoco = null; etichette(true); }
+  }
+  if (gesto.tipo === 'giro') {
+    const a = angolo(x, y); let d = norm(a - gesto.al);
+    const now = performance.now(); const dt = Math.max(1, now - gesto.ta);
+    gesto.v = gesto.v * .6 + (d / dt) * .4; gesto.ta = now; gesto.al = a;
+    S.rot[gesto.r.k] += d; ruota(); etichette(true);
+  } else if (gesto.tipo === 'pan') {
+    S.tx = gesto.tx0 + dx; S.ty = gesto.ty0 + dy; limita(); applicaVista(); etichette(true);
+  }
+});
+const fine = (e) => {
+  if (!ptr.has(e.pointerId)) return;
+  ptr.delete(e.pointerId);
+  if (!gesto) return;
+  svg.classList.remove('trascina');
+  if (gesto.tipo === 'pizzico') { if (ptr.size === 0) { gesto = null; etichette(); } else gesto = { tipo: 'nulla' }; return; }
+  if (!gesto.tipo && performance.now() - gesto.t0 < 600) tocca(gesto.x0, gesto.y0);
+  else if (gesto.tipo === 'giro') lascia(gesto.r, gesto.v);
+  else etichette();
+  gesto = null;
+};
+svg.addEventListener('pointerup', fine);
+svg.addEventListener('pointercancel', fine);
+svg.addEventListener('wheel', (e) => {
+  e.preventDefault();
+  const [x, y] = pt(e);
+  zoomA(S.k * Math.exp(-e.deltaY * .0022), x, y);
+}, { passive: false });
+function zoomA(k, x, y) {
+  k = Math.max(1, Math.min(7, k));
+  const [wx, wy] = daSchermo(x, y);
+  S.k = k; S.tx = x - CX - wx * k; S.ty = y - CY - wy * k; limita();
+  applicaVista(); dipingiNodi(); disegnaFili();
+  clearTimeout(zoomA.t); etichette(true); zoomA.t = setTimeout(() => etichette(), 90);
+}
+function limita() {
+  if (S.k <= 1.001) { S.k = 1; S.tx = 0; S.ty = 0; return; }
+  const m = RAD * S.k; S.tx = Math.max(-m, Math.min(m, S.tx)); S.ty = Math.max(-m, Math.min(m, S.ty));
+}
+function animaVista(k, tx, ty) {
+  const a = { k: S.k, tx: S.tx, ty: S.ty }, t0 = performance.now(), dur = RM ? 0 : 380;
+  const f = (now) => { const p = dur ? Math.min(1, (now - t0) / dur) : 1; const e = 1 - Math.pow(1 - p, 3);
+    S.k = a.k + (k - a.k) * e; S.tx = a.tx + (tx - a.tx) * e; S.ty = a.ty + (ty - a.ty) * e;
+    applicaVista(); dipingiNodi(); disegnaFili(); if (p < 1) { etichette(true); requestAnimationFrame(f); } else etichette(); };
+  requestAnimationFrame(f);
+}
+document.getElementById('zin').onclick = () => zoomA(S.k * 1.7, CX + S.tx * 0, CY - RAD * .55 * (S.k > 1 ? 0 : 1));
+document.getElementById('zout').onclick = () => zoomA(S.k / 1.7, CX, CY);
+document.getElementById('zre').onclick = () => animaVista(1, 0, 0);
+
+function ferma() { if (inerzia) { cancelAnimationFrame(inerzia); inerzia = null; } }
+// lasciare un anello: un po' d'inerzia, poi si ferma con un nodo esattamente a mezzogiorno
+function lascia(r, v) {
+  let vel = RM ? 0 : Math.max(-.02, Math.min(.02, v)) * 16;
+  const step = () => {
+    if (Math.abs(vel) > .002) { S.rot[r.k] += vel; vel *= .93; ruota(); inerzia = requestAnimationFrame(step); return; }
+    inerzia = null; aggancia(r);
+  };
+  step();
+}
+function aggancia(r, poi) {
+  let best = null, bd = Infinity;
+  for (const n of r.nodi) { if (!n.t || n.t.tipo === 'assente' || n.t.tipo === 'spento') continue; const d = norm(NOON - (n.base + S.rot[r.k])); if (Math.abs(d) < Math.abs(bd)) { bd = d; best = n; } }
+  if (!best) { etichette(); pannello(); return; }
+  giraA({ [r.k]: S.rot[r.k] + bd }, 260, poi);
+}
+function giraA(target, dur = 1100, poi) {
+  const da = { ...S.rot }, t0 = performance.now(); if (RM) dur = 0;
+  const f = (now) => {
+    const p = dur ? Math.min(1, (now - t0) / dur) : 1; const e = p < .5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+    for (const k in target) S.rot[k] = da[k] + (target[k] - da[k]) * e;
+    ruota();
+    if (p < 1) { etichette(true); inerzia = requestAnimationFrame(f); } else { inerzia = null; etichette(); pannello(); if (poi) poi(); }
+  };
+  inerzia = requestAnimationFrame(f);
+}
+// porta a mezzogiorno i nodi di una frase: è il gesto «gira» (le ruote cercano una convergenza vera)
+function allinea(f, dur = 1300, extra = true) {
+  const target = {};
+  for (const r of RINGS) {
+    const ids = [...f.R[r.k]].filter((id) => N[id].R && N[id].t && N[id].t.tipo === 'luce');
+    if (!ids.length) continue;
+    const n = N[ids.sort((a, b) => PESO[b].luce - PESO[a].luce)[0]];
+    const cur = S.rot[r.k];
+    // gli anelli girano in versi alterni, come un cifrario
+    target[r.k] = cur + norm(NOON - n.base - cur) + (extra && !RM ? (r.i % 2 ? -1 : 1) * TAU * (r.i % 3 === 0 ? 1 : .0) : 0);
+  }
+  S.fuoco = null;
+  giraA(target, dur);
+}
+let ultimeGire = [];
+function gira() {
+  const cand = PASSANO.filter((f) => !f.gen && !f.imp && [...f.tutti].filter((id) => FORTI.has(N[id].ring)).length >= 2 && !ultimeGire.includes(f.id));
+  const pool = cand.length ? cand : PASSANO.filter((f) => [...f.tutti].filter((id) => FORTI.has(N[id].ring)).length >= 2);
+  if (!pool.length) { pannello(); return; }
+  const f = pick(pool); ultimeGire = [f.id, ...ultimeGire].slice(0, 12);
+  S.vista = 'mezzo';
+  allinea(f);
+}
+function tocca(x, y) {
+  const r = anelloA(x, y);
+  if (r === 'hub') { gira(); return; }
+  // le etichette dell'alidada: toccare il nome di un anello lo apre nel vassoio
+  const lab = ETIC_ANELLI.find((b) => x > b.x - 4 && x < b.x + b.w + 6 && y > b.y - 3 && y < b.y + b.h + 3);
+  if (lab) { apriVassoio(lab.k); return; }
+  if (!r) return;
+  // il nodo più vicino nell'anello (il più vicino: un dito non è uno spillo)
+  const [wx, wy] = daSchermo(x, y); const a = Math.atan2(wy, wx);
+  let best = null, bd = Infinity;
+  for (const n of r.nodi) { if (!n.t || n.t.tipo === 'assente' || (n.t.tipo === 'spento' && !nFiltri())) continue; const d = Math.abs(norm(a - n.base - S.rot[r.k])); if (d < bd) { bd = d; best = n; } }
+  if (!best) return;
+  if (bd * r.mid * S.k > 30 && !r.arco) return;
+  arriva(best.id, true);
+}
+// arrivare a un nodo: l'anello lo porta a mezzogiorno, poi si apre la sua tavola
+function arriva(id, apri) {
+  const n = N[id]; S.fuoco = id; S.vista = 'nodo';
+  const t = NOON - n.base;
+  giraA({ [n.R.k]: S.rot[n.R.k] + norm(t - S.rot[n.R.k]) }, 420, () => { dipingiNodi(); disegnaFili(); if (apri) apriTavola(id, true); });
+  dipingiNodi(); disegnaFili(); pannello();
+}
+
+// tastiera: su e giù scelgono l'anello, le frecce lo girano, Invio apre ciò che sta a mezzogiorno
+svg.addEventListener('keydown', (e) => {
+  const r = RINGS[S.anelloTastiera];
+  if (e.key === 'ArrowUp') { S.anelloTastiera = Math.min(RINGS.length - 1, S.anelloTastiera + 1); annuncia(); e.preventDefault(); }
+  else if (e.key === 'ArrowDown') { S.anelloTastiera = Math.max(0, S.anelloTastiera - 1); annuncia(); e.preventDefault(); }
+  else if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+    const vis = r.nodi.filter((n) => n.t && (n.t.tipo === 'luce' || n.t.tipo === 'prop'));
+    const cur = aMezzogiorno(r); let i = vis.indexOf(cur); i = (i + (e.key === 'ArrowRight' ? -1 : 1) + vis.length) % vis.length;
+    const n = vis[i]; giraA({ [r.k]: S.rot[r.k] + norm(NOON - n.base - S.rot[r.k]) }, 220, annuncia); e.preventDefault();
+  } else if (e.key === 'Enter') { const n = aMezzogiorno(r); if (n) arriva(n.id, true); }
+  else if (e.key === ' ') { gira(); e.preventDefault(); }
+});
+function annuncia() { const r = RINGS[S.anelloTastiera]; const n = aMezzogiorno(r); document.getElementById('aiuto').textContent = `Anello ${r.nome}: a mezzogiorno ${n ? n.nome : 'niente'}.`; }
+
+/* =====================================================================
+   IL PANNELLO: servizio, anelli (i filtri), tempo, lente, foglio
+   ===================================================================== */
+const dataL = (s) => { const d = new Date(s.slice(0, 10) + 'T12:00:00'); return `${d.getDate()} ${MESI[d.getMonth()]}`; };
+const nomeVal = (k, t) => t.startsWith('grp:') ? (t === 'grp:da-verificare' ? 'da verificare ⚠' : (k === 'cose' ? TIPI_PL[t.slice(4)] : k === 'pers' ? t.slice(4).replace(/-/g, ' ') : SPECIE_PL[t.slice(4)] + ' ◌')) : N[t].nome;
+function servizio() {
+  const parl = PASSANO.filter((f) => f.parlante).length, imp = PASSANO.filter((f) => f.imp).length;
+  const s = document.getElementById('servizio');
+  if (!parl && !imp) { s.innerHTML = `<span class="vuoto">Nessuna frase tua con questi filtri.</span>`; }
+  else s.innerHTML = `<span>${parl} ${parl === 1 ? 'frase tua' : 'frasi tue'}<span class="sg">✦</span></span>${imp ? `<span>e ${imp} dall’archivio d’origine, fuori dai conti</span>` : ''}${S.fino < MESI_ID.length - 1 ? `<span>fino a ${N['me-' + MESI_ID[S.fino]].nome}</span>` : ''}`;
+  const at = document.getElementById('attivi');
+  const chips = [];
+  for (const k of RIDS) for (const t of (S.sel[k] || [])) chips.push(`<button class="chip" data-k="${k}" data-t="${esc(t)}" style="color:var(${RK[k].col})"><span class="pt"></span><span style="color:var(--ink)">${esc(nomeVal(k, t))}</span><span class="x" aria-label="togli">×</span></button>`);
+  at.innerHTML = chips.join('') + (chips.length > 1 ? `<button class="togli" id="togli">togli tutto</button>` : '');
+  at.querySelectorAll('.chip').forEach((b) => (b.onclick = () => { S.sel[b.dataset.k].delete(b.dataset.t); aggiorna(); }));
+  const tg = document.getElementById('togli'); if (tg) tg.onclick = () => { S.sel = {}; aggiorna(); };
+}
+function anelliBar() {
+  const box = document.getElementById('anelli');
+  box.innerHTML = RINGS.map((r) => `<button class="anello${r.quieto ? ' quieto' : ''}${S.sel[r.k] && S.sel[r.k].size ? ' ha' : ''}" data-k="${r.k}" aria-expanded="${S.vassoio === r.k}"><span class="pt" style="background:var(${r.col})"></span>${r.nome}${r.prop ? '<span class="sg p">◌</span>' : ''}</button>`).join('');
+  box.querySelectorAll('.anello').forEach((b) => (b.onclick = () => apriVassoio(b.dataset.k)));
+}
+function apriVassoio(k) { S.vassoio = S.vassoio === k ? null : k; pannello(); if (S.vassoio && innerWidth < 960) document.getElementById('vassoio').scrollIntoView({ block: 'nearest', behavior: RM ? 'auto' : 'smooth' }); }
+function valoriVassoio(k) {
+  const r = RK[k];
+  // i gruppi (la forma, la specie, il campo della persona) e poi i nodi più presenti
+  let vals = [];
+  if (k === 'cose') vals = TIPI.map((t) => 'grp:' + t).concat(['grp:da-verificare']);
+  else if (k === 'temi') vals = SPECIE.map((s) => 'grp:' + s).concat(r.nodi.filter((n) => !n.dedotto || S.lente).sort((a, b) => PESO[b.id].luce - PESO[a.id].luce).slice(0, 10).map((n) => n.id));
+  else if (k === 'pers') vals = r.nodi.slice().sort((a, b) => PESO[b.id].luce - PESO[a.id].luce).slice(0, 14).map((n) => n.id);
+  else vals = r.nodi.map((n) => n.id);
+  // il numero: le frasi che resterebbero scegliendolo (sugli altri filtri; dentro l'anello si somma)
+  const base = FR.filter((f) => passa(f, k));
+  return vals.map((t) => ({ t, n: base.filter((f) => f.parlante && haToken(f, k, t)).length, i: base.some((f) => f.imp && haToken(f, k, t)) })).filter((v) => v.n > 0 || v.i);
+}
+function vassoio() {
+  const v = document.getElementById('vassoio');
+  if (!S.vassoio) { v.hidden = true; return; }
+  const k = S.vassoio, r = RK[k];
+  const vals = valoriVassoio(k);
+  const nota = { cose: 'per forma; scegliendone due, si sommano', temi: 'la specie è una lettura mia ◌; il nome è tuo', pers: 'le più presenti', campo: 'il campo è una classificazione mia ◌', gesto: 'che cosa fai con le parole', sent: 'i sentimenti che hai nominato', tempo: 'il mese in cui l’hai scritto' }[k];
+  v.hidden = false;
+  v.innerHTML = `<h3><span style="color:var(${r.col})">●</span> ${r.nome} · ${nota}</h3><div class="chips">${vals.map(({ t, n }) => {
+    const on = S.sel[k] && S.sel[k].has(t);
+    const gl = k === 'cose' && t.startsWith('grp:') && t !== 'grp:da-verificare' ? glifoSVG(t.slice(4), `var(${r.col})`) : '';
+    return `<button class="chip" aria-pressed="${on}" data-t="${esc(t)}">${gl}${esc(nomeVal(k, t))}${n ? `<span class="n">${n}</span>` : ''}</button>`;
+  }).join('') || '<span class="conto">Niente, con gli altri filtri.</span>'}</div>`;
+  v.querySelectorAll('.chip').forEach((b) => (b.onclick = () => { S.sel[k] ||= new Set(); const t = b.dataset.t; S.sel[k].has(t) ? S.sel[k].delete(t) : S.sel[k].add(t); aggiorna(); }));
+}
+let suonando = null;
+function tempo() {
+  const box = document.getElementById('tempo');
+  const base = FR.filter((f) => passa(f, 'tempo') || (f.mi > S.fino && passaSenzaTempo(f)));
+  const conti = MESI_ID.map((m, i) => FR.filter((f) => f.mi === i && passaSenzaTempo(f)).length);
+  const mx = Math.max(...conti, 1);
+  const n = MESI_ID.length;
+  const sel = S.sel.tempo || new Set();
+  const bars = MESI_ID.map((m, i) => {
+    const h = 6 + 40 * conti[i] / mx; const on = sel.has('me-' + m); const dopo = i > S.fino;
+    const x = (i + .5) / n * 100;
+    return `<g class="bar" data-i="${i}" role="button" aria-label="${N['me-' + m].nome}, ${conti[i]} frasi"><rect x="${(i / n * 100).toFixed(2)}%" y="0" width="${(100 / n).toFixed(2)}%" height="64" fill="transparent"/>
+      <rect x="calc(${x}% - 9px)" y="${48 - h}" width="18" height="${h}" rx="2" fill="var(--c-tempo)" opacity="${dopo ? .15 : on ? 1 : sel.size ? .35 : .7}"/>
+      <text x="${x}%" y="61" text-anchor="middle" font-size="11" fill="var(${on ? '--ink' : '--tenue'})" font-weight="${on ? 600 : 400}">${N['me-' + m].corto}</text></g>`;
+  }).join('');
+  box.innerHTML = `<div class="riga"><button class="play" id="play" aria-label="${suonando ? 'Ferma' : 'Guarda la ruota crescere'}">${suonando ? '❚❚' : '▶'}</button><svg role="group" aria-label="Le frasi per mese: tocca un mese per restringere">${bars}</svg></div>
+   <div class="riga"><span style="width:44px;flex:none"></span><input type="range" id="fino" min="0" max="${n - 1}" step="1" value="${S.fino}" aria-label="La ruota fino a"></div>
+   <div class="cap">${S.fino < n - 1 ? `La ruota com’era a fine ${N['me-' + MESI_ID[S.fino]].nome}.` : suonando ? '' : 'La ruota di oggi. ▶ la fa crescere dall’inizio.'}</div>`;
+  box.querySelectorAll('.bar').forEach((b) => (b.onclick = () => { const id = 'me-' + MESI_ID[+b.dataset.i]; S.sel.tempo ||= new Set(); S.sel.tempo.has(id) ? S.sel.tempo.delete(id) : S.sel.tempo.add(id); aggiorna(); }));
+  document.getElementById('fino').oninput = (e) => { S.fino = +e.target.value; aggiorna(); };
+  document.getElementById('play').onclick = suona;
+}
+function passaSenzaTempo(f) { const o = S.fino; S.fino = 99; const r = passa(f, 'tempo'); S.fino = o; return r; }
+function suona() {
+  if (suonando) { clearInterval(suonando); suonando = null; tempo(); return; }
+  S.fino = 0; aggiorna();
+  suonando = setInterval(() => { if (S.fino >= MESI_ID.length - 1) { clearInterval(suonando); suonando = null; aggiorna(); return; } S.fino++; aggiorna(); }, RM ? 400 : 900);
+  tempo();
+}
+document.getElementById('lente').onclick = () => { S.lente = !S.lente; document.getElementById('lente').setAttribute('aria-pressed', S.lente); aggiorna(); };
+
+/* --- le frasi: sempre lette dal frammento, alla lettera, con la data e il segno */
+function fraseHTML(f, { classe = 'frase' } = {}) {
+  const dubbio = [...f.luce].some((id) => N[id].gen === 'citazione' && !N[id].esito);
+  const testa = f.imp ? `<span class="data">Entro il 28 febbraio, nell’archivio d’origine, trascritta da Claude nel seme:</span>` : `<span class="data">${dataL(f.reg)}</span>`;
+  if (f.flags.altrui) {
+    const c = N[f.flags.altrui]; const op = [...f.luce].map((id) => N[id]).find((n) => n.gen === 'opera');
+    return `${testa}<p class="${classe}"><span style="font-size:.8em">hai trascritto ${op ? `un passo di <i>${esc(op.nome)}</i>` : 'un passo'}</span><span class="sg">✦</span> <i>${esc(f.testo)}</i><span class="sg">✦</span></p>
+      <p class="mondo">«${esc(c.testo)}»<span class="sg">○</span><span class="luogo">${esc(c.rif)}</span></p>`;
+  }
+  return `${testa}<p class="${classe}"><i>${esc(f.testo)}</i><span class="sg">✦</span>${dubbio ? '<span class="sg w" aria-label="da verificare">⚠</span>' : ''}</p>`;
+}
+// la frase-porta di un nodo: la tua, scritta a mano prima delle altre, la più recente
+function frasiDi(id, lista = PASSANO) {
+  const fs = lista.filter((f) => f.tutti.has(id) && (f.parlante || f.imp));
+  return fs.sort((a, b) => (a.gen - b.gen) || (b.reg > a.reg ? 1 : -1));
+}
+function frasiProp(id) { return PASSANO.filter((f) => f.tuttiP.has(id) && !f.tutti.has(id)); }
+function arco(fs) { const ps = fs.filter((f) => f.parlante); if (!ps.length) return ''; const a = ps.map((f) => f.reg).sort(); const m = (s) => MESI[+s.slice(5, 7) - 1]; return m(a[0]) === m(a[a.length - 1]) ? `a ${m(a[0])}` : `da ${m(a[0])} a ${m(a[a.length - 1])}`; }
+function tipoNodo(n) {
+  if (n.gen === 'opera') return `${n.tipo}${n.anno ? ' · ' + n.anno : ''}${n.autore ? ' · ' + N[n.autore].nome : ''}`;
+  if (n.gen === 'citazione') return n.esito ? `citazione · ${n.esito}` : 'citazione · da verificare';
+  if (n.gen === 'persona') return `persona · ${n.cerchia === 'finzione' ? 'finzione · ' : ''}${n.campo.map((c) => c.replace(/-/g, ' ')).join(', ')} ◌`;
+  if (n.gen === 'tema') return n.dedotto ? (n.accolto ? 'tema proposto da me, accolto da te ●' : 'tema proposto da me ◌') : `tema · ${n.specie === 'stato' ? 'sentimento' : n.specie} ◌`;
+  if (n.gen === 'campo') return 'campo · classificazione mia ◌';
+  if (n.gen === 'gesto') return 'gesto';
+  if (n.gen === 'mese') return 'tempo';
+  return '';
+}
+function conto(fs) { const p = fs.filter((f) => f.parlante).length; const i = fs.filter((f) => f.imp).length; return `${p ? `${p} ${p === 1 ? 'frase tua' : 'frasi tue'}, ${arco(fs)}` : ''}${i ? `${p ? ' · ' : ''}${i} dall’archivio d’origine` : ''}`; }
+const CS = (t) => esc(t).replace(/([✦✧●◌○⚠])/g, (m) => `<span class="sg${m === '⚠' ? ' w' : m === '◌' ? ' p' : ''}">${m}</span>`);
+function pannello() {
+  servizio(); anelliBar(); vassoio(); tempo(); legenda();
+  const c = document.getElementById('foglio-c');
+  if (S.vista === 'nodo' && S.fuoco) {
+    const n = N[S.fuoco]; const fs = frasiDi(n.id); const fp = S.lente ? frasiProp(n.id) : [];
+    const porta = fs[0] || fp[0];
+    c.innerHTML = `<div class="etic"><span class="pt" style="background:var(${n.R.col})"></span>${CS(tipoNodo(n))}</div>
+      <h2>${n.gen === 'opera' ? `<i>${esc(n.nome)}</i>` : esc(n.nome)}${segnoNodo(n)}${n.gen === 'citazione' && !n.esito ? '<span class="sg w">⚠</span>' : ''}</h2>
+      ${porta ? fraseHTML(porta) : '<p class="conto">Niente si aggancia ancora.</p>'}
+      <p class="conto">${conto(fs) || (fp.length ? `solo per una lettura mia ◌, in ${fp.length} ${fp.length === 1 ? 'frase' : 'frasi'}` : '')}</p>
+      <div class="azioni"><button class="bott" id="b-tav">apri la tavola</button><button class="bott leggero" id="b-fil">${S.sel[n.R.k] && S.sel[n.R.k].has(n.id) ? 'togli il filtro' : 'restringi la ruota qui'}</button><button class="bott leggero" id="b-mez">mezzogiorno</button></div>`;
+    document.getElementById('b-tav').onclick = () => apriTavola(n.id, true);
+    document.getElementById('b-fil').onclick = () => filtraSu(n.id);
+    document.getElementById('b-mez').onclick = () => { S.vista = 'mezzo'; S.fuoco = null; dipingiNodi(); disegnaFili(); etichette(); pannello(); };
+    return;
+  }
+  const { al, best } = convergenza();
+  const dentro = new Set(best ? best.hit : []);
+  const righe = al.slice().reverse().map(({ r, n }) => `<li><span class="a"><span class="pt" style="width:8px;height:8px;border-radius:50%;background:var(${r.col})"></span>${r.nome}${r.prop ? ' ◌' : ''}</span><span class="v ${n ? (dentro.has(n.id) ? 'dentro' : best ? 'fuori' : '') : 'fuori'}">${n ? (n.gen === 'opera' ? `<i>${esc(n.nome)}</i>` : esc(n.nome)) + (n.gen === 'citazione' && !n.esito ? '<span class="sg w">⚠</span>' : '') : '—'}</span></li>`).join('');
+  c.innerHTML = `<div class="etic">sul raggio di mezzogiorno</div>
+    ${best ? fraseHTML(best.f) + `<p class="conto">Questa frase tiene insieme ${best.hit.length} anelli su ${RINGS.length}.</p>` : `<p class="frase" style="font-size:18px">Niente si aggancia ancora.</p><p class="conto">Nessuna frase tua tiene insieme due di queste cose. Gira un anello, o tocca il centro.</p>`}
+    <ul class="allineati">${righe}</ul>
+    <div class="azioni"><button class="bott" id="b-gira">gira le ruote</button>${best ? `<button class="bott leggero" id="b-tav2">apri la tavola di ${esc(trim(N[best.hit.find((id) => FORTI.has(N[id].ring)) || best.hit[0]].nome, 22))}</button>` : ''}</div>`;
+  document.getElementById('b-gira').onclick = gira;
+  const bt = document.getElementById('b-tav2'); if (bt) bt.onclick = () => { const id = best.hit.find((x) => FORTI.has(N[x].ring)) || best.hit[0]; S.fuoco = id; S.vista = 'nodo'; apriTavola(id, true); pannello(); dipingiNodi(); disegnaFili(); };
+}
+const trim = (s, m) => (s.length > m ? s.slice(0, m - 1) + '…' : s);
+function legenda() {
+  const L = document.getElementById('legenda');
+  const tipi = TIPI.filter((t) => RK.cose.nodi.some((n) => n.tipo === t && PESO[n.id].luce));
+  L.innerHTML = `La luce è tua: più frasi ✦, più grande e più chiaro. ${S.lente ? 'Le mie proposte ◌ sono tratteggiate e spente.' : ''} <span style="white-space:nowrap">⚠ da verificare.</span><br>${tipi.map((t) => `<span style="white-space:nowrap;margin-right:8px">${glifoSVG(t, 'var(--c-cose)', 10)} ${TIPI_PL[t]}</span>`).join(' ')}`;
+}
+function filtraSu(id) {
+  const n = N[id]; const k = n.R.k; S.sel[k] ||= new Set();
+  S.sel[k].has(id) ? S.sel[k].delete(id) : S.sel[k].add(id);
+  aggiorna();
+}
+
+/* --- il foglio dal basso */
+const foglio = document.getElementById('foglio');
+document.getElementById('maniglia').onclick = () => foglio.classList.toggle('aperto');
+{
+  let y0 = null;
+  const m = document.getElementById('maniglia');
+  m.addEventListener('pointerdown', (e) => { y0 = e.clientY; });
+  m.addEventListener('pointerup', (e) => { if (y0 === null) return; const d = e.clientY - y0; if (d < -20) foglio.classList.add('aperto'); if (d > 20) foglio.classList.remove('aperto'); y0 = null; });
+}
+
+/* =====================================================================
+   LA TAVOLA (alla Warburg): non un elenco, una composizione
+   ===================================================================== */
+const tav = document.getElementById('tavola');
+function apriTavola(id, push) {
+  const n = N[id];
+  if (push) { S.filo = S.filo.filter((x) => x !== id); S.filo.push(id); S.filo = S.filo.slice(-8); }
+  history.replaceState(null, '', '#nodo=' + id);
+  tav.hidden = false; document.getElementById('velo-t').hidden = false;
+  document.getElementById('filo').innerHTML = S.filo.map((x, i) => `${i ? ' › ' : ''}<button data-id="${x}" aria-current="${x === id}">${esc(trim(N[x].nome, 22))}</button>`).join('');
+  document.getElementById('filo').querySelectorAll('button').forEach((b) => (b.onclick = () => apriTavola(b.dataset.id, false)));
+  const f = document.getElementById('filo'); f.scrollLeft = f.scrollWidth;
+  componi(n);
+  const on = S.sel[n.R.k] && S.sel[n.R.k].has(n.id);
+  document.getElementById('tpiede').innerHTML = `<button class="bott" id="t-fil">${on ? 'togli il filtro' : 'restringi la ruota qui'}</button><button class="bott leggero" id="t-ruo">torna alla ruota</button>`;
+  document.getElementById('t-fil').onclick = () => { chiudiTavola(); S.fuoco = id; S.vista = 'nodo'; filtraSu(id); };
+  document.getElementById('t-ruo').onclick = chiudiTavola;
+  document.getElementById('chiudi').focus({ preventScroll: true });
+}
+function chiudiTavola() {
+  tav.hidden = true; document.getElementById('velo-t').hidden = true;
+  history.replaceState(null, '', location.pathname + location.search);
+  if (S.filo.length) { const id = S.filo[S.filo.length - 1]; if (N[id].R) { S.fuoco = id; S.vista = 'nodo'; const r = N[id].R; if (Math.abs(norm(N[id].base + S.rot[r.k] - NOON)) > .01) arriva(id, false); else { dipingiNodi(); disegnaFili(); etichette(); pannello(); } } }
+  svg.focus({ preventScroll: true });
+}
+document.getElementById('chiudi').onclick = chiudiTavola;
+document.getElementById('velo-t').onclick = chiudiTavola;
+addEventListener('keydown', (e) => { if (e.key === 'Escape' && !tav.hidden) chiudiTavola(); });
+
+function componi(n) {
+  const asse = document.getElementById('asse'), corpo = document.getElementById('tcorpo');
+  asse.querySelectorAll('.c').forEach((x) => x.remove());
+  const Wt = Math.min(corpo.clientWidth, 1180);
+  const tel = Wt < 600;
+  const fs = frasiDi(n.id);
+  const nFr = tel ? 5 : 8;
+  const frasi = fs.slice(0, nFr);
+  // le cose vicine: quelle che stanno nelle stesse frasi (✦ e ●), un passo
+  const co = {};
+  for (const f of fs) f.tutti.forEach((x) => { const m = N[x]; if (x === n.id || !m.R || m.R.arco) return; co[x] = (co[x] || 0) + (f.diretti.has(x) ? 2 : 1); });
+  if (n.gen === 'opera' && n.autore) co[n.autore] = (co[n.autore] || 0) + 5;
+  if (n.gen === 'persona') Object.values(N).filter((m) => m.autore === n.id && m.R && PESO[m.id].luce + PESO[m.id].imp).forEach((m) => (co[m.id] = (co[m.id] || 0) + 4));
+  const vicini = Object.entries(co).sort((a, b) => b[1] - a[1]).slice(0, tel ? 7 : 11).map(([x]) => N[x]);
+  const prop = S.lente ? [...new Set(frasiProp(n.id).flatMap(() => []).concat(fs.flatMap((f) => [...f.tuttiP])))].filter((x) => N[x].R && !N[x].R.arco && !co[x] && x !== n.id).slice(0, 2).map((x) => N[x]) : [];
+  const carte = [];
+  const add = (html, tipo, o = {}) => { const d = document.createElement(o.btn ? 'button' : 'div'); d.className = `c ${tipo} ${o.cls || ''}`; d.innerHTML = html; if (o.w) d.style.width = o.w + 'px'; if (o.id) d.dataset.id = o.id; asse.appendChild(d); const c = { d, tipo, ...o }; carte.push(c); return c; };
+  const fsn = conto(fs);
+  const titolo = add(`<div class="k">${CS(tipoNodo(n))}</div><h2>${n.gen === 'opera' ? `<i>${esc(n.nome)}</i>` : esc(n.nome)}${segnoNodo(n)}${n.gen === 'citazione' && !n.esito ? '<span class="sg w">⚠</span>' : ''}</h2><div class="n">${fsn || 'Niente si aggancia ancora.'}</div>`, 'c-titolo', { w: Math.min(Wt - 40, 340), fisso: true });
+  // la citazione di un nodo-citazione, prima di tutto (○ con opera e passo; ⚠ senza)
+  if (n.gen === 'citazione') {
+    if (n.esito && n.testo && n.rif) add(`<p>«${esc(n.testo)}»<span class="sg">○</span></p><span class="luogo">${esc(n.rif)}</span><span class="luogo">${esc(N[n.autore].nome)} · ${n.esito}</span>`, 'c-cit', { w: Math.min(Wt - 60, 280), id: n.id, ruolo: 'cit' });
+    else add(`<p>${esc(n.nome)}<span class="sg w">⚠</span></p><span class="luogo">${n.attribuita ? 'la attribuisci a ' + esc(N[n.attribuita].nome) + ' · ' : ''}da verificare</span>`, 'c-cit dub', { w: Math.min(Wt - 60, 260), id: n.id, ruolo: 'cit' });
+  }
+  frasi.forEach((f, i) => add(fraseHTML(f, { classe: '' }), 'c-frase' + (i === 0 ? ' porta' : ''), { w: i === 0 ? Math.min(Wt - 40, 380) : Math.min(Wt - 90, tel ? 230 : 270), f, btn: false }));
+  for (const m of vicini.concat(prop)) {
+    const p = prop.includes(m) ? ' c-prop' : '';
+    if (m.gen === 'opera') add(`<span class="gl">${glifoSVG(m.tipo, 'var(--c-cose-t, #8fb6e6)', 12)}</span><i>${esc(m.nome)}</i><small>${m.tipo}${m.autore ? ' · ' + esc(N[m.autore].nome) : ''}${m.anno ? ' · ' + m.anno : ''}</small>`, 'c-opera' + p, { id: m.id, btn: true, w: tel ? 150 : 170 });
+    else if (m.gen === 'persona') add(esc(m.nome), 'c-persona' + p, { id: m.id, btn: true });
+    else if (m.gen === 'citazione') {
+      if (m.esito && m.testo && m.rif) add(`<p>«${esc(m.testo)}»<span class="sg">○</span></p><span class="luogo">${esc(m.rif)}</span>`, 'c-cit' + p, { id: m.id, btn: true, w: tel ? 220 : 250 });
+      else add(`<p>${esc(m.nome)}<span class="sg w">⚠</span></p><span class="luogo">da verificare</span>`, 'c-cit dub' + p, { id: m.id, btn: true, w: tel ? 200 : 230 });
+    } else add(`<span class="pt"></span>${esc(m.nome)}${segnoNodo(m)}`, 'c-tema' + p, { id: m.id, btn: true, col: m.R.col });
+  }
+  carte.forEach((c) => { if (c.col) c.d.style.color = `color-mix(in srgb, var(${c.col}) 70%, #fff)`; });
+  if (!fs.length && n.gen !== 'citazione') add('Niente si aggancia ancora, con questi filtri.', 'vuoto-t', { w: 260 });
+  // misura, poi disponi: il titolo in alto, le frasi al centro come un filo che scende, le cose intorno
+  carte.forEach((c) => { const b = c.d.getBoundingClientRect(); c.w = b.width; c.h = b.height; });
+  const rand = mulberry32([...n.id].reduce((a, ch) => a * 31 + ch.charCodeAt(0), 7) >>> 0);
+  const mid = Wt / 2;
+  let y = 24;
+  titolo.x = mid - titolo.w / 2; titolo.y = y; y += titolo.h + 26;
+  const frasiC = carte.filter((c) => c.f);
+  const altre = carte.filter((c) => !c.f && c !== titolo);
+  const citC = altre.filter((c) => c.ruolo === 'cit');
+  citC.forEach((c) => { c.x = mid - c.w / 2 + (tel ? 0 : 140); c.y = y; c.fisso = true; y += c.h + 18; });
+  frasiC.forEach((c, i) => {
+    const lato = i === 0 ? 0 : (i % 2 ? -1 : 1);
+    c.x = mid - c.w / 2 + lato * (tel ? 26 : Wt * (.13 + .07 * (i % 3))) + (rand() - .5) * 16;
+    c.y = y + (rand() - .5) * 10; y += c.h * (tel ? .9 : .5) + (tel ? 22 : 10);
+    c.rot = i === 0 ? -.6 : (rand() - .5) * 3;
+  });
+  // le cose: accanto alla frase che le nomina
+  const sotto = altre.filter((c) => c.ruolo !== 'cit');
+  sotto.forEach((c, i) => {
+    const fr = frasiC.find((fc) => fc.f.tutti.has(c.id)) || frasiC[i % Math.max(1, frasiC.length)];
+    const sx = i % 2 ? -1 : 1;
+    c.x = tel ? (sx > 0 ? Wt - c.w - 14 - rand() * 20 : 14 + rand() * 20) : mid + sx * (Wt * (.3 + .1 * rand())) - c.w / 2;
+    c.y = fr ? fr.y + fr.h * .3 + (rand() - .5) * 40 : y + i * 40;
+    c.rot = c.tipo.includes('c-opera') || c.tipo.includes('c-cit') ? (rand() - .5) * 4 : 0;
+  });
+  // separare i rettangoli che si toccano (rilassamento): il titolo resta fermo
+  const pad = tel ? 10 : 16;
+  for (let it = 0; it < 260; it++) {
+    let mosso = false;
+    for (let i = 0; i < carte.length; i++) for (let j = i + 1; j < carte.length; j++) {
+      const a = carte[i], b = carte[j];
+      const ox = Math.min(a.x + a.w + pad, b.x + b.w + pad) - Math.max(a.x, b.x);
+      const oy = Math.min(a.y + a.h + pad, b.y + b.h + pad) - Math.max(a.y, b.y);
+      if (ox > 0 && oy > 0) {
+        mosso = true;
+        const fa = a.fisso ? 0 : b.fisso ? 1 : .5, fb = 1 - fa;
+        if (ox < oy * (tel ? .5 : 1.1)) { const s = (a.x + a.w / 2 < b.x + b.w / 2 ? -1 : 1) * ox; a.x += s * fa; b.x -= s * fb; }
+        else { const s = (a.y + a.h / 2 < b.y + b.h / 2 ? -1 : 1) * oy; a.y += s * fa; b.y -= s * fb; }
+      }
+    }
+    carte.forEach((c) => { if (c.fisso) return; c.x = Math.max(10, Math.min(Wt - c.w - 10, c.x)); c.y = Math.max(titolo.y + titolo.h + 8, c.y); });
+    if (!mosso) break;
+  }
+  const alto = Math.max(...carte.map((c) => c.y + c.h)) + 40;
+  asse.style.width = Wt + 'px'; asse.style.height = alto + 'px';
+  carte.forEach((c) => { c.d.style.transform = `translate(${c.x.toFixed(1)}px,${c.y.toFixed(1)}px) rotate(${(RM ? 0 : c.rot || 0).toFixed(2)}deg)`; });
+  // i fili: dalla frase alle cose che nomina; dal titolo alle frasi
+  const fili = document.getElementById('tfili');
+  fili.setAttribute('width', Wt); fili.setAttribute('height', alto); fili.innerHTML = '';
+  const cen = (c) => c === titolo ? [c.x + c.w / 2, c.y + c.h - 4] : [c.x + c.w / 2, c.y + c.h / 2];
+  const linea = (a, b, col, op, w = 1) => { const [x1, y1] = cen(a), [x2, y2] = cen(b); const mx = (x1 + x2) / 2 + (y2 - y1) * .12, my = (y1 + y2) / 2 - (x2 - x1) * .12; const p = el('path', { d: `M${x1},${y1}Q${mx},${my} ${x2},${y2}`, stroke: col, 'stroke-width': w, opacity: op, fill: 'none' }, fili); p.dataset.a = carte.indexOf(a); p.dataset.b = carte.indexOf(b); };
+  frasiC.forEach((fc) => linea(titolo, fc, '#efe7d8', .18));
+  for (const fc of frasiC) for (const c of altre) if (c.id && (fc.f.tutti.has(c.id) || fc.f.tuttiP.has(c.id))) linea(fc, c, c.tipo.includes('c-prop') ? '#8f897e' : '#efe7d8', c.tipo.includes('c-prop') ? .25 : .5, c.tipo.includes('c-prop') ? .8 : 1.2);
+  for (const c of citC) linea(titolo, c, '#efe7d8', .3);
+  // toccare una cosa apre la sua tavola; toccare una frase accende i suoi fili
+  carte.forEach((c, i) => {
+    if (c.id && c.btn) c.d.onclick = () => { corpo.scrollTop = 0; apriTavola(c.id, true); };
+    if (c.f) { c.d.style.cursor = 'pointer'; c.d.onclick = () => evidenzia(i, carte); }
+  });
+  corpo.scrollTop = 0; corpo.scrollLeft = 0;
+}
+function evidenzia(i, carte) {
+  const fili = [...document.querySelectorAll('#tfili path')];
+  const att = carte[i].d.classList.toggle('acceso');
+  const leg = new Set([i]);
+  fili.forEach((p) => { const a = +p.dataset.a, b = +p.dataset.b; if (a === i || b === i) { leg.add(a); leg.add(b); } });
+  carte.forEach((c, j) => c.d.classList.toggle('spento', att && !leg.has(j)));
+  carte.forEach((c, j) => { if (j !== i) c.d.classList.remove('acceso'); });
+}
+
+/* =====================================================================
+   AVVIO
+   ===================================================================== */
+costruisci();
+addEventListener('resize', () => { clearTimeout(misura.t); misura.t = setTimeout(misura, 120); });
+// all'apertura le ruote si allineano su una frase tua (o sul nodo dell'indirizzo)
+const q = new URLSearchParams(location.search);
+if (q.get('lente') === '1') { S.lente = true; document.getElementById('lente').setAttribute('aria-pressed', 'true'); }
+if (q.get('fino')) S.fino = +q.get('fino');
+if (q.get('filtro')) q.get('filtro').split(',').forEach((t) => { const [k, v] = t.split(':'); (S.sel[k] ||= new Set()).add(v.startsWith('grp') ? 'grp:' + v.slice(3) : v); });
+aggiorna(true);
+S.vista = 'mezzo';
+allinea(FIRST, RM || q.has('foto') ? 0 : 1500, false);
+const hn = location.hash.match(/nodo=([\w-]+)/);
+if (hn && N[hn[1]]) setTimeout(() => arriva(hn[1], true), RM || q.has('foto') ? 0 : 1600);
+if (q.get('zoom')) setTimeout(() => { const z = +q.get('zoom'); const [x, y] = aSchermo(0, -RAD * .72); zoomA(z, x, y); }, 50);
+</script>
+</body>
+</html>

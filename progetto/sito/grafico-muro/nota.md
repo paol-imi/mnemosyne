@@ -2,7 +2,7 @@
 
 **L'idea, in tre righe.** Tutti i concetti sono tessere su un muro continuo. Ogni tipo ha la sua sagoma: una canzone è un disco, un libro una copertina (da piccolo, un dorso), un film una pellicola, un sentimento una macchia di colore, una persona un medaglione, una domanda una tessera scura, una citazione un foglietto. La grandezza dice quante volte l'hai detto (✦ e ●, solo i parlanti). «Raggruppa per» ricompone il muro; i filtri spengono; il tempo lo fa crescere. Toccando una tessera arrivi a una tua frase datata, alla lettera.
 
-File: `index.html`, standalone. Nessuna libreria, solo i font da Google Fonts. Dati sintetici: 179 nodi (14 sono temi dedotti ◌) e 382 frammenti generati con un seme fisso, senza delicati e senza persone `vita`. Foto in `foto/`, prima e dopo i giudici (sono le finali).
+File: `index.html`, standalone. Nessuna libreria, solo i font da Google Fonts. Dati sintetici: 179 nodi (14 sono temi dedotti ◌) e 382 frammenti generati con un seme fisso, senza delicati e senza persone `vita`; tutte le frasi sono inventate e confrontate con `frammenti/`, `letture/`, `restituzioni/`, `contesto/` e `CLAUDE.md` (nessuna sequenza di 5 parole in comune). Foto in `foto/`, prima e dopo i giudici (sono le finali).
 
 ## I gesti
 - **Raggruppa** (barra in alto): tutto · cose · persone · temi · campo ◌ · gesto · tempo. Le tessere volano al loro gruppo con un'animazione FLIP. Ogni gruppo ha un titolo grande.

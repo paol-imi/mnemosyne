@@ -451,7 +451,7 @@ P('lao-tzu', 'Lao Tzu', ['filosofia', 'mito-e-religione']); P('carl-gustav-jung'
 P('wim-wenders', 'Wim Wenders', ['cinema']); P('hayao-miyazaki', 'Hayao Miyazaki', ['cinema']); P('agnes-obel', 'Agnes Obel', ['musica']);
 P('bon-iver', 'Bon Iver', ['musica']); P('fabrizio-de-andre', 'Fabrizio De André', ['musica']); P('radiohead', 'Radiohead', ['musica']);
 P('katsushika-hokusai', 'Katsushika Hokusai', ['arte']); P('mark-rothko', 'Mark Rothko', ['arte']); P('yuki-urushibara', 'Yuki Urushibara', ['arte']);
-P('jiro-taniguchi', 'Jirō Taniguchi', ['arte']); P('umberto-galimberti', 'Umberto Galimberti', ['filosofia', 'psicologia']); P('friedrich-nietzsche', 'Friedrich Nietzsche', ['filosofia']);
+P('jiro-taniguchi', 'Jirō Taniguchi', ['arte']); P('giovanni-battista-pergolesi', 'Giovanni Battista Pergolesi', ['musica']); P('friedrich-nietzsche', 'Friedrich Nietzsche', ['filosofia']);
 P('konstantinos-kavafis', 'Konstantinos Kavafis', ['letteratura']); P('gilles-deleuze', 'Gilles Deleuze', ['filosofia']);
 PF('orfeo', 'Orfeo', ['mito-e-religione']); PF('ermete-trismegisto', 'Ermete Trismegisto', ['esoterismo']); PF('sisifo', 'Sisifo', ['mito-e-religione']);
 PF('ulisse', 'Ulisse', ['mito-e-religione', 'letteratura']); PF('la-signora-del-ceppo', 'la signora del ceppo', [], 'twin-peaks');
@@ -480,7 +480,7 @@ O('il-castello-errante', 'Il castello errante di Howl', 'film', 'hayao-miyazaki'
 O('dead-man', 'Dead Man', 'film', 'jim-jarmusch', 1995);
 O('twin-peaks', 'Twin Peaks', 'serie', 'david-lynch', 1990); O('mushishi', 'Mushishi', 'serie', null, 2005); O('the-leftovers', 'The Leftovers', 'serie', null, 2014);
 O('luomo-che-cammina', "L'uomo che cammina", 'fumetto', 'jiro-taniguchi', 1992); O('mushishi-manga', 'Mushishi, il manga', 'fumetto', 'yuki-urushibara', 1999);
-O('il-mondo-delle-emozioni', 'Il mondo delle emozioni', 'spettacolo', 'umberto-galimberti');
+O('stabat-mater', 'Stabat Mater', 'spettacolo', 'giovanni-battista-pergolesi', 1736);
 O('la-grande-onda', 'La grande onda', 'immagine', 'katsushika-hokusai', 1831); O('i-murales-seagram', 'I murales Seagram', 'immagine', 'mark-rothko', 1959);
 O('outer-wilds', 'Outer Wilds', 'gioco', null, 2019); O('journey', 'Journey', 'gioco', null, 2012);
 O('lezioni-su-spinoza', 'Lezioni su Spinoza', 'video', 'gilles-deleuze', 1981);
@@ -492,7 +492,7 @@ C('pensare-e-fermarsi', 'Pensare è fermarsi', { attribuita: 'hannah-arendt' });
 C('il-tempo-e-il-fuoco', 'Il tempo è il fuoco in cui bruciamo', {});
 C('i-gufi', 'I gufi non sono quello che sembrano', { attribuita: 'il-gigante', esito: 'verificata', rif: 'Twin Peaks, stagione 2, episodio 1: lo dice il Gigante a Cooper', mondo: 'I gufi non sono quello che sembrano' });
 C('linferno-dei-viventi', "L'inferno dei viventi", { attribuita: 'italo-calvino', autore: 'italo-calvino', esito: 'verificata', rif: "Le città invisibili, parte nona, l'ultimo dialogo tra Marco Polo e Kublai Kan", mondo: "L'inferno dei viventi non è qualcosa che sarà; se ce n'è uno, è quello che è già qui" });
-C('sisifo-felice', 'Bisogna immaginare Sisifo felice', { attribuita: 'albert-camus', autore: 'albert-camus', esito: 'verificata', rif: "Il mito di Sisifo, l'ultima riga del capitolo «Il mito di Sisifo»", mondo: 'Bisogna immaginare Sisifo felice' });
+C('sisifo-felice', "Un'estate invincibile, in pieno inverno", { attribuita: 'albert-camus', autore: 'albert-camus', esito: 'simile', rif: "«Ritorno a Tipasa», in L'estate (1954)", mondo: "Nel mezzo dell'inverno ho imparato che c'era in me un'estate invincibile", resa: true });
 C('nulla-due-volte-accade', 'Nulla due volte accade', { attribuita: 'wislawa-szymborska', autore: 'wislawa-szymborska', esito: 'verificata', rif: 'Nulla due volte, primo verso; da Appello allo Yeti (1957), traduzione di Pietro Marchesani', mondo: 'Nulla due volte accade' });
 C('lattenzione-generosita', "L'attenzione è la forma più rara della generosità", { attribuita: 'simone-weil', autore: 'simone-weil', esito: 'verificata', rif: 'lettera a Joë Bousquet, 13 aprile 1942', mondo: "L'attenzione è la forma più rara e più pura della generosità", resa: true });
 C('un-perche', 'Chi ha un perché sopporta quasi ogni come', { attribuita: 'friedrich-nietzsche', autore: 'friedrich-nietzsche', esito: 'verificata', rif: 'Crepuscolo degli idoli, «Sentenze e frecce», 12', mondo: 'Chi ha un perché per vivere sopporta quasi ogni come', resa: true });
@@ -511,7 +511,7 @@ const COST = [
   { picco: 10, ids: ['twin-peaks', 'la-signora-del-ceppo', 'i-gufi', 'mulholland-drive', 'paura', 'specchio', 'stupore', 'the-leftovers', 'dead-man', 'il-processo'] },
   { picco: 5, ids: ['stalker', 'solaris', 'lo-specchio', 'desiderio', 'verità', 'stupore', 'fiume', 'il-cielo-sopra-berlino', 'silenzio', 'nostalgia'] },
   { picco: 8, ids: ['mushishi', 'ginko', 'mushishi-manga', 'la-citta-incantata', 'il-castello-errante', 'tenerezza', 'gioia', 'albero', 'outer-wilds', 'journey', 'stupore', 'quiete'] },
-  { picco: 4, ids: ['etica', 'lezioni-su-spinoza', 'gioia', 'desiderio', 'pensare-e-fermarsi', 'la-societa-della-stanchezza', 'noia', 'gioco-e-realta', 'cura', 'il-codice-dellanima', 'il-mondo-delle-emozioni', 'vergogna', 'si-puo-scegliere-che-cosa-amare', 'baruch-spinoza', 'hannah-arendt', 'carl-gustav-jung'] },
+  { picco: 4, ids: ['etica', 'lezioni-su-spinoza', 'gioia', 'desiderio', 'pensare-e-fermarsi', 'la-societa-della-stanchezza', 'noia', 'gioco-e-realta', 'cura', 'il-codice-dellanima', 'stabat-mater', 'vergogna', 'si-puo-scegliere-che-cosa-amare', 'baruch-spinoza', 'hannah-arendt', 'carl-gustav-jung'] },
   { picco: 9, ids: ['la-cura', 'prospettiva-nevski', 'la-voce-del-padrone', 'smisurata-preghiera', 'anime-salve', 'holocene', 'for-emma', 'fake-plastic-trees', 'gratitudine', 'tenerezza', 'la-sera', 'rabbia', 'franco-battiato'] },
   { picco: 6, ids: ['nulla-due-volte', 'nulla-due-volte-accade', 'lettere-a-un-giovane-poeta', 'torso-arcaico', 'itaca', 'ulisse', 'quello-che-cerchi', 'tao-te-ching', 'taoismo', 'mille-miglia', 'romanticismo', 'minimalismo', 'i-murales-seagram', 'che-cosa-vuol-dire-essere-di-un-posto', 'rumi'] },
 ];
@@ -532,9 +532,9 @@ const MOD = {
   film: [(n) => `${nm(n)} di ${cognome(N[n].autore)}, visto finalmente`, (n) => `rivisto ${nm(n)}. nn ricordavo il finale`, (n) => `${nm(n)} stasera, con le luci spente`],
   serie: [(n) => `${nm(n)}, un episodio a sera`, (n) => `finito ${nm(n)}. mi manca già`],
   fumetto: [(n) => `${nm(n)}: tavole che respirano`, (n) => `sfogliato ${nm(n)} in libreria, senza comprarlo`],
-  spettacolo: [(n) => `${nm(n)}, lo spettacolo di ${cognome(N[n].autore)}. mi ha colpito tanto`],
+  spettacolo: [(n) => `${nm(n)}, dal vivo in una chiesa piena di freddo. ci torno l'anno prossimo`],
   immagine: [(n) => `${nm(n)} come sfondo del telefono da un mese`, (n) => `guardato ${nm(n)} dieci minuti senza pensare a niente`],
-  gioco: [(n) => `${nm(n)}, finito stanotte. ho pianto come un cretino`, (n) => `${nm(n)}: perdersi è il punto`],
+  gioco: [(n) => `${nm(n)}, finito stanotte. sono rimasto davanti ai titoli di coda`, (n) => `${nm(n)}: perdersi è il punto`],
   video: [(n) => `${nm(n)}, ascoltate camminando`],
   persona: [(n) => `${nm(n)}, ancora. torna sempre`, (n) => `${nm(n)} dice cose che penso e nn so dire`],
   finzione: [(n) => `pensavo a ${nm(n)} oggi`, (n) => `${nm(n)}, di nuovo`],
@@ -576,7 +576,7 @@ const link = (f, n, v = 'sua') => { if (!f.links.some((l) => l.n === n && l.v ==
 const MANO = [
   ['2026-09-21T23:15', "il mare d'inverno è l'unico posto dove nn devo spiegare niente a nessuno", ['mare']],
   ['2026-09-22T07:30', 'nick drake stamattina, pink moon in loop. malinconia buona', ['pink-moon', 'malinconia'], { stato: true }],
-  ['2026-09-24T08:10', 'letto la fine delle città invisibili in treno. mi ha spaccato', ['le-citta-invisibili']],
+  ['2026-09-24T08:10', 'letto la fine delle città invisibili in treno. sceso una fermata dopo', ['le-citta-invisibili']],
   ['2026-09-29T22:40', 'stasera ho capito che nn faccio attenzione, aspetto solo il mio turno per parlare', ['attenzione', 'aspettare']],
   ['2026-10-03T19:30', 'fare attenzione a una persona è diverso da guardarla', ['attenzione']],
   ['2026-10-06T21:40', 'il dolore non insegna niente. è solo dolore', ['dolore'], { pos: true }],
@@ -611,7 +611,7 @@ frammento({ reg: '2026-03-18T21:05', testo: 'ricopiato Rilke sulle domande. da t
 // 3. Gli importati (archivio d'origine): ✦ con la data-tetto, fuori dai conti
 const IMP = [['l\'attenzione è l\'unica cosa che posso regalare davvero', ['attenzione']], ['ogni tatuaggio una parola sola, e il braccio come una frase che si scrive negli anni', ['tatuaggi']],
   ['niente colore. solo linea.', ['linea', 'tatuaggi']], ['spinoza e la gioia come passaggio a qualcosa di più grande', ['baruch-spinoza', 'gioia']],
-  ['il mare come il posto dove le cose smettono di essere rumore', ['mare']], ['vai con la mappa', []]];
+  ['il mare come il posto dove le cose smettono di essere rumore', ['mare']], ['fammi vedere tutto su un foglio solo', []]];
 IMP.forEach(([testo, ids], i) => { const f = frammento({ reg: '2026-01-04T00:00', testo, canale: 'importato', forma: 'riportata' }); f.id = `20260104-0000-u0${i + 1}`; ids.forEach((n) => link(f, n)); if (ids.includes('tatuaggi')) f.serve = 'tatuaggi'; });
 // 4. I frammenti generati: ogni nodo riceve circa il suo peso, spesso in coppia con un vicino della sua costellazione
 const bisogno = {}; Object.keys(N).forEach((id) => { if (!N[id].dedotto) bisogno[id] = pesoDi(id); });

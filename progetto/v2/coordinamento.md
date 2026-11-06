@@ -189,3 +189,5 @@ lettore voluto). Al blocco 9, `aggiorna-nodo` deve portare il nodo a schema 4 e 
 - Tre direzioni in parallelo, a dati sintetici, ciascuna su un suo ramo e in `progetto/sito/grafico-<nome>/`:
   `cielo` (session_016XqALyJhm7DNNCswg6oWy7), `ruota` (session_016XqAM28BapTTKoQRwBponZ),
   `muro` (session_016XqAM3jMxCPCkHLqfWQsAY). Le tre si pubblicano come artifact; sceglie l'utente.
+- 2026-11-06: l'utente sui prototipi grafici (cielo e muro pubblicati come artifact privati; ruota pronta, in attesa del via per la pubblicazione): «ok, mooolto meglio». La direzione grafica è confermata; resta da scegliere quale, o un mix.
+- Dati sintetici: le tre sessioni avevano ripreso frasi vere (da CLAUDE.md, dal vecchio prototipo, da `vista-tatuaggi.md`). Le hanno riscritte tutte, e il confronto a 5 parole con l'archivio ora dà 0 coincidenze. Regola per le prossime sessioni: ogni dato sintetico si confronta con l'archivio prima del commit.

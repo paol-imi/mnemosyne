@@ -701,7 +701,7 @@ if (MISURA > 260) {
     const a = persone.length ? pk(persone) : null; const c = a ? a.campo[0] : campoCaso();
     const tipo = pk(tipoPerCampo[c] || ['libro', 'libro', 'immagine']);
     const w1 = pk(PAROLE), w2 = pk(PAROLE);
-    const nome = pk([`${w1[0].toUpperCase() + w1.slice(1)} e ${w2}`, `La ${w1} ${pk(AGG)}`, `Il libro della ${w1}`, `${w1[0].toUpperCase() + w1.slice(1)} ${pk(AGG)}`, `Sulla ${w1}`, `Dopo la ${w1}`, `Tre ${w1} per ${w2}`]);
+    const nome = pk([`${w1[0].toUpperCase() + w1.slice(1)} e ${w2}`, `La ${w1} ${pk(AGG)}`, `Il libro della ${w1}`, `${w1[0].toUpperCase() + w1.slice(1)} ${pk(AGG)}`, `Sulla ${w1}`, `Dopo la ${w1}`, `Tre volte ${w1}`]);
     const id = slug(nome + '-' + tipo); if (N[id]) continue;
     nuovi.push(nodo(id, { nome, gen: 'opera', tipo, autore: a ? a.id : null, anno: 1900 + Math.floor(rs() * 126), ring: 'cose', campo: [c], sint: true })); k++;
   }
@@ -898,6 +898,7 @@ function costruisci() {
     else {
       // la polvere: tutto ciò che non è in evidenza, in due soli tracciati (chi passa i filtri, chi no)
       // granelli quadrati: a 2 px non si distinguono dai tondi, e si disegnano molto più in fretta
+      r.densita = el('path', { fill: 'none', 'stroke-width': 1.3, opacity: .3, 'shape-rendering': 'optimizeSpeed' }, r.g);
       r.polvereS = el('path', { fill: 'none', 'stroke-linecap': 'square', 'shape-rendering': 'optimizeSpeed', 'vector-effect': 'non-scaling-stroke' }, r.g);
       r.polvere = el('path', { fill: 'none', 'stroke-linecap': 'square', 'shape-rendering': 'optimizeSpeed', 'vector-effect': 'non-scaling-stroke' }, r.g);
       r.nodiG = el('g', {}, r.g);
@@ -1049,15 +1050,25 @@ function evidenza() {
       // due glifi in evidenza non stanno mai più vicini di uno spazio: il budget si spande sull'anello, non si ammucchia
       const lontano = (n) => angoli.every((a) => Math.abs(norm(a - n.base)) >= minA);
       const prendi = (n, q) => { const g = gruppo(n) || '-'; if (preso.has(n) || (perG[g] || 0) >= cap || !lontano(n)) return false; preso.add(n); angoli.push(n.base); perG[g] = (perG[g] || 0) + 1; n.quota = q; scelti.push(n); return true; };
+      // i 3 più detti dell'anello (fra quelli che si vedono) sono sempre accesi: «il più detto» vuol dire il più detto
+      cand.slice().sort((a, b) => PESO[b.id].luce - PESO[a.id].luce).slice(0, 3).forEach((n) => prendi(n, 'cima'));
+      const resto = B - scelti.length;
       for (const [q, frac] of QUOTE) {
-        const quanti = Math.round(B * frac);
+        const quanti = Math.round(resto * frac);
         const ord = cand.map((n) => { const w = pesoQ[q](n); return [n, w > 0 ? Math.pow(caso(sm + '|' + q + '|' + n.id), 1 / w) : -1]; }).filter((x) => x[1] >= 0).sort((a, b) => b[1] - a[1]);
         let k = 0; for (const [n] of ord) { if (k >= quanti) break; if (prendi(n, q)) k++; }
       }
       if (scelti.length < B) { const ord = cand.map((n) => [n, Math.pow(caso(sm + '|forte|' + n.id), 1 / Math.max(.001, pesoQ.forte(n)))]).sort((a, b) => b[1] - a[1]); for (const [n] of ord) { if (scelti.length >= B) break; prendi(n, 'forte'); } }
     }
-    scelti.forEach((n, i) => { n.ev = true; n.evRank = i; });
-    for (const n of r.nodi) if (obbligo.has(n.id) && n.t && n.t.tipo !== 'assente' && !n.ev) { n.ev = true; n.quota = 'scelto'; n.evRank = -1; }
+    scelti.forEach((n, i) => { n.ev = true; n.evRank = i; n.quotaNat = n.quota; });
+    for (const n of r.nodi) if (obbligo.has(n.id) && n.t && n.t.tipo !== 'assente' && !n.ev) { n.ev = true; n.quota = 'scelto'; n.quotaNat = null; n.evRank = -1; }
+    // la densità: sotto i glifi, al bordo interno dell'anello, una tacca ogni 2° lunga quanto le cose che ci stanno
+    const bins = new Array(180).fill(0);
+    for (const n of r.nodi) if (n.t && (n.t.tipo === 'luce' || n.t.tipo === 'prop' || n.t.tipo === 'spento')) bins[Math.floor(((n.base % TAU) + TAU) % TAU / TAU * 180) % 180] += n.t.tipo === 'spento' ? .25 : 1;
+    const bmx = Math.max(1, ...bins), r0 = r.r0 * RAD + 1.5, lmax = (r.r1 - r.r0) * RAD * .32;
+    let dD = '';
+    bins.forEach((c, i) => { if (c <= 0) return; const a = (i + .5) / 180 * TAU, l = 1.5 + lmax * Math.sqrt(c / bmx); dD += `M${(Math.cos(a) * r0).toFixed(1)},${(Math.sin(a) * r0).toFixed(1)}L${(Math.cos(a) * (r0 + l)).toFixed(1)},${(Math.sin(a) * (r0 + l)).toFixed(1)}`; });
+    r.densita.setAttribute('d', dD || 'M0,0'); r.densita.setAttribute('stroke', css(r.col));
     // la polvere: ciò che non è in evidenza resta al suo posto, un punto senza nome
     let dP = '', dS = '';
     for (const n of r.nodi) {
@@ -1067,7 +1078,7 @@ function evidenza() {
       n.t = { ...n.t, s: 0, o: 0, h: 0 };
     }
     const col = css(r.col);
-    r.polvere.setAttribute('d', dP || 'M0,0'); r.polvere.setAttribute('stroke', col); r.polvere.setAttribute('stroke-width', W < 600 ? 1.8 : 2.1); r.polvere.setAttribute('opacity', dP ? .38 : 0);
+    r.polvere.setAttribute('d', dP || 'M0,0'); r.polvere.setAttribute('stroke', col); r.polvere.setAttribute('stroke-width', W < 600 ? 2 : 2.2); r.polvere.setAttribute('opacity', dP ? .5 : 0);
     r.polvereS.setAttribute('d', dS || 'M0,0'); r.polvereS.setAttribute('stroke', col); r.polvereS.setAttribute('stroke-width', 1.6); r.polvereS.setAttribute('opacity', dS ? .14 : 0);
   }
 }
@@ -1211,13 +1222,15 @@ function etichette(nascondiNodi = false) {
       if (!r.arco && !n.ev) continue;
       const v = VIS[n.id]; if (!v || !n.t || n.t.tipo === 'assente' || n.t.tipo === 'spento' || v.o < .2) continue;
       const a = n.base + S.rot[r.k];
-      if (Math.abs(norm(a - NOON)) < Math.max(r.slot * .6, .02)) continue;
+      if (Math.abs(norm(a - NOON)) < Math.max(r.slot * .6, .21)) continue;
+      const [sx, sy2] = aSchermo(Math.cos(a) * r.mid, Math.sin(a) * r.mid);
+      if (sx < 10 || sx > W - 10 || sy2 < 10 || sy2 > H - 10) continue;
       cand.push({ n, r, a, w: (S.fuoco === n.id ? 1e6 : 0) + (dentro.has(n.id) ? 5e5 : 0) - (n.evRank ?? 0) });
     }
   }
   // l'ordine del campionamento: ciò che il seme ha messo prima, prende il nome prima; i primi 3 di ogni anello sempre
   cand.sort((a, b) => b.w - a.w);
-  const primi = new Set(); RINGS.forEach((r) => cand.filter((c) => c.r === r && !r.arco).slice(0, 3).forEach((c) => primi.add(c)));
+  const primi = new Set(); RINGS.forEach((r) => cand.filter((c) => c.r === r && !r.arco).slice(0, W < 600 ? 2 : 3).forEach((c) => primi.add(c)));
   cand.sort((a, b) => (primi.has(b) - primi.has(a)) || b.w - a.w);
   // pochi nodi accesi (un filtro stretto): tutti i nomi; tanti: solo quelli che ci stanno, per luce
   const limite = cand.length <= (W < 500 ? 10 : 24) ? 999 : S.k < 1.4 ? (W < 500 ? 0 : 14) : S.k < 2.2 ? (W < 500 ? 10 : 40) : 999;
@@ -1247,14 +1260,16 @@ function etichette(nascondiNodi = false) {
     const [nx, ny] = aSchermo(Math.cos(a) * r.mid, Math.sin(a) * r.mid);
     const cx = Math.cos(a), sy = Math.sin(a);
     const x = nx + cx * off, y = ny + sy * off;
-    const anchor = cx > .35 ? 'start' : cx < -.35 ? 'end' : 'middle';
-    const bx = anchor === 'start' ? x : anchor === 'end' ? x - w : x - w / 2;
-    const by = y + (sy > .35 ? 2 : sy < -.35 ? -12 : -6);
+    let anchor = cx > .35 ? 'start' : cx < -.35 ? 'end' : 'middle';
+    let xx = x, bx = anchor === 'start' ? x : anchor === 'end' ? x - w : x - w / 2;
+    let by = y + (sy > .35 ? 2 : sy < -.35 ? -12 : -6);
+    // vicino al bordo dello schermo il nome si mette dalla parte di dentro del glifo
+    if (bx < 2 || bx + w > W - 2) { const xi = nx - cx * off; anchor = cx > 0 ? 'end' : 'start'; xx = xi; bx = anchor === 'end' ? xi - w : xi; by = ny - sy * off + (sy > .35 ? -12 : sy < -.35 ? 2 : -6); }
     const b = { x: bx, y: by, w, h: 13 };
     if (bx < 2 || bx + w > W - 2 || by < 2 || by + 13 > H - 2) continue;
     if (!libero(b)) continue;
     boxes.push(b); messi++;
-    const t = el('text', { class: `lbl nodo${n.gen === 'opera' ? ' it' : ''}`, x: anchor === 'middle' ? x : x, y: by + 10, 'text-anchor': anchor }, G.etic);
+    const t = el('text', { class: `lbl nodo${n.gen === 'opera' ? ' it' : ''}`, x: xx, y: by + 10, 'text-anchor': anchor }, G.etic);
     t.textContent = nome + (n.dedotto ? (n.accolto ? ' ●' : ' ◌') : '') + (n.gen === 'citazione' && !n.esito ? ' ⚠' : '');
     if (n.dedotto) t.setAttribute('fill', css('--tenue'));
   }
@@ -1639,12 +1654,13 @@ function pannello() {
   const { al, best } = convergenza();
   const dentro = new Set(best ? best.hit : []);
   const righe = al.slice().reverse().map(({ r, n }) => `<li><span class="a"><span class="pt" style="width:8px;height:8px;border-radius:50%;background:var(${r.col})"></span>${r.nome}${r.prop ? ' ◌' : ''}</span><span class="v ${n ? (dentro.has(n.id) ? 'dentro' : best ? 'fuori' : '') : 'fuori'}">${n ? (n.gen === 'opera' ? `<i>${esc(n.nome)}</i>` : esc(n.nome)) + (n.gen === 'citazione' && !n.esito ? '<span class="sg w">⚠</span>' : '') : '—'}</span></li>`).join('');
-  c.innerHTML = `<div class="etic">sul raggio di mezzogiorno</div>
+  c.innerHTML = `${affiora()}<div class="etic">sul raggio di mezzogiorno</div>
     ${best ? fraseHTML(best.f) + `<p class="conto">Questa frase tiene insieme ${best.hit.length} anelli su ${RINGS.length}.</p>` : `<p class="frase" style="font-size:18px">Niente si aggancia ancora.</p><p class="conto">Nessuna frase tua tiene insieme due di queste cose. Gira un anello, o tocca il centro.</p>`}
     ${nFiltri() ? trovate() : ''}
     <ul class="allineati">${righe}</ul>
     <div class="azioni"><button class="bott" id="b-gira">gira le ruote</button>${best ? `<button class="bott leggero" id="b-tav2">apri la tavola di ${esc(trim(N[best.hit.find((id) => FORTI.has(N[id].ring)) || best.hit[0]].nome, 22))}</button>` : ''}</div>`;
   document.getElementById('b-gira').onclick = gira;
+  const af = document.getElementById('b-aff'); if (af) af.onclick = () => arriva(af.dataset.id, false);
   const bt = document.getElementById('b-tav2'); if (bt) bt.onclick = () => { const id = best.hit.find((x) => FORTI.has(N[x].ring)) || best.hit[0]; S.fuoco = id; S.vista = 'nodo'; apriTavola(id, true); pannello(); dipingiNodi(); disegnaFili(); };
 }
 // con un filtro: le frasi che restano, le più recenti (le righe di servizio senza segno)
@@ -1654,9 +1670,30 @@ function trovate() {
   const mostra = fs.slice(0, 3);
   return `<div class="etic" style="margin-top:12px">${fs.length === 1 ? 'la frase che resta' : 'le frasi che restano'}</div>${mostra.map((f) => fraseHTML(f, { classe: 'frase piccola' })).join('')}${fs.length > 3 ? `<p class="conto">e altre ${fs.length - 3}</p>` : ''}`;
 }
+// affiora oggi: fra le cose accese dalla coda lunga, una (col seme del giorno), e la tua frase più recente su di lei
+function affiora() {
+  let coda = RINGS.flatMap((r) => r.nodi.filter((n) => n.ev && n.quotaNat === 'coda' && FORTI.has(r.k)));
+  // prima le cose che hanno una frase scritta da te (non generata dal prototipo)
+  const scritte = coda.filter((n) => frasiDi(n.id).some((f) => f.parlante && !f.gen)); if (scritte.length) coda = scritte;
+  if (!coda.length) return '';
+  const n = coda.map((x) => [x, caso(seme() + '|affiora|' + x.id)]).sort((a, b) => b[1] - a[1])[0][0];
+  const f = frasiDi(n.id).filter((x) => x.parlante)[0]; if (!f) return '';
+  return `<div class="etic">affiora oggi · dalla coda lunga</div>${fraseHTML(f, { classe: 'frase piccola' })}<p class="conto" style="margin-top:-2px"><button class="togli" id="b-aff" data-id="${n.id}" style="padding-left:0">${n.gen === 'opera' ? `<i>${esc(n.nome)}</i>` : esc(n.nome)}: portalo a mezzogiorno</button></p><div style="height:8px"></div>`;
+}
 // perché un nodo è in evidenza: la quota da cui viene, in una riga
 function perche(n) {
   const p = PESO[n.id];
+  const fr = `${p.luce} ${p.luce === 1 ? 'frase' : 'frasi'}`;
+  const nat = { cima: `È tra i 3 più detti del suo anello: ${fr}.`,
+    forte: `Sorteggiato tra i tuoi forti: ${fr}, le più recenti pesano di più.`,
+    recente: `Sorteggiato tra i detti di recente: ${p.rec} ${p.rec === 1 ? 'volta' : 'volte'} negli ultimi 30 giorni.`,
+    coda: `Sorteggiato dalla coda lunga: non ci torni dal ${p.ultimo ? dataL(p.ultimo) : '—'}.`,
+    tutto: `In questo tratto d’anello c’è spazio per tutti: ${fr}.` };
+  if (n.quota === 'scelto') {
+    const pos = n.R.nodi.filter((m) => PESO[m.id].luce > p.luce).length + 1;
+    return `L’hai portato tu qui. ${pos <= 3 ? `È il ${pos}° più detto del suo anello: ${fr}.` : `Da solo non era acceso in questo tratto d’anello: ${fr}${p.ultimo ? `, l’ultima il ${dataL(p.ultimo)}` : ''}.`}`;
+  }
+  if (nat[n.quota]) return nat[n.quota];
   const q = { forte: `Tra i tuoi forti: ${p.luce} ${p.luce === 1 ? 'frase' : 'frasi'}, le più recenti pesano di più.`,
     recente: `Detto di recente: ${p.rec} ${p.rec === 1 ? 'volta' : 'volte'} negli ultimi 30 giorni.`,
     coda: `Dalla coda lunga: non ci torni dal ${p.ultimo ? dataL(p.ultimo) : '—'}.`,
@@ -1708,7 +1745,7 @@ function vaiA(id) {
   cerca.value = ''; sugg.hidden = true; cerca.blur();
   if (W < 600 && S.k <= 1.001) { const [k, tx, ty] = vistaTel(); S.k = k; S.tx = tx; S.ty = ty; applicaVista(); }
   arriva(id, false);
-  if (innerWidth < 960) document.getElementById('foglio').classList.add('aperto');
+  document.getElementById('foglio').classList.remove('aperto');
 }
 cerca.addEventListener('input', suggerisci);
 cerca.addEventListener('keydown', (e) => {

@@ -191,3 +191,8 @@ lettore voluto). Al blocco 9, `aggiorna-nodo` deve portare il nodo a schema 4 e 
   `muro` (session_016XqAM3jMxCPCkHLqfWQsAY). Le tre si pubblicano come artifact; sceglie l'utente.
 - 2026-11-06: l'utente sui prototipi grafici (cielo e muro pubblicati come artifact privati; ruota pronta, in attesa del via per la pubblicazione): «ok, mooolto meglio». La direzione grafica è confermata; resta da scegliere quale, o un mix.
 - Dati sintetici: le tre sessioni avevano ripreso frasi vere (da CLAUDE.md, dal vecchio prototipo, da `vista-tatuaggi.md`). Le hanno riscritte tutte, e il confronto a 5 parole con l'archivio ora dà 0 coincidenze. Regola per le prossime sessioni: ogni dato sintetico si confronta con l'archivio prima del commit.
+- 2026-11-08, secondo giro grafico (scala e anteprime). Regola comune: budget per zoom; campionamento pesato con seme = data (60 forti / 20 recenti / 20 coda lunga, quota per campo); «rimescola»; le posizioni stanno ferme; «perché lo vedo?»; mai delicati, persone vita o ◌ a lente spenta. Peggiori a 3.000 nodi:
+  - cielo b6bf069: 1,7 s al primo disegno, 60 fps;
+  - ruota 4a6bbb4: 0,5 s al primo disegno, 54 fps;
+  - muro 0e4a483: 2,1 s al primo disegno e scatti da 0,9 s su un telefono lento.
+  Cielo e muro ripubblicati; la ruota attende il via dell'utente. Gli autori amati (Peterson, Dostoevskij, Marco Aurelio, Camus) sono nei dati sintetici, con i ○ solo veri.

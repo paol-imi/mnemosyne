@@ -85,7 +85,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 
 /* ===== Il muro ===== */
 #muro { padding: 4px 16px 140px; touch-action: pan-x pan-y; transform-origin: 50% 0; }
-.gruppo { margin: 0 0 26px; }
+.gruppo { position: relative; margin: 0 0 26px; content-visibility: auto; contain-intrinsic-size: auto 900px; }
+.gruppo.segue { margin-top: calc(-26px + var(--gap)); }
+.gruppo.intorno { content-visibility: visible; }
 .gruppo > h2 { margin: 18px 0 10px; font-weight: 400; font-size: 2.1em; line-height: 1; letter-spacing: -.015em; font-variation-settings: "opsz" 60;
   display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
 .gruppo > h2 small { font-size: .38em; letter-spacing: .02em; color: var(--tenue); font-variation-settings: "opsz" 12; }
@@ -331,7 +333,15 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .k-libro .fr { display: none !important; }
 .picc { display: none; position: absolute; left: 0; right: 0; bottom: 0; padding: 3px 4px; font-size: 9.5px; line-height: 1.1; font-weight: 560; text-align: center;
   background: color-mix(in srgb, var(--foglio) 86%, transparent); color: var(--inchiostro); pointer-events: none; overflow: hidden; display: none; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-@container (max-width: 83px) and (max-height: 95px) and (min-width: 40px) { .picc { display: -webkit-box; } }
+/* il segno dell'idea e il glifo del simbolo non toccano mai il nome né la frase */
+.k-idea .arte svg { top: 6%; height: 56%; }
+.k-simbolo .arte svg { top: 0; height: 74%; }
+@container (min-width: 190px) and (min-height: 170px) { .k-idea .arte svg, .k-simbolo .arte svg { top: auto; left: auto; right: 8px; bottom: 8px; width: 24%; height: 24%; padding: 0; } }
+.k-persona .lab .m, .k-finzione .lab .m { white-space: normal; }
+.co { display: none; }
+@container (min-width: 200px) { .co { display: inline; } }
+/* il nome delle tessere piccole lo decide il budget delle anteprime (etichette sopra il muro) */
+@container (max-width: 83px) and (max-height: 95px) and (min-width: 40px) { .fila .picc, .intorno .picc { display: -webkit-box; } }
 .k-persona .picc, .k-finzione .picc { background: none; bottom: 12%; color: inherit; }
 .k-finzione .picc { color: #efe3c2; }
 .k-sentimento .picc { background: none; bottom: 50%; transform: translateY(50%); font-style: italic; font-weight: 500; padding: 0 6px; }
@@ -339,7 +349,8 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .z2 .t .arte svg { transform: scale(.55); transform-origin: 50% 62%; }
 .z2 .k-canzone .arte { transform: scale(.8); transform-origin: 80% 80%; }
 .livello { color: var(--inchiostro); font-weight: 600; font-size: .78em; }
-.fili { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; z-index: 3; }
+.fili { position: absolute; left: 0; top: 0; pointer-events: none; overflow: visible; z-index: 0; }
+.intorno .t { z-index: 1; }
 .fili line { stroke: var(--inchiostro); stroke-opacity: .5; stroke-width: 1.1; stroke-linecap: round; }
 .fili circle { fill: var(--inchiostro); fill-opacity: .55; }
 .gruppo.intorno { position: relative; }
@@ -347,14 +358,12 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .per-wrap::after { content: "›"; position: absolute; right: 0; top: 50%; transform: translateY(-55%); color: var(--tenue); font-size: 1.3em; pointer-events: none; }
 @media (min-width: 980px) { .per-wrap::after { display: none; } }
 /* Le anteprime: un budget di etichette per schermata, scelto con un seme */
-#muro { position: relative; }
 .etichette { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
 .etichette span { position: absolute; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11.5px; line-height: 1; font-weight: 560;
-  padding: 4px 7px 4px; border-radius: 10px; background: var(--foglio); color: var(--inchiostro); box-shadow: 0 1px 3px rgba(40,30,15,.22); }
-.etichette span.r { font-style: italic; font-weight: 450; }
-.etichette span.c { color: var(--tenue); }
-.t.quieta:not(.off):not(.fuoco) { filter: saturate(.45); opacity: .72; }
-.t.ev { filter: none; opacity: 1; }
+  padding: 4px 8px 4px; border-radius: 4px; background: var(--inchiostro); color: var(--carta); box-shadow: 0 1px 4px rgba(20,15,10,.3); }
+/* fuori dal budget la tessera tiene forma e colore e perde solo il testo: lo spento resta solo dei filtri */
+.t.quieta .lab, .t.quieta .dorso, .t.quieta .fr, .t.quieta .picc { display: none !important; }
+.t.quieta .mono { transform: none !important; }
 .perche { min-height: 44px; color: var(--tenue); text-decoration: underline; text-decoration-color: var(--filo); text-underline-offset: .2em; }
 .perche-r { color: var(--tenue); font-size: .9em; margin: 0 0 .6em; }
 /* Vai a */
@@ -569,10 +578,11 @@ function titolo() {
   const [a, n] = pick(SOST); const [b, m] = pick(SOST); return n === m ? cap(`${a} ${n} di ${pick(COMPL)}`) : cap(`${a} ${n} e ${b} ${m}`);
 }
 const GEN = []; // i nodi inventati, nell'ordine di nascita
-const nuovo = (id, o) => { if (N[id]) return null; add(id, { ...o, gen: o.gen || undefined, inventato: true }); GEN.push(id); return id; };
+const nuovo = (id, o) => { if (N[id]) return null; add(id, { ...o, gen: o.gen || undefined, inventato: true }); GEN.push(id); quanti++; return id; };
 const AUTORI_G = [];
 let tentativi = 0;
-while (Object.keys(N).length < MISURA && tentativi++ < MISURA * 30) {
+let quanti = Object.keys(N).length;
+while (quanti < MISURA && tentativi++ < MISURA * 30) {
   const r = rnd();
   if (r < .2) { const nome = `${pick(NOMI_P)} ${pick(COGN)}`; const id = nuovo(slug(nome), { nome, k: 'persona', g: 'persone', cerchia: 'mondo', campo: [pick(CAMPI_G)] }); if (id) AUTORI_G.push(id); }
   else if (r < .64) { const tipo = pesato(TIPI_G); const nome = titolo(); const autore = AUTORI_G.length && rnd() < .8 ? pick(AUTORI_G) : null;
@@ -606,13 +616,13 @@ const COST = [
 // i nodi inventati si raggruppano in costellazioni di circa 40, ciascuna col suo mese
 for (let i = 0; i < GEN.length; i += 40) COST.push({ picco: Math.floor(rnd() * 11), ids: GEN.slice(i, i + 40) });
 // Il peso: quante volte l'hai detto (✦), voluto, per avere poche tessere grandi e molte piccole.
-const PESO = { 'jordan-peterson': 9, 'fedor-dostoevskij': 8, 'marco-aurelio': 10, 'albert-camus': 10, pensieri: 12, 'il-mito-di-sisifo': 9, 'lo-straniero': 8, 'delitto-e-castigo': 7, 'i-fratelli-karamazov': 9, 'memorie-dal-sottosuolo': 6, '12-regole-per-la-vita': 6, assurdo: 9, responsabilità: 6, colpa: 5, rivolta: 4, ordine: 4, caos: 4, dovere: 4, significato: 5, raskolnikov: 3, 'ivan-karamazov': 3, meursault: 3,
+const PESO = { 'jordan-peterson': 14, 'fedor-dostoevskij': 8, 'marco-aurelio': 10, 'albert-camus': 10, pensieri: 12, 'il-mito-di-sisifo': 9, 'lo-straniero': 8, 'delitto-e-castigo': 7, 'i-fratelli-karamazov': 9, 'memorie-dal-sottosuolo': 6, '12-regole-per-la-vita': 6, assurdo: 9, responsabilità: 6, colpa: 5, rivolta: 4, ordine: 4, caos: 4, dovere: 4, significato: 5, raskolnikov: 3, 'ivan-karamazov': 3, meursault: 3,
   malinconia: 19, mare: 22, attenzione: 24, aspettare: 15, dolore: 11, 'pink-moon': 12, 'le-citta-invisibili': 13, tatuaggi: 16, linea: 9, 'twin-peaks': 10,
   stalker: 8, quiete: 9, nostalgia: 8, 'nick-drake': 4, rabbia: 7, gioia: 7, faro: 9, porta: 6, tempo: 8, memoria: 9, 'paterson': 7, 'perfect-days': 6, 'la-cura': 7,
   etica: 6, stoicismo: 6, mushishi: 6, 'il-libro-dellinquietudine': 5, 'a-che-cosa-serve-ricordare': 5, silenzio: 6, stupore: 5, 'la-sera': 9, 'simone-weil': 3 };
 // la coda lunga dei nodi inventati: pochi molto detti, moltissimi detti una volta (Zipf, esponente 1,1)
 const RANGO = {}; GEN.slice().sort(() => rnd() - .5).forEach((id, i) => (RANGO[id] = i + 1));
-const pesoDi = (id) => RANGO[id] ? Math.max(N[id].g === 'persone' ? 0 : 1, Math.round(26 / Math.pow(RANGO[id], .62)) - (rnd() < .5 ? 1 : 0)) : PESO[id] ?? (N[id].g === 'persone' ? (N[id].k === 'finzione' ? 1 + Math.floor(rnd() * 2) : Math.floor(rnd() * 2)) : 1 + Math.floor(rnd() * 3.2));
+const pesoDi = (id) => RANGO[id] ? Math.max(N[id].g === 'persone' ? 0 : 1, Math.round((N[id].g === 'persone' ? 7 : 15) / Math.pow(RANGO[id], .6)) - (rnd() < .5 ? 1 : 0)) : PESO[id] ?? (N[id].g === 'persone' ? (N[id].k === 'finzione' ? 1 + Math.floor(rnd() * 2) : Math.floor(rnd() * 2)) : 1 + Math.floor(rnd() * 3.2));
 
 // Le frasi: modelli in minuscolo, come scrive l'utente al telefono. Il risultato è il testo esatto del frammento.
 const cognome = (id) => { const n = N[id]; if (!n) return ''; const p = n.nome.split(' '); return (p.length > 1 && !/^(il|la|lo)$/.test(p[0]) ? p[p.length - 1] : n.nome).toLowerCase(); };
@@ -749,7 +759,7 @@ const FX = Object.fromEntries(F.map((f) => [f.id, f]));
 const T_DATI = performance.now();
 const imp = (f) => f.canale === 'importato';
 const parole = (t) => t.replace(/https?:\/\/\S+/g, '').split(/\s+/).filter(Boolean).length;
-const parlante = (f) => !imp(f) && parole(f.testo) >= 3;
+const parlante = (f) => (f._p ??= !imp(f) && parole(f.testo) >= 3);
 
 /* =====================================================================
    I VALORI DEI SEI ASSI: calcolati, mai scritti (dimensioni.md §2)
@@ -794,7 +804,7 @@ const val = (f, lente) => { const m = VC[+lente]; if (!m.has(f.id)) m.set(f.id, 
 const DI = {}; Object.keys(N).forEach((id) => (DI[id] = []));
 F.forEach((f) => f.links.forEach((l) => DI[l.n].push({ f, v: l.v })));
 // la catena autore: un'opera porta il suo autore; una citazione verificata il suo autore
-F.forEach((f) => f.links.forEach((l) => { const n = N[l.n]; const a = n.autore || null; if (a && N[a] && l.v !== 'prop' && !DI[a].some((x) => x.f === f)) DI[a].push({ f, v: 'auto' }); }));
+F.forEach((f) => { const gia = new Set(f.links.map((l) => l.n)); f.links.forEach((l) => { const a = N[l.n].autore || null; if (a && N[a] && l.v !== 'prop' && !gia.has(a)) { gia.add(a); DI[a].push({ f, v: 'auto' }); } }); });
 
 /* =====================================================================
    LO STATO: raggruppa, filtri (O dentro un asse, E tra assi), lente, tempo, zoom, fuoco
@@ -882,7 +892,7 @@ const SAGOMA = { canzone: [0, 0], album: [0, 0], libro: [0, 1], poesia: [0, 1], 
   spettacolo: [0, 1], immagine: [0, 0], persona: [0, 0], finzione: [0, 0], sentimento: [0, 0], idea: [0, 0], domanda: [1, 0], corrente: [0, 1],
   simbolo: [0, 0], stile: [0, 0], citazione: [1, 0], raccolta: [1, 1] };
 function spanDi(id, s, cols, fuoco) {
-  let g = grado(s); if (N[id].k === 'raccolta') g = Math.min(g, 3); if (S.z === 2 && !fuoco) g = Math.max(1, Math.min(g - 1, 2)); if (S.z === 0 && !fuoco && g >= 3) g -= 1; if (fuoco) g = Math.max(3, Math.min(4, g + 1));
+  let g = grado(s); if (N[id].k === 'raccolta') g = Math.min(g, 3); if (S.z === 2 && !fuoco) g = Math.max(1, Math.min(g - 1, 2)); if (S.z === 0 && !fuoco) g = Math.max(1, g - 1); if (fuoco) g = Math.max(3, Math.min(4, g + 1));
   const [dw, dh] = SAGOMA[N[id].k] || [0, 0];
   let w = g + dw, h = g + dh; if (N[id].k === 'domanda' && g === 1) w = 2; if (s.solo) { w = 2; h = 1; }
   if (fuoco && cols <= 6) { w = Math.min(cols - 2 > 2 ? cols - 2 : cols, Math.max(w, 4)); h = Math.max(h, 3); }
@@ -953,7 +963,7 @@ function meta(id, s) {
   else if (n.k === 'raccolta') parti.push('raccolta');
   if (s.mese) return `${parti.join(' · ')} · <span class="sg">✦</span> ${s.mese.k} a ${s.mese.nome}${s.mese.nuova ? ' · nuova' : ''}`;
   let cont = s.solo ? `<span class="sg">◌</span> ${s.p}` : !s.c && !s.im ? 'per le opere' : !s.c ? 'archivio' : `<span class="sg">✦</span> ${s.c}`;
-  if (n.g === 'persone' && s.au) cont += ` · ${s.c + s.au} con le opere`;
+  if (n.g === 'persone' && s.au) cont += `<span class="co"> · ${s.c + s.au} con le opere</span>`;
   return `${parti.join(' · ')} · ${cont}`;
 }
 
@@ -995,7 +1005,7 @@ function gruppoDi(id, s) {
     default: return ['tutto', '', 0];
   }
 }
-let st = {}, OK = new Set();
+let st = {}, OK = new Set(), U_ORA = 54;
 // un bersaglio al dito non scende mai sotto i 44 px
 const UNITA = () => (matchMedia('(min-width: 980px)').matches ? (matchMedia('(pointer: coarse)').matches ? [44, 60, 100] : [34, 56, 100]) : [44, 54, 90]);
 function colonne(largh) { const u = UNITA()[S.z]; const gap = u < 40 ? 4 : matchMedia('(min-width: 980px)').matches ? 8 : 6; return { u, gap, cols: Math.max(4, Math.floor((largh + gap) / (u + gap))) }; }
@@ -1011,13 +1021,15 @@ function legati(id, k = 12) {
 
 function disegna({ anima = true } = {}) {
   const prima = new Map();
-  if (anima && !RIDOTTO) for (const id in EL) if (EL[id].isConnected) prima.set(id, EL[id].getBoundingClientRect());
+  // si misurano solo le tessere dei blocchi vicini allo schermo: chiedere la posizione a un blocco fuori schermo lo costringe a impaginarsi
+  const vicine = () => [...muro.querySelectorAll('.gruppo')].filter((g) => { const r = g.getBoundingClientRect(); return r.bottom > -innerHeight && r.top < innerHeight * 2; }).flatMap((g) => [...g.querySelectorAll('.t')]);
+  if (anima && !RIDOTTO) { let k = 0; for (const el of vicine()) { if (k++ > 260) break; prima.set(el.dataset.id, el.getBoundingClientRect()); } }
   ({ st, ok: OK } = calcola());
   const striscia = S.per === 'tempo';
   muro.classList.toggle('striscia', striscia);
   const largh = muro.clientWidth - (parseFloat(getComputedStyle(muro).paddingLeft) + parseFloat(getComputedStyle(muro).paddingRight));
   const { u, gap, cols } = colonne(largh);
-  document.documentElement.style.setProperty('--u', u + 'px'); document.documentElement.style.setProperty('--gap', gap + 'px');
+  U_ORA = u; document.documentElement.style.setProperty('--u', u + 'px'); document.documentElement.style.setProperty('--gap', gap + 'px');
   // i gruppi
   const vivi = Object.keys(N).filter((id) => st[id].vivo);
   const gruppi = new Map();
@@ -1043,10 +1055,11 @@ function disegna({ anima = true } = {}) {
     el.style.gridColumn = `span ${w}`; el.style.gridRow = `span ${h}`;
     el.classList.toggle('off', !s.acceso); el.classList.toggle('sel', !!s.scelto); el.classList.toggle('prop', !!(s.solo || (N[id].dedotto && s.c === 0)));
     el.classList.toggle('fuoco', id === S.fuoco);
-    el.querySelector('.m').innerHTML = meta(id, s);
-    const pf = porta(id); el.querySelector('.fr').innerHTML = pf && !s.solo ? `<span class="d">${imp(pf.f) ? 'archivio d’origine' : MESE_BREVE(pf.f.reg)}</span>${esc(pf.f.testo)}` : '';
+    const mt = meta(id, s); if (el._m !== mt) { el.querySelector('.m').innerHTML = mt; el._m = mt; el.setAttribute('aria-label', `${N[id].nome}, ${mt.replace(/<[^>]+>/g, '')}${s.acceso ? '' : ', spenta dai filtri'}`); }
+    const grande = w * U_ORA >= 190 && h * U_ORA >= 170;
+    const frH = grande && !s.solo ? (() => { const pf = porta(id); return pf ? `<span class="d">${imp(pf.f) ? 'archivio d’origine' : MESE_BREVE(pf.f.reg)}</span>${esc(pf.f.testo)}` : ''; })() : '';
+    if (el._fr !== frH) { el.querySelector('.fr').innerHTML = frH; el._fr = frH; }
     const acc = el.querySelector('.accb'); if (s.a && !acc) el.insertAdjacentHTML('beforeend', '<span class="accb" aria-hidden="true">●</span>'); else if (!s.a && acc) acc.remove();
-    el.setAttribute('aria-label', `${N[id].nome}, ${meta(id, s).replace(/<[^>]+>/g, '')}${s.acceso ? '' : ', spenta dai filtri'}`);
   };
   const sezione = (cls, titolo, items, piccolo, dove = frag) => {
     const sec = document.createElement('section'); sec.className = 'gruppo ' + cls;
@@ -1055,7 +1068,7 @@ function disegna({ anima = true } = {}) {
     for (const it of items) {
       const id = typeof it === 'string' ? it : it.id; const el = it.el || EL[id]; const s = it.mese ? { ...st[id], mese: it.mese } : st[id];
       const [w, h] = it.span || spanDi(id, s, items.cols || cols, id === S.fuoco);
-      aggiorna(el, id, s, w, h); el.dataset.piccola = (w * colonne(1).u < 84 || h * colonne(1).u < 48) && N[id].k !== 'libro' ? '1' : N[id].k === 'libro' && w * colonne(1).u < 84 && h * colonne(1).u < 96 ? '1' : '0'; g.appendChild(el);
+      aggiorna(el, id, s, w, h); el.dataset.gigante = w >= 3 && h >= 3 ? '1' : '0'; el.dataset.piccola = (w * U_ORA < 84 || h * U_ORA < 48) && N[id].k !== 'libro' ? '1' : N[id].k === 'libro' && w * U_ORA < 84 && h * U_ORA < 96 ? '1' : '0'; g.appendChild(el);
     }
     sec.appendChild(g); dove.appendChild(sec);
   };
@@ -1089,7 +1102,7 @@ function disegna({ anima = true } = {}) {
     if (S.per === 'campo') titolo += ' <span class="sg">◌</span>';
     if (S.per === 'temi' && g.k !== 'resto') titolo += ' <span class="sg">◌</span>';
     if (S.per === 'tutto') { titolo = ''; piccolo = ''; }
-    sezione(g.k === 'resto' || g.k === 'pochi' ? 'resto' : '', titolo, ids, piccolo);
+    for (let i = 0; i < ids.length; i += BLOCCO) sezione((g.k === 'resto' || g.k === 'pochi' ? 'resto' : '') + (i ? ' segue' : ''), i ? '' : titolo, ids.slice(i, i + BLOCCO), i ? '' : piccolo);
   }
   // la fine del muro: il totale e la lente
   const parl = F.filter((f) => parlante(f) && entro(f) && (!S.muro || f.serve === S.muro)).length;
@@ -1104,9 +1117,11 @@ function disegna({ anima = true } = {}) {
   riassunto(vivi);
   // FLIP
   if (anima && !RIDOTTO) {
-    for (const id of vivi) {
-      const el = EL[id], a = prima.get(id), b = el.getBoundingClientRect();
-      if (b.bottom < -200 || b.top > innerHeight + 400) { if (!a) continue; }
+    let k = 0;
+    for (const el of vicine()) {
+      const id = el.dataset.id; if (EL[id] !== el) continue; const a = prima.get(id);
+      const b = el.getBoundingClientRect();
+      if (b.bottom < -200 || b.top > innerHeight + 400) continue; if (++k > 260) break;
       if (!a) { el.animate([{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }], { duration: 420, easing: 'cubic-bezier(.2,.7,.2,1)', delay: 80 }); continue; }
       const dx = a.left - b.left, dy = a.top - b.top, sx = a.width / b.width, sy = a.height / b.height;
       if (Math.abs(dx) + Math.abs(dy) < 1 && Math.abs(sx - 1) < .01 && Math.abs(sy - 1) < .01) continue;
@@ -1130,55 +1145,74 @@ const mulberry = (a) => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imu
 let EV = {}; // id → { q: 'forte' | 'recente' | 'coda', ... }
 function pesiAnteprima(id) {
   let forte = 0, rec = 0, ultima = Infinity, k = 0;
-  for (const { f, v } of DI[id]) { if (!detto(v) || !parlante(f) || !entro(f)) continue; const a = giorni(f.reg); forte += Math.exp(-a / 365); if (a <= 30) rec++; ultima = Math.min(ultima, a); k++; }
-  return { forte, rec, ultima, k };
+  let dataU = null;
+  for (const { f, v } of DI[id]) { if (!detto(v) || !parlante(f) || !entro(f)) continue; const a = giorni(f.reg); forte += Math.exp(-a / 365); if (a <= 30) rec++; if (a < ultima) { ultima = a; dataU = f.reg; } k++; }
+  return { forte, rec, ultima, k, dataU };
 }
 const BUDGET = () => { // etichette per schermata: lo spazio sullo schermo diviso lo spazio di un'etichetta, a una densità che resta leggibile
-  const area = innerWidth * innerHeight, et = 120 * 24; return Math.max(4, Math.round(area * [.05, .065, .035][S.z] / et));
+  const area = innerWidth * innerHeight, et = 100 * 22; return Math.max(5, Math.round(area * [.065, .055, .035][S.z] / et));
 };
+let osserva = null;
 function evidenzia() {
-  muro.querySelector('.etichette')?.remove(); EV = {};
+  // il muro si accende a blocchi: ogni blocco calcola le sue anteprime quando arriva vicino allo schermo
+  muro.querySelectorAll('.etichette').forEach((e) => e.remove()); EV = {};
   for (const el of muro.querySelectorAll('.t.ev, .t.quieta')) el.classList.remove('ev', 'quieta');
+  osserva?.disconnect(); window.MISURE && (MISURE.etichette = 0, MISURE.inEvidenza = 0);
   if (S.per === 'tempo') return;
-  const tiles = [...muro.querySelectorAll('.gruppo:not(.intorno) .t')].filter((el) => el.dataset.piccola === '1' && !el.classList.contains('off') && !el.classList.contains('prop'));
+  const secs = [...muro.querySelectorAll('.gruppo:not(.intorno)')];
+  osserva = new IntersectionObserver((xs) => { for (const x of xs) if (x.isIntersecting) { osserva.unobserve(x.target); evidenziaBlocco(x.target, secs.indexOf(x.target)); } }, { rootMargin: '10% 0px' });
+  secs.forEach((sec) => osserva.observe(sec));
+}
+function evidenziaBlocco(sec, idx) {
+  const tiles = [...sec.querySelectorAll('.t')].filter((el) => !el.classList.contains('off') && !el.classList.contains('prop'));
   if (!tiles.length) return;
-  const m0 = muro.getBoundingClientRect(), H = innerHeight, per = BUDGET();
+  if (tiles[0].getBoundingClientRect().width === 0) { requestAnimationFrame(() => evidenziaBlocco(sec, idx)); return; }
+  const m0 = sec.getBoundingClientRect(), H = innerHeight, per = BUDGET();
   const bande = new Map();
-  for (const el of tiles) { const r = el.getBoundingClientRect(); const b = Math.floor((r.top - m0.top) / H); if (!bande.has(b)) bande.set(b, []); bande.get(b).push({ el, id: el.dataset.id, r }); }
-  const seme = hash(oggiLocale() + ':' + S.mescola + ':' + (S.muro || ''));
-  const lay = document.createElement('div'); lay.className = 'etichette'; lay.setAttribute('aria-hidden', 'true');
+  // posizioni dal layout (offset), non dallo schermo: un'animazione in corso non sposta le bande né le etichette
+  const box = (el) => ({ left: m0.left + el.offsetLeft, top: m0.top + el.offsetTop, right: m0.left + el.offsetLeft + el.offsetWidth, bottom: m0.top + el.offsetTop + el.offsetHeight });
+  for (const el of tiles) { const r = box(el); const b = Math.floor((r.top - m0.top) / H); if (!bande.has(b)) bande.set(b, []); bande.get(b).push({ el, id: el.dataset.id, r }); }
+  const seme = hash(oggiLocale() + ':' + S.mescola + ':' + (S.muro || '') + ':' + S.per + ':' + idx);
+  const lay = document.createElement('div'); lay.className = 'etichette'; lay.setAttribute('aria-hidden', 'true'); sec.appendChild(lay);
   const messe = [];
-  const chiaveGruppo = (id) => (S.per === 'tutto' ? (N[id].g === 'opere' ? N[id].tipo : N[id].g === 'temi' ? N[id].specie : N[id].g) : gruppoDi(id, st[id])[0]);
+  const chiaveGruppo = (id) => (S.per === 'tutto' ? (N[id].g === 'opere' ? N[id].tipo : N[id].g === 'temi' ? N[id].specie : N[id].g) : (N[id].campo || [])[0] || N[id].k);
+  // la banda alta di un blocco è a volte corta: il budget si riduce in proporzione all'altezza che occupa davvero
+  const altezza = m0.height;
   for (const [b, xs] of bande) {
+    let quota = Math.max(1, Math.round(per * Math.min(1, (altezza - b * H) / H)));
+    // le giganti hanno sempre il nome e consumano il budget per prime
+    for (const x of xs) if (x.el.dataset.gigante === '1') { quota--; x.gig = true; }
+    quota = Math.max(1, quota);
     const rng = mulberry(seme ^ Math.imul(b + 1, 2654435761));
     const pesi = new Map(xs.map((x) => [x.id, pesiAnteprima(x.id)]));
-    const quanti = { forte: Math.round(per * .6), recente: Math.round(per * .2) }; quanti.coda = per - quanti.forte - quanti.recente;
+    const quanti = { recente: Math.round(quota * .2), coda: Math.round(quota * .2) };
     const peso = { forte: (w) => w.forte, recente: (w) => w.rec, coda: (w) => (w.ultima > 60 && w.ultima < Infinity ? (w.ultima / 30) * (1 + Math.log1p(w.k)) : 0) };
-    const presi = new Set(), perGruppo = {}, tetto = Math.ceil(per / 3);
+    const presi = new Set(), perGruppo = {}, tetto = Math.max(2, Math.ceil(quota / 3));
     for (const q of ['recente', 'coda', 'forte']) {
-      // Efraimidis–Spirakis: chiave = u^(1/peso), si prendono le chiavi più alte
-      const cand = xs.filter((x) => !presi.has(x.id) && peso[q](pesi.get(x.id)) > 0).map((x) => ({ x, key: Math.pow(rng(), 1 / peso[q](pesi.get(x.id))) })).sort((a, c) => c.key - a.key);
-      let n = q === 'forte' ? per - presi.size : quanti[q];
+      // Efraimidis–Spirakis: chiave = u^(1/peso), si prendono le chiavi più alte; ciò che una quota non riempie passa ai forti
+      const cand = xs.filter((x) => !x.gig && !presi.has(x.id) && peso[q](pesi.get(x.id)) > 0).map((x) => ({ x, key: Math.pow(rng(), 1 / peso[q](pesi.get(x.id))) })).sort((a, c) => c.key - a.key);
+      let n = q === 'forte' ? quota - presi.size : quanti[q];
       for (const { x } of cand) { if (n <= 0) break; const g = chiaveGruppo(x.id); if ((perGruppo[g] || 0) >= tetto) continue;
-        presi.add(x.id); perGruppo[g] = (perGruppo[g] || 0) + 1; n--; const w = pesi.get(x.id); EV[x.id] = { q, w }; x.q = q; }
+        presi.add(x.id); perGruppo[g] = (perGruppo[g] || 0) + 1; n--; EV[x.id] = { q, w: pesi.get(x.id) }; x.q = q; }
     }
     for (const x of xs) {
+      if (x.gig) continue;
       if (!EV[x.id]) { x.el.classList.add('quieta'); continue; }
       x.el.classList.add('ev');
-      // l'etichetta va sotto la tessera; se urta un'altra già messa, si prova sopra; se urta ancora, la tessera resta in evidenza senza nome
+      if (x.el.dataset.piccola !== '1') continue; // ha spazio per il suo nome: basta mostrarlo
+      // l'etichetta va sotto la tessera; se urta un'altra già messa prova sopra; se urta ancora, la tessera resta in evidenza senza nome
       const sp = document.createElement('span'); sp.textContent = N[x.id].nome; if (x.q === 'recente') sp.className = 'r'; if (x.q === 'coda') sp.className = 'c';
-      const w = Math.min(150, 14 + N[x.id].nome.length * 6.3), h = 20;
-      const prove = [[x.r.left - m0.left, x.r.bottom - m0.top - 10], [x.r.left - m0.left, x.r.top - m0.top - h + 8]];
+      lay.appendChild(sp); const w = sp.offsetWidth, h = sp.offsetHeight; // misurata davvero, non stimata
+      const prove = [[x.r.left - m0.left + 3, x.r.bottom - m0.top - h - 3], [x.r.left - m0.left + 3, x.r.top - m0.top + 3]];
       let ok = null;
       for (const [l, t] of prove) { const L = Math.max(0, Math.min(l, m0.width - w)); if (!messe.some((m) => L < m.l + m.w + 2 && L + w + 2 > m.l && t < m.t + m.h + 2 && t + h + 2 > m.t)) { ok = [L, t]; break; } }
-      if (!ok) continue;
-      messe.push({ l: ok[0], t: ok[1], w, h }); sp.style.left = ok[0] + 'px'; sp.style.top = ok[1] + 'px'; lay.appendChild(sp);
+      if (!ok) { sp.remove(); continue; }
+      messe.push({ l: ok[0], t: ok[1], w, h }); sp.style.left = ok[0] + 'px'; sp.style.top = ok[1] + 'px';
     }
   }
-  muro.appendChild(lay);
-  window.MISURE && (MISURE.etichette = messe.length, MISURE.inEvidenza = Object.keys(EV).length);
+  if (window.MISURE) { MISURE.etichette += messe.length; MISURE.inEvidenza = Object.keys(EV).length; }
 }
-let tEv; const evidenziaPoi = (ms) => { clearTimeout(tEv); muro.querySelector('.etichette')?.remove(); tEv = setTimeout(evidenzia, ms); };
+let tEv; const evidenziaPoi = (ms) => { clearTimeout(tEv); muro.querySelectorAll('.etichette').forEach((e) => e.remove()); tEv = setTimeout(evidenzia, ms); };
 document.getElementById('mescola').addEventListener('click', () => { S.mescola++; scriviIndirizzo(); evidenzia(); if (S.fuoco) document.getElementById('scheda-c').innerHTML = scheda(S.fuoco); });
 
 /* Vai a: una cosa per nome in due gesti, sulla mappa stessa */
@@ -1191,7 +1225,7 @@ function vaiCerca() {
     const nomi = [n.nome, ...(n.alias || [])].map(norm); const i = Math.min(...nomi.map((x) => { const j = x.indexOf(q); return j < 0 ? 99 : j === 0 ? 0 : x[j - 1] === ' ' ? 1 : 2; }));
     if (i < 99) ris.push({ id, i, c: DI[id].filter((x) => detto(x.v)).length }); }
   vaiRis = ris.sort((a, b) => a.i - b.i || b.c - a.c).slice(0, 8).map((r) => r.id); vaiSel = 0;
-  vl.innerHTML = vaiRis.length ? vaiRis.map((id, i) => `<li><button role="option" aria-selected="${i === 0}" data-vaia="${id}"><span class="pt" style="--c1:${colori(id)[0]}"></span>${esc(N[id].nome)}<small>${N[id].g === 'opere' ? N[id].tipo : N[id].g === 'temi' ? SPECIE1[N[id].specie] : N[id].k === 'citazione' ? 'citazione' : 'persona'} · ✦ ${DI[id].filter((x) => detto(x.v)).length}</small></button></li>`).join('')
+  vl.innerHTML = vaiRis.length ? vaiRis.map((id, i) => `<li><button role="option" aria-selected="${i === 0}" data-vaia="${id}"><span class="pt" style="--c1:${colori(id)[0]}"></span>${esc(N[id].nome)}<small>${meta(id, st[id] || { c: 0, im: 0, au: 0, p: 0 }).replace(/<[^>]+>/g, '')}</small></button></li>`).join('')
     : '<li class="vuoto-v">Niente con questo nome.</li>';
 }
 const apriVai = () => { vaia.hidden = !vaia.hidden; if (!vaia.hidden) { vq.value = ''; vl.innerHTML = ''; vq.focus(); } };
@@ -1219,8 +1253,10 @@ function fili() {
   const forza = {}; for (const { f, v } of DI[S.fuoco]) if (entro(f) && detto(v)) for (const l of f.links) if (l.n !== S.fuoco) forza[l.n] = (forza[l.n] || 0) + 1;
   const ns = 'http://www.w3.org/2000/svg'; const svg = document.createElementNS(ns, 'svg'); svg.setAttribute('class', 'fili');
   svg.setAttribute('width', r0.width); svg.setAttribute('height', r0.height); svg.setAttribute('aria-hidden', 'true');
+  for (const el of sec.querySelectorAll('.t')) { const x = el.dataset.id; if (N[x].autore === S.fuoco || N[S.fuoco].autore === x || N[x].in === S.fuoco || N[S.fuoco].in === x) forza[x] = (forza[x] || 0) + 2; }
+  const otto = new Set(Object.keys(forza).sort((a, b) => forza[b] - forza[a]).slice(0, 8));
   for (const el of sec.querySelectorAll('.t')) {
-    if (el.dataset.id === S.fuoco) continue; const b = el.getBoundingClientRect();
+    if (el.dataset.id === S.fuoco || !otto.has(el.dataset.id)) continue; const b = el.getBoundingClientRect();
     const x = b.left + b.width / 2 - r0.left, y = b.top + b.height / 2 - r0.top;
     // il filo parte dal bordo della tessera aperta, non dal centro
     const dx = x - cx, dy = y - cy, k = Math.min(Math.abs((c.width / 2) / (dx || 1e-6)), Math.abs((c.height / 2) / (dy || 1e-6)), 1);
@@ -1234,6 +1270,7 @@ function fili() {
   }
   sec.appendChild(svg);
 }
+const BLOCCO = 160;
 const RIDOTTO = matchMedia('(prefers-reduced-motion: reduce)').matches;
 const lenteBtn = () => `<button class="lente" data-lente aria-pressed="${S.lente}"><span>anche le mie proposte <span class="sg">◌</span><br><small>${S.lente ? 'accese: restano più quiete delle tue' : 'spente: il muro è solo tuo'}</small></span><span class="int" aria-hidden="true"></span></button>`;
 
@@ -1354,10 +1391,11 @@ function scheda(id) {
   if (leg.length) h += `<p class="sezione">sul muro, intorno</p><div class="legate">${leg.map((x) => `<button class="v" data-vai="${x}"><span class="pt" style="--c1:${colori(x)[0]}"></span>${esc(N[x].nome)}</button>`).join('')}</div>`;
   if (EV[id]) {
     const e = EV[id], w = e.w;
-    const riga = e.q === 'forte' ? `tra i tuoi forti: l’hai detto ${w.k} ${w.k === 1 ? 'volta' : 'volte'}, e il peso cala piano col tempo.`
-      : e.q === 'recente' ? `di recente: ${w.rec} ${w.rec === 1 ? 'volta' : 'volte'} negli ultimi 30 giorni.`
-      : `dalla coda lunga: non riaffiora da ${Math.round(w.ultima)} giorni.`;
-    h += `<button class="perche" data-perche>perché lo vedo?</button><p class="perche-r" id="perche-r" hidden>In evidenza oggi ${riga} Il muro ne sceglie così ${BUDGET()} per schermata; ⟳ rimescola.</p>`;
+    const quando = w.dataU ? MESE_BREVE(w.dataU) : '';
+    const riga = e.q === 'forte' ? `Tra i tuoi forti di oggi: l’hai detto ${w.k} ${w.k === 1 ? 'volta' : 'volte'}, l’ultima il ${quando}.`
+      : e.q === 'recente' ? `Tra i recenti di oggi: l’hai detto il ${quando}.`
+      : `Dalla coda lunga di oggi: l’ultima volta il ${quando}.`;
+    h += `<button class="perche" data-perche>perché lo vedo?</button><p class="perche-r" id="perche-r" hidden>${riga}</p>`;
   }
   h += '<div class="azioni">';
   if (n.k === 'raccolta') h += `<button class="pieno" data-muro="${id}">apri il muro ${esc(n.scopo)}</button>`;
@@ -1403,7 +1441,7 @@ document.addEventListener('click', (e) => {
   if ('lente' in t.dataset) { S.lente = !S.lente; if (S.fuoco) document.getElementById('scheda-c').innerHTML = scheda(S.fuoco); disegna(); return; }
   if (t.dataset.vai) { apri(t.dataset.vai); return; }
   if (t.dataset.vaia) { vai(t.dataset.vaia); return; }
-  if (t.dataset.perche) { const r = document.getElementById('perche-r'); if (r) r.hidden = false; t.remove(); return; }
+  if ('perche' in t.dataset) { const r = document.getElementById('perche-r'); if (r) r.hidden = false; t.remove(); return; }
   if (t.dataset.tutte) { document.getElementById('altre-fr').hidden = false; t.remove(); return; }
   if (t.dataset.accendi) { const id = t.dataset.accendi; const n = N[id]; S.sel = {};
     if (n.g === 'temi') sel('temi').add('t:' + id); else if (n.g === 'persone') sel('persone').add(id); else { S.q = n.nome; }

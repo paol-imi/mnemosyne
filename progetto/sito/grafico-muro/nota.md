@@ -2,7 +2,7 @@
 
 **L'idea, in tre righe.** Tutti i concetti sono tessere su un muro continuo. Ogni tipo ha la sua sagoma: una canzone è un disco, un libro una copertina (da piccolo, un dorso), un film una pellicola, un sentimento una macchia di colore, una persona un medaglione, una domanda una tessera scura, una citazione un foglietto. La grandezza dice quante volte l'hai detto (✦ e ●, solo i parlanti). «Raggruppa per» ricompone il muro; i filtri spengono; il tempo lo fa crescere. Toccando una tessera arrivi a una tua frase datata, alla lettera.
 
-File: `index.html`, standalone. Nessuna libreria, solo i font da Google Fonts. Dati sintetici: 179 nodi (14 sono temi dedotti ◌) e 382 frammenti generati con un seme fisso, senza delicati e senza persone `vita`; tutte le frasi sono inventate e confrontate con `frammenti/`, `letture/`, `restituzioni/`, `contesto/` e `CLAUDE.md` (nessuna sequenza di 5 parole in comune). Foto in `foto/`, prima e dopo i giudici (sono le finali).
+File: `index.html`, standalone. Nessuna libreria, solo i font da Google Fonts. Dati sintetici, generati con un seme fisso, senza delicati e senza persone `vita`: con `?n=200` (predefinita), `?n=1000` o `?n=3000` nodi. Oltre ai circa 200 scritti a mano, i nodi sono inventati (titoli, persone, temi di fantasia), con una coda lunga alla Zipf: pochi molto detti, la maggior parte detta una volta. Peterson, Dostoevskij (*Delitto e castigo*, *I fratelli Karamazov*, *Memorie dal sottosuolo*), Marco Aurelio (*Pensieri*) e Camus (*Il mito di Sisifo*, *Lo straniero*) sono nodi forti, legati ad assurdo, colpa, ordine, responsabilità, stoicismo e mare; nessuna citazione è attribuita a loro, tranne il passo di Camus su «Ritorno a Tipasa» (○, resa mia); tutte le frasi sono inventate e confrontate con `frammenti/`, `letture/`, `restituzioni/`, `contesto/` e `CLAUDE.md` (nessuna sequenza di 5 parole in comune, a tutte e tre le misure). Foto in `foto/`, prima e dopo i giudici (sono le finali).
 
 ## I gesti
 - **Raggruppa** (barra in alto): tutto · cose · persone · temi · campo ◌ · gesto · tempo. Le tessere volano al loro gruppo con un'animazione FLIP. Ogni gruppo ha un titolo grande.
@@ -47,10 +47,55 @@ Il rosso non c'è: non è né un segnale né una decorazione.
   - la frase si sovrapponeva al titolo di un libro: corretto;
   - nella striscia le tessere erano ripetute e uguali. Ora hanno grandezza e conto del mese.
 
+## Secondo giro: la scala
+Misure con Playwright: telefono 390 px con CPU rallentata 4×, desktop 1440 px a piena velocità. Nella colonna «tessere», i nodi sul muro: le persone mai nominate e le ◌ restano fuori.
+
+| misura | tessere | primo disegno tel / desk | riordino, fotogramma peggiore tel / desk | zoom, peggiore tel / desk | un filtro tel / desk | etichette sovrapposte |
+|---|---|---|---|---|---|---|
+| 200 | 168 | 0,73 s / 0,22 s | 150 ms / 17 ms | 200 ms / 50 ms | 38 / 15 ms | 0 |
+| 1.000 | 812 | 1,16 s / 0,44 s | 550 ms / 67 ms | 150 ms / 100 ms | 186 / 53 ms | 0 |
+| 3.000 | 2.381 | 2,14 s / 0,54 s | 900 ms / 150 ms | 900 ms / 83 ms | 755 / 107 ms | 0 |
+
+Lo scorrimento resta a 54–60 fps a ogni misura. Prima delle correzioni, a 3.000 sul telefono, il primo disegno era a 9,6 s e il riordino si fermava 24 s. Che cosa si è rotto, e come l'ho corretto:
+- il generatore contava i nodi a ogni giro, e il costo cresceva col quadrato;
+- l'animazione FLIP chiedeva la posizione a ogni tessera, e così costringeva i blocchi fuori schermo a impaginarsi (3,5 s solo lì). Ora misura e anima soltanto le tessere vicine allo schermo, al più 260;
+- i gruppi lunghi ora sono spezzati in blocchi di 160 tessere con `content-visibility: auto`;
+- i conti dei filtri ora si fanno in una passata per asse, non per valore.
+
+## Le anteprime: che cosa si vede quando non c'entra tutto
+- **Budget.** Ogni schermata ha un numero massimo di nomi, contati tutti, anche quelli dentro le tessere: lo spazio sullo schermo diviso lo spazio di un'etichetta, a una densità leggibile. Sono circa 8 sul telefono e 30 sul desktop a «nomi»; a «insieme» poco di più, a «frasi» di meno.
+- **Le tessere giganti** (3×3 celle e oltre) tengono sempre il nome e lo pagano per prime.
+- **Il resto del budget** si riempie per ogni banda alta una schermata, con un campionamento pesato e con seme (Efraimidis–Spirakis):
+  - circa 20% «di recente»: le menzioni degli ultimi 30 giorni;
+  - circa 20% «coda lunga»: le cose che non riaffiorano da più di 60 giorni, più pesanti quanto più vecchie;
+  - il resto ai «tuoi forti», con le menzioni ✦● e un decadimento di un anno.
+
+  Ciò che una quota non riempie passa ai forti, e nessun gruppo prende più di un terzo del budget.
+- **Seme**: il giorno locale (con `?giorno=` per le foto) più il numero di rimescoli. Lo stesso giorno dà la stessa anteprima, e il giorno dopo ne dà un'altra. **⟳ rimescola** cambia il seme e non sposta niente: ho verificato che le posizioni sono identiche prima e dopo e che l'evidenza cambia.
+- **Fuori dal budget** la tessera tiene forma e colore e perde solo il testo: lo spento resta solo dei filtri. Le tessere piccole scelte prendono una pillola scura dentro il loro bordo basso, posata senza collisioni con la misura vera del testo: 0 sovrapposizioni a tutte le misure e a tutti gli zoom.
+- **Esclusi**: mai i delicati, mai le persone `vita` (nei dati non ci sono), mai le ◌ con la lente spenta.
+- **«perché lo vedo?»** nella scheda risponde in una riga: «Tra i recenti di oggi: l'hai detto il 1 novembre.»
+
+## Esplorabilità a 3.000
+Verificata con Playwright sul telefono:
+- **la lente in alto** («vai a») trova *I fratelli Karamazov* in due gesti: la lente, poi il risultato. Se la cosa è spenta dai filtri, riporta al muro intero;
+- **dai vicini e indietro**: dalla scheda ai vicini (Dostoevskij), poi con il tasto indietro del browser si torna ai Karamazov e poi al muro chiuso. L'hash va nella storia, e il filo resta nella scheda.
+
+Il secondo giro dei due giudici ha fatto cambiare:
+- il budget, che ora conta tutti i nomi;
+- la desaturazione fuori budget, tolta perché si confondeva con lo spento dei filtri;
+- le pillole, ora scure e ancorate dentro la tessera;
+- «perché lo vedo?», ora detto in parole umane;
+- i glifi, che coprivano la frase;
+- il medaglione di Peterson;
+- il conto di «vai a», ora uguale a quello della tessera.
+
 ## Che cosa resta debole
-- **La vista «insieme» sul desktop.** Le tessere più piccole (34 px) restano monogrammi o dorsi tagliati, con il nome solo al passaggio del mouse. Manca l'accorpamento in «+12 libri».
+- **«Insieme» non è un vero colpo d'occhio.** Sul telefono il minimo di 44 px al dito lascia vedere una decina di tessere; a 3.000 il muro si scorre, non si abbraccia. Servirebbe un livello lontano a celle piene per gruppo, non toccabili una per una, con «+120 libri».
+- **Le tessere grandi sono sempre le stesse.** Il seme ruota i nomi delle medie e delle piccole; le giganti e le posizioni restano, per scelta, perché l'orientamento non cambi.
+- **I numeri peggiori a 3.000, telefono 4×**: primo disegno 2,1 s; fotogramma peggiore di riordino e zoom 0,9 s; un filtro 0,76 s.
 - **La grandezza tra forme diverse.** Un cerchio o una macchia, a parità di celle, pesano meno di un quadrato pieno. La scala vale per celle, non per area d'inchiostro.
-- **I fili.** Stanno sopra le tessere e attraversano le vicine. Sono leggibili nel gruppo «intorno», ma non c'è una vista a rete del muro intero.
+- **I fili.** Ora passano sotto le tessere e sono al più 8, ma restano visibili solo negli spazi tra le tessere. Sono leggibili nel gruppo «intorno», ma non c'è una vista a rete del muro intero.
 - **Le ◌ stanno in coda al loro gruppo.** Non stanno vicino alle frasi da cui nascono.
 - **Il generatore di frasi** produce un italiano a volte meccanico («c'entra il silenzio»). I dati veri non avranno questo difetto.
 - **La tastiera.** Le tessere sono pulsanti (Tab, Invio, Esc), ma l'ordine di tabulazione segue il DOM e non la geometria del muro.

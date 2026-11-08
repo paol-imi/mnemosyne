@@ -346,6 +346,28 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 .per-wrap { position: relative; flex: 1; min-width: 0; display: flex; }
 .per-wrap::after { content: "›"; position: absolute; right: 0; top: 50%; transform: translateY(-55%); color: var(--tenue); font-size: 1.3em; pointer-events: none; }
 @media (min-width: 980px) { .per-wrap::after { display: none; } }
+/* Le anteprime: un budget di etichette per schermata, scelto con un seme */
+#muro { position: relative; }
+.etichette { position: absolute; inset: 0; pointer-events: none; z-index: 4; }
+.etichette span { position: absolute; max-width: 150px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11.5px; line-height: 1; font-weight: 560;
+  padding: 4px 7px 4px; border-radius: 10px; background: var(--foglio); color: var(--inchiostro); box-shadow: 0 1px 3px rgba(40,30,15,.22); }
+.etichette span.r { font-style: italic; font-weight: 450; }
+.etichette span.c { color: var(--tenue); }
+.t.quieta:not(.off):not(.fuoco) { filter: saturate(.45); opacity: .72; }
+.t.ev { filter: none; opacity: 1; }
+.perche { min-height: 44px; color: var(--tenue); text-decoration: underline; text-decoration-color: var(--filo); text-underline-offset: .2em; }
+.perche-r { color: var(--tenue); font-size: .9em; margin: 0 0 .6em; }
+/* Vai a */
+.cerca { border: 1px solid var(--filo); }
+.vaia { padding: 8px 16px 10px; position: relative; z-index: 21; }
+.vaia input { width: 100%; min-height: 46px; border-radius: 23px; border: 1px solid var(--inchiostro); background: var(--foglio); color: inherit; font: inherit; padding: 0 18px; }
+.vaia ul { list-style: none; margin: 6px 0 0; padding: 0; background: var(--foglio); border-radius: 12px; box-shadow: var(--ombra); max-height: 60vh; overflow-y: auto; }
+.vaia li button { width: 100%; min-height: 48px; padding: 6px 14px; display: flex; align-items: center; gap: 10px; text-align: left; border-bottom: 1px solid var(--filo); }
+.vaia li button[aria-selected="true"] { background: var(--carta2); }
+.vaia li .pt { width: 12px; height: 12px; border-radius: 50%; background: var(--c1); flex: 0 0 auto; }
+.vaia li small { color: var(--tenue); margin-left: auto; font-variant-caps: all-small-caps; letter-spacing: .05em; white-space: nowrap; }
+.vaia .vuoto-v { padding: 12px 14px; color: var(--tenue); font-style: italic; }
+@media (min-width: 980px) { .vaia { padding-left: 28px; padding-right: 28px; max-width: 760px; } }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; scroll-behavior: auto !important; }
 }
@@ -376,9 +398,11 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <div class="righe-barra">
       <span class="per-et">raggruppa</span>
       <div class="per-wrap"><div class="per" id="per" role="group" aria-label="Raggruppa per"></div></div>
+      <button class="tondo cerca" id="apri-vai" aria-label="Vai a una cosa per nome" aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21"/></svg></button>
       <button class="filtra" id="apri-filtri" aria-haspopup="dialog">Filtra</button>
     </div>
   </div>
+  <div class="vaia" id="vaia" hidden><input id="vai-q" type="search" placeholder="vai a… un nome, un titolo, un tema" aria-label="Vai a una cosa per nome" autocomplete="off"><ul id="vai-l" role="listbox" aria-label="Risultati"></ul></div>
   <div class="attive" id="attive"></div>
   <p class="riassunto" id="riassunto" aria-live="polite"></p>
   <main id="muro" aria-label="Il muro dei concetti"></main>
@@ -389,6 +413,7 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
     <span class="et" id="tempo-et"></span>
     <input type="range" id="tempo" min="0" max="10" step="1" aria-label="Il muro fino a">
   </div>
+  <button class="tondo" id="mescola" aria-label="Rimescola le anteprime: cambia che cosa è in evidenza, non dove sta">⟳</button>
   <button class="tondo" id="meno" aria-label="Allontana">−</button>
   <span class="livello" id="livello"></span>
   <button class="tondo" id="piu" aria-label="Avvicina">+</button>
@@ -405,6 +430,9 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
    nessun frammento delicato, nessuna persona `cerchia: vita`.
    ===================================================================== */
 const OGGI = '2026-11-05';
+// La misura del muro per la prova di scala: ?n=200 (predefinita), ?n=1000, ?n=3000 nodi
+const MISURA = Math.max(150, Math.min(5000, +new URLSearchParams(location.search).get('n') || 200));
+const T0 = performance.now();
 let seed = 20261105;
 const rnd = () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
 const pick = (a) => a[Math.floor(rnd() * a.length)];
@@ -420,7 +448,8 @@ const SENT = [ // [id, genere grammaticale, colore]
 ];
 SENT.forEach(([id, g, c]) => add(id, { nome: id, k: 'sentimento', g: 'temi', specie: 'stato', gen: g, col: c }));
 const IDEE = [['attenzione', "l'"], ['aspettare', ''], ['dolore', 'il '], ['libertà', 'la '], ['tempo', 'il '], ['memoria', 'la '], ['silenzio', 'il '],
-  ['cura', 'la '], ['desiderio', 'il '], ['verità', 'la '], ['lentezza', 'la '], ['abitudine', "l'"], ['fallimento', 'il '], ['solitudine', 'la ']];
+  ['cura', 'la '], ['desiderio', 'il '], ['verità', 'la '], ['lentezza', 'la '], ['abitudine', "l'"], ['fallimento', 'il '], ['solitudine', 'la '],
+  ['assurdo', "l'"], ['rivolta', 'la '], ['colpa', 'la '], ['responsabilità', 'la '], ['ordine', "l'"], ['caos', 'il '], ['dovere', 'il '], ['significato', 'il ']];
 IDEE.forEach(([id, art]) => add(id, { nome: id, k: 'idea', g: 'temi', specie: 'idea', art }));
 const DOM = [['a-che-cosa-serve-ricordare', 'a che cosa serve ricordare?'], ['che-cosa-resta-di-un-giorno', 'che cosa resta di un giorno se nessuno lo racconta?'],
   ['chi-sono-quando-nessuno-guarda', 'chi sono quando nessuno guarda?'], ['si-puo-scegliere-che-cosa-amare', 'si può scegliere che cosa amare?'],
@@ -452,10 +481,10 @@ P('wim-wenders', 'Wim Wenders', ['cinema']); P('hayao-miyazaki', 'Hayao Miyazaki
 P('bon-iver', 'Bon Iver', ['musica']); P('fabrizio-de-andre', 'Fabrizio De André', ['musica']); P('radiohead', 'Radiohead', ['musica']);
 P('katsushika-hokusai', 'Katsushika Hokusai', ['arte']); P('mark-rothko', 'Mark Rothko', ['arte']); P('yuki-urushibara', 'Yuki Urushibara', ['arte']);
 P('jiro-taniguchi', 'Jirō Taniguchi', ['arte']); P('giovanni-battista-pergolesi', 'Giovanni Battista Pergolesi', ['musica']); P('friedrich-nietzsche', 'Friedrich Nietzsche', ['filosofia']);
-P('konstantinos-kavafis', 'Konstantinos Kavafis', ['letteratura']); P('gilles-deleuze', 'Gilles Deleuze', ['filosofia']);
+P('konstantinos-kavafis', 'Konstantinos Kavafis', ['letteratura']); P('jordan-peterson', 'Jordan Peterson', ['psicologia']); P('fedor-dostoevskij', 'Fëdor Dostoevskij', ['letteratura']); P('gilles-deleuze', 'Gilles Deleuze', ['filosofia']);
 PF('orfeo', 'Orfeo', ['mito-e-religione']); PF('ermete-trismegisto', 'Ermete Trismegisto', ['esoterismo']); PF('sisifo', 'Sisifo', ['mito-e-religione']);
 PF('ulisse', 'Ulisse', ['mito-e-religione', 'letteratura']); PF('la-signora-del-ceppo', 'la signora del ceppo', [], 'twin-peaks');
-PF('il-gigante', 'il Gigante', [], 'twin-peaks'); PF('marco-polo', 'Marco Polo', [], 'le-citta-invisibili'); PF('ginko', 'Ginko', [], 'mushishi');
+PF('il-gigante', 'il Gigante', [], 'twin-peaks'); PF('marco-polo', 'Marco Polo', [], 'le-citta-invisibili'); PF('ginko', 'Ginko', [], 'mushishi'); PF('raskolnikov', 'Raskol’nikov', [], 'delitto-e-castigo'); PF('ivan-karamazov', 'Ivan Karamazov', [], 'i-fratelli-karamazov'); PF('meursault', 'Meursault', [], 'lo-straniero');
 // --- opere: il tipo è dichiarato (11 voci, ordine fisso)
 const O = (id, nome, tipo, autore, anno) => add(id, { nome, k: tipo, g: 'opere', tipo, autore, anno, campo: autore && N[autore] ? N[autore].campo.slice(0, 1) : ['cinema'] });
 O('pink-moon', 'Pink Moon', 'canzone', 'nick-drake', 1972); O('river-man', 'River Man', 'canzone', 'nick-drake', 1969); O('la-cura', 'La cura', 'canzone', 'franco-battiato', 1996);
@@ -467,7 +496,10 @@ O('philharmonics', 'Philharmonics', 'album', 'agnes-obel', 2010);
 O('le-citta-invisibili', 'Le città invisibili', 'libro', 'italo-calvino', 1972); O('etica', 'Etica', 'libro', 'baruch-spinoza', 1677);
 O('la-societa-della-stanchezza', 'La società della stanchezza', 'libro', 'byung-chul-han', 2010); O('gioco-e-realta', 'Gioco e realtà', 'libro', 'donald-winnicott', 1971);
 O('lettere-a-un-giovane-poeta', 'Lettere a un giovane poeta', 'libro', 'rainer-maria-rilke', 1929); O('il-libro-dellinquietudine', "Il libro dell'inquietudine", 'libro', 'fernando-pessoa', 1982);
-O('il-mito-di-sisifo', 'Il mito di Sisifo', 'libro', 'albert-camus', 1942); O('pensieri', 'Pensieri', 'libro', 'marco-aurelio', 180);
+O('il-mito-di-sisifo', 'Il mito di Sisifo', 'libro', 'albert-camus', 1942); O('pensieri', 'Pensieri', 'libro', 'marco-aurelio', 180); N.pensieri.alias = ['Colloqui con sé stesso'];
+O('lo-straniero', 'Lo straniero', 'libro', 'albert-camus', 1942); O('delitto-e-castigo', 'Delitto e castigo', 'libro', 'fedor-dostoevskij', 1866);
+O('i-fratelli-karamazov', 'I fratelli Karamazov', 'libro', 'fedor-dostoevskij', 1880); O('memorie-dal-sottosuolo', 'Memorie dal sottosuolo', 'libro', 'fedor-dostoevskij', 1864);
+O('12-regole-per-la-vita', '12 regole per la vita', 'libro', 'jordan-peterson', 2018);
 O('lettere-a-lucilio', 'Lettere a Lucilio', 'libro', 'seneca', 65); O('finzioni', 'Finzioni', 'libro', 'jorge-luis-borges', 1944);
 O('tao-te-ching', 'Tao te ching', 'libro', 'lao-tzu'); O('il-codice-dellanima', "Il codice dell'anima", 'libro', 'james-hillman', 1996);
 O('il-processo', 'Il processo', 'libro', 'franz-kafka', 1925); O('lettera-sul-pensiero', 'Lettera sulla felicità', 'libro', 'epicuro');
@@ -501,8 +533,64 @@ C('mille-miglia', 'Un viaggio di mille miglia comincia con un passo', { attribui
 add('tatuaggi', { nome: 'tatuaggi', k: 'raccolta', g: 'raccolte', scopo: 'per i tatuaggi' });
 add('la-sera', { nome: 'per la sera', k: 'raccolta', g: 'raccolte', scopo: 'per la sera' });
 
+// --- la prova di scala: oltre ai nodi scritti a mano, nodi inventati fino alla MISURA (nomi di fantasia, mai dell'archivio)
+const BASE = Object.keys(N).length;
+const NOMI_P = ['Elena', 'Tomás', 'Ines', 'Arvid', 'Livia', 'Noor', 'Matteo', 'Selma', 'Ilya', 'Mara', 'Jonas', 'Aiko', 'Teodor', 'Clara', 'Rami', 'Vera', 'Oskar', 'Lena', 'Nadir', 'Agnese',
+  'Pavel', 'Iris', 'Edoardo', 'Maren', 'Bruno', 'Sofia', 'Kaito', 'Delia', 'Anselm', 'Greta', 'Yusuf', 'Ada'];
+const COGN = ['Valden', 'Morisco', 'Harlund', 'Ferrante', 'Okabe', 'Lindqvist', 'Sarno', 'Beaumont', 'Kestrel', 'Dalmasso', 'Varga', 'Ostrowski', 'Mauri', 'Trevi', 'Halloran', 'Nakaro',
+  'Rossetti', 'Albrecht', 'Quaglia', 'Serafini', 'Lindgren', 'Morvan', 'Castellani', 'Pereira', 'Novak', 'Hartmann', 'Vidal', 'Brandt', 'Ardenghi', 'Solveig', 'Tamura', 'Ricasoli'];
+const SOST = [['la', 'stanza', 'f'], ['il', 'quaderno', 'm'], ['la', 'casa', 'f'], ['il', 'giardino', 'm'], ['la', 'notte', 'f'], ['il', 'fiume', 'm'], ['la', 'strada', 'f'], ['il', 'sale', 'm'],
+  ['la', 'luce', 'f'], ['il', 'ritorno', 'm'], ['la', 'soglia', 'f'], ['il', 'vento', 'm'], ['la', 'lingua', 'f'], ['il', 'peso', 'm'], ['la', 'mappa', 'f'], ['il', 'canto', 'm'],
+  ['la', 'finestra', 'f'], ['il', 'cortile', 'm'], ['la', 'stagione', 'f'], ['il', 'nome', 'm'], ['la', 'riva', 'f'], ['il', 'muro', 'm'], ['la', 'cenere', 'f'], ['il', 'treno', 'm']];
+const COMPL = ['vetro', 'marzo', 'cenere', 'neve', 'carta', 'ferro', 'miele', 'pioggia', 'nebbia', 'rame', 'lana', 'fumo', 'gesso', 'argilla', 'salvia', 'ardesia', 'corallo', 'lino',
+  'ottobre', 'zolfo', 'polvere', 'sabbia', 'ruggine', 'ambra'];
+const AGG = [['vuoto', 'vuota'], ['blu', 'blu'], ['lontano', 'lontana'], ['storto', 'storta'], ['ultimo', 'ultima'], ['bianco', 'bianca'], ['sottile', 'sottile'], ['nascosto', 'nascosta'],
+  ['lento', 'lenta'], ['piccolo', 'piccola'], ['chiuso', 'chiusa'], ['doppio', 'doppia'], ['interrotto', 'interrotta'], ['quieto', 'quieta'], ['basso', 'bassa'], ['tardo', 'tarda']];
+const NUMERI = ['Due', 'Tre', 'Quattro', 'Sette', 'Nove', 'Dodici', 'Cento', 'Mille'];
+const PLUR = ['inverni', 'lune', 'stanze', 'fiumi', 'porte', 'lettere', 'notti', 'risvegli', 'mattine', 'cortili', 'ritorni', 'giardini', 'sentieri', 'stagioni', 'finestre', 'domeniche'];
+const PAROLE_T = ['pazienza', 'fiducia', 'distanza', 'confine', 'misura', 'pudore', 'fretta', 'gentilezza', 'ostinazione', 'leggerezza', 'disciplina', 'fame', 'sete', 'radice', 'eredità',
+  'promessa', 'attesa', 'perdono', 'orgoglio', 'coraggio', 'stanchezza', 'mestiere', 'gesto', 'voce', 'confidenza', 'segreto', 'debito', 'dono', 'ascesa', 'caduta', 'margine', 'ritmo', 'eco',
+  'traccia', 'limite', 'scelta', 'rinuncia', 'esattezza', 'chiarezza', 'ombra', 'equilibrio', 'cammino', 'ripetizione', 'differenza', 'presenza', 'assenza', 'pagina', 'origine', 'meta',
+  'fedeltà', 'vergogna', 'sobrietà', 'cura', 'sfida', 'noia', 'lavoro', 'festa', 'riposo', 'mattino', 'sera', 'inverno', 'estate', 'autunno', 'primavera', 'città', 'paese', 'lingua', 'amicizia'];
+const SENT_X = ['euforia', 'sconforto', 'smarrimento', 'irrequietezza', 'fiducia', 'sollievo', 'invidia', 'pietà', 'imbarazzo', 'meraviglia', 'disagio', 'calma', 'allegria', 'rimpianto',
+  'impazienza', 'serenità', 'sgomento', 'tristezza', 'entusiasmo', 'timidezza', 'apprensione', 'contentezza', 'fastidio', 'commozione', 'leggerezza', 'pesantezza', 'svogliatezza', 'curiosità'];
+const VERBI_D = ['ricordare', 'restare', 'partire', 'perdonare', 'cambiare', 'aspettare', 'scegliere', 'smettere', 'ricominciare', 'dimenticare', 'tornare', 'chiedere', 'insistere', 'tacere'];
+const ismi = ['simbolismo', 'cinismo', 'pragmatismo', 'impressionismo', 'surrealismo', 'idealismo', 'scetticismo', 'ermetismo', 'futurismo', 'brutalismo', 'neoplatonismo', 'animismo'];
+const TIPI_G = [['canzone', 24], ['album', 6], ['libro', 26], ['poesia', 6], ['film', 16], ['serie', 6], ['fumetto', 4], ['spettacolo', 3], ['immagine', 4], ['gioco', 2], ['video', 3]];
+const CAMPI_G = ['filosofia', 'psicologia', 'mito-e-religione', 'esoterismo', 'scienza', 'storia', 'letteratura', 'arte', 'musica', 'cinema'];
+const slug = (t) => t.normalize('NFD').replace(/\p{M}/gu, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const cap = (t) => t[0].toUpperCase() + t.slice(1);
+const pesato = (coppie) => { const tot = coppie.reduce((a, [, w]) => a + w, 0); let r = rnd() * tot; for (const [x, w] of coppie) { if ((r -= w) < 0) return x; } return coppie[0][0]; };
+function titolo() {
+  const t = rnd();
+  if (t < .3) { const [a, n] = pick(SOST); return cap(`${a} ${n} di ${pick(COMPL)}`); }
+  if (t < .6) { const [a, n, g] = pick(SOST); const ag = pick(AGG); return cap(`${a} ${n} ${g === 'f' ? ag[1] : ag[0]}`); }
+  if (t < .78) return `${pick(NUMERI)} ${pick(PLUR)}`;
+  const [a, n] = pick(SOST); const [b, m] = pick(SOST); return n === m ? cap(`${a} ${n} di ${pick(COMPL)}`) : cap(`${a} ${n} e ${b} ${m}`);
+}
+const GEN = []; // i nodi inventati, nell'ordine di nascita
+const nuovo = (id, o) => { if (N[id]) return null; add(id, { ...o, gen: o.gen || undefined, inventato: true }); GEN.push(id); return id; };
+const AUTORI_G = [];
+let tentativi = 0;
+while (Object.keys(N).length < MISURA && tentativi++ < MISURA * 30) {
+  const r = rnd();
+  if (r < .2) { const nome = `${pick(NOMI_P)} ${pick(COGN)}`; const id = nuovo(slug(nome), { nome, k: 'persona', g: 'persone', cerchia: 'mondo', campo: [pick(CAMPI_G)] }); if (id) AUTORI_G.push(id); }
+  else if (r < .64) { const tipo = pesato(TIPI_G); const nome = titolo(); const autore = AUTORI_G.length && rnd() < .8 ? pick(AUTORI_G) : null;
+    nuovo(slug(nome + '-' + tipo), { nome, k: tipo, g: 'opere', tipo, autore, anno: 1900 + Math.floor(rnd() * 125), campo: autore ? N[autore].campo.slice(0, 1) : [pick(CAMPI_G)] }); }
+  else if (r < .94) {
+    const q = rnd();
+    if (q < .16) { const w = pick(SENT_X); nuovo(slug(w), { nome: w, k: 'sentimento', g: 'temi', specie: 'stato', gen: w.endsWith('o') ? 'm' : 'f', col: `hsl(${(hash(w) % 300 + 40) % 360} 26% 66%)` }); }
+    else if (q < .74) { const w = rnd() < .55 ? pick(PAROLE_T) : `${pick(PAROLE_T)} e ${pick(PAROLE_T)}`; nuovo(slug(w), { nome: w, k: 'idea', g: 'temi', specie: 'idea', art: '' }); }
+    else if (q < .86) { const w = `perché è così difficile ${pick(VERBI_D)}?`; const w2 = rnd() < .5 ? w : `che cosa vuol dire ${pick(VERBI_D)} ${pick(['davvero', 'adesso', 'da soli', 'in tempo', 'bene'])}?`; nuovo(slug(w2), { nome: w2, k: 'domanda', g: 'temi', specie: 'domanda' }); }
+    else if (q < .9) { const w = pick(ismi); nuovo(slug(w), { nome: w, k: 'corrente', g: 'temi', specie: 'corrente', campo: [pick(CAMPI_G)] }); }
+    else { const [a, n] = pick(SOST); nuovo(slug('simbolo ' + n), { nome: n, k: 'simbolo', g: 'temi', specie: 'simbolo', art: a + ' ', col: `hsl(${hash(n) % 360} 22% 74%)` }); }
+  } else { const [a, n] = pick(SOST); const nome = cap(`${a} ${n} ${pick(['non dimentica', 'sa aspettare', 'torna sempre', 'non chiede niente', 'resta'])}`); nuovo(slug('cit ' + nome), { nome, k: 'citazione', g: 'citazioni', attribuita: AUTORI_G.length ? pick(AUTORI_G) : undefined }); }
+}
+
 // Le costellazioni: chi tende a stare con chi nei frammenti (solo per generare co-occorrenze plausibili)
 const COST = [
+  { picco: 8, ids: ['jordan-peterson', '12-regole-per-la-vita', 'fedor-dostoevskij', 'delitto-e-castigo', 'i-fratelli-karamazov', 'memorie-dal-sottosuolo', 'raskolnikov', 'ivan-karamazov',
+    'marco-aurelio', 'pensieri', 'stoicismo', 'albert-camus', 'il-mito-di-sisifo', 'lo-straniero', 'meursault', 'sisifo', 'assurdo', 'rivolta', 'colpa', 'responsabilità', 'ordine', 'caos', 'dovere', 'significato', 'libertà', 'dolore', 'mare'] },
   { picco: 7, ids: ['mare', 'faro', 'luna', 'fiume', 'malinconia', 'nostalgia', 'quiete', 'pink-moon', 'river-man', 'bryter-layter', 'riverside', 'philharmonics', 'ponte', 'nick-drake', 'agnes-obel', 'la-sera'] },
   { picco: 9, ids: ['attenzione', 'silenzio', 'cura', 'simone-weil', 'lattenzione-generosita', 'lentezza', 'paterson', 'perfect-days', 'luomo-che-cammina', 'aspettare', 'abitudine', 'jim-jarmusch', 'wim-wenders', 'quiete'] },
   { picco: 3, ids: ['stoicismo', 'marco-aurelio', 'pensieri', 'seneca', 'lettere-a-lucilio', 'epicureismo', 'lettera-sul-pensiero', 'libertà', 'paura', 'dolore', 'sisifo', 'il-mito-di-sisifo', 'sisifo-felice', 'esistenzialismo', 'un-perche', 'fallimento', 'perche-non-finisco-le-cose'] },
@@ -515,21 +603,27 @@ const COST = [
   { picco: 9, ids: ['la-cura', 'prospettiva-nevski', 'la-voce-del-padrone', 'smisurata-preghiera', 'anime-salve', 'holocene', 'for-emma', 'fake-plastic-trees', 'gratitudine', 'tenerezza', 'la-sera', 'rabbia', 'franco-battiato'] },
   { picco: 6, ids: ['nulla-due-volte', 'nulla-due-volte-accade', 'lettere-a-un-giovane-poeta', 'torso-arcaico', 'itaca', 'ulisse', 'quello-che-cerchi', 'tao-te-ching', 'taoismo', 'mille-miglia', 'romanticismo', 'minimalismo', 'i-murales-seagram', 'che-cosa-vuol-dire-essere-di-un-posto', 'rumi'] },
 ];
+// i nodi inventati si raggruppano in costellazioni di circa 40, ciascuna col suo mese
+for (let i = 0; i < GEN.length; i += 40) COST.push({ picco: Math.floor(rnd() * 11), ids: GEN.slice(i, i + 40) });
 // Il peso: quante volte l'hai detto (✦), voluto, per avere poche tessere grandi e molte piccole.
-const PESO = { malinconia: 19, mare: 22, attenzione: 24, aspettare: 15, dolore: 11, 'pink-moon': 12, 'le-citta-invisibili': 13, tatuaggi: 16, linea: 9, 'twin-peaks': 10,
+const PESO = { 'jordan-peterson': 9, 'fedor-dostoevskij': 8, 'marco-aurelio': 10, 'albert-camus': 10, pensieri: 12, 'il-mito-di-sisifo': 9, 'lo-straniero': 8, 'delitto-e-castigo': 7, 'i-fratelli-karamazov': 9, 'memorie-dal-sottosuolo': 6, '12-regole-per-la-vita': 6, assurdo: 9, responsabilità: 6, colpa: 5, rivolta: 4, ordine: 4, caos: 4, dovere: 4, significato: 5, raskolnikov: 3, 'ivan-karamazov': 3, meursault: 3,
+  malinconia: 19, mare: 22, attenzione: 24, aspettare: 15, dolore: 11, 'pink-moon': 12, 'le-citta-invisibili': 13, tatuaggi: 16, linea: 9, 'twin-peaks': 10,
   stalker: 8, quiete: 9, nostalgia: 8, 'nick-drake': 4, rabbia: 7, gioia: 7, faro: 9, porta: 6, tempo: 8, memoria: 9, 'paterson': 7, 'perfect-days': 6, 'la-cura': 7,
   etica: 6, stoicismo: 6, mushishi: 6, 'il-libro-dellinquietudine': 5, 'a-che-cosa-serve-ricordare': 5, silenzio: 6, stupore: 5, 'la-sera': 9, 'simone-weil': 3 };
-const pesoDi = (id) => PESO[id] ?? (N[id].g === 'persone' ? (N[id].k === 'finzione' ? 1 + Math.floor(rnd() * 2) : Math.floor(rnd() * 2)) : 1 + Math.floor(rnd() * 3.2));
+// la coda lunga dei nodi inventati: pochi molto detti, moltissimi detti una volta (Zipf, esponente 1,1)
+const RANGO = {}; GEN.slice().sort(() => rnd() - .5).forEach((id, i) => (RANGO[id] = i + 1));
+const pesoDi = (id) => RANGO[id] ? Math.max(N[id].g === 'persone' ? 0 : 1, Math.round(26 / Math.pow(RANGO[id], .62)) - (rnd() < .5 ? 1 : 0)) : PESO[id] ?? (N[id].g === 'persone' ? (N[id].k === 'finzione' ? 1 + Math.floor(rnd() * 2) : Math.floor(rnd() * 2)) : 1 + Math.floor(rnd() * 3.2));
 
 // Le frasi: modelli in minuscolo, come scrive l'utente al telefono. Il risultato è il testo esatto del frammento.
 const cognome = (id) => { const n = N[id]; if (!n) return ''; const p = n.nome.split(' '); return (p.length > 1 && !/^(il|la|lo)$/.test(p[0]) ? p[p.length - 1] : n.nome).toLowerCase(); };
 const nm = (id) => N[id].nome.toLowerCase();
+const diA = (id) => (N[id].autore && N[N[id].autore] ? ` di ${cognome(N[id].autore)}` : '');
 const MOD = {
-  canzone: [(n) => `${nm(n)} in loop stamattina`, (n) => `${nm(n)} di ${cognome(N[n].autore)} in macchina, finestrino giù`, (n) => `riascoltato ${nm(n)}. sempre lo stesso punto mi frega`, (n) => `${nm(n)} a volume basso mentre cucino`, (n) => `stasera solo ${nm(n)}`],
+  canzone: [(n) => `${nm(n)} in loop stamattina`, (n) => `${nm(n)}${diA(n)} in macchina, finestrino giù`, (n) => `riascoltato ${nm(n)}. sempre lo stesso punto mi frega`, (n) => `${nm(n)} a volume basso mentre cucino`, (n) => `stasera solo ${nm(n)}`],
   album: [(n) => `${nm(n)} dall'inizio alla fine, senza saltare niente`, (n) => `rimesso su ${nm(n)}. è un disco d'inverno`],
-  libro: [(n) => `rileggo ${nm(n)}. sottolineo cose diverse dall'altra volta`, (n) => `${nm(n)} di ${cognome(N[n].autore)}, finito in treno`, (n) => `${nm(n)} sul comodino da settimane, ancora lì`, (n) => `ripreso ${nm(n)}, tre pagine e basta`],
+  libro: [(n) => `rileggo ${nm(n)}. sottolineo cose diverse dall'altra volta`, (n) => `${nm(n)}${diA(n)}, finito in treno`, (n) => `${nm(n)} sul comodino da settimane, ancora lì`, (n) => `ripreso ${nm(n)}, tre pagine e basta`],
   poesia: [(n) => `${nm(n)}, letta ad alta voce. funziona solo così`, (n) => `ho ricopiato ${nm(n)} su un foglio, a mano`],
-  film: [(n) => `${nm(n)} di ${cognome(N[n].autore)}, visto finalmente`, (n) => `rivisto ${nm(n)}. nn ricordavo il finale`, (n) => `${nm(n)} stasera, con le luci spente`],
+  film: [(n) => `${nm(n)}${diA(n)}, visto finalmente`, (n) => `rivisto ${nm(n)}. nn ricordavo il finale`, (n) => `${nm(n)} stasera, con le luci spente`],
   serie: [(n) => `${nm(n)}, un episodio a sera`, (n) => `finito ${nm(n)}. mi manca già`],
   fumetto: [(n) => `${nm(n)}: tavole che respirano`, (n) => `sfogliato ${nm(n)} in libreria, senza comprarlo`],
   spettacolo: [(n) => `${nm(n)}, dal vivo in una chiesa piena di freddo. ci torno l'anno prossimo`],
@@ -597,6 +691,14 @@ const MANO = [
   ['2026-11-01T11:30', 'gioco e realtà di winnicott, da leggere. me lo consigliano tutti', ['gioco-e-realta'], { fru: 'da-fare' }],
   ['2026-11-02T09:00', 'wabi sabi: la crepa come parte del vaso. da tatuare, forse', ['wabi-sabi', 'tatuaggi'], { acc: ['impermanenza'] }],
   ['2026-11-03T07:50', 'sogno: una città fatta solo di porte', ['porta'], { prop: ['soglia'] }],
+  ['2026-11-04T08:05', 'marco aurelio la mattina col caffè, una pagina sola. mi rimette in fila', ['pensieri', 'marco-aurelio', 'ordine']],
+  ['2026-11-03T23:40', 'ivan karamazov mi fa paura perché ragiona meglio di me', ['i-fratelli-karamazov', 'ivan-karamazov', 'paura'], { stato: true }],
+  ['2026-11-02T21:15', 'peterson e la stanza da mettere in ordine prima del mondo. ha ragione e mi irrita', ['jordan-peterson', 'ordine', 'responsabilità']],
+  ['2026-10-30T07:40', 'lo straniero riletto al mare. il sole che decide al posto suo', ['lo-straniero', 'mare', 'assurdo']],
+  ['2026-10-27T22:50', 'memorie dal sottosuolo: quel signore rancoroso sono io quando nn dormo', ['memorie-dal-sottosuolo']],
+  ['2026-10-18T19:20', 'sisifo che scende dalla montagna, quel tratto lì è il mio preferito', ['sisifo', 'il-mito-di-sisifo', 'assurdo']],
+  ['2026-10-11T22:30', 'raskolnikov e la colpa come una febbre che nn passa', ['delitto-e-castigo', 'raskolnikov', 'colpa']],
+  ['2026-09-30T08:00', 'marco aurelio scriveva solo per sé. si sente in ogni riga', ['pensieri', 'marco-aurelio']],
   ['2026-11-04T22:10', 'perfect days, le foto agli alberi ogni giorno uguali e mai uguali. attenzione pura', ['perfect-days', 'attenzione', 'albero']],
 ];
 for (const [reg, testo, ids, x = {}] of MANO) {
@@ -616,20 +718,22 @@ IMP.forEach(([testo, ids], i) => { const f = frammento({ reg: '2026-01-04T00:00'
 // 4. I frammenti generati: ogni nodo riceve circa il suo peso, spesso in coppia con un vicino della sua costellazione
 const bisogno = {}; Object.keys(N).forEach((id) => { if (!N[id].dedotto) bisogno[id] = pesoDi(id); });
 for (const f of F) for (const l of f.links) if (l.v === 'sua' && f.canale !== 'importato') bisogno[l.n] = Math.max(0, (bisogno[l.n] || 0) - 1);
-const costDi = (id) => COST.filter((c) => c.ids.includes(id));
-let giri = 0;
-while (Object.values(bisogno).some((x) => x > 0) && giri++ < 2000) {
-  const vivi = Object.keys(bisogno).filter((id) => bisogno[id] > 0); const id = pick(vivi); const n = N[id];
+const COSTDI = {}; COST.forEach((c) => c.ids.forEach((x) => (COSTDI[x] ||= []).push(c)));
+const costDi = (id) => COSTDI[id] || [];
+const sacco = []; for (const id in bisogno) for (let i = 0; i < bisogno[id]; i++) sacco.push(id);
+for (let i = sacco.length - 1; i > 0; i--) { const j = Math.floor(rnd() * (i + 1)); [sacco[i], sacco[j]] = [sacco[j], sacco[i]]; }
+for (const id of sacco) {
+  if (bisogno[id] <= 0) continue; const n = N[id];
   const cs = costDi(id); const cst = cs.length ? pick(cs) : { picco: 6, ids: [] };
   let testo = pick(MOD[n.k] || MOD.idea)(id); const ids = [id];
   if (cst.ids.length && rnd() < .55) {
-    const altri = cst.ids.filter((x) => x !== id && N[x].k !== 'raccolta' && N[x].g !== 'persone');
-    const b = pick(altri.filter((x) => (bisogno[x] || 0) > 0).concat(altri.filter((x) => N[x].g === 'temi')));
+    const altri = cst.ids.filter((x) => x !== id && N[x] && N[x].k !== 'raccolta' && N[x].g !== 'persone');
+    const b = altri.length ? (rnd() < .6 ? pick(altri.filter((x) => (bisogno[x] || 0) > 0).concat(altri.filter((x) => N[x].g === 'temi'))) : pick(altri)) : null;
     if (b && !testo.includes(nm(b))) { testo += '. ' + coda(b); ids.push(b); }
   }
   const f = frammento({ reg: dataIntorno(cst.picco), testo });
   ids.forEach((x) => { link(f, x); bisogno[x] = Math.max(0, (bisogno[x] || 0) - 1); });
-  if (/da tatuare|sul braccio|per il braccio/.test(testo) || (cst.ids.includes('tatuaggi') && rnd() < .3)) { f.serve = 'tatuaggi'; link(f, 'tatuaggi'); bisogno.tatuaggi = Math.max(0, bisogno.tatuaggi - 1); }
+  if (/da tatuare|sul braccio|per il braccio/.test(testo) || (COSTDI.tatuaggi?.includes(cst) && rnd() < .3)) { f.serve = 'tatuaggi'; link(f, 'tatuaggi'); bisogno.tatuaggi = Math.max(0, bisogno.tatuaggi - 1); }
   if (['canzone', 'album'].includes(n.k) && rnd() < .3) { f.serve = 'la-sera'; link(f, 'la-sera'); }
   if (ids.some((x) => N[x].k === 'sentimento')) f.stato = true;
   if (n.k === 'domanda' || /credo$|nn so di chi$/.test(testo)) f.chiedi = true;
@@ -642,6 +746,7 @@ F.filter((f) => f.links.some((l) => l.n === 'impermanenza' && l.v === 'prop')).s
 F.filter((f) => f.links.some((l) => l.n === 'cammino' && l.v === 'prop')).slice(0, 2).forEach((f) => (f.links.find((l) => l.n === 'cammino').v = 'acc'));
 F.sort((a, b) => (a.reg < b.reg ? 1 : -1));
 const FX = Object.fromEntries(F.map((f) => [f.id, f]));
+const T_DATI = performance.now();
 const imp = (f) => f.canale === 'importato';
 const parole = (t) => t.replace(/https?:\/\/\S+/g, '').split(/\s+/).filter(Boolean).length;
 const parlante = (f) => !imp(f) && parole(f.testo) >= 3;
@@ -699,7 +804,7 @@ const ASSI = [
   { k: 'campo', nome: 'campo', q: 'da quale sapere?', prop: true }, { k: 'gesto', nome: 'gesto', q: 'che cosa faccio con le parole?' }, { k: 'tempo', nome: 'tempo', q: 'quando?' },
 ];
 const GRUPPI = [{ k: 'tutto', nome: 'tutto' }, ...ASSI.map((a) => ({ k: a.k, nome: a.nome, prop: a.prop }))];
-const S = { per: 'tutto', sel: {}, lente: false, fino: MESIK.length - 1, z: 1, fuoco: null, q: '', muro: null, filo: [] };
+const S = { per: 'tutto', sel: {}, lente: false, fino: MESIK.length - 1, z: 1, fuoco: null, q: '', muro: null, filo: [], mescola: 0 };
 const sel = (a) => (S.sel[a] ||= new Set());
 const attiviAssi = () => ASSI.filter((a) => S.sel[a.k]?.size);
 
@@ -712,7 +817,10 @@ function leggiIndirizzo() {
   if (p.get('z')) S.z = Math.max(0, Math.min(2, +p.get('z')));
   if (p.get('nodo') && N[p.get('nodo')]) S.fuoco = p.get('nodo');
   if (p.get('muro') && N[p.get('muro')]?.k === 'raccolta') S.muro = p.get('muro');
+  S.mescola = +p.get('mescola') || 0;
 }
+let SPINGI = false; // il prossimo indirizzo entra nella storia (indietro del browser)
+const passo = () => (SPINGI = true);
 function scriviIndirizzo() {
   const p = new URLSearchParams();
   if (S.muro) p.set('muro', S.muro);
@@ -721,7 +829,10 @@ function scriviIndirizzo() {
   if (S.lente) p.set('lente', 'proposte'); if (S.q) p.set('q', S.q);
   if (S.fino !== MESIK.length - 1) p.set('fino', MESIK[S.fino]);
   if (S.z !== 1) p.set('z', S.z); if (S.fuoco) p.set('nodo', S.fuoco);
-  history.replaceState(null, '', '#' + p.toString());
+  if (S.mescola) p.set('mescola', S.mescola);
+  const h = '#' + p.toString();
+  if (h !== location.hash) history[SPINGI ? 'pushState' : 'replaceState'](null, '', h);
+  SPINGI = false;
 }
 
 const entro = (f) => (imp(f) ? true : MESIK.indexOf(f.reg.slice(0, 7)) <= S.fino && S.fino > 0);
@@ -944,7 +1055,7 @@ function disegna({ anima = true } = {}) {
     for (const it of items) {
       const id = typeof it === 'string' ? it : it.id; const el = it.el || EL[id]; const s = it.mese ? { ...st[id], mese: it.mese } : st[id];
       const [w, h] = it.span || spanDi(id, s, items.cols || cols, id === S.fuoco);
-      aggiorna(el, id, s, w, h); g.appendChild(el);
+      aggiorna(el, id, s, w, h); el.dataset.piccola = (w * colonne(1).u < 84 || h * colonne(1).u < 48) && N[id].k !== 'libro' ? '1' : N[id].k === 'libro' && w * colonne(1).u < 84 && h * colonne(1).u < 96 ? '1' : '0'; g.appendChild(el);
     }
     sec.appendChild(g); dove.appendChild(sec);
   };
@@ -1004,7 +1115,100 @@ function disegna({ anima = true } = {}) {
   }
   intestazioni(); scriviIndirizzo();
   clearTimeout(tFili); if (intorno.length) tFili = setTimeout(fili, RIDOTTO || !anima ? 30 : 620);
+  evidenziaPoi(RIDOTTO || !anima ? 0 : 600);
 }
+/* =====================================================================
+   LE ANTEPRIME: che cosa si vede quando non c'entra tutto
+   Un budget di etichette per schermata, riempito con un campionamento pesato e con seme:
+   60% i tuoi forti, 20% di recente, 20% coda lunga; al più un terzo per gruppo;
+   il seme è il giorno (più i rimescoli). Le posizioni non cambiano mai: cambia solo che cosa è in evidenza.
+   ===================================================================== */
+const OGGI_DATI = new Date('2026-11-04T12:00');
+const giorni = (reg) => (OGGI_DATI - new Date(reg.slice(0, 10) + 'T12:00')) / 864e5;
+const oggiLocale = () => { const p = new URLSearchParams(location.search).get('giorno'); if (p) return p; const d = new Date(); return `${d.getFullYear()}-${p2(d.getMonth() + 1)}-${p2(d.getDate())}`; };
+const mulberry = (a) => () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+let EV = {}; // id → { q: 'forte' | 'recente' | 'coda', ... }
+function pesiAnteprima(id) {
+  let forte = 0, rec = 0, ultima = Infinity, k = 0;
+  for (const { f, v } of DI[id]) { if (!detto(v) || !parlante(f) || !entro(f)) continue; const a = giorni(f.reg); forte += Math.exp(-a / 365); if (a <= 30) rec++; ultima = Math.min(ultima, a); k++; }
+  return { forte, rec, ultima, k };
+}
+const BUDGET = () => { // etichette per schermata: lo spazio sullo schermo diviso lo spazio di un'etichetta, a una densità che resta leggibile
+  const area = innerWidth * innerHeight, et = 120 * 24; return Math.max(4, Math.round(area * [.05, .065, .035][S.z] / et));
+};
+function evidenzia() {
+  muro.querySelector('.etichette')?.remove(); EV = {};
+  for (const el of muro.querySelectorAll('.t.ev, .t.quieta')) el.classList.remove('ev', 'quieta');
+  if (S.per === 'tempo') return;
+  const tiles = [...muro.querySelectorAll('.gruppo:not(.intorno) .t')].filter((el) => el.dataset.piccola === '1' && !el.classList.contains('off') && !el.classList.contains('prop'));
+  if (!tiles.length) return;
+  const m0 = muro.getBoundingClientRect(), H = innerHeight, per = BUDGET();
+  const bande = new Map();
+  for (const el of tiles) { const r = el.getBoundingClientRect(); const b = Math.floor((r.top - m0.top) / H); if (!bande.has(b)) bande.set(b, []); bande.get(b).push({ el, id: el.dataset.id, r }); }
+  const seme = hash(oggiLocale() + ':' + S.mescola + ':' + (S.muro || ''));
+  const lay = document.createElement('div'); lay.className = 'etichette'; lay.setAttribute('aria-hidden', 'true');
+  const messe = [];
+  const chiaveGruppo = (id) => (S.per === 'tutto' ? (N[id].g === 'opere' ? N[id].tipo : N[id].g === 'temi' ? N[id].specie : N[id].g) : gruppoDi(id, st[id])[0]);
+  for (const [b, xs] of bande) {
+    const rng = mulberry(seme ^ Math.imul(b + 1, 2654435761));
+    const pesi = new Map(xs.map((x) => [x.id, pesiAnteprima(x.id)]));
+    const quanti = { forte: Math.round(per * .6), recente: Math.round(per * .2) }; quanti.coda = per - quanti.forte - quanti.recente;
+    const peso = { forte: (w) => w.forte, recente: (w) => w.rec, coda: (w) => (w.ultima > 60 && w.ultima < Infinity ? (w.ultima / 30) * (1 + Math.log1p(w.k)) : 0) };
+    const presi = new Set(), perGruppo = {}, tetto = Math.ceil(per / 3);
+    for (const q of ['recente', 'coda', 'forte']) {
+      // Efraimidis–Spirakis: chiave = u^(1/peso), si prendono le chiavi più alte
+      const cand = xs.filter((x) => !presi.has(x.id) && peso[q](pesi.get(x.id)) > 0).map((x) => ({ x, key: Math.pow(rng(), 1 / peso[q](pesi.get(x.id))) })).sort((a, c) => c.key - a.key);
+      let n = q === 'forte' ? per - presi.size : quanti[q];
+      for (const { x } of cand) { if (n <= 0) break; const g = chiaveGruppo(x.id); if ((perGruppo[g] || 0) >= tetto) continue;
+        presi.add(x.id); perGruppo[g] = (perGruppo[g] || 0) + 1; n--; const w = pesi.get(x.id); EV[x.id] = { q, w }; x.q = q; }
+    }
+    for (const x of xs) {
+      if (!EV[x.id]) { x.el.classList.add('quieta'); continue; }
+      x.el.classList.add('ev');
+      // l'etichetta va sotto la tessera; se urta un'altra già messa, si prova sopra; se urta ancora, la tessera resta in evidenza senza nome
+      const sp = document.createElement('span'); sp.textContent = N[x.id].nome; if (x.q === 'recente') sp.className = 'r'; if (x.q === 'coda') sp.className = 'c';
+      const w = Math.min(150, 14 + N[x.id].nome.length * 6.3), h = 20;
+      const prove = [[x.r.left - m0.left, x.r.bottom - m0.top - 10], [x.r.left - m0.left, x.r.top - m0.top - h + 8]];
+      let ok = null;
+      for (const [l, t] of prove) { const L = Math.max(0, Math.min(l, m0.width - w)); if (!messe.some((m) => L < m.l + m.w + 2 && L + w + 2 > m.l && t < m.t + m.h + 2 && t + h + 2 > m.t)) { ok = [L, t]; break; } }
+      if (!ok) continue;
+      messe.push({ l: ok[0], t: ok[1], w, h }); sp.style.left = ok[0] + 'px'; sp.style.top = ok[1] + 'px'; lay.appendChild(sp);
+    }
+  }
+  muro.appendChild(lay);
+  window.MISURE && (MISURE.etichette = messe.length, MISURE.inEvidenza = Object.keys(EV).length);
+}
+let tEv; const evidenziaPoi = (ms) => { clearTimeout(tEv); muro.querySelector('.etichette')?.remove(); tEv = setTimeout(evidenzia, ms); };
+document.getElementById('mescola').addEventListener('click', () => { S.mescola++; scriviIndirizzo(); evidenzia(); if (S.fuoco) document.getElementById('scheda-c').innerHTML = scheda(S.fuoco); });
+
+/* Vai a: una cosa per nome in due gesti, sulla mappa stessa */
+const vaia = document.getElementById('vaia'), vq = document.getElementById('vai-q'), vl = document.getElementById('vai-l');
+let vaiSel = 0, vaiRis = [];
+function vaiCerca() {
+  const q = norm(vq.value.trim()); if (!q) { vl.innerHTML = ''; vaiRis = []; return; }
+  const ris = [];
+  for (const id in N) { const n = N[id]; if (n.k === 'raccolta' || (n.dedotto && !S.lente && !DI[id].some((x) => x.v === 'acc'))) continue;
+    const nomi = [n.nome, ...(n.alias || [])].map(norm); const i = Math.min(...nomi.map((x) => { const j = x.indexOf(q); return j < 0 ? 99 : j === 0 ? 0 : x[j - 1] === ' ' ? 1 : 2; }));
+    if (i < 99) ris.push({ id, i, c: DI[id].filter((x) => detto(x.v)).length }); }
+  vaiRis = ris.sort((a, b) => a.i - b.i || b.c - a.c).slice(0, 8).map((r) => r.id); vaiSel = 0;
+  vl.innerHTML = vaiRis.length ? vaiRis.map((id, i) => `<li><button role="option" aria-selected="${i === 0}" data-vaia="${id}"><span class="pt" style="--c1:${colori(id)[0]}"></span>${esc(N[id].nome)}<small>${N[id].g === 'opere' ? N[id].tipo : N[id].g === 'temi' ? SPECIE1[N[id].specie] : N[id].k === 'citazione' ? 'citazione' : 'persona'} · ✦ ${DI[id].filter((x) => detto(x.v)).length}</small></button></li>`).join('')
+    : '<li class="vuoto-v">Niente con questo nome.</li>';
+}
+const apriVai = () => { vaia.hidden = !vaia.hidden; if (!vaia.hidden) { vq.value = ''; vl.innerHTML = ''; vq.focus(); } };
+document.getElementById('apri-vai').addEventListener('click', apriVai);
+vq.addEventListener('input', vaiCerca);
+vq.addEventListener('keydown', (e) => {
+  if (e.key === 'ArrowDown' || e.key === 'ArrowUp') { e.preventDefault(); vaiSel = (vaiSel + (e.key === 'ArrowDown' ? 1 : -1) + vaiRis.length) % Math.max(1, vaiRis.length); vl.querySelectorAll('button').forEach((b, i) => b.setAttribute('aria-selected', i === vaiSel)); }
+  if (e.key === 'Enter' && vaiRis[vaiSel]) { vai(vaiRis[vaiSel]); }
+  if (e.key === 'Escape') { vaia.hidden = true; }
+});
+function vai(id) {
+  vaia.hidden = true;
+  // se la cosa è spenta dai filtri o fuori dal tempo scelto, si torna al muro intero: arrivare conta più del filtro
+  if (!st[id]?.vivo || !st[id].acceso) { S.sel = {}; S.q = ''; S.muro = null; S.fino = MESIK.length - 1; }
+  apri(id);
+}
+
 // I fili: dalla tessera aperta alle legate, come i raggi della Ruota; spessore = quante frasi le tengono insieme
 let tFili;
 function fili() {
@@ -1086,7 +1290,9 @@ function etichetta(asse, x) {
 const aperti = new Set();
 function filtri() {
   const c = document.getElementById('filtri-c');
-  const conto = (asse, x) => { let k = 0; for (const f of F) { if (!parlante(f) || !passa(f, asse)) continue; if (val(f, S.lente)[asse].has(x)) k++; } return k; };
+  const CONTI = {};
+  for (const a of ASSI) { const m = (CONTI[a.k] = {}); for (const f of F) { if (!parlante(f) || !passa(f, a.k)) continue; for (const x of val(f, S.lente)[a.k]) m[x] = (m[x] || 0) + 1; } }
+  const conto = (asse, x) => CONTI[asse][x] || 0;
   const blocchi = ASSI.map((a) => {
     let vals = [];
     if (a.k === 'cose') vals = [...TIPI.map((x) => 'f:' + x), 'c:citazione', ...ESITI.map((x) => 'e:' + x)];
@@ -1146,13 +1352,21 @@ function scheda(id) {
   if (S.lente && proposte.length && mie.length) h += `<p class="sezione">le mie proposte <span class="sg">◌</span></p><p class="prop-r">L’ho letto anche in ${proposte.length} ${proposte.length === 1 ? 'altra frase' : 'altre frasi'} dove non lo nomini.</p>`;
   const leg = legati(id, 10);
   if (leg.length) h += `<p class="sezione">sul muro, intorno</p><div class="legate">${leg.map((x) => `<button class="v" data-vai="${x}"><span class="pt" style="--c1:${colori(x)[0]}"></span>${esc(N[x].nome)}</button>`).join('')}</div>`;
+  if (EV[id]) {
+    const e = EV[id], w = e.w;
+    const riga = e.q === 'forte' ? `tra i tuoi forti: l’hai detto ${w.k} ${w.k === 1 ? 'volta' : 'volte'}, e il peso cala piano col tempo.`
+      : e.q === 'recente' ? `di recente: ${w.rec} ${w.rec === 1 ? 'volta' : 'volte'} negli ultimi 30 giorni.`
+      : `dalla coda lunga: non riaffiora da ${Math.round(w.ultima)} giorni.`;
+    h += `<button class="perche" data-perche>perché lo vedo?</button><p class="perche-r" id="perche-r" hidden>In evidenza oggi ${riga} Il muro ne sceglie così ${BUDGET()} per schermata; ⟳ rimescola.</p>`;
+  }
   h += '<div class="azioni">';
   if (n.k === 'raccolta') h += `<button class="pieno" data-muro="${id}">apri il muro ${esc(n.scopo)}</button>`;
   else h += `<button class="pieno" data-accendi="${id}">accendi solo ciò che tocca ${esc(n.nome.length > 22 ? n.nome.slice(0, 20) + '…' : n.nome)}</button>`;
   h += '</div>';
   return h;
 }
-function apri(id, { filo = true } = {}) {
+function apri(id, { filo = true, storia = true } = {}) {
+  if (storia) passo();
   if (filo && S.filo.at(-1) !== id) S.filo.push(id);
   S.fuoco = id;
   document.getElementById('scheda-c').innerHTML = scheda(id);
@@ -1163,8 +1377,8 @@ function apri(id, { filo = true } = {}) {
   disegna();
   requestAnimationFrame(() => { const sec = muro.querySelector('.intorno'); if (sec) scrollTo({ top: sec.getBoundingClientRect().top + scrollY - 60, behavior: RIDOTTO ? 'auto' : 'smooth' }); });
 }
-function chiudiScheda() {
-  if (!S.fuoco) return; const id = S.fuoco; S.fuoco = null;
+function chiudiScheda({ storia = true } = {}) {
+  if (!S.fuoco) return; const id = S.fuoco; S.fuoco = null; if (storia) passo();
   document.getElementById('scheda').classList.remove('aperto'); document.body.classList.remove('con-scheda'); document.getElementById('piede').classList.remove('via');
   disegna(); requestAnimationFrame(() => EL[id]?.isConnected && EL[id].scrollIntoView({ block: 'center', behavior: RIDOTTO ? 'auto' : 'smooth' }));
 }
@@ -1177,7 +1391,7 @@ function chiudiFiltri() { document.getElementById('filtri').classList.remove('ap
    ===================================================================== */
 document.addEventListener('click', (e) => {
   const t = e.target.closest('button'); if (!t) return;
-  if (t.dataset.per) { const eraTempo = S.per === 'tempo'; S.per = t.dataset.per; if (S.fuoco) { S.fuoco = null; document.getElementById('scheda').classList.remove('aperto'); document.body.classList.remove('con-scheda'); document.getElementById('piede').classList.remove('via'); } disegna(); if (S.per === 'tempo' && !eraTempo) { const fi = muro.querySelector('.fila'); if (fi) fi.scrollTo({ left: fi.scrollWidth, behavior: RIDOTTO ? 'auto' : 'smooth' }); } return; }
+  if (t.dataset.per) { const eraTempo = S.per === 'tempo'; passo(); S.per = t.dataset.per; if (S.fuoco) { S.fuoco = null; document.getElementById('scheda').classList.remove('aperto'); document.body.classList.remove('con-scheda'); document.getElementById('piede').classList.remove('via'); } disegna(); if (S.per === 'tempo' && !eraTempo) { const fi = muro.querySelector('.fila'); if (fi) fi.scrollTo({ left: fi.scrollWidth, behavior: RIDOTTO ? 'auto' : 'smooth' }); } return; }
   if (t.dataset.v) { const [a, x] = t.dataset.v.split('|'); const s = sel(a);
     if (s.has(x)) s.delete(x); else { if (a === 'cose' && x.startsWith('e:')) s.delete('c:citazione'); if (x === 'c:citazione') [...s].filter((y) => y.startsWith('e:')).forEach((y) => s.delete(y)); s.add(x); }
     disegna(); return; }
@@ -1188,11 +1402,13 @@ document.addEventListener('click', (e) => {
   if (t.dataset.altre) { aperti.add(t.dataset.altre); filtri(); return; }
   if ('lente' in t.dataset) { S.lente = !S.lente; if (S.fuoco) document.getElementById('scheda-c').innerHTML = scheda(S.fuoco); disegna(); return; }
   if (t.dataset.vai) { apri(t.dataset.vai); return; }
+  if (t.dataset.vaia) { vai(t.dataset.vaia); return; }
+  if (t.dataset.perche) { const r = document.getElementById('perche-r'); if (r) r.hidden = false; t.remove(); return; }
   if (t.dataset.tutte) { document.getElementById('altre-fr').hidden = false; t.remove(); return; }
   if (t.dataset.accendi) { const id = t.dataset.accendi; const n = N[id]; S.sel = {};
     if (n.g === 'temi') sel('temi').add('t:' + id); else if (n.g === 'persone') sel('persone').add(id); else { S.q = n.nome; }
     S.fuoco = null; document.getElementById('scheda').classList.remove('aperto'); document.body.classList.remove('con-scheda'); document.getElementById('piede').classList.remove('via'); disegna(); scrollTo({ top: 0 }); return; }
-  if (t.dataset.muro) { S.muro = t.dataset.muro; S.sel = {}; S.q = ''; S.fuoco = null; document.getElementById('scheda').classList.remove('aperto'); document.body.classList.remove('con-scheda'); document.getElementById('piede').classList.remove('via'); disegna(); scrollTo({ top: 0 }); return; }
+  if (t.dataset.muro) { passo(); S.muro = t.dataset.muro; S.sel = {}; S.q = ''; S.fuoco = null; document.getElementById('scheda').classList.remove('aperto'); document.body.classList.remove('con-scheda'); document.getElementById('piede').classList.remove('via'); disegna(); scrollTo({ top: 0 }); return; }
   if (t.dataset.chiude === 'scheda') { chiudiScheda(); return; }
   if (t.dataset.chiude === 'filtri') { chiudiFiltri(); return; }
 });
@@ -1202,6 +1418,14 @@ document.querySelectorAll('.maniglia').forEach((m) => {
   m.addEventListener('pointerdown', (e) => { y0 = e.clientY; m.setPointerCapture(e.pointerId); fo.style.transition = 'none'; });
   m.addEventListener('pointermove', (e) => { if (y0 === null) return; const dy = Math.max(0, e.clientY - y0); fo.style.transform = `translateY(${dy}px)`; });
   m.addEventListener('pointerup', (e) => { const dy = e.clientY - y0; y0 = null; fo.style.transition = ''; fo.style.transform = ''; if (dy > 60 || Math.abs(dy) < 4) (m.dataset.chiude === 'scheda' ? chiudiScheda : chiudiFiltri)(); });
+});
+addEventListener('popstate', () => {
+  // indietro e avanti: lo stato torna dall'indirizzo; il filo resta
+  const filo = S.filo; Object.assign(S, { per: 'tutto', sel: {}, lente: false, fino: MESIK.length - 1, z: 1, fuoco: null, q: '', muro: null, mescola: 0 });
+  leggiIndirizzo(); S.filo = filo; muro.classList.toggle('z2', S.z === 2);
+  const fs = document.getElementById('scheda');
+  if (S.fuoco) { document.getElementById('scheda-c').innerHTML = ''; fs.classList.add('aperto'); document.body.classList.add('con-scheda'); document.getElementById('piede').classList.add('via'); disegna(); document.getElementById('scheda-c').innerHTML = scheda(S.fuoco); }
+  else { fs.classList.remove('aperto'); document.body.classList.remove('con-scheda'); document.getElementById('piede').classList.remove('via'); disegna(); }
 });
 addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (document.getElementById('filtri').classList.contains('aperto')) chiudiFiltri(); else chiudiScheda(); } });
 // zoom semantico: bottoni, ctrl+rotella, pizzico
@@ -1227,11 +1451,13 @@ gioca.addEventListener('click', () => {
 let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => disegna({ anima: false }), 150); });
 
 // L'API per le foto del prototipo
-window.muroAPI = { S, disegna, apri, chiudiScheda, apriFiltri, chiudiFiltri, zoom, sel, N, F };
+window.MISURE = { dati: Math.round(T_DATI - T0) };
+window.muroAPI = { S, evidenzia, EV: () => EV, disegna, apri, chiudiScheda, apriFiltri, chiudiFiltri, zoom, sel, N, F };
 leggiIndirizzo();
 muro.classList.toggle('z2', S.z === 2);
 disegna({ anima: false });
-if (S.fuoco) apri(S.fuoco, { filo: true });
+if (S.fuoco) apri(S.fuoco, { filo: true, storia: false });
+requestAnimationFrame(() => requestAnimationFrame(() => (MISURE.primoDisegno = Math.round(performance.now() - T0))));
 if (S.per === 'tempo') { const fi = muro.querySelector('.fila'); if (fi) fi.scrollLeft = fi.scrollWidth; }
 if (!RIDOTTO) [...muro.querySelectorAll('.t')].slice(0, 40).forEach((el, i) => el.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: i * 14, easing: 'ease-out', fill: 'backwards' }));
 </script>
